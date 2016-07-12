@@ -1,0 +1,19 @@
+{
+	"compilerOptions": {
+		"target": "es6",
+		"module": "commonjs",
+		"allowSyntheticDefaultImports": true,
+    "allowJs": true,
+    "strictNullChecks": true,
+    // "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true
+	},
+	"include": [
+    "main.ts",
+    "chatter.d.ts",
+    "typings/index.d.ts"
+  ]
+}

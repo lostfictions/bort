@@ -1,0 +1,10 @@
+{
+  "name": "bort",
+  "dependencies": {
+    "lodash": "registry:npm/lodash#4.0.0+20160701205107"
+  },
+  "globalDependencies": {
+    "async": "registry:dt/async#1.4.2+20160602152629",
+    "node": "registry:env/node#6.0.0+20160622202520"
+  }
+}

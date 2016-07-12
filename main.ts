@@ -1,4 +1,4 @@
-import envalid from 'envalid'
+import * as envalid from 'envalid'
 const env = envalid.cleanEnv(process.env, {
   SLACK_TOKEN: envalid.str(),
   GOOGLE_PRIVATE_KEY: envalid.str(),
@@ -16,9 +16,7 @@ const env = envalid.cleanEnv(process.env, {
 // import * as _ from 'lodash'
 // import * as async from 'async'
 
-import chatter from 'chatter'
-
-
+import * as chatter from 'chatter'
 
 // const GoogleSpreadsheet = require('google-spreadsheet')
 // const syllable = require('syllable')
@@ -32,4 +30,3 @@ import chatter from 'chatter'
 // app.listen(env.OPENSHIFT_NODEJS_PORT, env.OPENSHIFT_NODEJS_IP)
 
 // function randomInArray<T>(arr : Array<T>) : T { return arr[Math.floor(Math.random() * arr.length)] }
-

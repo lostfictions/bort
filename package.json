@@ -5,7 +5,7 @@
   "private": true,
   "main": "main.ts",
   "scripts": {
-    "start": "node main.js"
+    "start": "ts-node main.ts || true"
   },
   "author": "s",
   "license": "ISC",
@@ -20,6 +20,7 @@
     "syllable": "^0.1.4"
   },
   "devDependencies": {
+    "ts-node": "^0.9.3",
     "typescript": "^2.0.0"
   }
 }

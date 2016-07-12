@@ -1,35 +1,35 @@
 declare module 'chatter' {
-  export const Bot
-  export const createBot
-  export const SlackBot
-  export const createSlackBot
+  export const Bot : any
+  export const createBot : any
+  export const SlackBot : any
+  export const createSlackBot : any
 
   // Message handlers
-  export const DelegatingMessageHandler
-  export const createDelegate
-  export const MatchingMessageHandler
-  export const createMatcher
-  export const ArgsAdjustingMessageHandler
-  export const createArgsAdjuster
-  export const ParsingMessageHandler
-  export const createParser
-  export const ConversingMessageHandler
-  export const createConversation
-  export const CommandMessageHandler
-  export const createCommand
+  export const DelegatingMessageHandler : any
+  export const createDelegate : any
+  export const MatchingMessageHandler : any
+  export const createMatcher : any
+  export const ArgsAdjustingMessageHandler : any
+  export const createArgsAdjuster : any
+  export const ParsingMessageHandler : any
+  export const createParser : any
+  export const ConversingMessageHandler : any
+  export const createConversation : any
+  export const CommandMessageHandler : any
+  export const createCommand : any
 
   // Util
-  export const processMessage
-  export const isMessageHandlerOrHandlers
+  export const processMessage : any
+  export const isMessageHandlerOrHandlers : any
 
-  export const parseArgs
+  export const parseArgs : any
 
-  export const isMessage
-  export const isArrayOfMessages
-  export const normalizeMessage
-  export const normalizeMessages
-  export const normalizeResponse
+  export const isMessage : any
+  export const isArrayOfMessages : any
+  export const normalizeMessage : any
+  export const normalizeMessages : any
+  export const normalizeResponse : any
 
-  export const Queue
-  export const composeCreators
+  export const Queue : any
+  export const composeCreators : any
 }

@@ -5,15 +5,16 @@
 		"allowSyntheticDefaultImports": true,
     "allowJs": true,
     "strictNullChecks": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true
     // "noUnusedLocals": true,
     // "noUnusedParameters": true,
-    // "noImplicitAny": true,
-    "noImplicitReturns": true,
-    "noImplicitThis": true
+    // "noImplicitThis": true,
 	},
 	"include": [
-    "main.ts",
-    "chatter.d.ts",
+    "src/main.ts",
+    "defs/chatter.d.ts",
+    "defs/extras.d.ts",
     "typings/index.d.ts"
   ]
 }

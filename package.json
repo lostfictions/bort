@@ -5,11 +5,12 @@
   "private": true,
   "main": "main.ts",
   "scripts": {
-    "start": "ts-node main.ts || true"
+    "start": "ts-node src/main.ts || true"
   },
   "author": "s",
   "license": "ISC",
   "dependencies": {
+    "@slack/client": "^3.5.1",
     "async": "^2.0.0-rc.6",
     "chatter": "^0.5.0",
     "envalid": "^2.2.0",

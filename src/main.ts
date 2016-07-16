@@ -125,7 +125,7 @@ const conceptGetRandom = (message : string, concept : string) : string | boolean
   if(message.length > 0) {
     return false
   }
-  return trace(concept, concepts)
+  return trace(concepts, concept)
 }
 
 const matcher = /^\[([^\[\]]+)\]\s+(.*)/g

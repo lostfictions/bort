@@ -2,7 +2,7 @@ const matcher = /\[([^\[\]]+)\]/g
 
 function randomInArray(arr) { return arr[Math.floor(Math.random() * arr.length)] }
 
-export default function generate(concept, concepts, maxCycles = 10, seen = {}) {
+export default function generate(concepts, concept, maxCycles = 10, seen = {}) {
   if(!concepts[concept]) {
     return `{error: unknown concept "${concept}"}`
   }
@@ -13,6 +13,6 @@ export default function generate(concept, concepts, maxCycles = 10, seen = {}) {
       }
       const nextSeen = Object.assign({}, seen)
       nextSeen[nextConcept] = nextSeen[nextConcept] + 1 || 1
-      return generate(nextConcept, concepts, maxCycles, nextSeen)
+      return generate(concepts, nextConcept, maxCycles, nextSeen)
     })
 }

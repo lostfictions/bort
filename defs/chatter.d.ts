@@ -1,10 +1,9 @@
+import { RtmClient } from '@slack/client'
+
 type MessageHandler = (...args : any[]) => any | { handleMessage: (...args : any[]) => any }
 
 type Slack = {
-  rtmClient: {
-    dataStore: any
-    start: () => void
-  }
+  rtmClient: RtmClient
   webClient: any
 }
 
@@ -59,6 +58,12 @@ declare module 'chatter' {
 
   export class SlackBot extends Bot {
     constructor(options: SlackBotOptions)
+    name: string
+    icon: string
+    slack: Slack
+    getSlack?: () => Slack
+    eventNames: string[]
+    postMessageDelay: number
     parseMessage(message: string) : string
     formatOnOpen(args: any) : string
     formatOnError(args: any) : string

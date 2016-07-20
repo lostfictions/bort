@@ -13,8 +13,7 @@
 	},
 	"include": [
     "src/main.ts",
-    "defs/chatter.d.ts",
-    "defs/extras.d.ts",
+    "defs/*",
     "typings/index.d.ts"
   ]
 }

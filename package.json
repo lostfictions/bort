@@ -3,25 +3,32 @@
   "version": "1.0.1",
   "description": "tracer",
   "private": true,
-  "main": "main.ts",
+  "main": "dist/main.js",
   "scripts": {
-    "start": "ts-node src/main.ts || true"
+    "build": "tsc || true",
+    "dev": "ts-node src/main.ts || true",
+    "start": "ts-node src/main.ts"
   },
   "author": "s",
   "license": "ISC",
   "dependencies": {
-    "@slack/client": "^3.5.1",
-    "async": "^2.0.0-rc.6",
+    "@slack/client": "^3.6.0",
+    "async": "^2.1.1",
     "chatter": "^0.5.0",
     "envalid": "^2.2.0",
     "express": "^4.14.0",
     "google-spreadsheet": "^2.0.3",
-    "lodash": "^4.13.1",
-    "moment": "^2.13.0",
+    "lodash": "^4.16.4",
+    "moment": "^2.15.1",
     "syllable": "^0.1.4"
   },
   "devDependencies": {
-    "ts-node": "^0.9.3",
-    "typescript": "^2.0.0"
+    "@types/async": "^2.0.32",
+    "@types/express": "^4.0.33",
+    "@types/express-serve-static-core": "^4.0.37",
+    "@types/lodash": "^4.14.37",
+    "@types/node": "^6.0.45",
+    "ts-node": "^1.6.0",
+    "typescript": "^2.0.3"
   }
 }

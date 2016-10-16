@@ -173,7 +173,7 @@ export const adj = [
   "winningest", "wireless", "wistful", "woeful", "wooded", "woodland",
   "wordless", "workable", "worldly", "worldwide", "worst-case", "worsted",
   "worthless"
-],
+]
 export const noun = [
   "Armour", "Barrymore", "Cabot", "Catholicism", "Chihuahua",
   "Christianity", "Easter", "Frenchman", "Lowry", "Mayer", "Orientalism",

@@ -11,24 +11,23 @@ import { conceptCommand } from './concepts'
 
 //tslint:disable:no-invalid-this
 const bot = new SlackBot({
-  name: 'tong',
-  getSlack: function() {
+  name: 'bort',
+  // Override the message posting options so that we simply post as our bot user
+  postMessageOptions: (text : string) => ({ as_user: true, text }),
+  getSlack: function(this : SlackBot) {
     const rtm = new RtmClient(env.SLACK_TOKEN, {
       dataStore: new MemoryDataStore(),
       autoReconnect: true,
       logLevel: 'error'
     })
 
-    const bot = this as SlackBot
+    // Post a message to all the channels we belong to.
+    const b = this
     rtm.on('open', function() : void {
-      // Post a message to all the channels we belong to
       const cs = this.dataStore.channels
       Object.keys(cs)
         .filter(c => cs[c].is_member && !cs[c].is_archived)
-        .forEach(c => bot.postMessage(c, `${bot.name} (on \`${os.hostname()}\`)`))
-
-      // Set the bot icon to the one we configured in the integration
-      bot.icon = this.dataStore.users[this.activeUserId].profile.image_original
+        .forEach(c => b.postMessage(c, `${b.name} (on \`${os.hostname()}\`)`))
     })
 
     return {
@@ -36,7 +35,7 @@ const bot = new SlackBot({
       webClient: new WebClient(env.SLACK_TOKEN)
     }
   },
-  createMessageHandler: function(id : any, meta : any) : any {
+  createMessageHandler: function(this : SlackBot, id : any, meta : any) : any {
 
     // We could get our actual bot name as below, but let's override it for testing
     // const channel = meta.channel
@@ -48,7 +47,7 @@ const bot = new SlackBot({
         name: this.name,
         // name: botNames.name,
         // aliases: botNames.aliases,
-        description: `Let's make some shit up`
+        description: `it ${this.name}`
       },
       [
         conceptCommand

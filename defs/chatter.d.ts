@@ -1,45 +1,45 @@
-import { RtmClient } from '@slack/client'
-
-type MessageHandler = (...args : any[]) => any | { handleMessage: (...args : any[]) => any }
-
-type Slack = {
-  rtmClient: RtmClient
-  webClient: any
-}
-
-type BotOptions = {
-  createMessageHandler: (...args: any[]) => any
-  verbose?: boolean
-  formatErrorMessage?: (message: string) => string
-  log?: (...args: any[]) => void
-  logError?: (...args: any[]) => void
-  onMessage?: (message: any) => Promise<any>
-  getMessageHandlerCacheId?: (...args: any[]) => string
-  getMessageHandler?: (...args: any[]) => MessageHandler | boolean
-  getMessageHandlerArgs?: (message: any) => any | boolean
-  handleResponse?: (message: any, response: any) => any
-  handleError?: (message: any, error: Error) => any
-  sendResponse?: (message: any, ...args: any[]) => void | Promise<any>
-}
-
-type SlackBotOptions = BotOptions & {
-  slack?: Slack
-  getSlack?: () => Slack
-  name?: string
-  icon?: string
-  eventNames?: string[]
-  postMessageDelay?: number
-
-  formatOnOpen?: (args: any) => string
-  formatOnError?: (args: any) => string
-  login?: () => any
-  onOpen?: () => void
-  onError?: (...args : any[]) => void
-  postMessageOptions?: (...args: any[]) => any
-  postMessageActual?: (channelId: any, options: any) => Promise<any>
-}
-
 declare module 'chatter' {
+  import { RtmClient } from '@slack/client'
+
+  type MessageHandler = (...args : any[]) => any | { handleMessage: (...args : any[]) => any }
+
+  type Slack = {
+    rtmClient: RtmClient
+    webClient: any
+  }
+
+  type BotOptions = {
+    createMessageHandler: (...args: any[]) => any
+    verbose?: boolean
+    formatErrorMessage?: (message: string) => string
+    log?: (...args: any[]) => void
+    logError?: (...args: any[]) => void
+    onMessage?: (message: any) => Promise<any>
+    getMessageHandlerCacheId?: (...args: any[]) => string
+    getMessageHandler?: (...args: any[]) => MessageHandler | boolean
+    getMessageHandlerArgs?: (message: any) => any | boolean
+    handleResponse?: (message: any, response: any) => any
+    handleError?: (message: any, error: Error) => any
+    sendResponse?: (message: any, ...args: any[]) => void | Promise<any>
+  }
+
+  type SlackBotOptions = BotOptions & {
+    slack?: Slack
+    getSlack?: () => Slack
+    name?: string
+    icon?: string
+    eventNames?: string[]
+    postMessageDelay?: number
+
+    formatOnOpen?: (args: any) => string
+    formatOnError?: (args: any) => string
+    login?: () => any
+    onOpen?: () => void
+    onError?: (...args : any[]) => void
+    postMessageOptions?: (...args: any[]) => any
+    postMessageActual?: (channelId: any, options: any) => Promise<any>
+  }
+
   export class Bot {
     constructor(options : BotOptions)
     handlerCache : { [id : string] : MessageHandler }

@@ -2,18 +2,18 @@
 	"compilerOptions": {
 		"target": "es6",
 		"module": "commonjs",
-		"allowSyntheticDefaultImports": true,
+    "outDir": "dist",
     "allowJs": true,
     "strictNullChecks": true,
     "noImplicitAny": true,
-    "noImplicitReturns": true
-    // "noUnusedLocals": true,
-    // "noUnusedParameters": true,
-    // "noImplicitThis": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+		// "allowSyntheticDefaultImports": true,
+    "noUnusedLocals": true
+    // "noUnusedParameters": true
 	},
 	"include": [
-    "src/main.ts",
-    "defs/*",
-    "typings/index.d.ts"
+    "./defs/**/*",
+    "./src/main.ts"
   ]
 }

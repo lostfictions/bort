@@ -5,9 +5,8 @@
   "private": true,
   "main": "dist/main.js",
   "scripts": {
-    "build": "tsc || true",
-    "dev": "ts-node src/main.ts || true",
-    "start": "ts-node src/main.ts"
+    "prestart": "tsc",
+    "start": "node dist/main.js"
   },
   "author": "s",
   "license": "ISC",
@@ -22,7 +21,8 @@
     "lodash": "^4.16.4",
     "minimist": "^1.2.0",
     "moment": "^2.15.1",
-    "syllable": "^0.1.4"
+    "syllable": "^0.1.4",
+    "typescript": "^2.0.3"
   },
   "devDependencies": {
     "@types/async": "^2.0.32",
@@ -30,7 +30,6 @@
     "@types/express-serve-static-core": "^4.0.37",
     "@types/lodash": "^4.14.37",
     "@types/minimist": "^1.1.29",
-    "@types/node": "^6.0.45",
-    "typescript": "^2.0.3"
+    "@types/node": "^6.0.45"
   }
 }

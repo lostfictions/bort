@@ -2,8 +2,15 @@ import { createCommand, createMatcher, createArgsAdjuster } from 'chatter'
 
 import { default as trace } from './minitrace'
 
-import * as corpora from './corpora'
-export const concepts : { [concept : string] : string[] } = corpora as any
+import * as corpora from '../data/corpora'
+
+export const concepts : { [concept : string] : string[] } = {}
+
+// Initialize with a few concepts
+concepts['punc'] = corpora.punc
+concepts['interjection'] = corpora.interjection
+concepts['adj'] = corpora.adj
+concepts['noun'] = corpora.noun
 
 
 export const conceptAddCommand = createCommand(
@@ -137,7 +144,7 @@ export const conceptMatcher = createMatcher(
       // otherwise be processed as a keyword or command, like "[delete]".
 
       // We try matching against the "matcher" regex above, then
-      // normalize the results.  
+      // normalize the results.
       let matches : string[] | null = message.match(matcher) //tslint:disable-line:no-null-keyword
       if(matches == undefined) {
         const split = message.split(' ')
@@ -173,7 +180,8 @@ export const conceptCommand = createCommand(
   {
     name: 'concept',
     aliases: ['c', 'con'],
-    description: 'give me some ideas'
+    description: 'give me some ideas',
+    isParent: true
   },
   [
     conceptAddCommand,

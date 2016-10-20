@@ -1,8 +1,15 @@
+import { randomInArray } from '../util/util'
+
+type Concepts = { [conceptName : string] : string[] }
+
 const matcher = /\[([^\[\]]+)\]/g
 
-function randomInArray(arr) { return arr[Math.floor(Math.random() * arr.length)] }
-
-export default function generate(concepts, concept, maxCycles = 10, seen = {}) {
+export default function generate(
+  concepts : Concepts,
+  concept : string,
+  maxCycles : number = 10,
+  seen : { [seen : string] : number } = {}
+) : string {
   if(!concepts[concept]) {
     return `{error: unknown concept "${concept}"}`
   }

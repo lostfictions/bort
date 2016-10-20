@@ -1,0 +1,19 @@
+"use strict";
+const matcher = /\[([^\[\]]+)\]/g;
+function randomInArray(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+function generate(concepts, concept, maxCycles = 10, seen = {}) {
+    if (!concepts[concept]) {
+        return `{error: unknown concept "${concept}"}`;
+    }
+    return randomInArray(concepts[concept])
+        .replace(matcher, (_, nextConcept) => {
+        if (seen[nextConcept] > maxCycles) {
+            return '{error: max cycles exceeded}';
+        }
+        const nextSeen = Object.assign({}, seen);
+        nextSeen[nextConcept] = nextSeen[nextConcept] + 1 || 1;
+        return generate(concepts, nextConcept, maxCycles, nextSeen);
+    });
+}
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = generate;

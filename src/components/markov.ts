@@ -30,11 +30,11 @@ const misc = [
 const continueSet = new Set(prepositions.concat(determiners).concat(conjunctions).concat(misc))
 
 export class Markov {
-  wordBank: { [word : string] : { [nextWord : string] : number } } = {}
-  sentenceSplitter: RegExp = /(?:\.|\?|\n)/ig
-  wordNormalizer: (word : string) => string = (word) => word.toLowerCase()
-  wordFilter: (word : string) => boolean = (word) => word.length > 0 && !word.startsWith('http://')
-  endTest: (output : string[]) => boolean =
+  wordBank : { [word : string] : { [nextWord : string] : number } } = {}
+  sentenceSplitter : RegExp = /(?:\.|\?|\n)/ig
+  wordNormalizer : (word : string) => string = (word) => word.toLowerCase()
+  wordFilter : (word : string) => boolean = (word) => word.length > 0 && !word.startsWith('http://')
+  endTest : (output : string[]) => boolean =
     (output) => output.length > 3 && !continueSet.has(output[output.length - 1]) && Math.random() > 0.8
 
   getSeed() : string {

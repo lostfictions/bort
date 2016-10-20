@@ -2,7 +2,7 @@ import { createCommand, createMatcher, createArgsAdjuster } from 'chatter'
 
 import { default as trace } from './minitrace'
 
-import * as corpora from '../data/corpora'
+const corpora = require('../../data/corpora')
 
 export const concepts : { [concept : string] : string[] } = {}
 
@@ -11,7 +11,7 @@ concepts['punc'] = corpora.punc
 concepts['interjection'] = corpora.interjection
 concepts['adj'] = corpora.adj
 concepts['noun'] = corpora.noun
-
+concepts['vidnite'] = require('../../data/watched.json').singular
 
 export const conceptAddCommand = createCommand(
   {

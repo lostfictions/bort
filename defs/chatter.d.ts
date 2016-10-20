@@ -81,18 +81,47 @@ declare module 'chatter' {
   export const createSlackBot : (options: BotOptions) => SlackBot
 
   // Message handlers
-  export const DelegatingMessageHandler : any
-  export const createDelegate : any
-  export const MatchingMessageHandler : any
-  export const createMatcher : any
-  export const ArgsAdjustingMessageHandler : any
-  export const createArgsAdjuster : any
-  export const ParsingMessageHandler : any
-  export const createParser : any
-  export const ConversingMessageHandler : any
-  export const createConversation : any
-  export const CommandMessageHandler : any
-  export const createCommand : any
+  export class DelegatingMessageHandler {
+    children : MessageHandler | MessageHandler[]
+    constructor(options : { [key : string] : any }, children : any)
+    handleMessage(message : string, ...args : any[]) : any
+  }
+  export const createDelegate : (...args : any[]) => DelegatingMessageHandler
+
+  export class MatchingMessageHandler extends DelegatingMessageHandler {
+    doMatch(message : any, ...args : any[]) : any
+  }
+  export const createMatcher : (...args : any[]) => MatchingMessageHandler
+
+  export class ArgsAdjustingMessageHandler extends DelegatingMessageHandler {}
+  export const createArgsAdjuster : (...args : any[]) => ArgsAdjustingMessageHandler
+
+  export class ParsingMessageHandler extends DelegatingMessageHandler {}
+  export const createParser : (...args : any[]) => ParsingMessageHandler
+
+  export class ConversingMessageHandler extends DelegatingMessageHandler {
+    clearDialog() : void
+  }
+  export const createConversation : (...args : any[]) => ConversingMessageHandler
+
+  export class CommandMessageHandler extends DelegatingMessageHandler {
+    isCommand : boolean
+    name : string
+    usage : string
+    description : string
+    details : string
+    isParent : boolean
+    children : MessageHandler[]
+    subCommands : MessageHandler[]
+    hasSubCommands() : boolean
+    getMatchingSubCommand(search? : string) : { command : any, prefix : string, exact : boolean, subCommandName : string }
+    getUsage(command : string, prefix : string) : string | false
+    helpInfo(search : string, command : string | null, prefix : string | null, exact : boolean) : any[]
+    createHelpCommand() : CommandMessageHandler
+    usageInfo(message : string, command : string, prefix : string) : any[]
+    createFallbackHandler() : (message : string) => any[]
+  }
+  export const createCommand : (...args : any[]) => CommandMessageHandler
 
   // Util
   export const processMessage : (handlerOrHandlers : MessageHandler | any[], ...args : any[]) => Promise<any>

@@ -2,7 +2,7 @@ import { randomInArray } from '../util/util'
 
 type Concepts = { [conceptName : string] : string[] }
 
-const matcher = /\[([^\[\]]+)\]/g
+export const matcher = /\[([^\[\]]+)\]/g
 
 export default function generate(
   concepts : Concepts,

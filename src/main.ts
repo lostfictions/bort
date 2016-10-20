@@ -7,6 +7,7 @@ require('assert').equal(require('chatter'), require('@lostfictions/chatter'))
 
 import * as os from 'os'
 import * as readline from 'readline'
+import * as fs from 'fs'
 
 import { env } from './env'
 import * as minimist from 'minimist'
@@ -15,29 +16,27 @@ const argv = minimist(process.argv.slice(2))
 import { pingserver } from './components/pingserver'
 pingserver(env.OPENSHIFT_NODEJS_PORT, env.OPENSHIFT_NODEJS_IP)
 
-import { SlackBot, createCommand, CommandMessageHandler, createParser, processMessage, normalizeMessage } from 'chatter'
+import { SlackBot, createCommand, processMessage, normalizeMessage } from 'chatter'
 import { RtmClient, WebClient, MemoryDataStore } from '@slack/client'
+import * as moment from 'moment'
 
-import { conceptCommand } from './components/concepts'
+import { conceptCommand, concepts } from './components/concepts'
+import { default as trace, matcher as traceMatcher } from './components/minitrace'
 import { Markov } from './components/markov'
 import { randomInArray } from './util/util'
 
-import { tarotLines } from './data/corpora'
+const tarotLines : string[] = require('../data/corpora').tarotLines
 
 const markov = new Markov()
 tarotLines.forEach(line => markov.addSentence(line))
+
+
+const watchlist = fs.readFileSync('data/vidnite_links.txt').toString().split('\n')
 
 const makeMessageHandler = (name : string) => {
   // We could get our actual bot name as below, but let's override it for testing
   // const channel = meta.channel
   // const botNames = this.getBotNameAndAliases(channel.is_im)
-
-  const addToMarkovAndContinue = (message : string) => {
-    markov.addSentence(message)
-    return false
-  }
-
-  const getMarkov = (message : string) => markov.getSentence(message.length > 0 ? message : undefined)
 
   const buseyCommand = createCommand(
     {
@@ -74,9 +73,22 @@ const makeMessageHandler = (name : string) => {
     }
   )
 
+  const uptimeCommand = createCommand(
+    {
+      name: 'uptime',
+      description: 'info about ' + name
+    },
+    () => {
+      const hostname = os.hostname()
+      const uptime = moment.duration(process.uptime(), 'seconds').humanize()
+      return `hi its me <@${name}> i have been here for *${uptime}* via \`${hostname}\``
+    }
+  )
+
   const subCommands = [
     conceptCommand,
-    buseyCommand
+    buseyCommand,
+    uptimeCommand
   ]
 
   const helpCommand = createCommand(
@@ -98,7 +110,23 @@ const makeMessageHandler = (name : string) => {
     [
       ...subCommands,
       helpCommand,
-      getMarkov
+      // If we match nothing, check if we can trace! if not, just return a markov sentence
+      (message : string) => {
+        if(message.length > 0) {
+          if(traceMatcher.test(message)) {
+            return message.replace(traceMatcher, (_, concept) => trace(concepts, concept))
+          }
+
+          const words = message.trim().split(' ').filter(w => w.length > 0)
+          if(words.length > 0) {
+            const word = words[words.length - 1]
+            if(word in markov.wordBank) {
+              return markov.getSentence(word)
+            }
+          }
+        }
+        return markov.getSentence()
+      }
     ]
   )
 
@@ -110,8 +138,17 @@ const makeMessageHandler = (name : string) => {
   // Otherwise, it's a public channel message.
   return [
     rootCommand,
-    addToMarkovAndContinue
-    //Optionally, we could handle ambient messages by adding them here.
+    (message : string) : string | false => {
+      if(message === '!vidrand') {
+        return randomInArray(watchlist)
+      }
+      return false
+    },
+    // If we didn't match anything, add to our markov chain.
+    (message : string) => {
+      markov.addSentence(message)
+      return false
+    }
   ]
 }
 

@@ -20,18 +20,20 @@ import { SlackBot, createCommand, processMessage, normalizeMessage } from 'chatt
 import { RtmClient, WebClient, MemoryDataStore } from '@slack/client'
 import * as moment from 'moment'
 
-import { conceptCommand, concepts } from './components/concepts'
+import { makeConceptCommand } from './components/concepts'
 import { default as trace, matcher as traceMatcher } from './components/minitrace'
-import { Markov } from './components/markov'
+import { getSentence } from './components/markov'
 import { randomInArray } from './util/util'
 
-const tarotLines : string[] = require('../data/corpora').tarotLines
+import { addSentenceAction } from './actions/markov'
 
-const markov = new Markov()
-tarotLines.forEach(line => markov.addSentence(line))
+import { makeStore } from './store/store'
 
+const store = makeStore()
 
 const watchlist = fs.readFileSync('data/vidnite_links.txt').toString().split('\n')
+
+
 
 const makeMessageHandler = (name : string) => {
   // We could get our actual bot name as below, but let's override it for testing
@@ -45,6 +47,8 @@ const makeMessageHandler = (name : string) => {
       description: 'make buseyisms'
     },
     (message : string) => {
+      const wb = store.getState().get('wordBank')
+
       const letters = message.toLowerCase().split('').filter(char => /[A-Za-z]/.test(char))
 
       const acro : string[] = []
@@ -55,12 +59,14 @@ const makeMessageHandler = (name : string) => {
 
         // First, try to find something that follows from our previous word
         if(lastWord) {
-          candidates = Object.keys(markov.wordBank[lastWord]).filter(word => word.startsWith(l))
+          candidates = wb.get(lastWord).keySeq().filter(word => word != null && word.startsWith(l)).toJS()
+          // candidates = Object.keys().filter(word => word.startsWith(l))
         }
 
         // Otherwise, just grab a random word that matches our letter
         if(candidates == null || candidates.length === 0) {
-          candidates = Object.keys(markov.wordBank).filter(word => word.startsWith(l))
+          candidates = wb.keySeq().filter(word => word != null && word.startsWith(l)).toJS()
+          // candidates = Object.keys(wb).filter(word => word.startsWith(l))
         }
 
         if(candidates != null && candidates.length > 0) {
@@ -86,7 +92,7 @@ const makeMessageHandler = (name : string) => {
   )
 
   const subCommands = [
-    conceptCommand,
+    // conceptCommand,
     buseyCommand,
     uptimeCommand
   ]
@@ -112,20 +118,23 @@ const makeMessageHandler = (name : string) => {
       helpCommand,
       // If we match nothing, check if we can trace! if not, just return a markov sentence
       (message : string) => {
+        const state = store.getState()
+
         if(message.length > 0) {
-          if(traceMatcher.test(message)) {
-            return message.replace(traceMatcher, (_, concept) => trace(concepts, concept))
-          }
+          // if(traceMatcher.test(message)) {
+          //   return message.replace(traceMatcher, (_, concept) => trace(state.concepts, concept))
+          // }
 
           const words = message.trim().split(' ').filter(w => w.length > 0)
           if(words.length > 0) {
+            const wb = state.get('wordBank')
             const word = words[words.length - 1]
-            if(word in markov.wordBank) {
-              return markov.getSentence(word)
+            if(wb.has(word)) {
+              return getSentence(wb, word)
             }
           }
         }
-        return markov.getSentence()
+        return getSentence(state.get('wordBank'))
       }
     ]
   )
@@ -146,7 +155,7 @@ const makeMessageHandler = (name : string) => {
     },
     // If we didn't match anything, add to our markov chain.
     (message : string) => {
-      markov.addSentence(message)
+      store.dispatch(addSentenceAction(message))
       return false
     }
   ]

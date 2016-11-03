@@ -24,49 +24,60 @@ const misc = [
     'if', 'unless', 'otherwise'
 ];
 const continueSet = new Set(prepositions.concat(determiners).concat(conjunctions).concat(misc));
-class Markov {
-    constructor() {
-        this.wordBank = {};
-        this.sentenceSplitter = /(?:\.|\?|\n)/ig;
-        this.wordNormalizer = (word) => word.toLowerCase();
-        this.wordFilter = (word) => word.length > 0 && !word.startsWith('http://');
-        this.endTest = (output) => output.length > 3 && !continueSet.has(output[output.length - 1]) && Math.random() > 0.8;
-    }
-    getSeed() {
-        return util_1.randomInArray(Object.keys(this.wordBank));
-    }
-    getSentence(seed = this.getSeed()) {
-        if (!this.wordBank[seed]) {
-            return '';
-        }
-        let word = seed;
-        const sentence = [word];
-        while (this.wordBank[word] && !this.endTest(sentence)) {
-            word = util_1.randomByWeight(this.wordBank[word]);
-            sentence.push(word);
-        }
-        return sentence.join(' ');
-    }
-    addSentence(text) {
-        text.split(this.sentenceSplitter).forEach(line => {
-            const words = line
-                .split(' ')
-                .map(this.wordNormalizer)
-                .filter(this.wordFilter);
-            for (let i = 0; i < words.length - 1; i++) {
-                const word = words[i];
-                const nextWord = words[i + 1];
-                if (!this.wordBank[word]) {
-                    this.wordBank[word] = {};
-                }
-                if (!this.wordBank[word][nextWord]) {
-                    this.wordBank[word][nextWord] = 1;
-                }
-                else {
-                    this.wordBank[word][nextWord] += 1;
-                }
-            }
-        });
-    }
+const endTest = (output) => output.length > 3 && !continueSet.has(output[output.length - 1]) && Math.random() > 0.8;
+// const sentenceSplitter = /(?:\.|\?|\n)/ig
+// const wordNormalizer = (word : string) => word.toLowerCase()
+// const wordFilter = (word : string) => word.length > 0 && !word.startsWith('http://')
+function getSeed(wordBank) {
+    return util_1.randomInArray(wordBank.keySeq().toJS());
 }
-exports.Markov = Markov;
+exports.getSeed = getSeed;
+// export function getSeed(wordBank : WordBank) : string {
+//   return randomInArray(Object.keys(wordBank))
+// }
+function getSentence(wordBank, seed = getSeed(wordBank)) {
+    if (!wordBank.get(seed)) {
+        return '';
+    }
+    let word = seed;
+    const sentence = [word];
+    while (wordBank.has(word) && !endTest(sentence)) {
+        word = util_1.randomByWeight(wordBank.get(word).toJS());
+        sentence.push(word);
+    }
+    return sentence.join(' ');
+}
+exports.getSentence = getSentence;
+// export function getSentence(wordBank : WordBank, seed = getSeed(wordBank)) : string {
+//   if(!wordBank[seed]) {
+//     return ''
+//   }
+//   let word = seed
+//   const sentence = [word]
+//   while(wordBank[word] && !endTest(sentence)) {
+//     word = randomByWeight(wordBank[word])
+//     sentence.push(word)
+//   }
+//   return sentence.join(' ')
+// }
+// export function addSentence(wordBank : WordBank, text : string) : void {
+//   text.split(sentenceSplitter).forEach(line => {
+//     const words = line
+//       .split(' ')
+//       .map(wordNormalizer)
+//       .filter(wordFilter)
+//     for(let i = 0; i < words.length - 1; i++) {
+//       const word = words[i]
+//       const nextWord = words[i + 1]
+//       if(!wordBank[word]) {
+//         wordBank[word] = {}
+//       }
+//       if(!wordBank[word][nextWord]) {
+//         wordBank[word][nextWord] = 1
+//       }
+//       else {
+//         wordBank[word][nextWord] += 1
+//       }
+//     }
+//   })
+// }

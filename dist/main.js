@@ -16,13 +16,11 @@ pingserver_1.pingserver(env_1.env.OPENSHIFT_NODEJS_PORT, env_1.env.OPENSHIFT_NOD
 const chatter_1 = require('chatter');
 const client_1 = require('@slack/client');
 const moment = require('moment');
-const concepts_1 = require('./components/concepts');
-const minitrace_1 = require('./components/minitrace');
 const markov_1 = require('./components/markov');
 const util_1 = require('./util/util');
-const tarotLines = require('../data/corpora').tarotLines;
-const markov = new markov_1.Markov();
-tarotLines.forEach(line => markov.addSentence(line));
+const markov_2 = require('./actions/markov');
+const store_1 = require('./store/store');
+const store = store_1.makeStore();
 const watchlist = fs.readFileSync('data/vidnite_links.txt').toString().split('\n');
 const makeMessageHandler = (name) => {
     // We could get our actual bot name as below, but let's override it for testing
@@ -33,6 +31,7 @@ const makeMessageHandler = (name) => {
         aliases: ['acronym'],
         description: 'make buseyisms'
     }, (message) => {
+        const wb = store.getState().get('wordBank');
         const letters = message.toLowerCase().split('').filter(char => /[A-Za-z]/.test(char));
         const acro = [];
         let lastWord = null;
@@ -40,11 +39,11 @@ const makeMessageHandler = (name) => {
             let candidates = null;
             // First, try to find something that follows from our previous word
             if (lastWord) {
-                candidates = Object.keys(markov.wordBank[lastWord]).filter(word => word.startsWith(l));
+                candidates = wb.get(lastWord).keySeq().filter(word => word != null && word.startsWith(l)).toJS();
             }
             // Otherwise, just grab a random word that matches our letter
             if (candidates == null || candidates.length === 0) {
-                candidates = Object.keys(markov.wordBank).filter(word => word.startsWith(l));
+                candidates = wb.keySeq().filter(word => word != null && word.startsWith(l)).toJS();
             }
             if (candidates != null && candidates.length > 0) {
                 acro.push(util_1.randomInArray(candidates));
@@ -62,7 +61,7 @@ const makeMessageHandler = (name) => {
         return `hi its me <@${name}> i have been here for *${uptime}* via \`${hostname}\``;
     });
     const subCommands = [
-        concepts_1.conceptCommand,
+        // conceptCommand,
         buseyCommand,
         uptimeCommand
     ];
@@ -81,19 +80,21 @@ const makeMessageHandler = (name) => {
         helpCommand,
         // If we match nothing, check if we can trace! if not, just return a markov sentence
             (message) => {
+            const state = store.getState();
             if (message.length > 0) {
-                if (minitrace_1.matcher.test(message)) {
-                    return message.replace(minitrace_1.matcher, (_, concept) => minitrace_1.default(concepts_1.concepts, concept));
-                }
+                // if(traceMatcher.test(message)) {
+                //   return message.replace(traceMatcher, (_, concept) => trace(state.concepts, concept))
+                // }
                 const words = message.trim().split(' ').filter(w => w.length > 0);
                 if (words.length > 0) {
+                    const wb = state.get('wordBank');
                     const word = words[words.length - 1];
-                    if (word in markov.wordBank) {
-                        return markov.getSentence(word);
+                    if (wb.has(word)) {
+                        return markov_1.getSentence(wb, word);
                     }
                 }
             }
-            return markov.getSentence();
+            return markov_1.getSentence(state.get('wordBank'));
         }
     ]);
     // We could handle DMs differently:
@@ -111,7 +112,7 @@ const makeMessageHandler = (name) => {
         },
         // If we didn't match anything, add to our markov chain.
             (message) => {
-            markov.addSentence(message);
+            store.dispatch(markov_2.addSentenceAction(message));
             return false;
         }
     ];

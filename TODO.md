@@ -1,3 +1,4 @@
+- FIX DMs
 
 - trace should use immutable data structures!
 

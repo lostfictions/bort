@@ -60,12 +60,12 @@ const makeMessageHandler = (name : string, isDM : boolean) : {} => {
   // Handling the direct concepts first should be safe --
   // it prevents the markov generator fallback of the root
   // command from eating our input.
-  if(isDM) {
-    return [
-      handleDirectConcepts,
-      rootCommand
-    ]
-  }
+  // if(isDM) {
+  //   return [
+  //     handleDirectConcepts,
+  //     rootCommand
+  //   ]
+  // }
 
   // Otherwise, it's a public channel message.
   return [

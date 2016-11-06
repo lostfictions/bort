@@ -73,11 +73,17 @@ function getInitialConcepts() : ConceptBank {
   cb['interjection'] = corpora.interjection
   cb['adj'] = corpora.adj
   cb['noun'] = corpora.noun
+  cb['digit'] = corpora.digit
+  cb['consonant'] = corpora.consonant
+  cb['vowel'] = corpora.vowel
 
   assert(Array.isArray(cb['punc']))
   assert(Array.isArray(cb['interjection']))
   assert(Array.isArray(cb['adj']))
   assert(Array.isArray(cb['noun']))
+  assert(Array.isArray(cb['digit']))
+  assert(Array.isArray(cb['consonant']))
+  assert(Array.isArray(cb['vowel']))
 
   cb['vidnite'] = require('../../data/watched.json').singular
   assert(Array.isArray(cb['vidnite']))

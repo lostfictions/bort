@@ -1,4 +1,4 @@
-- FIX DMs
+- FIX DMs / SELF-REPLIES
 
 - trace should use immutable data structures!
 

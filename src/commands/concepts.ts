@@ -60,15 +60,6 @@ export const conceptRemoveCommand = createCommand(
   }
 )
 
-// export const conceptListCommand = createCommand(
-//   {
-//     name: 'list',
-//     aliases: ['get'],
-//     description: 'list all concepts'
-//   },
-//   (message : string, { store } : AdjustedArgs) => 'Concepts:\n' + Object.keys(concepts).join(', ') || 'None.'
-// )
-
 // We could probably come up with a better naming scheme, but:
 // the commands above are used to add, remove and list top-level
 // concepts, while the commands below add, remove and list the
@@ -131,18 +122,6 @@ const conceptListOneCommand = createCommand(
   }
 )
 
-const conceptGetRandom = (message : string, concept : string, store : Store<BortStore>) : string | boolean => {
-  if(message.length > 0) {
-    return false
-  }
-
-  const concepts = store.getState().get('concepts')
-  if(concepts.get(concept).size === 0) {
-    return `Concept ${ concept } is empty!`
-  }
-  return trace(concepts.toJS(), concept)
-}
-
 // The conceptMatcher matches commands that start with a concept,
 // adjusts the arguments to include the normalized concept in question
 // and removes it from the message, and then redirects to one of the
@@ -189,8 +168,7 @@ export const conceptMatcher = createMatcher(
     [
       conceptAddToCommand,
       conceptRemoveFromCommand,
-      conceptListOneCommand,
-      conceptGetRandom
+      conceptListOneCommand
     ]
   )
 )

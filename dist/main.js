@@ -64,7 +64,9 @@ const makeMessageHandler = (name, isDM) => {
         handleDirectConcepts,
         // If we didn't match anything, add to our markov chain.
             (message) => {
-            store.dispatch(markov_1.addSentenceAction(message));
+            if (message.length > 0 && message.split(' ').length > 1) {
+                store.dispatch(markov_1.addSentenceAction(message));
+            }
             return false;
         }
     ];

@@ -8,7 +8,7 @@ import uptimeCommand from './uptime'
 import { getSentence } from '../components/markov'
 import { conceptAddCommand, conceptRemoveCommand, conceptMatcher } from './concepts'
 
-// import { default as trace, matcher as traceMatcher } from '../components/minitrace'
+import trace, { matcher as traceMatcher } from '../components/minitrace'
 
 
 const subCommands = [
@@ -47,12 +47,13 @@ export default ({ store, name } : AdjustedArgs) => createArgsAdjuster(
     // If we match nothing, check if we can trace! if not, just return a markov sentence
     (message : string, { store } : AdjustedArgs) : string => {
 
+      const state = store.getState()
+      const wb = state.get('wordBank')
       if(message.length > 0) {
-        // if(traceMatcher.test(message)) {
-        //   return message.replace(traceMatcher, (_, concept) => trace(state.concepts, concept))
-        // }
+        if(traceMatcher.test(message)) {
+          return message.replace(traceMatcher, (_, concept) => trace(state.get('concepts').toJS(), concept))
+        }
 
-        const wb = store.getState().get('wordBank')
         const words = message.trim().split(' ').filter(w => w.length > 0)
         if(words.length > 0) {
           const word = words[words.length - 1]
@@ -61,7 +62,6 @@ export default ({ store, name } : AdjustedArgs) => createArgsAdjuster(
           }
         }
       }
-      const wb = store.getState().get('wordBank')
       return getSentence(wb)
     }
   ]

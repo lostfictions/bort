@@ -1,7 +1,6 @@
 "use strict";
 const chatter_1 = require('chatter');
 const concept_1 = require('../actions/concept');
-const minitrace_1 = require('../components/minitrace');
 // Match two groups:
 // 1: a bracket-delimited term of any length
 // 2: the rest of the message if there is any, ignoring any preceding whitespace
@@ -36,14 +35,6 @@ exports.conceptRemoveCommand = chatter_1.createCommand({
     store.dispatch(concept_1.removeConceptAction(message));
     return `Okay! Deleted concept "${message}".`;
 });
-// export const conceptListCommand = createCommand(
-//   {
-//     name: 'list',
-//     aliases: ['get'],
-//     description: 'list all concepts'
-//   },
-//   (message : string, { store } : AdjustedArgs) => 'Concepts:\n' + Object.keys(concepts).join(', ') || 'None.'
-// )
 // We could probably come up with a better naming scheme, but:
 // the commands above are used to add, remove and list top-level
 // concepts, while the commands below add, remove and list the
@@ -89,16 +80,6 @@ const conceptListOneCommand = chatter_1.createCommand({
     const items = store.getState().get('concepts').get(concept).join(', ');
     return `*${concept}:*\n` + (items.length > 0 ? items : 'Empty.');
 });
-const conceptGetRandom = (message, concept, store) => {
-    if (message.length > 0) {
-        return false;
-    }
-    const concepts = store.getState().get('concepts');
-    if (concepts.get(concept).size === 0) {
-        return `Concept ${concept} is empty!`;
-    }
-    return minitrace_1.default(concepts.toJS(), concept);
-};
 // The conceptMatcher matches commands that start with a concept,
 // adjusts the arguments to include the normalized concept in question
 // and removes it from the message, and then redirects to one of the
@@ -137,6 +118,5 @@ exports.conceptMatcher = chatter_1.createMatcher({
 }, [
     conceptAddToCommand,
     conceptRemoveFromCommand,
-    conceptListOneCommand,
-    conceptGetRandom
+    conceptListOneCommand
 ]));

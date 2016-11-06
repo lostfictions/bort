@@ -1,4 +1,4 @@
-import { randomInArray, randomByWeight } from '../util/util'
+import { randomInRange, randomByWeight } from '../util/util'
 import { Map } from 'immutable'
 
 export type WordBank = Map<string, Map<string, number>>
@@ -34,7 +34,7 @@ const continueSet = new Set(prepositions.concat(determiners).concat(conjunctions
 const endTest = (output : string[]) => output.length > 3 && !continueSet.has(output[output.length - 1]) && Math.random() > 0.8
 
 export function getSeed(wordBank : WordBank) : string {
-  return randomInArray(wordBank.keySeq().toJS() as string[])
+  return randomInRange(wordBank.keySeq())
 }
 
 export function getSentence(wordBank : WordBank, seed = getSeed(wordBank)) : string {

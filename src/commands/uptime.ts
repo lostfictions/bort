@@ -1,10 +1,10 @@
 import { hostname } from 'os'
 import * as moment from 'moment'
-import { CommandMessageHandler } from 'chatter'
+import { createCommand } from 'chatter'
 
 import { AdjustedArgs } from './AdjustedArgs'
 
-export default new CommandMessageHandler(
+export default createCommand(
   {
     name: 'uptime',
     description: 'info about me'

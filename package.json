@@ -6,7 +6,7 @@
   "main": "dist/main.js",
   "scripts": {
     "start": "node dist/main.js",
-    "dev": "nodemon dist/main.js --test",
+    "dev": "nodemon -i persist dist/main.js --test",
     "watch": "tsc -w"
   },
   "author": "s",

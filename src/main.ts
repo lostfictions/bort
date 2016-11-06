@@ -1,5 +1,4 @@
 import * as readline from 'readline'
-import * as fs from 'fs'
 import { hostname } from 'os'
 
 import { env } from './env'
@@ -13,7 +12,7 @@ import { SlackBot, createCommand, processMessage, normalizeMessage } from 'chatt
 import { RtmClient, WebClient, MemoryDataStore } from '@slack/client'
 
 
-import { randomInArray } from './util/util'
+import { randomInRange } from './util/util'
 
 import { addSentenceAction } from './actions/markov'
 
@@ -23,20 +22,49 @@ import makeRootCommand from './commands/root'
 
 const store = makeStore()
 
-
-
+/////////////
+// Serialize on all state changes!
+import * as path from 'path'
+import * as fs from 'fs'
+store.subscribe(() => {
+  const p = path.join(env.OPENSHIFT_DATA_DIR, 'state.json')
+  fs.writeFile(p, JSON.stringify(store.getState()), (e) => {
+    if(e) {
+      console.error(`Couldn't write state to ${ p }: [${ e }]`)
+    }
+    else {
+      console.log(`Wrote state to '${ p }'!`)
+    }
+  })
+})
+/////////////
 
 const makeMessageHandler = (name : string, isDM : boolean) : {} => {
-  // We could get our actual bot name as below, but let's override it for testing
-  // const channel = meta.channel
-  // const botNames = this.getBotNameAndAliases(channel.is_im)
 
   const rootCommand = makeRootCommand({ store, name })
 
+  const handleDirectConcepts = (message : string) : string | false => {
+    if(!message.startsWith('!')) {
+      return false
+    }
+    const matchedConcept = store.getState().get('concepts').get(message)
+    if(matchedConcept != null && matchedConcept.size > 0) {
+      return randomInRange(matchedConcept)
+    }
+    return false
+  }
+
   // If it's a DM, don't require prefixing with the bot
-  // name and don't add any input to our wordbank:
+  // name and don't add any input to our wordbank.
+
+  // Handling the direct concepts first should be safe --
+  // it prevents the markov generator fallback of the root
+  // command from eating our input.
   if(isDM) {
-    return rootCommand
+    return [
+      handleDirectConcepts,
+      rootCommand
+    ]
   }
 
   // Otherwise, it's a public channel message.
@@ -51,12 +79,7 @@ const makeMessageHandler = (name : string, isDM : boolean) : {} => {
       },
       rootCommand
     ),
-    // (message : string) : string | false => {
-    //   if(message === '!vidrand') {
-    //     return randomInArray(watchlist)
-    //   }
-    //   return false
-    // },
+    handleDirectConcepts,
     // If we didn't match anything, add to our markov chain.
     (message : string) => {
       store.dispatch(addSentenceAction(message))
@@ -78,7 +101,7 @@ if(argv['test']) {
     })
     // .catch(reason => console.log(`Uhhh... ${reason}`))
 
-  const testBot = makeMessageHandler('bort', true)
+  const testBot = makeMessageHandler('bort', false)
 
   rl.on('line', (input : string) => simulate(testBot, input))
 }

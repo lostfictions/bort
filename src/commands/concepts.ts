@@ -1,17 +1,24 @@
 import { createCommand, createMatcher, createArgsAdjuster } from 'chatter'
+import { Map, List } from 'immutable'
+import { Store } from 'redux'
+import { BortStore } from '../store/store'
 
-import { default as trace } from './minitrace'
+import { AdjustedArgs } from './AdjustedArgs'
+import {
+  addConceptAction,
+  removeConceptAction,
+  addToConceptAction,
+  removeFromConceptAction
+} from '../actions/concept'
 
-const corpora = require('../../data/corpora')
+import trace from '../components/minitrace'
 
-export const concepts : { [concept : string] : string[] } = {}
+export type ConceptBank = Map<string, List<string>>
 
-// Initialize with a few concepts
-concepts['punc'] = corpora.punc
-concepts['interjection'] = corpora.interjection
-concepts['adj'] = corpora.adj
-concepts['noun'] = corpora.noun
-concepts['vidnite'] = require('../../data/watched.json').singular
+// Match two groups:
+// 1: a bracket-delimited term of any length
+// 2: the rest of the message if there is any, ignoring any preceding whitespace
+const matcher = /^\[([^\[\]]+)\](?:$|\s+(.*))/g
 
 export const conceptAddCommand = createCommand(
   {
@@ -19,14 +26,16 @@ export const conceptAddCommand = createCommand(
     aliases: ['+'],
     description: 'add a new concept'
   },
-  (message : string) : boolean | string => {
+  (message : string, { store } : AdjustedArgs) : boolean | string => {
     if(message.length === 0) {
       return false
     }
-    if(concepts.hasOwnProperty(message)) {
+
+    const concepts = store.getState().get('concepts')
+    if(concepts.has(message)) {
       return `Concept "${message}" already exists!`
     }
-    concepts[message] = []
+    store.dispatch(addConceptAction(message))
     return `Okay! Added a concept named "${message}".`
   }
 )
@@ -37,25 +46,18 @@ export const conceptRemoveCommand = createCommand(
     aliases: ['delete', '-'],
     description: 'delete an existing concept'
   },
-  (message : string) : boolean | string => {
+  (message : string, { store } : AdjustedArgs) : boolean | string => {
     if(message.length === 0) {
       return false
     }
-    if(!concepts.hasOwnProperty(message)) {
+
+    const concepts = store.getState().get('concepts')
+    if(!concepts.has(message)) {
       return `Concept "${message}" doesn't exist!`
     }
-    delete concepts[message]
+    store.dispatch(removeConceptAction(message))
     return `Okay! Deleted concept "${message}".`
   }
-)
-
-export const conceptListCommand = createCommand(
-  {
-    name: 'list',
-    aliases: ['get'],
-    description: 'list all concepts'
-  },
-  (message : string) => 'Concepts:\n' + Object.keys(concepts).join(', ') || 'None.'
 )
 
 // We could probably come up with a better naming scheme, but:
@@ -63,68 +65,62 @@ export const conceptListCommand = createCommand(
 // concepts, while the commands below add, remove and list the
 // contents of individual concepts.
 
-export const conceptAddToCommand = createCommand(
+const conceptAddToCommand = createCommand(
   {
     name: 'add',
     aliases: ['+'],
     description: 'add to a concept'
   },
-  (message : string, concept : string) : boolean | string => {
+  (message : string, concept : string, store : Store<BortStore>) : boolean | string => {
     if(message.length === 0) {
       return false
     }
-    if(concepts[concept].indexOf(message) !== -1) {
+
+    const concepts = store.getState().get('concepts')
+    if(concepts.get(concept).indexOf(message) !== -1) {
       return `"${message}" already exists in "${concept}"!`
     }
-    concepts[concept].push(message)
+    store.dispatch(addToConceptAction(concept, message))
     return `Okay! Added "${message}" to "${concept}".`
   }
 )
 
-export const conceptRemoveFromCommand = createCommand(
+const conceptRemoveFromCommand = createCommand(
   {
     name: 'remove',
     aliases: ['delete', '-'],
     description: 'remove from a concept'
   },
-  (message : string, concept : string) : boolean | string => {
+  (message : string, concept : string, store : Store<BortStore>) : boolean | string => {
     if(message.length === 0) {
       return false
     }
-    const index = concepts[concept].indexOf(message)
-    if(index === -1) {
+
+    const concepts = store.getState().get('concepts')
+
+    if(concepts.get(concept).indexOf(message) === -1) {
       return `"${message}" doesn't exist in "${concept}"!`
     }
-    concepts[concept].splice(index, 1)
+    store.dispatch(removeFromConceptAction(concept, message))
     return `Okay! Removed "${message}" from "${concept}".`
   }
 )
 
-export const conceptListOneCommand = createCommand(
+const conceptListOneCommand = createCommand(
   {
     name: 'list',
     aliases: ['get'],
     description: 'list everything in a concept'
   },
-  (message : string, concept : string) : string | boolean => {
+  (message : string, concept : string, store : Store<BortStore>) : string | boolean => {
     if(message.length > 0) {
       return false
     }
-    return concept + ':\n' + concepts[concept].join(', ') || 'Empty.'
+
+    const items = store.getState().get('concepts').get(concept).join(', ')
+    return `*${ concept }:*\n` + (items.length > 0 ? items : 'Empty.')
   }
 )
-
-export const conceptGetRandom = (message : string, concept : string) : string | boolean => {
-  if(message.length > 0) {
-    return false
-  }
-  return trace(concepts, concept)
-}
-
-// Match two groups:
-// 1: a bracket-delimited term of any length
-// 2: the rest of the message if there is any, ignoring any preceding whitespace
-export const matcher = /^\[([^\[\]]+)\](?:$|\s+(.*))/g
 
 // The conceptMatcher matches commands that start with a concept,
 // adjusts the arguments to include the normalized concept in question
@@ -132,7 +128,7 @@ export const matcher = /^\[([^\[\]]+)\](?:$|\s+(.*))/g
 // commands above.
 export const conceptMatcher = createMatcher(
   {
-    match: (message : string) : boolean | string => {
+    match: (message : string, { store } : AdjustedArgs) : boolean | string => {
       if(message.length === 0) {
         return false
       }
@@ -145,14 +141,16 @@ export const conceptMatcher = createMatcher(
 
       // We try matching against the "matcher" regex above, then
       // normalize the results.
-      let matches : string[] | null = message.match(matcher) //tslint:disable-line:no-null-keyword
+      let matches : string[] | null = message.match(matcher)
       if(matches == undefined) {
         const split = message.split(' ')
         matches = ['', split[0], split.slice(1).join(' ')]
       }
 
       const [, concept, command] = matches
-      if(!concepts.hasOwnProperty(concept)) {
+
+      const concepts = store.getState().get('concepts')
+      if(!concepts.has(concept)) {
         return false
       }
       return concept + ' ' + command
@@ -160,33 +158,17 @@ export const conceptMatcher = createMatcher(
   },
   createArgsAdjuster(
     {
-      adjustArgs: (message : string) => {
+      adjustArgs: (message : string, { store } : AdjustedArgs) => {
         const split = message.split(' ')
         const concept = split[0]
         const adjustedMessage = split.slice(1).join(' ')
-        return [adjustedMessage, concept]
+        return [adjustedMessage, concept, store]
       }
     },
     [
       conceptAddToCommand,
       conceptRemoveFromCommand,
-      conceptListOneCommand,
-      conceptGetRandom
+      conceptListOneCommand
     ]
   )
-)
-
-export const conceptCommand = createCommand(
-  {
-    name: 'concept',
-    aliases: ['c', 'con'],
-    description: 'give me some ideas',
-    isParent: true
-  },
-  [
-    conceptAddCommand,
-    conceptRemoveCommand,
-    conceptListCommand,
-    conceptMatcher
-  ]
 )

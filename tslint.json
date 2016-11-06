@@ -35,7 +35,7 @@
     ],
     "interface-name": [
       true,
-      "always-prefix"
+      "never-prefix"
     ],
     "jsdoc-format": true,
     "label-position": true,
@@ -69,7 +69,7 @@
     "no-construct": true,
     "no-constructor-vars": true,
     "no-debugger": true,
-    "no-default-export": true,
+    "no-default-export": false,
     "no-duplicate-key": true,
     "no-duplicate-variable": true,
     "no-empty": true,
@@ -82,17 +82,17 @@
     ],
     "no-null-keyword": false,
     "no-reference": true,
-    "no-require-imports": true,
+    "no-require-imports": false,
     "no-shadowed-variable": true,
     "no-string-literal": false,
     "no-switch-case-fall-through": true,
     "no-trailing-whitespace": true,
     "no-unreachable": true,
     "no-unused-expression": true,
-    "no-unused-variable": true,
+    "no-unused-variable": [true, "react"],
     "no-use-before-declare": true,
     "no-var-keyword": true,
-    "no-var-requires": true,
+    "no-var-requires": false,
     "object-literal-sort-keys": false,
     "one-line": [
       true,
@@ -128,7 +128,6 @@
     ],
     "typedef": [
       true,
-      "call-signature",
       "parameter",
       "property-declaration",
       "member-variable-declaration"

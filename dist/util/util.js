@@ -1,6 +1,10 @@
 "use strict";
 function randomInArray(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
 exports.randomInArray = randomInArray;
+function randomInRange(collection) {
+    return collection.get(Math.floor(Math.random() * collection.size));
+}
+exports.randomInRange = randomInRange;
 function randomByWeight(weights) {
     const keys = Object.keys(weights);
     const sum = keys.reduce((p, c) => p + weights[c], 0);

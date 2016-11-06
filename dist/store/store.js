@@ -13,9 +13,12 @@ const rootReducer = redux_immutable_1.combineReducers({
 function makeStore() {
     let initialState;
     try {
-        const d = fs.readFileSync(path.join(env_1.env.OPENSHIFT_DATA_DIR, 'state.json')).toString();
+        const p = path.join(env_1.env.OPENSHIFT_DATA_DIR, 'state.json');
+        const d = fs.readFileSync(p).toString();
         const json = JSON.parse(d);
         initialState = immutable_1.fromJS(json);
+        //TODO: check fields/shape
+        console.log(`Restored state from '${p}'!`);
     }
     catch (e) {
         console.error(`Can't deserialize state! [Error: ${e}]\nRestoring from defaults instead.`);
@@ -32,6 +35,7 @@ function getInitialWordbank() {
 }
 // function getInitialConcepts() : ConceptBank {
 //   const cb : ConceptBank = {}
+// const watchlist = fs.readFileSync('data/letterboxd_watchlist_scraped.txt').toString().split('\n')
 //   const corpora = require('../../data/corpora')
 //   cb['punc'] = corpora.punc
 //   cb['interjection'] = corpora.interjection

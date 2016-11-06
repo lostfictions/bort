@@ -25,16 +25,10 @@ const misc = [
 ];
 const continueSet = new Set(prepositions.concat(determiners).concat(conjunctions).concat(misc));
 const endTest = (output) => output.length > 3 && !continueSet.has(output[output.length - 1]) && Math.random() > 0.8;
-// const sentenceSplitter = /(?:\.|\?|\n)/ig
-// const wordNormalizer = (word : string) => word.toLowerCase()
-// const wordFilter = (word : string) => word.length > 0 && !word.startsWith('http://')
 function getSeed(wordBank) {
     return util_1.randomInArray(wordBank.keySeq().toJS());
 }
 exports.getSeed = getSeed;
-// export function getSeed(wordBank : WordBank) : string {
-//   return randomInArray(Object.keys(wordBank))
-// }
 function getSentence(wordBank, seed = getSeed(wordBank)) {
     if (!wordBank.get(seed)) {
         return '';
@@ -48,36 +42,3 @@ function getSentence(wordBank, seed = getSeed(wordBank)) {
     return sentence.join(' ');
 }
 exports.getSentence = getSentence;
-// export function getSentence(wordBank : WordBank, seed = getSeed(wordBank)) : string {
-//   if(!wordBank[seed]) {
-//     return ''
-//   }
-//   let word = seed
-//   const sentence = [word]
-//   while(wordBank[word] && !endTest(sentence)) {
-//     word = randomByWeight(wordBank[word])
-//     sentence.push(word)
-//   }
-//   return sentence.join(' ')
-// }
-// export function addSentence(wordBank : WordBank, text : string) : void {
-//   text.split(sentenceSplitter).forEach(line => {
-//     const words = line
-//       .split(' ')
-//       .map(wordNormalizer)
-//       .filter(wordFilter)
-//     for(let i = 0; i < words.length - 1; i++) {
-//       const word = words[i]
-//       const nextWord = words[i + 1]
-//       if(!wordBank[word]) {
-//         wordBank[word] = {}
-//       }
-//       if(!wordBank[word][nextWord]) {
-//         wordBank[word][nextWord] = 1
-//       }
-//       else {
-//         wordBank[word][nextWord] += 1
-//       }
-//     }
-//   })
-// }

@@ -1,6 +1,6 @@
 import { createCommand, createMatcher, createArgsAdjuster } from 'chatter'
 
-import { default as trace } from './minitrace'
+import { default as trace } from '../components/minitrace'
 
 export interface ConceptBank {
   [concept : string] : string[]

@@ -9,11 +9,11 @@ import { WordBank } from '../components/markov'
 import { markovReducers } from '../reducers/markov'
 import { addSentenceAction } from '../actions/markov'
 
-import { ConceptBank } from '../components/concepts'
+// import { ConceptBank } from '../commands/concepts'
 
-interface BortStore extends Map<string, any> {
+export interface BortStore extends Map<string, any> {
   get(key : 'wordBank') : WordBank
-  get(key : 'concepts') : ConceptBank
+  // get(key : 'concepts') : ConceptBank
 }
 
 const rootReducer = combineReducers({
@@ -23,10 +23,12 @@ const rootReducer = combineReducers({
 export function makeStore() : Store<BortStore> {
   let initialState : BortStore
   try {
-    const d = fs.readFileSync(path.join(env.OPENSHIFT_DATA_DIR, 'state.json')).toString()
+    const p = path.join(env.OPENSHIFT_DATA_DIR, 'state.json')
+    const d = fs.readFileSync(p).toString()
     const json = JSON.parse(d)
     initialState = fromJS(json)
     //TODO: check fields/shape
+    console.log(`Restored state from '${p}'!`)
   }
   catch(e) {
     console.error(`Can't deserialize state! [Error: ${e}]\nRestoring from defaults instead.`)
@@ -50,6 +52,8 @@ function getInitialWordbank() : WordBank {
 
 // function getInitialConcepts() : ConceptBank {
 //   const cb : ConceptBank = {}
+
+// const watchlist = fs.readFileSync('data/letterboxd_watchlist_scraped.txt').toString().split('\n')
 
 //   const corpora = require('../../data/corpora')
 //   cb['punc'] = corpora.punc

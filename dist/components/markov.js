@@ -26,7 +26,7 @@ const misc = [
 const continueSet = new Set(prepositions.concat(determiners).concat(conjunctions).concat(misc));
 const endTest = (output) => output.length > 3 && !continueSet.has(output[output.length - 1]) && Math.random() > 0.8;
 function getSeed(wordBank) {
-    return util_1.randomInArray(wordBank.keySeq().toJS());
+    return util_1.randomInRange(wordBank.keySeq());
 }
 exports.getSeed = getSeed;
 function getSentence(wordBank, seed = getSeed(wordBank)) {

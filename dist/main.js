@@ -8,19 +8,49 @@ const pingserver_1 = require('./components/pingserver');
 pingserver_1.pingserver(env_1.env.OPENSHIFT_NODEJS_PORT, env_1.env.OPENSHIFT_NODEJS_IP);
 const chatter_1 = require('chatter');
 const client_1 = require('@slack/client');
+const util_1 = require('./util/util');
 const markov_1 = require('./actions/markov');
 const store_1 = require('./store/store');
 const root_1 = require('./commands/root');
 const store = store_1.makeStore();
+/////////////
+// Serialize on all state changes!
+const path = require('path');
+const fs = require('fs');
+store.subscribe(() => {
+    const p = path.join(env_1.env.OPENSHIFT_DATA_DIR, 'state.json');
+    fs.writeFile(p, JSON.stringify(store.getState()), (e) => {
+        if (e) {
+            console.error(`Couldn't write state to ${p}: [${e}]`);
+        }
+        else {
+            console.log(`Wrote state to '${p}'!`);
+        }
+    });
+});
+/////////////
 const makeMessageHandler = (name, isDM) => {
-    // We could get our actual bot name as below, but let's override it for testing
-    // const channel = meta.channel
-    // const botNames = this.getBotNameAndAliases(channel.is_im)
     const rootCommand = root_1.default({ store, name });
+    const handleDirectConcepts = (message) => {
+        if (!message.startsWith('!')) {
+            return false;
+        }
+        const matchedConcept = store.getState().get('concepts').get(message);
+        if (matchedConcept != null && matchedConcept.size > 0) {
+            return util_1.randomInRange(matchedConcept);
+        }
+        return false;
+    };
     // If it's a DM, don't require prefixing with the bot
-    // name and don't add any input to our wordbank:
+    // name and don't add any input to our wordbank.
+    // Handling the direct concepts first should be safe --
+    // it prevents the markov generator fallback of the root
+    // command from eating our input.
     if (isDM) {
-        return rootCommand;
+        return [
+            handleDirectConcepts,
+            rootCommand
+        ];
     }
     // Otherwise, it's a public channel message.
     return [
@@ -31,12 +61,7 @@ const makeMessageHandler = (name, isDM) => {
             // aliases: botNames.aliases,
             description: `it ${name}`
         }, rootCommand),
-        // (message : string) : string | false => {
-        //   if(message === '!vidrand') {
-        //     return randomInArray(watchlist)
-        //   }
-        //   return false
-        // },
+        handleDirectConcepts,
         // If we didn't match anything, add to our markov chain.
             (message) => {
             store.dispatch(markov_1.addSentenceAction(message));
@@ -55,7 +80,7 @@ if (argv['test']) {
         console.log(text);
     });
     // .catch(reason => console.log(`Uhhh... ${reason}`))
-    const testBot = makeMessageHandler('bort', true);
+    const testBot = makeMessageHandler('bort', false);
     rl.on('line', (input) => simulate(testBot, input));
 }
 else {

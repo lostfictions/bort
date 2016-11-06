@@ -3,7 +3,7 @@ const os_1 = require('os');
 const moment = require('moment');
 const chatter_1 = require('chatter');
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = new chatter_1.CommandMessageHandler({
+exports.default = chatter_1.createCommand({
     name: 'uptime',
     description: 'info about me'
 }, (_, { name }) => {

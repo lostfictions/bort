@@ -2,7 +2,7 @@
 const chatter_1 = require('chatter');
 const util_1 = require('../util/util');
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = new chatter_1.CommandMessageHandler({
+exports.default = chatter_1.createCommand({
     name: 'busey',
     aliases: ['acronym'],
     description: 'make buseyisms'

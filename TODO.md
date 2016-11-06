@@ -1,13 +1,13 @@
 - FIX DMs / SELF-REPLIES
+    - probably need to post as bot!
+    - need to provide image(s) (serve with express?)
 
-- trace should use immutable data structures!
 
 - concept regex doesn't seem to work
-
-- change "<concept> get/list" to "list/get <concept>"
 
 - better multiline support (test!)
 
 - slurp multiple terms at once?
 
 - delete or encrypt markov memory? LRU cache?
+

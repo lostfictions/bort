@@ -1,26 +1,19 @@
 import * as readline from 'readline'
 import { hostname } from 'os'
 
+import { RtmClient, WebClient, MemoryDataStore } from '@slack/client'
+import { SlackBot, processMessage, normalizeMessage } from 'chatter'
+
+import { makeStore } from './store/store'
+
+import makeMessageHandler from './commands/root'
+
 import { env } from './env'
 import * as minimist from 'minimist'
 const argv = minimist(process.argv.slice(2))
 
 import { pingserver } from './components/pingserver'
 pingserver(env.OPENSHIFT_NODEJS_PORT, env.OPENSHIFT_NODEJS_IP)
-
-import { SlackBot, createCommand, processMessage, normalizeMessage } from 'chatter'
-import { RtmClient, WebClient, MemoryDataStore } from '@slack/client'
-
-
-import { randomInRange } from './util/util'
-
-import { addSentenceAction } from './actions/markov'
-
-import { makeStore } from './store/store'
-
-import makeRootCommand from './commands/root'
-
-import trace, { matcher as traceMatcher } from './components/minitrace'
 
 
 const store = makeStore()
@@ -42,57 +35,7 @@ store.subscribe(() => {
 })
 /////////////
 
-const makeMessageHandler = (name : string, isDM : boolean) : {} => {
 
-  const rootCommand = makeRootCommand({ store, name })
-
-  const handleDirectConcepts = (message : string) : string | false => {
-    if(!message.startsWith('!')) {
-      return false
-    }
-    const concepts = store.getState().get('concepts')
-    const matchedConcept = concepts.get(message)
-    if(matchedConcept != null && matchedConcept.size > 0) {
-      return trace(concepts.toJS(), message)
-    }
-    return false
-  }
-
-  // If it's a DM, don't require prefixing with the bot
-  // name and don't add any input to our wordbank.
-
-  // Handling the direct concepts first should be safe --
-  // it prevents the markov generator fallback of the root
-  // command from eating our input.
-  // if(isDM) {
-  //   return [
-  //     handleDirectConcepts,
-  //     rootCommand
-  //   ]
-  // }
-
-  // Otherwise, it's a public channel message.
-  return [
-    createCommand(
-      {
-        isParent: true,
-        name: name,
-        // name: botNames.name,
-        // aliases: botNames.aliases,
-        description: `it ${name}`
-      },
-      rootCommand
-    ),
-    handleDirectConcepts,
-    // If we didn't match anything, add to our markov chain.
-    (message : string) => {
-      if(message.length > 0 && message.split(' ').length > 1) {
-        store.dispatch(addSentenceAction(message))
-      }
-      return false
-    }
-  ]
-}
 
 if(argv['test']) {
   const rl = readline.createInterface({
@@ -107,7 +50,7 @@ if(argv['test']) {
     })
     // .catch(reason => console.log(`Uhhh... ${reason}`))
 
-  const testBot = makeMessageHandler('bort', false)
+  const testBot = makeMessageHandler(store, 'bort', false)
 
   rl.on('line', (input : string) => simulate(testBot, input))
 }
@@ -139,7 +82,7 @@ else {
       }
     },
     createMessageHandler: function(this : SlackBot, id : any, meta : any) : any {
-      return makeMessageHandler(this.name, meta.channel.is_im)
+      return makeMessageHandler(store, this.name, meta.channel.is_im)
     }
   })
   //tslint:enable:no-invalid-this

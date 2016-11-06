@@ -6,14 +6,26 @@ import buseyCommand from './busey'
 import uptimeCommand from './uptime'
 
 import { getSentence } from '../components/markov'
-import { conceptAddCommand, conceptRemoveCommand, conceptMatcher } from './concepts'
+import {
+  conceptAddCommand,
+  conceptRemoveCommand,
+  conceptListCommand,
+  conceptMatcher
+} from './concepts'
 
-import trace, { matcher as traceMatcher } from '../components/minitrace'
+import trace, { matcher as traceMatcher } from '../components/trace'
+
+import { addSentenceAction } from '../actions/markov'
+
+
+import { Store } from 'redux'
+import { BortStore } from '../store/store'
 
 
 const subCommands = [
     conceptAddCommand,
     conceptRemoveCommand,
+    conceptListCommand,
     buseyCommand,
     uptimeCommand
   ]
@@ -36,7 +48,7 @@ const helpCommand = createCommand(
   }
 )
 
-export default ({ store, name } : AdjustedArgs) => createArgsAdjuster(
+const makeRootCommand = ({ store, name } : AdjustedArgs) => createArgsAdjuster(
   {
     adjustArgs: (message : string) => [message, { store, name }]
   },
@@ -51,7 +63,7 @@ export default ({ store, name } : AdjustedArgs) => createArgsAdjuster(
       const wb = state.get('wordBank')
       if(message.length > 0) {
         if(traceMatcher.test(message)) {
-          return message.replace(traceMatcher, (_, concept) => trace(state.get('concepts').toJS(), concept))
+          return message.replace(traceMatcher, (_, concept) => trace(state.get('concepts'), concept))
         }
 
         const words = message.trim().split(' ').filter(w => w.length > 0)
@@ -66,3 +78,55 @@ export default ({ store, name } : AdjustedArgs) => createArgsAdjuster(
     }
   ]
 )
+
+export default (store : Store<BortStore>, name : string, isDM : boolean) : {} => {
+
+  const rootCommand = makeRootCommand({ store, name })
+
+  const handleDirectConcepts = (message : string) : string | false => {
+    if(!message.startsWith('!')) {
+      return false
+    }
+    const concepts = store.getState().get('concepts')
+    const matchedConcept = concepts.get(message)
+    if(matchedConcept != null && matchedConcept.size > 0) {
+      return trace(concepts, message)
+    }
+    return false
+  }
+
+  // If it's a DM, don't require prefixing with the bot
+  // name and don't add any input to our wordbank.
+
+  // Handling the direct concepts first should be safe --
+  // it prevents the markov generator fallback of the root
+  // command from eating our input.
+  // if(isDM) {
+  //   return [
+  //     handleDirectConcepts,
+  //     rootCommand
+  //   ]
+  // }
+
+  // Otherwise, it's a public channel message.
+  return [
+    createCommand(
+      {
+        isParent: true,
+        name: name,
+        // name: botNames.name,
+        // aliases: botNames.aliases,
+        description: `it ${name}`
+      },
+      rootCommand
+    ),
+    handleDirectConcepts,
+    // If we didn't match anything, add to our markov chain.
+    (message : string) => {
+      if(message.length > 0 && message.split(' ').length > 1) {
+        store.dispatch(addSentenceAction(message))
+      }
+      return false
+    }
+  ]
+}

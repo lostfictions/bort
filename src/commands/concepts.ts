@@ -11,8 +11,6 @@ import {
   removeFromConceptAction
 } from '../actions/concept'
 
-import trace from '../components/minitrace'
-
 export type ConceptBank = Map<string, List<string>>
 
 // Match two groups:
@@ -53,16 +51,40 @@ export const conceptRemoveCommand = createCommand(
 
     const concepts = store.getState().get('concepts')
     if(!concepts.has(message)) {
-      return `Concept "${message}" doesn't exist!`
+      return `Concept "${ message }" doesn't exist!`
     }
     store.dispatch(removeConceptAction(message))
-    return `Okay! Deleted concept "${message}".`
+    return `Okay! Deleted concept "${ message }".`
+  }
+)
+
+export const conceptListCommand = createCommand(
+  {
+    name: 'list',
+    aliases: ['get'],
+    description: 'list everything in a concept'
+  },
+  (message : string, { store } : AdjustedArgs) : string | boolean => {
+    if(message.length === 0) {
+      return false
+    }
+
+    const concepts = store.getState().get('concepts')
+    if(!concepts.has(message)) {
+      return `Concept "${ message }" doesn't exist!`
+    }
+
+    const items = concepts.get(message)
+    if(items.size > 100) {
+      return `"${ message }" has ${ items.size } items in it! Only showing the first 100.\n${ items.slice(0, 100).join(', ') }`
+    }
+    return `*${ message }:*\n` + (items.size > 0 ? items.join(', ') : '_Empty._')
   }
 )
 
 // We could probably come up with a better naming scheme, but:
-// the commands above are used to add, remove and list top-level
-// concepts, while the commands below add, remove and list the
+// the commands above are used to add and remove and list top-level
+// concepts, while the commands below add and remove the
 // contents of individual concepts.
 
 const conceptAddToCommand = createCommand(
@@ -103,22 +125,6 @@ const conceptRemoveFromCommand = createCommand(
     }
     store.dispatch(removeFromConceptAction(concept, message))
     return `Okay! Removed "${message}" from "${concept}".`
-  }
-)
-
-const conceptListOneCommand = createCommand(
-  {
-    name: 'list',
-    aliases: ['get'],
-    description: 'list everything in a concept'
-  },
-  (message : string, concept : string, store : Store<BortStore>) : string | boolean => {
-    if(message.length > 0) {
-      return false
-    }
-
-    const items = store.getState().get('concepts').get(concept).join(', ')
-    return `*${ concept }:*\n` + (items.length > 0 ? items : 'Empty.')
   }
 )
 
@@ -167,8 +173,7 @@ export const conceptMatcher = createMatcher(
     },
     [
       conceptAddToCommand,
-      conceptRemoveFromCommand,
-      conceptListOneCommand
+      conceptRemoveFromCommand
     ]
   )
 )

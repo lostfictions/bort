@@ -1,11 +1,3 @@
-//////
-//HACK: temporary
-const __chatter = require('@lostfictions/chatter') // prime cache
-require.cache[require.resolve('chatter')] = require.cache[require.resolve('@lostfictions/chatter')]
-require('assert').equal(require('chatter'), require('@lostfictions/chatter'))
-//////
-
-import * as os from 'os'
 import * as readline from 'readline'
 import * as fs from 'fs'
 
@@ -20,8 +12,8 @@ import { SlackBot, createCommand, processMessage, normalizeMessage } from 'chatt
 import { RtmClient, WebClient, MemoryDataStore } from '@slack/client'
 import * as moment from 'moment'
 
-import { makeConceptCommand } from './components/concepts'
-import { default as trace, matcher as traceMatcher } from './components/minitrace'
+// import { makeConceptCommand } from './components/concepts'
+// import { default as trace, matcher as traceMatcher } from './components/minitrace'
 import { getSentence } from './components/markov'
 import { randomInArray } from './util/util'
 

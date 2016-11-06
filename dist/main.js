@@ -1,11 +1,4 @@
 "use strict";
-//////
-//HACK: temporary
-const __chatter = require('@lostfictions/chatter'); // prime cache
-require.cache[require.resolve('chatter')] = require.cache[require.resolve('@lostfictions/chatter')];
-require('assert').equal(require('chatter'), require('@lostfictions/chatter'));
-//////
-const os = require('os');
 const readline = require('readline');
 const fs = require('fs');
 const env_1 = require('./env');

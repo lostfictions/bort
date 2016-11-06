@@ -140,7 +140,7 @@ export function makeConceptCommand(concepts : ConceptBank) {
 
         // We try matching against the "matcher" regex above, then
         // normalize the results.
-        let matches : string[] | null = message.match(matcher) //tslint:disable-line:no-null-keyword
+        let matches : string[] | null = message.match(matcher)
         if(matches == undefined) {
           const split = message.split(' ')
           matches = ['', split[0], split.slice(1).join(' ')]

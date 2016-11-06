@@ -8,10 +8,10 @@ const pingserver_1 = require('./components/pingserver');
 pingserver_1.pingserver(env_1.env.OPENSHIFT_NODEJS_PORT, env_1.env.OPENSHIFT_NODEJS_IP);
 const chatter_1 = require('chatter');
 const client_1 = require('@slack/client');
-const util_1 = require('./util/util');
 const markov_1 = require('./actions/markov');
 const store_1 = require('./store/store');
 const root_1 = require('./commands/root');
+const minitrace_1 = require('./components/minitrace');
 const store = store_1.makeStore();
 /////////////
 // Serialize on all state changes!
@@ -35,9 +35,10 @@ const makeMessageHandler = (name, isDM) => {
         if (!message.startsWith('!')) {
             return false;
         }
-        const matchedConcept = store.getState().get('concepts').get(message);
+        const concepts = store.getState().get('concepts');
+        const matchedConcept = concepts.get(message);
         if (matchedConcept != null && matchedConcept.size > 0) {
-            return util_1.randomInRange(matchedConcept);
+            return minitrace_1.default(concepts.toJS(), message);
         }
         return false;
     };

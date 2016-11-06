@@ -9,3 +9,5 @@
 - better multiline support (test!)
 
 - slurp multiple terms at once?
+
+- delete or encrypt markov memory? LRU cache?

@@ -20,6 +20,9 @@ import { makeStore } from './store/store'
 
 import makeRootCommand from './commands/root'
 
+import trace, { matcher as traceMatcher } from './components/minitrace'
+
+
 const store = makeStore()
 
 /////////////
@@ -47,9 +50,10 @@ const makeMessageHandler = (name : string, isDM : boolean) : {} => {
     if(!message.startsWith('!')) {
       return false
     }
-    const matchedConcept = store.getState().get('concepts').get(message)
+    const concepts = store.getState().get('concepts')
+    const matchedConcept = concepts.get(message)
     if(matchedConcept != null && matchedConcept.size > 0) {
-      return randomInRange(matchedConcept)
+      return trace(concepts.toJS(), message)
     }
     return false
   }

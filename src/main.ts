@@ -15,6 +15,7 @@ const argv = minimist(process.argv.slice(2))
 import { pingserver } from './components/pingserver'
 pingserver(env.OPENSHIFT_NODEJS_PORT, env.OPENSHIFT_NODEJS_IP)
 
+console.log(env.OPENSHIFT_APP_DNS)
 
 const store = makeStore()
 

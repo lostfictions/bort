@@ -10,6 +10,7 @@ const minimist = require('minimist');
 const argv = minimist(process.argv.slice(2));
 const pingserver_1 = require('./components/pingserver');
 pingserver_1.pingserver(env_1.env.OPENSHIFT_NODEJS_PORT, env_1.env.OPENSHIFT_NODEJS_IP);
+console.log(env_1.env.OPENSHIFT_APP_DNS);
 const store = store_1.makeStore();
 /////////////
 // Serialize on all state changes!

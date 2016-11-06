@@ -35,9 +35,27 @@ exports.conceptRemoveCommand = chatter_1.createCommand({
     store.dispatch(concept_1.removeConceptAction(message));
     return `Okay! Deleted concept "${message}".`;
 });
+exports.conceptListCommand = chatter_1.createCommand({
+    name: 'list',
+    aliases: ['get'],
+    description: 'list everything in a concept'
+}, (message, { store }) => {
+    if (message.length === 0) {
+        return false;
+    }
+    const concepts = store.getState().get('concepts');
+    if (!concepts.has(message)) {
+        return `Concept "${message}" doesn't exist!`;
+    }
+    const items = concepts.get(message);
+    if (items.size > 100) {
+        return `"${message}" has ${items.size} items in it! Only showing the first 100.\n${items.slice(0, 100).join(', ')}`;
+    }
+    return `*${message}:*\n` + (items.size > 0 ? items.join(', ') : '_Empty._');
+});
 // We could probably come up with a better naming scheme, but:
-// the commands above are used to add, remove and list top-level
-// concepts, while the commands below add, remove and list the
+// the commands above are used to add and remove and list top-level
+// concepts, while the commands below add and remove the
 // contents of individual concepts.
 const conceptAddToCommand = chatter_1.createCommand({
     name: 'add',
@@ -68,17 +86,6 @@ const conceptRemoveFromCommand = chatter_1.createCommand({
     }
     store.dispatch(concept_1.removeFromConceptAction(concept, message));
     return `Okay! Removed "${message}" from "${concept}".`;
-});
-const conceptListOneCommand = chatter_1.createCommand({
-    name: 'list',
-    aliases: ['get'],
-    description: 'list everything in a concept'
-}, (message, concept, store) => {
-    if (message.length > 0) {
-        return false;
-    }
-    const items = store.getState().get('concepts').get(concept).join(', ');
-    return `*${concept}:*\n` + (items.length > 0 ? items : 'Empty.');
 });
 // The conceptMatcher matches commands that start with a concept,
 // adjusts the arguments to include the normalized concept in question
@@ -117,6 +124,5 @@ exports.conceptMatcher = chatter_1.createMatcher({
     }
 }, [
     conceptAddToCommand,
-    conceptRemoveFromCommand,
-    conceptListOneCommand
+    conceptRemoveFromCommand
 ]));

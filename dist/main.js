@@ -10,7 +10,6 @@ const minimist = require('minimist');
 const argv = minimist(process.argv.slice(2));
 const pingserver_1 = require('./components/pingserver');
 pingserver_1.pingserver(env_1.env.OPENSHIFT_NODEJS_PORT, env_1.env.OPENSHIFT_NODEJS_IP);
-console.log(env_1.env.OPENSHIFT_APP_DNS);
 const store = store_1.makeStore();
 /////////////
 // Serialize on all state changes!
@@ -28,6 +27,7 @@ store.subscribe(() => {
     });
 });
 /////////////
+const botName = argv['name'] || 'bort';
 if (argv['test']) {
     const rl = readline.createInterface({
         input: process.stdin,
@@ -39,15 +39,20 @@ if (argv['test']) {
         console.log(text);
     });
     // .catch(reason => console.log(`Uhhh... ${reason}`))
-    const testBot = root_1.default(store, 'bort', false);
+    const testBot = root_1.default(store, botName, false);
     rl.on('line', (input) => simulate(testBot, input));
 }
 else {
     //tslint:disable:no-invalid-this
     const bot = new chatter_1.SlackBot({
-        name: 'bort',
+        name: botName,
         // Override the message posting options so that we simply post as our bot user
-        postMessageOptions: (text) => ({ as_user: true, text }),
+        postMessageOptions: (text) => ({
+            text,
+            as_user: false,
+            username: botName,
+            icon_url: 'http://' + env_1.env.OPENSHIFT_APP_DNS + '/bort.png'
+        }),
         getSlack: function () {
             const rtm = new client_1.RtmClient(env_1.env.SLACK_TOKEN, {
                 dataStore: new client_1.MemoryDataStore(),

@@ -15,8 +15,6 @@ const argv = minimist(process.argv.slice(2))
 import { pingserver } from './components/pingserver'
 pingserver(env.OPENSHIFT_NODEJS_PORT, env.OPENSHIFT_NODEJS_IP)
 
-console.log(env.OPENSHIFT_APP_DNS)
-
 const store = makeStore()
 
 /////////////
@@ -36,7 +34,7 @@ store.subscribe(() => {
 })
 /////////////
 
-
+const botName : string = argv['name'] || 'bort'
 
 if(argv['test']) {
   const rl = readline.createInterface({
@@ -51,16 +49,21 @@ if(argv['test']) {
     })
     // .catch(reason => console.log(`Uhhh... ${reason}`))
 
-  const testBot = makeMessageHandler(store, 'bort', false)
+  const testBot = makeMessageHandler(store, botName, false)
 
   rl.on('line', (input : string) => simulate(testBot, input))
 }
 else {
   //tslint:disable:no-invalid-this
   const bot = new SlackBot({
-    name: 'bort',
+    name: botName,
     // Override the message posting options so that we simply post as our bot user
-    postMessageOptions: (text : string) => ({ as_user: true, text }),
+    postMessageOptions: (text : string) => ({
+      text,
+      as_user: false,
+      username: botName,
+      icon_url: 'http://' + env.OPENSHIFT_APP_DNS + '/bort.png'
+    }),
     getSlack: function(this : SlackBot) {
       const rtm = new RtmClient(env.SLACK_TOKEN, {
         dataStore: new MemoryDataStore(),

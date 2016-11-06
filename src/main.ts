@@ -62,7 +62,9 @@ else {
       text,
       as_user: false,
       username: botName,
-      icon_url: 'http://' + env.OPENSHIFT_APP_DNS + '/bort.png'
+      icon_url: 'http://' + env.OPENSHIFT_APP_DNS + '/bort.png',
+      unfurl_links: true,
+      unfurl_media: true
     }),
     getSlack: function(this : SlackBot) {
       const rtm = new RtmClient(env.SLACK_TOKEN, {

@@ -4,6 +4,7 @@ import { AdjustedArgs } from './AdjustedArgs'
 
 import buseyCommand from './busey'
 import uptimeCommand from './uptime'
+import imagesCommand from './images'
 
 import { getSentence } from '../components/markov'
 import {
@@ -23,12 +24,13 @@ import { BortStore } from '../store/store'
 
 
 const subCommands = [
-    conceptAddCommand,
-    conceptRemoveCommand,
-    conceptListCommand,
-    buseyCommand,
-    uptimeCommand
-  ]
+  conceptAddCommand,
+  conceptRemoveCommand,
+  conceptListCommand,
+  buseyCommand,
+  imagesCommand,
+  uptimeCommand
+]
 
 const helpCommand = createCommand(
   {

@@ -1,7 +1,4 @@
-- FIX DMs / SELF-REPLIES
-    - probably need to post as bot!
-    - need to provide image(s) (serve with express?)
-
+- serve page!
 
 - concept regex doesn't seem to work
 
@@ -11,3 +8,4 @@
 
 - delete or encrypt markov memory? LRU cache?
 
+- multiple bot icons?

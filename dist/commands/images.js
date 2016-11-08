@@ -7,7 +7,10 @@ exports.default = chatter_1.createCommand({
     aliases: [`what's a`, `what's`, `who's`],
     description: 'i will show you'
 }, (message) => new Promise((resolve, reject) => {
-    imageSearch(message, (error, results) => {
+    imageSearch({
+        searchTerm: message,
+        queryStringAddition: '&nfpr=1' //exact search, don't correct typos
+    }, (error, results) => {
         if (error != null) {
             return reject(error);
         }

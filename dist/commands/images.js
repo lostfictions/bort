@@ -4,7 +4,7 @@ const imageSearch = require('g-i-s');
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = chatter_1.createCommand({
     name: 'image',
-    aliases: [`what's a`, `what's`, `who's`],
+    aliases: [`what's a`, `what's`, `who's`, 'show me'],
     description: 'i will show you'
 }, (message) => new Promise((resolve, reject) => {
     imageSearch({

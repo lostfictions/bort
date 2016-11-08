@@ -10,7 +10,7 @@ type imageSearchResult = {
 export default createCommand(
   {
     name: 'image',
-    aliases: [`what's a`, `what's`, `who's`],
+    aliases: [`what's a`, `what's`, `who's`, 'show me'],
     description: 'i will show you'
   },
   (message : string) => new Promise((resolve, reject) => {

@@ -5,6 +5,7 @@ import { AdjustedArgs } from './AdjustedArgs'
 import buseyCommand from './busey'
 import uptimeCommand from './uptime'
 import imagesCommand from './images'
+import gifsCommand from './gifs'
 
 import { getSentence } from '../components/markov'
 import {
@@ -29,6 +30,7 @@ const subCommands = [
   conceptListCommand,
   buseyCommand,
   imagesCommand,
+  gifsCommand,
   uptimeCommand
 ]
 

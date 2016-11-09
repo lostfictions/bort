@@ -13,21 +13,27 @@ export default createCommand(
     aliases: [`what's a`, `what's`, `who's`, 'show me'],
     description: 'i will show you'
   },
-  (message : string) => new Promise((resolve, reject) => {
-    imageSearch(
-      {
-        searchTerm: message,
-        queryStringAddition: '&nfpr=1' //exact search, don't correct typos
-      },
-      (error : string, results : imageSearchResult[]) => {
-        if(error != null) {
-          return reject(error)
+  (message : string) : Promise<any> | false => {
+    if(message.length === 0) {
+      return false
+    }
+
+    return new Promise((resolve, reject) => {
+      imageSearch(
+        {
+          searchTerm: message,
+          queryStringAddition: '&nfpr=1' //exact search, don't correct typos
+        },
+        (error : string, results : imageSearchResult[]) => {
+          if(error != null) {
+            return reject(error)
+          }
+          if(results.length === 0 || results[0].url.length === 0) {
+            return reject('Invalid search result!')
+          }
+          resolve(results[0].url)
         }
-        if(results.length === 0 || results[0].url.length === 0) {
-          return reject('Invalid search result!')
-        }
-        resolve(results[0].url)
-      }
-    )
-  })
+      )
+    })
+  }
 )

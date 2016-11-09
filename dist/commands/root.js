@@ -3,6 +3,7 @@ const chatter_1 = require('chatter');
 const busey_1 = require('./busey');
 const uptime_1 = require('./uptime');
 const images_1 = require('./images');
+const gifs_1 = require('./gifs');
 const markov_1 = require('../components/markov');
 const concepts_1 = require('./concepts');
 const trace_1 = require('../components/trace');
@@ -13,6 +14,7 @@ const subCommands = [
     concepts_1.conceptListCommand,
     busey_1.default,
     images_1.default,
+    gifs_1.default,
     uptime_1.default
 ];
 const helpCommand = chatter_1.createCommand({

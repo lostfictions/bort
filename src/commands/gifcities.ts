@@ -15,8 +15,8 @@ interface GifResult {
 
 export default createCommand(
   {
-    name: 'gifsearch',
-    aliases: ['gif me the', 'gif me a', 'gif me', 'gif'],
+    name: 'gifcities',
+    aliases: ['geocities'],
     description: 'geocities classix'
   },
   (message : string) : Promise<string> | false => {

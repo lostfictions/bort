@@ -1,3 +1,5 @@
+- re-add rhyming
+
 - serve page!
 
 - concept regex doesn't seem to work

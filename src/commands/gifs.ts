@@ -28,7 +28,7 @@ export default createCommand(
       query: { q: message, limit: 5 },
       timeout: 5000
     })
-    .then((res : any) => randomInArray(
+    .then(res => randomInArray<string>(
       JSON.parse(res.body).map((g : GifResult) => 'https://web.archive.org/web/' + g.gif))
     )}
 )

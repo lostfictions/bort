@@ -15,6 +15,7 @@
 	},
   "include": [
     "./defs/**/*",
+    "./typings/index.d.ts",
     "./src/main.ts"
   ]
 }

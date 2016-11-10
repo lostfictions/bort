@@ -14,9 +14,9 @@
   "dependencies": {
     "@slack/client": "^3.6.0",
     "chatter": "^0.5.1",
+    "cheerio": "^0.22.0",
     "envalid": "^2.4.0",
     "express": "^4.14.0",
-    "g-i-s": "^2.0.0",
     "got": "^6.6.3",
     "immutable": "^3.8.1",
     "minimist": "^1.2.0",
@@ -28,6 +28,7 @@
     "syllable": "^0.1.4"
   },
   "devDependencies": {
+    "@types/cheerio": "^0.17.31",
     "@types/express": "^4.0.33",
     "@types/express-serve-static-core": "^4.0.39",
     "@types/minimist": "^1.1.29",

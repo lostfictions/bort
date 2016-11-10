@@ -15,5 +15,5 @@ exports.default = chatter_1.createCommand({
         query: { q: message, limit: 5 },
         timeout: 5000
     })
-        .then((res) => util_1.randomInArray(JSON.parse(res.body).map((g) => 'https://web.archive.org/web/' + g.gif)));
+        .then(res => util_1.randomInArray(JSON.parse(res.body).map((g) => 'https://web.archive.org/web/' + g.gif)));
 });

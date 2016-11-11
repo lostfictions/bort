@@ -3,10 +3,18 @@ import * as fs from 'fs'
 import * as path from 'path'
 import * as Jimp from 'jimp'
 
-import { randomInArray } from '../util/util'
+import { AdjustedArgs } from './AdjustedArgs'
+import { randomInArray, randomInRange } from '../util/util'
 import { env } from '../env'
 
-const imgDir = path.join(__dirname, '../../data/heathcliff')
+const outputDirname = 'cliffs'
+const outDir = path.join(__dirname, '../../static/', outputDirname)
+if(!fs.existsSync(outDir)) {
+  console.log(outDir + ' not found! creating.')
+  fs.mkdirSync(outDir)
+}
+
+const imgDir = path.join(env.OPENSHIFT_DATA_DIR, 'heathcliff')
 
 const filenames = fs.readdirSync(imgDir)
 
@@ -29,7 +37,7 @@ export default createCommand(
     aliases: [`cliff me`, `bortcliff`, `borthcliff`],
     description: 'cliff composition'
   },
-  () : Promise<string> => new Promise<string>((resolve, reject) => {
+  (_ : string, { store } : AdjustedArgs) : Promise<string> => new Promise<string>((resolve, reject) => {
     load(filenames)
       .then(([i, nextFiles]) => {
         load(nextFiles).then(([j]) => {
@@ -38,14 +46,17 @@ export default createCommand(
 
           i.blit(j, 0, i.bitmap.height * 0.9, 0, j.bitmap.height * 0.9, j.bitmap.width, j.bitmap.height * 0.1)
 
+          const nouns = store.getState().get('concepts').get('noun')
+          const newFilename = [randomInRange(nouns), randomInRange(nouns), randomInRange(nouns)].join('-')
+
           i.write(
-            path.join(__dirname, '../../static/composite.jpg'),
-            (e : any) => {
+            path.join(outDir, newFilename + '.jpg'),
+            e => {
               if(e) {
                 reject(e)
               }
               else {
-                resolve('http://' + env.OPENSHIFT_APP_DNS + '/composite.jpg')
+                resolve('http://' + env.OPENSHIFT_APP_DNS + `/${outputDirname}/${newFilename}.jpg`)
               }
             })
         })

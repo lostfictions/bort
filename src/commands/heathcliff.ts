@@ -34,7 +34,7 @@ async function load(files : string[]) : Promise<[Jimp, string[]]> {
 export default createCommand(
   {
     name: 'heathcliff',
-    aliases: [`cliff me`, `bortcliff`, `borthcliff`],
+    aliases: [`cliff me`, `bortcliff`, `borthcliff`, `heath me`],
     description: 'cliff composition'
   },
   (_ : string, { store } : AdjustedArgs) : Promise<string> => new Promise<string>((resolve, reject) => {

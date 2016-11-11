@@ -4,8 +4,9 @@ const busey_1 = require('./busey');
 const uptime_1 = require('./uptime');
 const images_1 = require('./images');
 const gifcities_1 = require('./gifcities');
-const markov_1 = require('../components/markov');
+const heathcliff_1 = require('./heathcliff');
 const concepts_1 = require('./concepts');
+const markov_1 = require('../components/markov');
 const trace_1 = require('../components/trace');
 const markov_2 = require('../actions/markov');
 const subCommands = [
@@ -13,6 +14,7 @@ const subCommands = [
     concepts_1.conceptRemoveCommand,
     concepts_1.conceptListCommand,
     busey_1.default,
+    heathcliff_1.default,
     images_1.imageSearchCommand,
     images_1.gifSearchCommand,
     gifcities_1.default,

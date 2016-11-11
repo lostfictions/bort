@@ -8,10 +8,9 @@ import {
   imageSearchCommand,
   gifSearchCommand
 } from './images'
-
 import gifcitiesCommand from './gifcities'
+import heathcliffCommand from './heathcliff'
 
-import { getSentence } from '../components/markov'
 import {
   conceptAddCommand,
   conceptRemoveCommand,
@@ -19,6 +18,7 @@ import {
   conceptMatcher
 } from './concepts'
 
+import { getSentence } from '../components/markov'
 import trace, { matcher as traceMatcher } from '../components/trace'
 
 import { addSentenceAction } from '../actions/markov'
@@ -33,6 +33,7 @@ const subCommands = [
   conceptRemoveCommand,
   conceptListCommand,
   buseyCommand,
+  heathcliffCommand,
   imageSearchCommand,
   gifSearchCommand,
   gifcitiesCommand,

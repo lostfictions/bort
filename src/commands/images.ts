@@ -6,19 +6,18 @@ import { randomInArray } from '../util/util'
 
 // based on https://github.com/jimkang/g-i-s/blob/master/index.js
 
-const makeSearch = (animated : boolean) => (term : string) => got('http://images.google.com/search', {
+const requestAndParse = (term : string, animated : boolean, exact : boolean) => got('http://images.google.com/search', {
   query: {
     q: term,
     tbm: 'isch', // perform an image search
-    nfpr: 1, //exact search, don't correct typos
+    nfpr: exact ? 1 : 0, //exact search, don't correct typos
     tbs: animated ? 'itp:animated' : undefined
   },
   timeout: 5000,
   headers: {
     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.86 Safari/537.36'
   }
-})
-.then(res => {
+}).then(res => {
   const $ = cheerio.load(res.body)
   const metaLinks = $('.rg_meta')
   const urls : string[] = []
@@ -31,10 +30,23 @@ const makeSearch = (animated : boolean) => (term : string) => got('http://images
       // Elements without metadata.ou are subcategory headings in the results page.
     }
   })
-  return randomInArray(urls.slice(0, 5))
+  return urls
 })
 
-const imageSearch = makeSearch(false)
+const search = (term : string, animated = false) => requestAndParse(term, animated, true).then(res => {
+  if(res.length === 0) {
+    //if no results, try an inexact search
+    return requestAndParse(term, animated, false)
+  }
+  return res
+}).then(res => {
+  if(res.length === 0) {
+    //if no results, try an inexact search
+    return 'nothing :('
+  }
+  return randomInArray(res.slice(0, 5))
+})
+
 export const imageSearchCommand = createCommand(
   {
     name: 'image',
@@ -45,12 +57,10 @@ export const imageSearchCommand = createCommand(
     if(message.length === 0) {
       return false
     }
-    return imageSearch(message)
+    return search(message)
   }
 )
 
-
-const gifSearch = makeSearch(true)
 export const gifSearchCommand = createCommand(
   {
     name: 'gifsearch',
@@ -61,6 +71,6 @@ export const gifSearchCommand = createCommand(
     if(message.length === 0) {
       return false
     }
-    return gifSearch(message)
+    return search(message, true)
   }
 )

@@ -44,7 +44,7 @@ const search = (term, animated = false) => requestAndParse(term, animated, true)
 });
 exports.imageSearchCommand = chatter_1.createCommand({
     name: 'image',
-    aliases: [`what's a`, `what's`, `who's`, 'show me'],
+    aliases: [`what's`, `who's`, `what is`, `who is`, `show me`],
     description: 'i will show you'
 }, (message) => {
     if (message.length === 0) {

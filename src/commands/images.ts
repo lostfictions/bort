@@ -50,7 +50,7 @@ const search = (term : string, animated = false) => requestAndParse(term, animat
 export const imageSearchCommand = createCommand(
   {
     name: 'image',
-    aliases: [`what's a`, `what's`, `who's`, 'show me'],
+    aliases: [`what's`, `who's`, `what is`, `who is`, `show me`],
     description: 'i will show you'
   },
   (message : string) : Promise<string> | false => {

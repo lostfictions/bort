@@ -36,7 +36,7 @@ function load(files) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = chatter_1.createCommand({
     name: 'heathcliff',
-    aliases: [`cliff me`, `bortcliff`, `borthcliff`, `heath me`],
+    aliases: [`cliff`, `heath`, `bortcliff`, `borthcliff`],
     description: 'cliff composition'
 }, (_, { store }) => new Promise((resolve, reject) => {
     load(filenames)

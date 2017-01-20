@@ -19,5 +19,6 @@ export default createCommand(
       timeout: 5000
     })
     .then(res => JSON.parse(res.body)[1].join('\n'))
+    .catch(reason => console.log(`can't return completion: '${reason}'`))
   }
 )

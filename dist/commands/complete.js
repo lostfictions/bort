@@ -14,5 +14,6 @@ exports.default = chatter_1.createCommand({
         query: { q: message, client: 'firefox' },
         timeout: 5000
     })
-        .then(res => JSON.parse(res.body)[1].join('\n'));
+        .then(res => JSON.parse(res.body)[1].join('\n'))
+        .catch(reason => console.log(`can't return completion: '${reason}'`));
 });

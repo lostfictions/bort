@@ -1,6 +1,6 @@
 "use strict";
-const markov_1 = require('../actions/markov');
-const immutable_1 = require('immutable');
+const markov_1 = require("../actions/markov");
+const immutable_1 = require("immutable");
 const sentenceSplitter = /(?:\.|\?|\n)/ig;
 const wordNormalizer = (word) => word.toLowerCase();
 const wordFilter = (word) => word.length > 0 && !word.startsWith('<');

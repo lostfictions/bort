@@ -1,6 +1,6 @@
 "use strict";
-const immutable_1 = require('immutable');
-const concept_1 = require('../actions/concept');
+const immutable_1 = require("immutable");
+const concept_1 = require("../actions/concept");
 exports.conceptReducers = (state = immutable_1.Map(), action) => {
     if (concept_1.isAddConceptAction(action)) {
         return state.set(action.conceptName, immutable_1.List([]));

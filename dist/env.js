@@ -1,5 +1,5 @@
 "use strict";
-const envalid = require('envalid');
+const envalid = require("envalid");
 exports.env = envalid.cleanEnv(process.env, {
     SLACK_TOKEN: envalid.str(),
     OPENSHIFT_APP_DNS: envalid.str({ default: 'localhost' }),

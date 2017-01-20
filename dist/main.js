@@ -1,20 +1,20 @@
 "use strict";
-const readline = require('readline');
-const os_1 = require('os');
-const client_1 = require('@slack/client');
-const chatter_1 = require('chatter');
-const store_1 = require('./store/store');
-const root_1 = require('./commands/root');
-const env_1 = require('./env');
-const minimist = require('minimist');
+const readline = require("readline");
+const os_1 = require("os");
+const client_1 = require("@slack/client");
+const chatter_1 = require("chatter");
+const store_1 = require("./store/store");
+const root_1 = require("./commands/root");
+const env_1 = require("./env");
+const minimist = require("minimist");
 const argv = minimist(process.argv.slice(2));
-const pingserver_1 = require('./components/pingserver');
+const pingserver_1 = require("./components/pingserver");
 pingserver_1.pingserver(env_1.env.OPENSHIFT_NODEJS_PORT, env_1.env.OPENSHIFT_NODEJS_IP);
 const store = store_1.makeStore();
 /////////////
 // Serialize on all state changes!
-const path = require('path');
-const fs = require('fs');
+const path = require("path");
+const fs = require("fs");
 store.subscribe(() => {
     const p = path.join(env_1.env.OPENSHIFT_DATA_DIR, 'state.json');
     fs.writeFile(p, JSON.stringify(store.getState()), (e) => {

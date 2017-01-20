@@ -1,8 +1,8 @@
 "use strict";
-const chatter_1 = require('chatter');
-const got = require('got');
-const cheerio = require('cheerio');
-const util_1 = require('../util/util');
+const chatter_1 = require("chatter");
+const got = require("got");
+const cheerio = require("cheerio");
+const util_1 = require("../util/util");
 // based on https://github.com/jimkang/g-i-s/blob/master/index.js
 const requestAndParse = (term, animated, exact) => got('http://images.google.com/search', {
     query: {

@@ -1,5 +1,5 @@
 "use strict";
-const util_1 = require('../util/util');
+const util_1 = require("../util/util");
 exports.matcher = /\[([^\[\]]+)\]/g;
 function trace(concepts, concept, maxCycles = 10, seen = {}) {
     if (!concepts.has(concept)) {

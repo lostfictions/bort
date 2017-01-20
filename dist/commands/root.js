@@ -1,14 +1,15 @@
 "use strict";
-const chatter_1 = require('chatter');
-const busey_1 = require('./busey');
-const uptime_1 = require('./uptime');
-const images_1 = require('./images');
-const gifcities_1 = require('./gifcities');
-const heathcliff_1 = require('./heathcliff');
-const concepts_1 = require('./concepts');
-const markov_1 = require('../components/markov');
-const trace_1 = require('../components/trace');
-const markov_2 = require('../actions/markov');
+const chatter_1 = require("chatter");
+const busey_1 = require("./busey");
+const uptime_1 = require("./uptime");
+const images_1 = require("./images");
+const gifcities_1 = require("./gifcities");
+const complete_1 = require("./complete");
+const heathcliff_1 = require("./heathcliff");
+const concepts_1 = require("./concepts");
+const markov_1 = require("../components/markov");
+const trace_1 = require("../components/trace");
+const markov_2 = require("../actions/markov");
 const subCommands = [
     concepts_1.conceptAddCommand,
     concepts_1.conceptRemoveCommand,
@@ -18,6 +19,7 @@ const subCommands = [
     images_1.imageSearchCommand,
     images_1.gifSearchCommand,
     gifcities_1.default,
+    complete_1.default,
     uptime_1.default
 ];
 const helpCommand = chatter_1.createCommand({
@@ -39,7 +41,7 @@ const makeRootCommand = ({ store, name }) => chatter_1.createArgsAdjuster({
     concepts_1.conceptMatcher,
     helpCommand,
     // If we match nothing, check if we can trace! if not, just return a markov sentence
-        (message, { store }) => {
+    (message, { store }) => {
         const state = store.getState();
         const wb = state.get('wordBank');
         if (message.length > 0) {
@@ -93,7 +95,7 @@ exports.default = (store, name, isDM) => {
         }, rootCommand),
         handleDirectConcepts,
         // If we didn't match anything, add to our markov chain.
-            (message) => {
+        (message) => {
             if (message.length > 0 && message.split(' ').length > 1) {
                 store.dispatch(markov_2.addSentenceAction(message));
             }

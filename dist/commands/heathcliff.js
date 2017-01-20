@@ -2,17 +2,17 @@
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator.throw(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
         function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments)).next());
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-const chatter_1 = require('chatter');
-const fs = require('fs');
-const path = require('path');
-const Jimp = require('jimp');
-const util_1 = require('../util/util');
-const env_1 = require('../env');
+const chatter_1 = require("chatter");
+const fs = require("fs");
+const path = require("path");
+const Jimp = require("jimp");
+const util_1 = require("../util/util");
+const env_1 = require("../env");
 const outputDirname = 'cliffs';
 const outDir = path.join(__dirname, '../../static/', outputDirname);
 if (!fs.existsSync(outDir)) {

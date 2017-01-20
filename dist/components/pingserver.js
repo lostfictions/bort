@@ -1,6 +1,6 @@
 "use strict";
-const express = require('express');
-const path = require('path');
+const express = require("express");
+const path = require("path");
 //Open a responder we can ping (via uptimerobot.com or similar) so the OpenShift app doesn't idle
 function pingserver(port, host) {
     const app = express();

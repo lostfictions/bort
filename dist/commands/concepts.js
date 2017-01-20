@@ -1,6 +1,6 @@
 "use strict";
-const chatter_1 = require('chatter');
-const concept_1 = require('../actions/concept');
+const chatter_1 = require("chatter");
+const concept_1 = require("../actions/concept");
 // Match two groups:
 // 1: a bracket-delimited term of any length
 // 2: the rest of the message if there is any, ignoring any preceding whitespace

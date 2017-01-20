@@ -9,6 +9,7 @@ import {
   gifSearchCommand
 } from './images'
 import gifcitiesCommand from './gifcities'
+import completeCommand from './complete'
 import heathcliffCommand from './heathcliff'
 
 import {
@@ -37,6 +38,7 @@ const subCommands = [
   imageSearchCommand,
   gifSearchCommand,
   gifcitiesCommand,
+  completeCommand,
   uptimeCommand
 ]
 

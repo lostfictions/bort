@@ -1,14 +1,14 @@
 "use strict";
-const fs = require('fs');
-const path = require('path');
-const redux_1 = require('redux');
-const redux_immutable_1 = require('redux-immutable');
-const immutable_1 = require('immutable');
-const env_1 = require('../env');
-const markov_1 = require('../reducers/markov');
-const concepts_1 = require('../reducers/concepts');
-const markov_2 = require('../actions/markov');
-const assert = require('assert');
+const fs = require("fs");
+const path = require("path");
+const redux_1 = require("redux");
+const redux_immutable_1 = require("redux-immutable");
+const immutable_1 = require("immutable");
+const env_1 = require("../env");
+const markov_1 = require("../reducers/markov");
+const concepts_1 = require("../reducers/concepts");
+const markov_2 = require("../actions/markov");
+const assert = require("assert");
 const rootReducer = redux_immutable_1.combineReducers({
     wordBank: markov_1.markovReducers,
     concepts: concepts_1.conceptReducers

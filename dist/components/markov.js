@@ -1,5 +1,5 @@
 "use strict";
-const util_1 = require('../util/util');
+const util_1 = require("../util/util");
 const prepositions = [
     'until', 'onto', 'of', 'into', 'out', 'except',
     'across', 'by', 'between', 'at', 'down', 'as', 'from', 'around', 'with',
@@ -19,7 +19,8 @@ const determiners = [
 const conjunctions = [
     'yet', 'therefore', 'or', 'while', 'nor', 'whether',
     'though', 'because', 'cuz', 'but', 'for', 'and', 'however', 'before',
-    'although', 'how', 'plus', 'versus', 'not'];
+    'although', 'how', 'plus', 'versus', 'not'
+];
 const misc = [
     'if', 'unless', 'otherwise'
 ];

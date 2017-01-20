@@ -1,7 +1,7 @@
 "use strict";
-const os_1 = require('os');
-const moment = require('moment');
-const chatter_1 = require('chatter');
+const os_1 = require("os");
+const moment = require("moment");
+const chatter_1 = require("chatter");
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = chatter_1.createCommand({
     name: 'uptime',

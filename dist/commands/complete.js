@@ -1,7 +1,6 @@
 "use strict";
 const chatter_1 = require("chatter");
 const got = require("got");
-const util_1 = require("../util/util");
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = chatter_1.createCommand({
     name: 'complete',
@@ -15,5 +14,5 @@ exports.default = chatter_1.createCommand({
         query: { q: message, client: 'firefox' },
         timeout: 5000
     })
-        .then(res => util_1.randomInArray(JSON.parse(res.body)[1]));
+        .then(res => JSON.parse(res.body)[1].join('\n'));
 });

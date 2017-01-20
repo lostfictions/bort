@@ -18,6 +18,6 @@ export default createCommand(
       query: { q: message, client: 'firefox' },
       timeout: 5000
     })
-    .then(res => randomInArray<string>(JSON.parse(res.body)[1]))
+    .then(res => JSON.parse(res.body)[1].join('\n'))
   }
 )

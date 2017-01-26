@@ -114,6 +114,7 @@ else {
 
   const slBot = new Bot({
     createMessageHandler: function(id : any, meta : any) : any {
+      console.log(`new message handler: ${meta.channel.name} -> ${meta.channel.type}`)
       return makeMessageHandler(bpfStore, botName, meta.channel.type === 'dm')
     },
     getMessageHandlerArgs: function(this : Bot, message : DiscordMessage) : any {
@@ -136,15 +137,19 @@ else {
         message,
         user
       }
+
+      console.log(`here's your args: ${message.content}`)
       return {
         text: message.content,
         args: [meta]
       }
     },
     getMessageHandlerCacheId : function(meta : { message : DiscordMessage }) {
+      console.log(`getting handler for ${meta.message.channel.id}`)
       return meta.message.channel.id
     },
     sendResponse : function(message : DiscordMessage, text : string) {
+      console.log(`replying to message ${message.id} with "${text}"`)
       message.reply(text)
     }
 

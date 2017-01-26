@@ -96,6 +96,7 @@ else {
     const slClient = new discord_js_1.Client();
     const slBot = new chatter_1.Bot({
         createMessageHandler: function (id, meta) {
+            console.log(`new message handler: ${meta.channel.name} -> ${meta.channel.type}`);
             return root_1.default(bpfStore, botName, meta.channel.type === 'dm');
         },
         getMessageHandlerArgs: function (message) {
@@ -118,15 +119,18 @@ else {
                 message,
                 user
             };
+            console.log(`here's your args: ${message.content}`);
             return {
                 text: message.content,
                 args: [meta]
             };
         },
         getMessageHandlerCacheId: function (meta) {
+            console.log(`getting handler for ${meta.message.channel.id}`);
             return meta.message.channel.id;
         },
         sendResponse: function (message, text) {
+            console.log(`replying to message ${message.id} with "${text}"`);
             message.reply(text);
         }
     });

@@ -13,10 +13,10 @@ const rootReducer = redux_immutable_1.combineReducers({
     wordBank: markov_1.markovReducers,
     concepts: concepts_1.conceptReducers
 });
-function makeStore() {
+function makeStore(filename = 'state') {
     let initialState;
     try {
-        const p = path.join(env_1.env.OPENSHIFT_DATA_DIR, 'state.json');
+        const p = path.join(env_1.env.OPENSHIFT_DATA_DIR, filename + '.json');
         const d = fs.readFileSync(p).toString();
         const json = JSON.parse(d);
         // Basic sanity check on shape returned
@@ -55,6 +55,7 @@ function getInitialConcepts() {
     cb['digit'] = corpora.digit;
     cb['consonant'] = corpora.consonant;
     cb['vowel'] = corpora.vowel;
+    cb['verb'] = corpora.verb.map((v) => v.present);
     assert(Array.isArray(cb['punc']));
     assert(Array.isArray(cb['interjection']));
     assert(Array.isArray(cb['adj']));
@@ -62,8 +63,9 @@ function getInitialConcepts() {
     assert(Array.isArray(cb['digit']));
     assert(Array.isArray(cb['consonant']));
     assert(Array.isArray(cb['vowel']));
-    cb['vidnite'] = require('../../data/watched.json').singular;
-    assert(Array.isArray(cb['vidnite']));
-    cb['!vidrand'] = fs.readFileSync('data/letterboxd_watchlist_scraped.txt').toString().split('\n');
+    assert(Array.isArray(cb['verb']));
+    // cb['vidnite'] = require('../../data/watched.json').singular
+    // assert(Array.isArray(cb['vidnite']))
+    // cb['!vidrand'] = fs.readFileSync('data/letterboxd_watchlist_scraped.txt').toString().split('\n')
     return immutable_1.fromJS(cb);
 }

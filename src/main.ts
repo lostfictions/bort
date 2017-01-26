@@ -2,7 +2,9 @@ import * as readline from 'readline'
 import { hostname } from 'os'
 
 import { RtmClient, WebClient, MemoryDataStore } from '@slack/client'
-import { SlackBot, processMessage, normalizeMessage } from 'chatter'
+import { Client as DiscordClient, Message as DiscordMessage } from 'discord.js'
+
+import { Bot, SlackBot, processMessage, normalizeMessage } from 'chatter'
 
 import { makeStore } from './store/store'
 
@@ -15,15 +17,28 @@ const argv = minimist(process.argv.slice(2))
 import { pingserver } from './components/pingserver'
 pingserver(env.OPENSHIFT_NODEJS_PORT, env.OPENSHIFT_NODEJS_IP)
 
-const store = makeStore()
+const bpfStore = makeStore('bpf')
+const slStore = makeStore('sl')
 
 /////////////
 // Serialize on all state changes!
 import * as path from 'path'
 import * as fs from 'fs'
-store.subscribe(() => {
-  const p = path.join(env.OPENSHIFT_DATA_DIR, 'state.json')
-  fs.writeFile(p, JSON.stringify(store.getState()), (e) => {
+bpfStore.subscribe(() => {
+  const p = path.join(env.OPENSHIFT_DATA_DIR, 'bpf.json')
+  fs.writeFile(p, JSON.stringify(bpfStore.getState()), (e) => {
+    if(e) {
+      console.error(`Couldn't write state to ${ p }: [${ e }]`)
+    }
+    else {
+      console.log(`Wrote state to '${ p }'!`)
+    }
+  })
+})
+
+slStore.subscribe(() => {
+  const p = path.join(env.OPENSHIFT_DATA_DIR, 'sl.json')
+  fs.writeFile(p, JSON.stringify(slStore.getState()), (e) => {
     if(e) {
       console.error(`Couldn't write state to ${ p }: [${ e }]`)
     }
@@ -49,13 +64,13 @@ if(argv['test']) {
     })
     // .catch(reason => console.log(`Uhhh... ${reason}`))
 
-  const testBot = makeMessageHandler(store, botName, false)
+  const testBot = makeMessageHandler(bpfStore, botName, false)
 
   rl.on('line', (input : string) => simulate(testBot, input))
 }
 else {
   //tslint:disable:no-invalid-this
-  const bot = new SlackBot({
+  const bpfBot = new SlackBot({
     name: botName,
     // Override the message posting options so that we simply post as our bot user
     postMessageOptions: (text : string) => ({
@@ -88,10 +103,52 @@ else {
       }
     },
     createMessageHandler: function(this : SlackBot, id : any, meta : any) : any {
-      return makeMessageHandler(store, this.name, meta.channel.is_im)
+      return makeMessageHandler(bpfStore, this.name, meta.channel.is_im)
     }
   })
   //tslint:enable:no-invalid-this
 
-  bot.login()
+  bpfBot.login()
+
+  const slClient = new DiscordClient()
+
+  const slBot = new Bot({
+    createMessageHandler: function(id : any, meta : any) : any {
+      return makeMessageHandler(bpfStore, botName, meta.channel.type === 'dm')
+    },
+    getMessageHandlerArgs: function(this : Bot, message : DiscordMessage) : any {
+      if(message.author.bot) {
+        return false
+      }
+      // Ignore non-message messages.
+      if(message.type !== 'message') {
+        console.log(`Ignoring message type "${message.type}"`)
+        return false
+      }
+      // Ignore any message with attachments.
+      if(message.attachments) {
+        return false
+      }
+      const user = message.author
+      const meta = {
+        bot: this,
+        client: slClient,
+        message,
+        user
+      }
+      return {
+        text: message.content,
+        args: [meta]
+      }
+    },
+    getMessageHandlerCacheId : function(meta : { message : DiscordMessage }) {
+      return meta.message.channel.id
+    },
+    sendResponse : function(message : DiscordMessage, text : string) {
+      message.reply(text)
+    }
+
+  })
+  slClient.on('message', slBot.onMessage.bind(slBot))
+  slClient.login(env.DISCORD_TOKEN)
 }

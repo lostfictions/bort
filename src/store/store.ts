@@ -20,15 +20,15 @@ export interface BortStore extends Map<string, any> {
   get(key : 'concepts') : ConceptBank
 }
 
-const rootReducer = combineReducers({
+const rootReducer = combineReducers<BortStore>({
   wordBank: markovReducers,
   concepts: conceptReducers
 })
 
-export function makeStore() : Store<BortStore> {
+export function makeStore(filename : string = 'state') : Store<BortStore> {
   let initialState : BortStore
   try {
-    const p = path.join(env.OPENSHIFT_DATA_DIR, 'state.json')
+    const p = path.join(env.OPENSHIFT_DATA_DIR, filename + '.json')
     const d = fs.readFileSync(p).toString()
     const json = JSON.parse(d)
 
@@ -76,6 +76,7 @@ function getInitialConcepts() : ConceptBank {
   cb['digit'] = corpora.digit
   cb['consonant'] = corpora.consonant
   cb['vowel'] = corpora.vowel
+  cb['verb'] = corpora.verb.map((v : { present : string, past : string}) => v.present)
 
   assert(Array.isArray(cb['punc']))
   assert(Array.isArray(cb['interjection']))
@@ -84,11 +85,12 @@ function getInitialConcepts() : ConceptBank {
   assert(Array.isArray(cb['digit']))
   assert(Array.isArray(cb['consonant']))
   assert(Array.isArray(cb['vowel']))
+  assert(Array.isArray(cb['verb']))
 
-  cb['vidnite'] = require('../../data/watched.json').singular
-  assert(Array.isArray(cb['vidnite']))
+  // cb['vidnite'] = require('../../data/watched.json').singular
+  // assert(Array.isArray(cb['vidnite']))
 
-  cb['!vidrand'] = fs.readFileSync('data/letterboxd_watchlist_scraped.txt').toString().split('\n')
+  // cb['!vidrand'] = fs.readFileSync('data/letterboxd_watchlist_scraped.txt').toString().split('\n')
 
   return fromJS(cb) as ConceptBank
 }

@@ -2,6 +2,7 @@
 const readline = require("readline");
 const os_1 = require("os");
 const client_1 = require("@slack/client");
+const discord_js_1 = require("discord.js");
 const chatter_1 = require("chatter");
 const store_1 = require("./store/store");
 const root_1 = require("./commands/root");
@@ -10,14 +11,26 @@ const minimist = require("minimist");
 const argv = minimist(process.argv.slice(2));
 const pingserver_1 = require("./components/pingserver");
 pingserver_1.pingserver(env_1.env.OPENSHIFT_NODEJS_PORT, env_1.env.OPENSHIFT_NODEJS_IP);
-const store = store_1.makeStore();
+const bpfStore = store_1.makeStore('bpf');
+const slStore = store_1.makeStore('sl');
 /////////////
 // Serialize on all state changes!
 const path = require("path");
 const fs = require("fs");
-store.subscribe(() => {
-    const p = path.join(env_1.env.OPENSHIFT_DATA_DIR, 'state.json');
-    fs.writeFile(p, JSON.stringify(store.getState()), (e) => {
+bpfStore.subscribe(() => {
+    const p = path.join(env_1.env.OPENSHIFT_DATA_DIR, 'bpf.json');
+    fs.writeFile(p, JSON.stringify(bpfStore.getState()), (e) => {
+        if (e) {
+            console.error(`Couldn't write state to ${p}: [${e}]`);
+        }
+        else {
+            console.log(`Wrote state to '${p}'!`);
+        }
+    });
+});
+slStore.subscribe(() => {
+    const p = path.join(env_1.env.OPENSHIFT_DATA_DIR, 'sl.json');
+    fs.writeFile(p, JSON.stringify(slStore.getState()), (e) => {
         if (e) {
             console.error(`Couldn't write state to ${p}: [${e}]`);
         }
@@ -39,12 +52,12 @@ if (argv['test']) {
         console.log(text);
     });
     // .catch(reason => console.log(`Uhhh... ${reason}`))
-    const testBot = root_1.default(store, botName, false);
+    const testBot = root_1.default(bpfStore, botName, false);
     rl.on('line', (input) => simulate(testBot, input));
 }
 else {
     //tslint:disable:no-invalid-this
-    const bot = new chatter_1.SlackBot({
+    const bpfBot = new chatter_1.SlackBot({
         name: botName,
         // Override the message posting options so that we simply post as our bot user
         postMessageOptions: (text) => ({
@@ -75,9 +88,48 @@ else {
             };
         },
         createMessageHandler: function (id, meta) {
-            return root_1.default(store, this.name, meta.channel.is_im);
+            return root_1.default(bpfStore, this.name, meta.channel.is_im);
         }
     });
     //tslint:enable:no-invalid-this
-    bot.login();
+    bpfBot.login();
+    const slClient = new discord_js_1.Client();
+    const slBot = new chatter_1.Bot({
+        createMessageHandler: function (id, meta) {
+            return root_1.default(bpfStore, botName, meta.channel.type === 'dm');
+        },
+        getMessageHandlerArgs: function (message) {
+            if (message.author.bot) {
+                return false;
+            }
+            // Ignore non-message messages.
+            if (message.type !== 'message') {
+                console.log(`Ignoring message type "${message.type}"`);
+                return false;
+            }
+            // Ignore any message with attachments.
+            if (message.attachments) {
+                return false;
+            }
+            const user = message.author;
+            const meta = {
+                bot: this,
+                client: slClient,
+                message,
+                user
+            };
+            return {
+                text: message.content,
+                args: [meta]
+            };
+        },
+        getMessageHandlerCacheId: function (meta) {
+            return meta.message.channel.id;
+        },
+        sendResponse: function (message, text) {
+            message.reply(text);
+        }
+    });
+    slClient.on('message', slBot.onMessage.bind(slBot));
+    slClient.login(env_1.env.DISCORD_TOKEN);
 }

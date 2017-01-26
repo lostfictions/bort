@@ -121,7 +121,7 @@ else {
         return false
       }
       // Ignore non-message messages.
-      if(message.type !== 'message') {
+      if(message.type !== 'DEFAULT') {
         console.log(`Ignoring message type "${message.type}"`)
         return false
       }

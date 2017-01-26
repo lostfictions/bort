@@ -114,7 +114,7 @@ else {
 
   const slBot = new Bot({
     createMessageHandler: function(id : any, meta : any) : any {
-      return makeMessageHandler(bpfStore, botName, meta.message.channel.type === 'dm')
+      return makeMessageHandler(slStore, botName, meta.message.channel.type === 'dm')
     },
     getMessageHandlerArgs: function(this : Bot, message : DiscordMessage) : any {
       if(message.author.bot) {

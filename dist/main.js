@@ -96,7 +96,7 @@ else {
     const slClient = new discord_js_1.Client();
     const slBot = new chatter_1.Bot({
         createMessageHandler: function (id, meta) {
-            return root_1.default(bpfStore, botName, meta.message.channel.type === 'dm');
+            return root_1.default(slStore, botName, meta.message.channel.type === 'dm');
         },
         getMessageHandlerArgs: function (message) {
             if (message.author.bot) {

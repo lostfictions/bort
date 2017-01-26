@@ -149,6 +149,10 @@ else {
     }
 
   })
+  slClient.on('ready', () => {
+    const cs = slClient.channels.array()
+    cs.forEach(c => c.sendMessage && c.sendMessage(`${botName} (on \`${hostname()}\`)`))
+  })
   slClient.on('message', slBot.onMessage.bind(slBot))
   slClient.login(env.DISCORD_TOKEN)
 }

@@ -103,7 +103,7 @@ else {
                 return false;
             }
             // Ignore non-message messages.
-            if (message.type !== 'message') {
+            if (message.type !== 'DEFAULT') {
                 console.log(`Ignoring message type "${message.type}"`);
                 return false;
             }
@@ -129,6 +129,10 @@ else {
         sendResponse: function (message, text) {
             message.reply(text);
         }
+    });
+    slClient.on('ready', () => {
+        const cs = slClient.channels.array();
+        cs.forEach(c => c.sendMessage && c.sendMessage(`${botName} (on \`${os_1.hostname()}\`)`));
     });
     slClient.on('message', slBot.onMessage.bind(slBot));
     slClient.login(env_1.env.DISCORD_TOKEN);

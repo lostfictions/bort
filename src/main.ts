@@ -107,6 +107,9 @@ else {
       }
     },
     createMessageHandler: function(this : SlackBot, id : any, meta : any) : any {
+      // Slack only allows connecting to one instance per token, unlike Discord.
+      // We also generally want one store for the whole instance, so we're just
+      // hardcoding this value for now. TODO, i guess
       return makeMessageHandler(getStore('bpf'), this.name, meta.channel.is_im)
     }
   })
@@ -166,6 +169,7 @@ else {
 
   discordClient.on('ready', () => {
     console.log(`Connected to ${discordClient.guilds.array().map(g => g.name).join(', ')} as ${botName}`)
+    // Seems to spam channels much more often than the Slack api's onOpen, so let's disable it.
     // const cs = slClient.channels.array()
     // cs.forEach(c => c.sendMessage && c.sendMessage(`${botName} (on \`${hostname()}\`)`))
   })

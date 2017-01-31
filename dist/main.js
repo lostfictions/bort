@@ -94,6 +94,7 @@ else {
     //tslint:enable:no-invalid-this
     bpfBot.login();
     const slClient = new discord_js_1.Client();
+    //tslint:disable:no-invalid-this
     const slBot = new chatter_1.Bot({
         createMessageHandler: function (id, meta) {
             return root_1.default(slStore, botName, meta.message.channel.type === 'dm');
@@ -126,9 +127,11 @@ else {
             message.channel.sendMessage(text);
         }
     });
+    //tslint:enable:no-invalid-this
     slClient.on('ready', () => {
-        const cs = slClient.channels.array();
-        cs.forEach(c => c.sendMessage && c.sendMessage(`${botName} (on \`${os_1.hostname()}\`)`));
+        console.log(`Connected to ${slClient.guilds.array().map(g => g.name).join(', ')} as ${botName}`);
+        // const cs = slClient.channels.array()
+        // cs.forEach(c => c.sendMessage && c.sendMessage(`${botName} (on \`${hostname()}\`)`))
     });
     slClient.on('message', slBot.onMessage.bind(slBot));
     slClient.login(env_1.env.DISCORD_TOKEN);

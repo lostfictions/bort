@@ -112,6 +112,7 @@ else {
 
   const slClient = new DiscordClient()
 
+  //tslint:disable:no-invalid-this
   const slBot = new Bot({
     createMessageHandler: function(id : any, meta : any) : any {
       return makeMessageHandler(slStore, botName, meta.message.channel.type === 'dm')
@@ -146,9 +147,12 @@ else {
     }
 
   })
+  //tslint:enable:no-invalid-this
+
   slClient.on('ready', () => {
-    const cs = slClient.channels.array()
-    cs.forEach(c => c.sendMessage && c.sendMessage(`${botName} (on \`${hostname()}\`)`))
+    console.log(`Connected to ${slClient.guilds.array().map(g => g.name).join(', ')} as ${botName}`)
+    // const cs = slClient.channels.array()
+    // cs.forEach(c => c.sendMessage && c.sendMessage(`${botName} (on \`${hostname()}\`)`))
   })
   slClient.on('message', slBot.onMessage.bind(slBot))
   slClient.login(env.DISCORD_TOKEN)

@@ -10,36 +10,36 @@ const env_1 = require("./env");
 const minimist = require("minimist");
 const argv = minimist(process.argv.slice(2));
 const pingserver_1 = require("./components/pingserver");
-pingserver_1.pingserver(env_1.env.OPENSHIFT_NODEJS_PORT, env_1.env.OPENSHIFT_NODEJS_IP);
-const bpfStore = store_1.makeStore('bpf');
-const slStore = store_1.makeStore('sl');
-/////////////
-// Serialize on all state changes!
 const path = require("path");
 const fs = require("fs");
-bpfStore.subscribe(() => {
-    const p = path.join(env_1.env.OPENSHIFT_DATA_DIR, 'bpf.json');
-    fs.writeFile(p, JSON.stringify(bpfStore.getState()), (e) => {
-        if (e) {
-            console.error(`Couldn't write state to ${p}: [${e}]`);
-        }
-        else {
-            console.log(`Wrote state to '${p}'!`);
-        }
+pingserver_1.pingserver(env_1.env.OPENSHIFT_NODEJS_PORT, env_1.env.OPENSHIFT_NODEJS_IP);
+const stores = {};
+const getStore = id => {
+    if (id.length < 1) {
+        throw new Error('Invalid id for store!');
+    }
+    if (id in stores) {
+        return stores[id];
+    }
+    const s = store_1.makeStore(id);
+    // Serialize on all state changes!
+    // Probably doesn't scale, but good enough for now
+    // This is also reliant on the filename logic in makeStore()
+    // staying the same. TODO
+    s.subscribe(() => {
+        const p = path.join(env_1.env.OPENSHIFT_DATA_DIR, id + '.json');
+        fs.writeFile(p, JSON.stringify(s.getState()), (e) => {
+            if (e) {
+                console.error(`Couldn't write state to ${p}: [${e}]`);
+            }
+            else {
+                console.log(`Wrote state to '${p}'!`);
+            }
+        });
     });
-});
-slStore.subscribe(() => {
-    const p = path.join(env_1.env.OPENSHIFT_DATA_DIR, 'sl.json');
-    fs.writeFile(p, JSON.stringify(slStore.getState()), (e) => {
-        if (e) {
-            console.error(`Couldn't write state to ${p}: [${e}]`);
-        }
-        else {
-            console.log(`Wrote state to '${p}'!`);
-        }
-    });
-});
-/////////////
+    stores[id] = s;
+    return s;
+};
 const botName = argv['name'] || 'bort';
 if (argv['test']) {
     const rl = readline.createInterface({
@@ -51,8 +51,7 @@ if (argv['test']) {
         const text = response !== false ? chatter_1.normalizeMessage(response) : '-';
         console.log(text);
     });
-    // .catch(reason => console.log(`Uhhh... ${reason}`))
-    const testBot = root_1.default(bpfStore, botName, false);
+    const testBot = root_1.default(getStore('test'), botName, false);
     rl.on('line', (input) => simulate(testBot, input));
 }
 else {
@@ -88,16 +87,19 @@ else {
             };
         },
         createMessageHandler: function (id, meta) {
-            return root_1.default(bpfStore, this.name, meta.channel.is_im);
+            return root_1.default(getStore('bpf'), this.name, meta.channel.is_im);
         }
     });
     //tslint:enable:no-invalid-this
     bpfBot.login();
-    const slClient = new discord_js_1.Client();
+    const discordClient = new discord_js_1.Client();
     //tslint:disable:no-invalid-this
     const slBot = new chatter_1.Bot({
         createMessageHandler: function (id, meta) {
-            return root_1.default(slStore, botName, meta.message.channel.type === 'dm');
+            if (meta.message.guild) {
+                return root_1.default(getStore(meta.message.guild.id), botName, meta.message.channel.type === 'dm');
+            }
+            return root_1.default(getStore(meta.message.channel.id), botName, meta.message.channel.type === 'dm');
         },
         getMessageHandlerArgs: function (message) {
             if (message.author.bot) {
@@ -111,7 +113,7 @@ else {
             const user = message.author;
             const meta = {
                 bot: this,
-                client: slClient,
+                client: discordClient,
                 message,
                 user
             };
@@ -128,11 +130,11 @@ else {
         }
     });
     //tslint:enable:no-invalid-this
-    slClient.on('ready', () => {
-        console.log(`Connected to ${slClient.guilds.array().map(g => g.name).join(', ')} as ${botName}`);
+    discordClient.on('ready', () => {
+        console.log(`Connected to ${discordClient.guilds.array().map(g => g.name).join(', ')} as ${botName}`);
         // const cs = slClient.channels.array()
         // cs.forEach(c => c.sendMessage && c.sendMessage(`${botName} (on \`${hostname()}\`)`))
     });
-    slClient.on('message', slBot.onMessage.bind(slBot));
-    slClient.login(env_1.env.DISCORD_TOKEN);
+    discordClient.on('message', slBot.onMessage.bind(slBot));
+    discordClient.login(env_1.env.DISCORD_TOKEN);
 }

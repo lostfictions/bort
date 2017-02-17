@@ -15,16 +15,23 @@ exports.default = chatter_1.createCommand({
         let candidates = null;
         // First, try to find something that follows from our previous word
         if (lastWord) {
-            candidates = wb.get(lastWord).keySeq().filter(word => word != null && word.startsWith(l)).toJS();
+            const nexts = wb.get(lastWord);
+            if (nexts != null) {
+                candidates = nexts.keySeq().filter(word => word != null && word.startsWith(l)).toJS();
+            }
         }
         // Otherwise, just grab a random word that matches our letter
         if (candidates == null || candidates.length === 0) {
             candidates = wb.keySeq().filter(word => word != null && word.startsWith(l)).toJS();
         }
         if (candidates != null && candidates.length > 0) {
-            acro.push(util_1.randomInArray(candidates));
+            lastWord = util_1.randomInArray(candidates);
+            acro.push(lastWord);
         }
     }
     // Capitalize each word and join them into a string.
-    return acro.map(word => word[0].toUpperCase() + word.slice(1)).join(' ');
+    if (acro.length > 0) {
+        return acro.map(word => word[0].toUpperCase() + word.slice(1)).join(' ');
+    }
+    return 'Please Inspect Senseless Sentences';
 });

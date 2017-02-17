@@ -3,6 +3,8 @@ import { randomInArray } from '../util/util'
 
 import { AdjustedArgs } from './AdjustedArgs'
 
+import { Map } from 'immutable'
+
 export default createCommand(
   {
     name: 'busey',
@@ -22,22 +24,27 @@ export default createCommand(
 
       // First, try to find something that follows from our previous word
       if(lastWord) {
-        candidates = wb.get(lastWord).keySeq().filter(word => word != null && word.startsWith(l)).toJS()
-        // candidates = Object.keys().filter(word => word.startsWith(l))
+        const nexts : Map<string, number> | undefined = wb.get(lastWord)
+        if(nexts != null) {
+          candidates = nexts.keySeq().filter(word => word != null && word.startsWith(l)).toJS()
+        }
       }
 
       // Otherwise, just grab a random word that matches our letter
       if(candidates == null || candidates.length === 0) {
         candidates = wb.keySeq().filter(word => word != null && word.startsWith(l)).toJS()
-        // candidates = Object.keys(wb).filter(word => word.startsWith(l))
       }
 
       if(candidates != null && candidates.length > 0) {
-        acro.push(randomInArray(candidates))
+        lastWord = randomInArray(candidates)
+        acro.push(lastWord)
       }
     }
 
     // Capitalize each word and join them into a string.
-    return acro.map(word => word[0].toUpperCase() + word.slice(1)).join(' ')
+    if(acro.length > 0) {
+      return acro.map(word => word[0].toUpperCase() + word.slice(1)).join(' ')
+    }
+    return 'Please Inspect Senseless Sentences'
   }
 )

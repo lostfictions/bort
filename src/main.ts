@@ -174,5 +174,8 @@ else {
     // cs.forEach(c => c.sendMessage && c.sendMessage(`${botName} (on \`${hostname()}\`)`))
   })
   discordClient.on('message', slBot.onMessage.bind(slBot))
+  discordClient.on('disconnect', () =>
+    setTimeout(() => discordClient.destroy().then(() => discordClient.login(env.DISCORD_TOKEN)), 10000)
+  )
   discordClient.login(env.DISCORD_TOKEN)
 }

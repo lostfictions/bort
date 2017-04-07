@@ -1,8 +1,8 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const chatter_1 = require("chatter");
 const got = require("got");
 const markov_1 = require("../components/markov");
-Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = chatter_1.createCommand({
     name: 'complete',
     aliases: ['tell me'],

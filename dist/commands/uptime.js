@@ -1,8 +1,8 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const os_1 = require("os");
 const moment = require("moment");
 const chatter_1 = require("chatter");
-Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = chatter_1.createCommand({
     name: 'uptime',
     description: 'info about me'

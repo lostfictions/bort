@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const util_1 = require("../util/util");
 exports.matcher = /\[([^\[\]]+)\]/g;
 function trace(concepts, concept, maxCycles = 10, seen = {}) {
@@ -15,5 +16,4 @@ function trace(concepts, concept, maxCycles = 10, seen = {}) {
         return trace(concepts, nextConcept, maxCycles, nextSeen);
     });
 }
-Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = trace;

@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const chatter_1 = require("chatter");
 const busey_1 = require("./busey");
 const uptime_1 = require("./uptime");
@@ -59,7 +60,6 @@ const makeRootCommand = ({ store, name }) => chatter_1.createArgsAdjuster({
         return markov_1.getSentence(wb);
     }
 ]);
-Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = (store, name, isDM) => {
     const rootCommand = makeRootCommand({ store, name });
     const handleDirectConcepts = (message) => {

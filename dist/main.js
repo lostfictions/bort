@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const readline = require("readline");
 const os_1 = require("os");
 const client_1 = require("@slack/client");
@@ -33,7 +34,7 @@ const getStore = id => {
                 console.error(`Couldn't write state to ${p}: [${e}]`);
             }
             else {
-                console.log(`Wrote state to '${p}'!`);
+                // console.log(`Wrote state to '${ p }'!`)
             }
         });
     });
@@ -95,9 +96,12 @@ else {
     });
     //tslint:enable:no-invalid-this
     bpfBot.login();
+    createDiscordBot();
+}
+function createDiscordBot() {
     const discordClient = new discord_js_1.Client();
     //tslint:disable:no-invalid-this
-    const slBot = new chatter_1.Bot({
+    const discordBot = new chatter_1.Bot({
         createMessageHandler: function (id, meta) {
             if (meta.message.guild) {
                 return root_1.default(getStore(meta.message.guild.id), botName, meta.message.channel.type === 'dm');
@@ -135,10 +139,11 @@ else {
     //tslint:enable:no-invalid-this
     discordClient.on('ready', () => {
         console.log(`Connected to ${discordClient.guilds.array().map(g => g.name).join(', ')} as ${botName}`);
-        // Seems to spam channels much more often than the Slack api's onOpen, so let's disable it.
-        // const cs = slClient.channels.array()
-        // cs.forEach(c => c.sendMessage && c.sendMessage(`${botName} (on \`${hostname()}\`)`))
     });
-    discordClient.on('message', slBot.onMessage.bind(slBot));
+    discordClient.on('message', discordBot.onMessage.bind(discordBot));
+    discordClient.on('disconnect', (ev) => {
+        console.log('disconnected! reason: ' + ev.reason);
+        setTimeout(() => discordClient.destroy().then(createDiscordBot), 10000);
+    });
     discordClient.login(env_1.env.DISCORD_TOKEN);
 }

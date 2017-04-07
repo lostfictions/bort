@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const chatter_1 = require("chatter");
 const concept_1 = require("../actions/concept");
 // Match two groups:

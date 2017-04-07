@@ -20,6 +20,13 @@ import { pingserver } from './components/pingserver'
 import * as path from 'path'
 import * as fs from 'fs'
 
+type DiscordMeta = {
+  bot : Bot
+  client : DiscordClient,
+  message : DiscordMessage,
+  user : DiscordUser
+}
+
 pingserver(env.OPENSHIFT_NODEJS_PORT, env.OPENSHIFT_NODEJS_IP)
 
 const stores : { [id : string] : Store<BortStore> } = {}
@@ -45,7 +52,7 @@ const getStore : (id : string) => Store<BortStore> = id => {
         console.error(`Couldn't write state to ${ p }: [${ e }]`)
       }
       else {
-        console.log(`Wrote state to '${ p }'!`)
+        // console.log(`Wrote state to '${ p }'!`)
       }
     })
   })
@@ -117,18 +124,16 @@ else {
 
   bpfBot.login()
 
+  createDiscordBot()
+}
 
-  type DiscordMeta = {
-    bot : Bot
-    client : DiscordClient,
-    message : DiscordMessage,
-    user : DiscordUser
-  }
+
+function createDiscordBot() {
 
   const discordClient = new DiscordClient()
 
   //tslint:disable:no-invalid-this
-  const slBot = new Bot({
+  const discordBot = new Bot({
     createMessageHandler: function(id : any, meta : DiscordMeta) : any {
       if(meta.message.guild) {
         return makeMessageHandler(getStore(meta.message.guild.id), botName, meta.message.channel.type === 'dm')
@@ -157,10 +162,10 @@ else {
         args: [meta]
       }
     },
-    getMessageHandlerCacheId : function(meta : DiscordMeta) {
+    getMessageHandlerCacheId: function(meta : DiscordMeta) {
       return meta.message.channel.id
     },
-    sendResponse : function(message : DiscordMessage, text : string) {
+    sendResponse: function(message : DiscordMessage, text : string) {
       message.channel.sendMessage(text)
     }
 
@@ -169,13 +174,11 @@ else {
 
   discordClient.on('ready', () => {
     console.log(`Connected to ${discordClient.guilds.array().map(g => g.name).join(', ')} as ${botName}`)
-    // Seems to spam channels much more often than the Slack api's onOpen, so let's disable it.
-    // const cs = slClient.channels.array()
-    // cs.forEach(c => c.sendMessage && c.sendMessage(`${botName} (on \`${hostname()}\`)`))
   })
-  discordClient.on('message', slBot.onMessage.bind(slBot))
-  discordClient.on('disconnect', () =>
-    setTimeout(() => discordClient.destroy().then(() => discordClient.login(env.DISCORD_TOKEN)), 10000)
-  )
+  discordClient.on('message', discordBot.onMessage.bind(discordBot))
+  discordClient.on('disconnect', (ev : CloseEvent) => {
+    console.log('disconnected! reason: ' + ev.reason)
+    setTimeout(() => discordClient.destroy().then(createDiscordBot), 10000)
+  })
   discordClient.login(env.DISCORD_TOKEN)
 }

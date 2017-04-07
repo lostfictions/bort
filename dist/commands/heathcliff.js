@@ -7,6 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 const chatter_1 = require("chatter");
 const fs = require("fs");
 const path = require("path");
@@ -33,7 +34,6 @@ function load(files) {
         return [img, nextFiles];
     });
 }
-Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = chatter_1.createCommand({
     name: 'heathcliff',
     aliases: [`cliff`, `heath`, `bortcliff`, `borthcliff`],

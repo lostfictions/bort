@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const markov_1 = require("../actions/markov");
 const immutable_1 = require("immutable");
 const sentenceSplitter = /(?:\.|\?|\n)/ig;

@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.addConceptAction = (conceptName) => ({ type: 'ADD_CONCEPT', conceptName });
 function isAddConceptAction(action) {
     return action.type === 'ADD_CONCEPT';

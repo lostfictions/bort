@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const envalid = require("envalid");
 exports.env = envalid.cleanEnv(process.env, {
     SLACK_TOKEN: envalid.str(),

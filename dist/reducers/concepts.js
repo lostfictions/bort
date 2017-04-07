@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const immutable_1 = require("immutable");
 const concept_1 = require("../actions/concept");
 exports.conceptReducers = (state = immutable_1.Map(), action) => {

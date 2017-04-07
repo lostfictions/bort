@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const chatter_1 = require("chatter");
 const got = require("got");
 const cheerio = require("cheerio");
@@ -25,6 +26,7 @@ const requestAndParse = (term, animated, exact) => got('http://images.google.com
             if (metadata.ou) {
                 urls.push(metadata.ou);
             }
+            // Elements without metadata.ou are subcategory headings in the results page.
         }
     });
     return urls;

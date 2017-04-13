@@ -100,13 +100,13 @@ else {
       })
 
       // Post a message to all the channels we belong to.
-      const b = this
-      rtm.on('open', function() : void {
-        const cs = this.dataStore.channels
-        Object.keys(cs)
-          .filter(c => cs[c].is_member && !cs[c].is_archived)
-          .forEach(c => b.postMessage(c, `${b.name} (on \`${hostname()}\`)`))
-      })
+      // const b = this
+      // rtm.on('open', function() : void {
+      //   const cs = this.dataStore.channels
+      //   Object.keys(cs)
+      //     .filter(c => cs[c].is_member && !cs[c].is_archived)
+      //     .forEach(c => b.postMessage(c, `${b.name} (on \`${hostname()}\`)`))
+      // })
 
       return {
         rtmClient: rtm,

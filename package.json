@@ -23,8 +23,8 @@
     "jimp": "^0.2.27",
     "minimist": "^1.2.0",
     "moment": "^2.18.1",
-    "react": "^15.4.2",
-    "react-redux": "^5.0.3",
+    "react": "^15.5.4",
+    "react-redux": "^5.0.4",
     "redux": "^3.6.0",
     "redux-immutable": "^3.1.0",
     "syllable": "^0.1.4"

@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const readline = require("readline");
-const os_1 = require("os");
 const client_1 = require("@slack/client");
 const discord_js_1 = require("discord.js");
 const chatter_1 = require("chatter");
@@ -75,13 +74,13 @@ else {
                 logLevel: 'error'
             });
             // Post a message to all the channels we belong to.
-            const b = this;
-            rtm.on('open', function () {
-                const cs = this.dataStore.channels;
-                Object.keys(cs)
-                    .filter(c => cs[c].is_member && !cs[c].is_archived)
-                    .forEach(c => b.postMessage(c, `${b.name} (on \`${os_1.hostname()}\`)`));
-            });
+            // const b = this
+            // rtm.on('open', function() : void {
+            //   const cs = this.dataStore.channels
+            //   Object.keys(cs)
+            //     .filter(c => cs[c].is_member && !cs[c].is_archived)
+            //     .forEach(c => b.postMessage(c, `${b.name} (on \`${hostname()}\`)`))
+            // })
             return {
                 rtmClient: rtm,
                 webClient: new client_1.WebClient(env_1.env.SLACK_TOKEN)

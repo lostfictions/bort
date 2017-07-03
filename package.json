@@ -12,31 +12,31 @@
   "author": "s",
   "license": "GPL3",
   "dependencies": {
-    "@slack/client": "^3.9.0",
+    "@slack/client": "^3.10.0",
     "chatter": "^0.5.1",
     "cheerio": "^0.22.0",
     "discord.js": "^11.1.0",
     "envalid": "^2.4.2",
-    "express": "^4.15.2",
+    "express": "^4.15.3",
     "got": "^6.7.1",
     "immutable": "^3.8.1",
-    "jimp": "^0.2.27",
+    "jimp": "^0.2.28",
     "minimist": "^1.2.0",
     "moment": "^2.18.1",
-    "react": "^15.5.4",
-    "react-redux": "^5.0.4",
-    "redux": "^3.6.0",
+    "react": "^15.6.1",
+    "react-redux": "^5.0.5",
+    "redux": "^3.7.1",
     "redux-immutable": "^3.1.0",
     "syllable": "^0.1.4"
   },
   "devDependencies": {
     "@types/cheerio": "^0.22.1",
-    "@types/express": "^4.0.35",
-    "@types/express-serve-static-core": "^4.0.44",
+    "@types/express": "^4.0.36",
+    "@types/express-serve-static-core": "^4.0.48",
     "@types/minimist": "^1.2.0",
-    "@types/node": "^7.0.18",
-    "@types/redux-immutable": "^3.0.33",
+    "@types/node": "^8.0.7",
+    "@types/redux-immutable": "^3.0.34",
     "nodemon": "^1.11.0",
-    "typescript": "^2.3.2"
+    "typescript": "^2.4.1"
   }
 }

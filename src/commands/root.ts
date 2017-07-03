@@ -91,7 +91,7 @@ const makeRootCommand = ({ store, name } : AdjustedArgs) => createArgsAdjuster(
   ]
 )
 
-export default (store : Store<BortStore>, name : string, isDM : boolean) : {} => {
+function makeMessageHandler(store : Store<BortStore>, name : string, isDM : boolean) : {} {
 
   const rootCommand = makeRootCommand({ store, name })
 
@@ -142,3 +142,5 @@ export default (store : Store<BortStore>, name : string, isDM : boolean) : {} =>
     }
   ]
 }
+
+export default makeMessageHandler

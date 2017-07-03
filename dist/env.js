@@ -7,5 +7,6 @@ exports.env = envalid.cleanEnv(process.env, {
     OPENSHIFT_APP_DNS: envalid.str({ default: 'localhost' }),
     OPENSHIFT_NODEJS_PORT: envalid.num({ default: 8080 }),
     OPENSHIFT_NODEJS_IP: envalid.str({ default: 'localhost' }),
-    OPENSHIFT_DATA_DIR: envalid.str({ default: 'persist' })
+    OPENSHIFT_DATA_DIR: envalid.str({ default: 'persist' }),
+    NOISE_SERVER: envalid.url()
 });

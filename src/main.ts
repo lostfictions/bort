@@ -2,7 +2,7 @@ import * as readline from 'readline'
 import { hostname } from 'os'
 
 import { RtmClient, WebClient, MemoryDataStore } from '@slack/client'
-import { Client as DiscordClient, Message as DiscordMessage, User as DiscordUser } from 'discord.js'
+import { Client as DiscordClient, Message as DiscordMessage, User as DiscordUser, VoiceChannel } from 'discord.js'
 
 import { Bot, SlackBot, processMessage, normalizeMessage } from 'chatter'
 import { Store } from 'redux'
@@ -173,7 +173,35 @@ function createDiscordBot() {
   //tslint:enable:no-invalid-this
 
   discordClient.on('ready', () => {
-    console.log(`Connected to ${discordClient.guilds.array().map(g => g.name).join(', ')} as ${botName}`)
+    const guilds = discordClient.guilds.array()
+    console.log(`Connected to ${guilds.map(g => g.name).join(', ')} as ${botName}`)
+
+    guilds.forEach((g, i) => {
+      if(!g.voiceConnection) {
+        const voiceChannel = g.channels.array().find(c => c.type === 'voice' && c.name.startsWith('BORT'))
+        if(voiceChannel) {
+          (voiceChannel as VoiceChannel).join().then(connection => {
+            console.log(`joined voice channel ${voiceChannel.name} on ${g.name}`)
+
+            // stagger the requests
+            setInterval(
+              () => {
+                const dispatcher = connection.playArbitraryInput(env.NOISE_SERVER)
+                // dispatcher.on('end', () => {
+                  // console.log(`played content in ${g.name}#${voiceChannel.name}`)
+                // })
+
+                dispatcher.on('error', e => {
+                  // Catch any errors that may arise
+                  console.log(`error in ${g.name}#${voiceChannel.name}: ${e}`)
+                })
+              },
+              60000 + 10000 * i
+            )
+          })
+        }
+      }
+    })
   })
   discordClient.on('message', discordBot.onMessage.bind(discordBot))
   discordClient.on('disconnect', (ev : CloseEvent) => {

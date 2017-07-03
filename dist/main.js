@@ -137,12 +137,34 @@ function createDiscordBot() {
     });
     //tslint:enable:no-invalid-this
     discordClient.on('ready', () => {
-        console.log(`Connected to ${discordClient.guilds.array().map(g => g.name).join(', ')} as ${botName}`);
+        const guilds = discordClient.guilds.array();
+        console.log(`Connected to ${guilds.map(g => g.name).join(', ')} as ${botName}`);
+        guilds.forEach((g, i) => {
+            if (!g.voiceConnection) {
+                const voiceChannel = g.channels.array().find(c => c.type === 'voice' && c.name.startsWith('BORT'));
+                if (voiceChannel) {
+                    voiceChannel.join().then(connection => {
+                        console.log(`joined voice channel ${voiceChannel.name} on ${g.name}`);
+                        // stagger the requests
+                        setInterval(() => {
+                            const dispatcher = connection.playArbitraryInput(env_1.env.NOISE_SERVER);
+                            // dispatcher.on('end', () => {
+                            // console.log(`played content in ${g.name}#${voiceChannel.name}`)
+                            // })
+                            dispatcher.on('error', e => {
+                                // Catch any errors that may arise
+                                console.log(`error in ${g.name}#${voiceChannel.name}: ${e}`);
+                            });
+                        }, 60000 + 10000 * i);
+                    });
+                }
+            }
+        });
     });
     discordClient.on('message', discordBot.onMessage.bind(discordBot));
     discordClient.on('disconnect', (ev) => {
         console.log('disconnected! reason: ' + ev.reason);
-        setTimeout(() => discordClient.destroy().then(createDiscordBot), 10000);
+        // setTimeout(() => discordClient.destroy().then(createDiscordBot), 10000)
     });
     discordClient.login(env_1.env.DISCORD_TOKEN);
 }

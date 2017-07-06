@@ -10,7 +10,7 @@ import {
 } from './images'
 import gifcitiesCommand from './gifcities'
 import completeCommand from './complete'
-import heathcliffCommand from './heathcliff'
+// import heathcliffCommand from './heathcliff'
 
 import {
   conceptAddCommand,
@@ -34,7 +34,7 @@ const subCommands = [
   conceptRemoveCommand,
   conceptListCommand,
   buseyCommand,
-  heathcliffCommand,
+  // heathcliffCommand,
   imageSearchCommand,
   gifSearchCommand,
   gifcitiesCommand,

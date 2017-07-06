@@ -8,15 +8,6 @@ RUN wget https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-64bit-static.t
 
 ENV PATH "/ffmpeg-bin:${PATH}"
 
-
-RUN ls &&\
-  echo '...dir:' &&\
-  ls ffmpeg-bin &&\
-  echo '...path:' &&\
-  which ffmpeg
-
-# RUN ./ffmpeg/ffmpeg
-
 WORKDIR /code
 
 COPY . /code
@@ -25,4 +16,4 @@ RUN npm i
 
 ENV DEBUG=*
 
-ENTRYPOINT export PATH=$PATH:/ffmpeg && npm run start
+ENTRYPOINT npm run start

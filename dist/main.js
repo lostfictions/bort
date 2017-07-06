@@ -145,17 +145,16 @@ function createDiscordBot() {
                 if (voiceChannel) {
                     voiceChannel.join().then(connection => {
                         console.log(`joined voice channel ${voiceChannel.name} on ${g.name}`);
-                        // stagger the requests
-                        setInterval(() => {
+                        // set intervals, but stagger the requests
+                        setTimeout(() => setInterval(() => {
                             const dispatcher = connection.playArbitraryInput(env_1.env.NOISE_SERVER);
-                            // dispatcher.on('end', () => {
-                            // console.log(`played content in ${g.name}#${voiceChannel.name}`)
-                            // })
+                            dispatcher.on('end', () => {
+                                console.log(`played audio in ${g.name}#${voiceChannel.name}`);
+                            });
                             dispatcher.on('error', e => {
-                                // Catch any errors that may arise
                                 console.log(`error in ${g.name}#${voiceChannel.name}: ${e}`);
                             });
-                        }, 60000 + 10000 * i);
+                        }, 30000), 15000 * i);
                     });
                 }
             }

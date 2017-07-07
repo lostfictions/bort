@@ -75,10 +75,15 @@ export const gifSearchCommand = createCommand(
     aliases: ['gif me the', 'gif me a', 'gif me', 'gif'],
     description: 'moving pictures'
   },
-  (message : string) : Promise<string> | false => {
+  (message : string, { store } : AdjustedArgs) : Promise<string> | false => {
     if(message.length === 0) {
       return false
     }
+    const maybeTraced = tryTrace(message, store.getState().get('concepts'))
+    if(maybeTraced) {
+      return search(maybeTraced).then(res => `(${maybeTraced})\n${res}`)
+    }
+
     return search(message, true)
   }
 )

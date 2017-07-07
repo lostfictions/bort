@@ -63,9 +63,13 @@ exports.gifSearchCommand = chatter_1.createCommand({
     name: 'gifsearch',
     aliases: ['gif me the', 'gif me a', 'gif me', 'gif'],
     description: 'moving pictures'
-}, (message) => {
+}, (message, { store }) => {
     if (message.length === 0) {
         return false;
+    }
+    const maybeTraced = trace_1.tryTrace(message, store.getState().get('concepts'));
+    if (maybeTraced) {
+        return search(maybeTraced).then(res => `(${maybeTraced})\n${res}`);
     }
     return search(message, true);
 });

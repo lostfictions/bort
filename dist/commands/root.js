@@ -60,7 +60,7 @@ const makeRootCommand = ({ store, name }) => chatter_1.createArgsAdjuster({
         return markov_1.getSentence(wb);
     }
 ]);
-exports.default = (store, name, isDM) => {
+function makeMessageHandler(store, name, isDM) {
     const rootCommand = makeRootCommand({ store, name });
     const handleDirectConcepts = (message) => {
         if (!message.startsWith('!')) {
@@ -102,4 +102,5 @@ exports.default = (store, name, isDM) => {
             return false;
         }
     ];
-};
+}
+exports.default = makeMessageHandler;

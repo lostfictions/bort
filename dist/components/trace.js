@@ -17,3 +17,10 @@ function trace(concepts, concept, maxCycles = 10, seen = {}) {
     });
 }
 exports.default = trace;
+function tryTrace(message, concepts) {
+    if (exports.matcher.test(message)) {
+        return message.replace(exports.matcher, (_, concept) => trace(concepts, concept));
+    }
+    return false;
+}
+exports.tryTrace = tryTrace;

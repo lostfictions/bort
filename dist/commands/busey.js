@@ -2,11 +2,18 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const chatter_1 = require("chatter");
 const util_1 = require("../util/util");
+const trace_1 = require("../components/trace");
 exports.default = chatter_1.createCommand({
     name: 'busey',
     aliases: ['acronym'],
     description: 'make buseyisms'
 }, (message, { store }) => {
+    const maybeTraced = trace_1.tryTrace(message, store.getState().get('concepts'));
+    let prefix = '';
+    if (maybeTraced) {
+        message = maybeTraced;
+        prefix = `(${maybeTraced})\n`;
+    }
     const wb = store.getState().get('wordBank');
     const letters = message.toLowerCase().split('').filter(char => /[A-Za-z]/.test(char));
     const acro = [];
@@ -31,7 +38,7 @@ exports.default = chatter_1.createCommand({
     }
     // Capitalize each word and join them into a string.
     if (acro.length > 0) {
-        return acro.map(word => word[0].toUpperCase() + word.slice(1)).join(' ');
+        return prefix + acro.map(word => word[0].toUpperCase() + word.slice(1)).join(' ');
     }
-    return 'Please Inspect Senseless Sentences';
+    return prefix + 'Please Inspect Senseless Sentences';
 });

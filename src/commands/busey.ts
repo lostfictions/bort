@@ -5,6 +5,9 @@ import { AdjustedArgs } from './AdjustedArgs'
 
 import { Map } from 'immutable'
 
+import { tryTrace } from '../components/trace'
+
+
 export default createCommand(
   {
     name: 'busey',
@@ -12,6 +15,13 @@ export default createCommand(
     description: 'make buseyisms'
   },
   (message : string, { store } : AdjustedArgs) => {
+    const maybeTraced = tryTrace(message, store.getState().get('concepts'))
+    let prefix = ''
+    if(maybeTraced) {
+      message = maybeTraced
+      prefix = `(${maybeTraced})\n`
+    }
+
     const wb = store.getState().get('wordBank')
 
     const letters = message.toLowerCase().split('').filter(char => /[A-Za-z]/.test(char))
@@ -43,8 +53,8 @@ export default createCommand(
 
     // Capitalize each word and join them into a string.
     if(acro.length > 0) {
-      return acro.map(word => word[0].toUpperCase() + word.slice(1)).join(' ')
+      return prefix + acro.map(word => word[0].toUpperCase() + word.slice(1)).join(' ')
     }
-    return 'Please Inspect Senseless Sentences'
+    return prefix + 'Please Inspect Senseless Sentences'
   }
 )

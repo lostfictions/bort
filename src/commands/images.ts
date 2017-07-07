@@ -4,6 +4,9 @@ import * as cheerio from 'cheerio'
 
 import { randomInArray } from '../util/util'
 
+import { AdjustedArgs } from './AdjustedArgs'
+import { tryTrace } from '../components/trace'
+
 // based on https://github.com/jimkang/g-i-s/blob/master/index.js
 
 const requestAndParse = (term : string, animated : boolean, exact : boolean) => got('http://images.google.com/search', {
@@ -53,10 +56,15 @@ export const imageSearchCommand = createCommand(
     aliases: [`what's`, `who's`, `what is`, `who is`, `show me`],
     description: 'i will show you'
   },
-  (message : string) : Promise<string> | false => {
+  (message : string, { store } : AdjustedArgs) : Promise<string> | false => {
     if(message.length === 0) {
       return false
     }
+    const maybeTraced = tryTrace(message, store.getState().get('concepts'))
+    if(maybeTraced) {
+      return search(maybeTraced).then(res => `(${maybeTraced})\n${res}`)
+    }
+
     return search(message)
   }
 )

@@ -23,3 +23,9 @@ export default function trace(
     })
 }
 
+export function tryTrace(message : string, concepts : ConceptBank) : string | false {
+  if(matcher.test(message)) {
+    return message.replace(matcher, (_, concept) => trace(concepts, concept))
+  }
+  return false
+}

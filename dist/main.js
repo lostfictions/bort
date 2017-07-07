@@ -142,7 +142,7 @@ function createDiscordBot() {
     discordClient.on('message', discordBot.onMessage.bind(discordBot));
     discordClient.on('disconnect', (ev) => {
         console.log('disconnected! reason: ' + ev.reason);
-        setTimeout(() => discordClient.destroy().then(createDiscordBot), 10000);
+        // setTimeout(() => discordClient.destroy().then(createDiscordBot), 10000)
     });
     discordClient.login(env_1.env.DISCORD_TOKEN);
 }

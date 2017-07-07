@@ -4,6 +4,7 @@ const chatter_1 = require("chatter");
 const got = require("got");
 const cheerio = require("cheerio");
 const util_1 = require("../util/util");
+const trace_1 = require("../components/trace");
 // based on https://github.com/jimkang/g-i-s/blob/master/index.js
 const requestAndParse = (term, animated, exact) => got('http://images.google.com/search', {
     query: {
@@ -48,9 +49,13 @@ exports.imageSearchCommand = chatter_1.createCommand({
     name: 'image',
     aliases: [`what's`, `who's`, `what is`, `who is`, `show me`],
     description: 'i will show you'
-}, (message) => {
+}, (message, { store }) => {
     if (message.length === 0) {
         return false;
+    }
+    const maybeTraced = trace_1.tryTrace(message, store.getState().get('concepts'));
+    if (maybeTraced) {
+        return search(maybeTraced).then(res => `(${maybeTraced})\n${res}`);
     }
     return search(message);
 });

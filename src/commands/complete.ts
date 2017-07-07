@@ -5,6 +5,8 @@ import { getSentence } from '../components/markov'
 
 import { AdjustedArgs } from './AdjustedArgs'
 
+import { tryTrace } from '../components/trace'
+
 
 export default createCommand(
   {
@@ -17,28 +19,26 @@ export default createCommand(
       return false
     }
 
+    const maybeTraced = tryTrace(message, store.getState().get('concepts'))
+
     return got(`https://suggestqueries.google.com/complete/search`, {
-      query: { q: message, client: 'firefox' },
+      query: { q: maybeTraced || message, client: 'firefox' },
       timeout: 5000
     })
     .then(res => {
+      let prefix = ''
+      if(maybeTraced) {
+        prefix = `(${maybeTraced})\n`
+      }
+
       if(res.body.length > 0) {
         const parsed = JSON.parse(res.body)
         if(parsed[1] && parsed[1].length && parsed[1].length > 0) {
-          return parsed[1].join('\n')
+          return prefix + parsed[1].join('\n')
         }
       }
 
-      // if there's no completion, just return a random markov
-      const wb = store.getState().get('wordBank')
-      const words = message.trim().split(' ').filter(w => w.length > 0)
-      if(words.length > 0) {
-        const word = words[words.length - 1]
-        if(wb.has(word)) {
-          return getSentence(wb, word)
-        }
-      }
-      return getSentence(wb)
+      return prefix + '¯\\_(ツ)_/¯'
     })
   }
 )

@@ -186,9 +186,11 @@ function createDiscordBot() {
             // set intervals, but stagger the requests
             setTimeout(() => setInterval(
               () => {
+                connection.speaking = true
                 const dispatcher = connection.playArbitraryInput(env.NOISE_SERVER)
                 dispatcher.on('end', () => {
                   console.log(`played audio in ${g.name}#${voiceChannel.name}`)
+                  connection.speaking = false
                 })
 
                 dispatcher.on('error', e => {

@@ -6,6 +6,7 @@ import { ConceptBank } from '../commands/concepts'
 import {
   isAddConceptAction,
   isRemoveConceptAction,
+  isLoadConceptAction,
   isAddToConceptAction,
   isRemoveFromConceptAction
 } from '../actions/concept'
@@ -17,6 +18,9 @@ export const conceptReducers : Reducer<ConceptBank> = (state : ConceptBank = Map
   }
   else if(isRemoveConceptAction(action)) {
     return state.delete(action.conceptName)
+  }
+  else if(isLoadConceptAction(action)) {
+    return state.set(action.conceptName, List(action.items))
   }
   else if(isAddToConceptAction(action)) {
     return state.update(action.conceptName, items => items.push(action.item))

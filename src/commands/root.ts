@@ -11,13 +11,14 @@ import {
 import gifcitiesCommand from './gifcities'
 import completeCommand from './complete'
 import heathcliffCommand from './heathcliff'
-
+import conceptLoadCommand from './concept-load'
 import {
   conceptAddCommand,
   conceptRemoveCommand,
   conceptListCommand,
   conceptMatcher
 } from './concepts'
+
 
 import { getSentence } from '../components/markov'
 import trace, { matcher as traceMatcher } from '../components/trace'
@@ -32,6 +33,7 @@ import { BortStore } from '../store/store'
 const subCommands = [
   conceptAddCommand,
   conceptRemoveCommand,
+  conceptLoadCommand,
   conceptListCommand,
   buseyCommand,
   heathcliffCommand,

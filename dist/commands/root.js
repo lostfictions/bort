@@ -7,6 +7,7 @@ const images_1 = require("./images");
 const gifcities_1 = require("./gifcities");
 const complete_1 = require("./complete");
 const heathcliff_1 = require("./heathcliff");
+const concept_load_1 = require("./concept-load");
 const concepts_1 = require("./concepts");
 const markov_1 = require("../components/markov");
 const trace_1 = require("../components/trace");
@@ -14,6 +15,7 @@ const markov_2 = require("../actions/markov");
 const subCommands = [
     concepts_1.conceptAddCommand,
     concepts_1.conceptRemoveCommand,
+    concept_load_1.default,
     concepts_1.conceptListCommand,
     busey_1.default,
     heathcliff_1.default,

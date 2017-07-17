@@ -8,6 +8,12 @@ interface RemoveConceptAction {
   conceptName : string
 }
 
+interface LoadConceptAction {
+  type : 'LOAD_CONCEPT'
+  conceptName : string
+  items : string[]
+}
+
 interface AddToConceptAction {
   type : 'ADD_TO_CONCEPT'
   conceptName : string
@@ -28,6 +34,12 @@ export function isAddConceptAction(action : { type : string }) : action is AddCo
 export const removeConceptAction = (conceptName : string) : RemoveConceptAction => ({ type : 'REMOVE_CONCEPT', conceptName })
 export function isRemoveConceptAction(action : { type : string }) : action is RemoveConceptAction {
   return action.type === 'REMOVE_CONCEPT'
+}
+
+export const loadConceptAction = (conceptName : string, items : string[])
+  : LoadConceptAction => ({ type : 'LOAD_CONCEPT', conceptName, items })
+export function isLoadConceptAction(action : { type : string }) : action is LoadConceptAction {
+  return action.type === 'LOAD_CONCEPT'
 }
 
 export const addToConceptAction = (conceptName : string, item : string)

@@ -9,6 +9,9 @@ exports.conceptReducers = (state = immutable_1.Map(), action) => {
     else if (concept_1.isRemoveConceptAction(action)) {
         return state.delete(action.conceptName);
     }
+    else if (concept_1.isLoadConceptAction(action)) {
+        return state.set(action.conceptName, immutable_1.List(action.items));
+    }
     else if (concept_1.isAddToConceptAction(action)) {
         return state.update(action.conceptName, items => items.push(action.item));
     }

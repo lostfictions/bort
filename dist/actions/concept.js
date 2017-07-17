@@ -10,6 +10,11 @@ function isRemoveConceptAction(action) {
     return action.type === 'REMOVE_CONCEPT';
 }
 exports.isRemoveConceptAction = isRemoveConceptAction;
+exports.loadConceptAction = (conceptName, items) => ({ type: 'LOAD_CONCEPT', conceptName, items });
+function isLoadConceptAction(action) {
+    return action.type === 'LOAD_CONCEPT';
+}
+exports.isLoadConceptAction = isLoadConceptAction;
 exports.addToConceptAction = (conceptName, item) => ({ type: 'ADD_TO_CONCEPT', conceptName, item });
 function isAddToConceptAction(action) {
     return action.type === 'ADD_TO_CONCEPT';

@@ -5,6 +5,7 @@ const got = require("got");
 const validator_1 = require("validator");
 const concept_1 = require("../actions/concept");
 const loaderRegex = /^([^ ]+) +(?:path[=: ]([\w\d.]+) +)?(?:as|to) +([^\s]+)$/;
+const slackEscapeRegex = /^<(.+)>$/;
 const traverse = (obj, path) => {
     try {
         path.forEach(p => obj = obj[p]);
@@ -25,8 +26,13 @@ exports.default = chatter_1.createCommand({
     if (!matches) {
         return `*load* usage: [url] (path=path) as [concept]`;
     }
-    const [, url, rawPath, concept] = matches;
+    const [, rawUrl, rawPath, concept] = matches;
     const path = rawPath.split('.');
+    let url = rawUrl;
+    const slackFixedUrl = slackEscapeRegex.exec(rawUrl);
+    if (slackFixedUrl) {
+        url = slackFixedUrl[1];
+    }
     if (!validator_1.isURL(url)) {
         return `Error: '${url}' doesn't appear to be a valid URL.
       *load* usage: [url] (path=path) as [concept]`;

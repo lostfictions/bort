@@ -8,6 +8,8 @@ import {
 
 const loaderRegex = /^([^ ]+) +(?:path[=: ]([\w\d.]+) +)?(?:as|to) +([^\s]+)$/
 
+const slackEscapeRegex = /^<(.+)>$/
+
 const traverse = (obj : any, path : string[]) : any => {
   try {
     path.forEach(p => obj = obj[p])
@@ -33,9 +35,15 @@ export default createCommand(
       return `*load* usage: [url] (path=path) as [concept]`
     }
 
-    const [, url, rawPath, concept] = matches
+    const [, rawUrl, rawPath, concept] = matches
 
     const path = rawPath.split('.')
+
+    let url = rawUrl
+    const slackFixedUrl = slackEscapeRegex.exec(rawUrl)
+    if(slackFixedUrl) {
+      url = slackFixedUrl[1]
+    }
 
     if(!isURL(url)) {
       return `Error: '${url}' doesn't appear to be a valid URL.

@@ -98,7 +98,7 @@ export default createCommand(
       }
     }
 
-    return reply.map(word => {
+    return prefix + reply.map(word => {
       if(word === '*') {
         word = randomInArray(wb.keySeq().toJS())
       }

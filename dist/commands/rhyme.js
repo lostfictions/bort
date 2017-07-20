@@ -76,7 +76,7 @@ exports.default = chatter_1.createCommand({
             cursor = nextCursor;
         }
     }
-    return reply.map(word => {
+    return prefix + reply.map(word => {
         if (word === '*') {
             word = util_1.randomInArray(wb.keySeq().toJS());
         }

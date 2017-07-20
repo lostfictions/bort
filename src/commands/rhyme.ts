@@ -14,6 +14,9 @@ type DictNode = { [syllOrWord : string ] : DictNode | '!' }
 const flipdict = require('../../data/flipdict.json') as DictNode
 const syllableSet = new Set<string>(require('../../data/syllables.json'))
 
+const trimRe = /^[^a-zA-Z]+|[^a-zA-Z]+$/g
+const trimPunc = (token : string) => token.replace(trimRe, '')
+
 /*
 
 From Wikipedia:
@@ -48,7 +51,11 @@ export default createCommand(
       return false
     }
 
-    const words = message.split(' ')
+    const words = message.split(' ').map(trimPunc).filter(word => word.length > 0)
+    if(words.length === 0) {
+      return false
+    }
+
     const wb = store.getState().get('wordBank')
     const reply = []
 
@@ -102,7 +109,7 @@ export default createCommand(
       }
     }
 
-    const replaced = reply.reduce((arr, word) => {
+    const final = prefix + reply.reduce((arr, word) => {
       if(word === '*') {
         const nexts : Map<string, number> | undefined = wb.get(arr[arr.length - 1])
         if(nexts != null) {
@@ -115,6 +122,10 @@ export default createCommand(
       return arr.concat(word)
     }, [] as string[]).join(' ')
 
-    return prefix + replaced
+    if(final.length === 0) {
+      return false
+    }
+
+    return final
   }
 )

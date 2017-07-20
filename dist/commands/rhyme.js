@@ -6,6 +6,8 @@ const trace_1 = require("../components/trace");
 const cmu = require("cmu-pronouncing-dictionary");
 const flipdict = require('../../data/flipdict.json');
 const syllableSet = new Set(require('../../data/syllables.json'));
+const trimRe = /^[^a-zA-Z]+|[^a-zA-Z]+$/g;
+const trimPunc = (token) => token.replace(trimRe, '');
 /*
 
 From Wikipedia:
@@ -35,7 +37,10 @@ exports.default = chatter_1.createCommand({
     if (message.length === 0) {
         return false;
     }
-    const words = message.split(' ');
+    const words = message.split(' ').map(trimPunc).filter(word => word.length > 0);
+    if (words.length === 0) {
+        return false;
+    }
     const wb = store.getState().get('wordBank');
     const reply = [];
     while (words.length > 0) {
@@ -79,7 +84,7 @@ exports.default = chatter_1.createCommand({
             cursor = nextCursor;
         }
     }
-    const replaced = reply.reduce((arr, word) => {
+    const final = prefix + reply.reduce((arr, word) => {
         if (word === '*') {
             const nexts = wb.get(arr[arr.length - 1]);
             if (nexts != null) {
@@ -91,5 +96,8 @@ exports.default = chatter_1.createCommand({
         }
         return arr.concat(word);
     }, []).join(' ');
-    return prefix + replaced;
+    if (final.length === 0) {
+        return false;
+    }
+    return final;
 });

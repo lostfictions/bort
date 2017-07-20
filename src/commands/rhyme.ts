@@ -14,8 +14,22 @@ type DictNode = { [syllOrWord : string ] : DictNode | '!' }
 const flipdict = require('../../data/flipdict.json') as DictNode
 const syllableSet = new Set<string>(require('../../data/syllables.json'))
 
-const trimRe = /^[^a-zA-Z]+|[^a-zA-Z]+$/g
-const trimPunc = (token : string) => token.replace(trimRe, '')
+function trim(string : string) : [string, string, string] {
+  const chars = string.split('')
+
+  const before = []
+  const after = []
+
+  while(chars[0].match(/[^a-zA-Z]/)) {
+    before.push(chars.shift())
+  }
+
+  while(chars.length > 0 && chars[chars.length - 1].match(/[^a-zA-Z]/)) {
+    after.push(chars.pop())
+  }
+
+  return [before.join(''), chars.join(''), after.join('')]
+}
 
 /*
 
@@ -51,7 +65,7 @@ export default createCommand(
       return false
     }
 
-    const words = message.split(' ').map(trimPunc).filter(word => word.length > 0)
+    const words = message.split(' ')//.map(trimPunc).filter(word => word.length > 0)
     if(words.length === 0) {
       return false
     }
@@ -59,29 +73,34 @@ export default createCommand(
     const wb = store.getState().get('wordBank')
     const reply = []
 
-    while(words.length > 0) {
-      const word = words.pop()!
-      reply.unshift(getRhymeFor(word.toLowerCase()))
-    }
+    for(const word of words) {
+      const [before, trimmedWord, after] = trim(word)
 
-    let replaced = reply.reduce((arr, word) => {
-      if(word === '*') {
-        const nexts : Map<string, number> | undefined = wb.get(arr[arr.length - 1])
+      let rhyme = ''
+      if(trimmedWord.length > 0) {
+        rhyme = getRhymeFor(trimmedWord.toLowerCase())
+      }
+
+      if(rhyme === '*') {
+        const nexts : Map<string, number> | undefined = wb.get(reply[reply.length - 1])
         if(nexts != null) {
-          word = randomInArray(nexts.keySeq().toJS())
+          rhyme = randomInArray(nexts.keySeq().toJS())
         }
         else {
-          word = randomInArray(wb.keySeq().toJS())
+          rhyme = randomInArray(wb.keySeq().toJS())
         }
       }
-      return arr.concat(word)
-    }, [] as string[]).join(' ')
 
-    if(replaced.length === 0) {
-      replaced = '¯\\_(ツ)_/¯'
+      reply.push([before, rhyme, after].join(''))
     }
 
-    return prefix + replaced
+    let joined = reply.join(' ')
+
+    if(joined.length === 0) {
+      joined = '¯\\_(ツ)_/¯'
+    }
+
+    return prefix + joined
   }
 )
 

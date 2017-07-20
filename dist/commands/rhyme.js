@@ -6,8 +6,18 @@ const trace_1 = require("../components/trace");
 const cmu = require("cmu-pronouncing-dictionary");
 const flipdict = require('../../data/flipdict.json');
 const syllableSet = new Set(require('../../data/syllables.json'));
-const trimRe = /^[^a-zA-Z]+|[^a-zA-Z]+$/g;
-const trimPunc = (token) => token.replace(trimRe, '');
+function trim(string) {
+    const chars = string.split('');
+    const before = [];
+    const after = [];
+    while (chars[0].match(/[^a-zA-Z]/)) {
+        before.push(chars.shift());
+    }
+    while (chars.length > 0 && chars[chars.length - 1].match(/[^a-zA-Z]/)) {
+        after.push(chars.pop());
+    }
+    return [before.join(''), chars.join(''), after.join('')];
+}
 /*
 
 From Wikipedia:
@@ -37,32 +47,34 @@ exports.default = chatter_1.createCommand({
     if (message.length === 0) {
         return false;
     }
-    const words = message.split(' ').map(trimPunc).filter(word => word.length > 0);
+    const words = message.split(' '); //.map(trimPunc).filter(word => word.length > 0)
     if (words.length === 0) {
         return false;
     }
     const wb = store.getState().get('wordBank');
     const reply = [];
-    while (words.length > 0) {
-        const word = words.pop();
-        reply.unshift(getRhymeFor(word.toLowerCase()));
-    }
-    let replaced = reply.reduce((arr, word) => {
-        if (word === '*') {
-            const nexts = wb.get(arr[arr.length - 1]);
+    for (const word of words) {
+        const [before, trimmedWord, after] = trim(word);
+        let rhyme = '';
+        if (trimmedWord.length > 0) {
+            rhyme = getRhymeFor(trimmedWord.toLowerCase());
+        }
+        if (rhyme === '*') {
+            const nexts = wb.get(reply[reply.length - 1]);
             if (nexts != null) {
-                word = util_1.randomInArray(nexts.keySeq().toJS());
+                rhyme = util_1.randomInArray(nexts.keySeq().toJS());
             }
             else {
-                word = util_1.randomInArray(wb.keySeq().toJS());
+                rhyme = util_1.randomInArray(wb.keySeq().toJS());
             }
         }
-        return arr.concat(word);
-    }, []).join(' ');
-    if (replaced.length === 0) {
-        replaced = '¯\\_(ツ)_/¯';
+        reply.push([before, rhyme, after].join(''));
     }
-    return prefix + replaced;
+    let joined = reply.join(' ');
+    if (joined.length === 0) {
+        joined = '¯\\_(ツ)_/¯';
+    }
+    return prefix + joined;
 });
 function getRhymeFor(word) {
     const pronounciation = cmu[word];

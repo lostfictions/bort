@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const chatter_1 = require("chatter");
 const busey_1 = require("./busey");
+const rhyme_1 = require("./rhyme");
 const uptime_1 = require("./uptime");
 const images_1 = require("./images");
 const gifcities_1 = require("./gifcities");
@@ -18,6 +19,7 @@ const subCommands = [
     concept_load_1.default,
     concepts_1.conceptListCommand,
     busey_1.default,
+    rhyme_1.default,
     heathcliff_1.default,
     images_1.imageSearchCommand,
     images_1.gifSearchCommand,

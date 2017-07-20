@@ -1,12 +1,4 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const chatter_1 = require("chatter");
 const fs = require("fs");
@@ -22,17 +14,15 @@ if (!fs.existsSync(outDir)) {
 }
 const imgDir = path.join(env_1.env.OPENSHIFT_DATA_DIR, 'heathcliff');
 const filenames = fs.readdirSync(imgDir);
-function load(files) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const nextFiles = files.slice();
-        let img;
-        do {
-            const fn = util_1.randomInArray(nextFiles);
-            nextFiles.splice(nextFiles.indexOf(fn), 1);
-            img = yield Jimp.read(path.join(imgDir, fn));
-        } while (img.bitmap.width > img.bitmap.height); //NO SUNDAYS
-        return [img, nextFiles];
-    });
+async function load(files) {
+    const nextFiles = files.slice();
+    let img;
+    do {
+        const fn = util_1.randomInArray(nextFiles);
+        nextFiles.splice(nextFiles.indexOf(fn), 1);
+        img = await Jimp.read(path.join(imgDir, fn));
+    } while (img.bitmap.width > img.bitmap.height); //NO SUNDAYS
+    return [img, nextFiles];
 }
 exports.default = chatter_1.createCommand({
     name: 'heathcliff',

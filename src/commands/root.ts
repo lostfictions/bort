@@ -3,6 +3,7 @@ import { createArgsAdjuster, createCommand } from 'chatter'
 import { AdjustedArgs } from './AdjustedArgs'
 
 import buseyCommand from './busey'
+import rhymeCommand from './rhyme'
 import uptimeCommand from './uptime'
 import {
   imageSearchCommand,
@@ -36,6 +37,7 @@ const subCommands = [
   conceptLoadCommand,
   conceptListCommand,
   buseyCommand,
+  rhymeCommand,
   heathcliffCommand,
   imageSearchCommand,
   gifSearchCommand,

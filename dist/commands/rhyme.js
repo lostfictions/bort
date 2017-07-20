@@ -76,10 +76,17 @@ exports.default = chatter_1.createCommand({
             cursor = nextCursor;
         }
     }
-    return prefix + reply.map(word => {
+    const replaced = reply.reduce((arr, word) => {
         if (word === '*') {
-            word = util_1.randomInArray(wb.keySeq().toJS());
+            const nexts = wb.get(arr[arr.length - 1]);
+            if (nexts != null) {
+                word = util_1.randomInArray(nexts.keySeq().toJS());
+            }
+            else {
+                word = util_1.randomInArray(wb.keySeq().toJS());
+            }
         }
-        return word;
-    }).join(' ');
+        return arr.concat(word);
+    }, []).join(' ');
+    return prefix + replaced;
 });

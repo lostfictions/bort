@@ -3,7 +3,7 @@ import { randomInArray } from '../util/util'
 
 import { AdjustedArgs } from './AdjustedArgs'
 
-import { Map as ImmutableMap } from 'immutable'
+import { Map } from 'immutable'
 
 import { tryTrace } from '../components/trace'
 
@@ -98,11 +98,19 @@ export default createCommand(
       }
     }
 
-    return prefix + reply.map(word => {
+    const replaced = reply.reduce((arr, word) => {
       if(word === '*') {
-        word = randomInArray(wb.keySeq().toJS())
+        const nexts : Map<string, number> | undefined = wb.get(arr[arr.length - 1])
+        if(nexts != null) {
+          word = randomInArray(nexts.keySeq().toJS())
+        }
+        else {
+          word = randomInArray(wb.keySeq().toJS())
+        }
       }
-      return word
-    }).join(' ')
+      return arr.concat(word)
+    }, [] as string[]).join(' ')
+
+    return prefix + replaced
   }
 )

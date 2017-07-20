@@ -61,55 +61,10 @@ export default createCommand(
 
     while(words.length > 0) {
       const word = words.pop()!
-      const pronounciation = cmu[word] as string | undefined
-      if(!pronounciation) {
-        //Push a wildcard, for which we'll try to find a candidate from the wordbank in the next step.
-        reply.unshift('*')
-        continue
-      }
-
-      let cursor = flipdict
-
-      const syllables = pronounciation.toLowerCase().split(' ')
-      while(syllables.length > 0) {
-        const syll = syllables.pop()!
-        const isPrimaryStress = syll.endsWith('1')
-
-        const nextCursor = cursor[syll] as DictNode
-
-        if(!nextCursor) {
-          break
-        }
-
-        if(isPrimaryStress) {
-          // grab any word from the set that's not the articulation preceding our stress
-          // (if there is one)
-          const preceding = syllables.pop()
-          const validArticulations = Object.keys(nextCursor)
-            .filter(a => a !== preceding && syllableSet.has(a))
-
-          // if there's no valid articulations for a perfect rhyme, just pick from lower
-          // in the tree.
-          if(validArticulations.length > 0) {
-            cursor = nextCursor[randomInArray(validArticulations)] as DictNode
-          }
-
-          while(1) {
-            const wordOrSyllable = randomInArray(Object.keys(cursor))
-            if(!syllableSet.has(wordOrSyllable)) {
-              reply.unshift(wordOrSyllable)
-              break
-            }
-            cursor = cursor[wordOrSyllable] as DictNode
-          }
-          break
-        }
-
-        cursor = nextCursor
-      }
+      reply.unshift(getRhymeFor(word.toLowerCase()))
     }
 
-    const final = prefix + reply.reduce((arr, word) => {
+    let replaced = reply.reduce((arr, word) => {
       if(word === '*') {
         const nexts : Map<string, number> | undefined = wb.get(arr[arr.length - 1])
         if(nexts != null) {
@@ -122,10 +77,61 @@ export default createCommand(
       return arr.concat(word)
     }, [] as string[]).join(' ')
 
-    if(final.length === 0) {
-      return false
+    if(replaced.length === 0) {
+      replaced = '¯\\_(ツ)_/¯'
     }
 
-    return final
+    return prefix + replaced
   }
 )
+
+
+function getRhymeFor(word : string) : string {
+  const pronounciation = cmu[word] as string | undefined
+  if(!pronounciation) {
+    //Push a wildcard, for which we'll try to find a candidate from the wordbank in the next step.
+    return '*'
+  }
+
+  let cursor = flipdict
+
+  const syllables = pronounciation.toLowerCase().split(' ')
+  while(syllables.length > 0) {
+    const syll = syllables.pop()!
+    const isPrimaryStress = syll.endsWith('1')
+
+    const nextCursor = cursor[syll] as DictNode
+
+    if(!nextCursor) {
+      break
+    }
+
+    if(isPrimaryStress) {
+      // grab any word from the set that's not the articulation preceding our stress
+      // (if there is one)
+      const preceding = syllables.pop()
+      const validArticulations = Object.keys(nextCursor)
+        .filter(a => a !== preceding && syllableSet.has(a))
+
+      // if there's no valid articulations for a perfect rhyme, just pick from lower
+      // in the tree.
+      if(validArticulations.length > 0) {
+        cursor = nextCursor[randomInArray(validArticulations)] as DictNode
+      }
+
+      while(1) {
+        const wordOrSyllable = randomInArray(Object.keys(cursor))
+        if(!syllableSet.has(wordOrSyllable)) {
+          return wordOrSyllable
+        }
+        cursor = cursor[wordOrSyllable] as DictNode
+      }
+      break
+    }
+
+    cursor = nextCursor
+  }
+
+  return word
+}
+

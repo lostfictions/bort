@@ -52,6 +52,9 @@ exports.default = chatter_1.createCommand({
             const syll = syllables.pop();
             const isPrimaryStress = syll.endsWith('1');
             const nextCursor = cursor[syll];
+            if (!nextCursor) {
+                break;
+            }
             if (isPrimaryStress) {
                 // grab any word from the set that's not the articulation preceding our stress
                 // (if there is one)

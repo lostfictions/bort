@@ -70,6 +70,10 @@ export default createCommand(
 
         const nextCursor = cursor[syll] as DictNode
 
+        if(!nextCursor) {
+          break
+        }
+
         if(isPrimaryStress) {
           // grab any word from the set that's not the articulation preceding our stress
           // (if there is one)

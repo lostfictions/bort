@@ -20,7 +20,7 @@ function trim(string : string) : [string, string, string] {
   const before = []
   const after = []
 
-  while(chars[0].match(/[^a-zA-Z]/)) {
+  while(chars.length > 0 && chars[0].match(/[^a-zA-Z]/)) {
     before.push(chars.shift())
   }
 

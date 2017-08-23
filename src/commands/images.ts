@@ -2,6 +2,14 @@ import { createCommand } from 'chatter'
 import * as got from 'got'
 import * as cheerio from 'cheerio'
 
+import { Map } from 'immutable'
+
+import { Store } from 'redux'
+import { BortStore } from '../store/store'
+import {
+  addRecentAction
+} from '../actions/recents'
+
 import { randomInArray } from '../util/util'
 
 import { AdjustedArgs } from './AdjustedArgs'
@@ -36,19 +44,35 @@ const requestAndParse = (term : string, animated : boolean, exact : boolean) => 
   return urls
 })
 
-const search = (term : string, animated = false) => requestAndParse(term, animated, true).then(res => {
-  if(res.length === 0) {
-    //if no results, try an inexact search
-    return requestAndParse(term, animated, false)
-  }
-  return res
-}).then(res => {
-  if(res.length === 0) {
-    //if no results, try an inexact search
-    return 'nothing :('
-  }
-  return randomInArray(res.slice(0, 5))
-})
+const search = (term : string, store : Store<BortStore>, animated = false) =>
+  requestAndParse(term, animated, true)
+    .then(res => {
+      if(res.length === 0) {
+        //if no results, try an inexact search
+        return requestAndParse(term, animated, false)
+      }
+      return res
+    })
+    .then(res => {
+      const state = store.getState()
+      const excluding = state.get('recents')
+
+      const unseenResults = []
+      while(res.length > 0 && unseenResults.length < 5) {
+        const i = res.shift()!
+        if(!excluding.has(i)) {
+          unseenResults.push(i)
+        }
+      }
+
+      if(unseenResults.length === 0) {
+        return 'nothing :('
+      }
+
+      const result = randomInArray(unseenResults)
+      store.dispatch(addRecentAction(result))
+      return result
+    })
 
 export const imageSearchCommand = createCommand(
   {
@@ -60,12 +84,14 @@ export const imageSearchCommand = createCommand(
     if(message.length === 0) {
       return false
     }
+
     const maybeTraced = tryTrace(message, store.getState().get('concepts'))
     if(maybeTraced) {
-      return search(maybeTraced).then(res => `(${maybeTraced})\n${res}`)
+      return search(maybeTraced, store)
+        .then(res => `(${maybeTraced})\n${res}`)
     }
 
-    return search(message)
+    return search(message, store)
   }
 )
 
@@ -79,11 +105,12 @@ export const gifSearchCommand = createCommand(
     if(message.length === 0) {
       return false
     }
+
     const maybeTraced = tryTrace(message, store.getState().get('concepts'))
     if(maybeTraced) {
-      return search(maybeTraced).then(res => `(${maybeTraced})\n${res}`)
+      return search(maybeTraced, store, true).then(res => `(${maybeTraced})\n${res}`)
     }
 
-    return search(message, true)
+    return search(message, store, true)
   }
 )

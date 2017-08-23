@@ -7,6 +7,7 @@ import { env } from '../env'
 
 import { markovReducers } from '../reducers/markov'
 import { conceptReducers } from '../reducers/concepts'
+import { recentsReducers } from '../reducers/recents'
 
 import { WordBank } from '../components/markov'
 import { ConceptBank } from '../commands/concepts'
@@ -18,11 +19,15 @@ import * as assert from 'assert'
 export interface BortStore extends Map<string, any> {
   get(key : 'wordBank') : WordBank
   get(key : 'concepts') : ConceptBank
+  // a cache of recent responses to avoid repetition.
+  // maps from response -> time sent (in ms from epoch)
+  get(key : 'recents') : Map<string, number>
 }
 
 const rootReducer = combineReducers<BortStore>({
   wordBank: markovReducers,
-  concepts: conceptReducers
+  concepts: conceptReducers,
+  recents: recentsReducers
 })
 
 export function makeStore(filename : string = 'state') : Store<BortStore> {
@@ -42,14 +47,21 @@ export function makeStore(filename : string = 'state') : Store<BortStore> {
       assert(props[k](json[k]), `Property ${ k } not found in '${ p }'!`)
     }
 
+    // short of having a way to migrate a schema, just add this in if it's not present
+    // when we load.
+    if(!json.recents) {
+      json.recents = {}
+    }
+
     initialState = fromJS(json)
     console.log(`Restored state from '${p}'!`)
   }
   catch(e) {
     console.error(`Can't deserialize state! [Error: ${e}]\nRestoring from defaults instead.`)
     initialState = Map<string, any>({
-      wordBank : getInitialWordbank(),
-      concepts : getInitialConcepts()
+      wordBank: getInitialWordbank(),
+      concepts: getInitialConcepts(),
+      recents: Map<string, number>()
     })
   }
 

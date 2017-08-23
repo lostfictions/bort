@@ -6,6 +6,7 @@ const discord_js_1 = require("discord.js");
 const chatter_1 = require("chatter");
 const store_1 = require("./store/store");
 const root_1 = require("./commands/root");
+const recents_1 = require("./actions/recents");
 const env_1 = require("./env");
 const minimist = require("minimist");
 const argv = minimist(process.argv.slice(2));
@@ -37,6 +38,7 @@ const getStore = id => {
             }
         });
     });
+    setInterval(() => { console.log('cleaning recents!'); s.dispatch(recents_1.cleanRecentsAction()); }, 60000);
     stores[id] = s;
     return s;
 };

@@ -65,7 +65,7 @@ export default createCommand(
       return false
     }
 
-    const words = message.split(' ')//.map(trimPunc).filter(word => word.length > 0)
+    const words = message.split(' ')
     if(words.length === 0) {
       return false
     }

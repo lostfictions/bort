@@ -11,6 +11,8 @@ import { makeStore, BortStore } from './store/store'
 
 import makeMessageHandler from './commands/root'
 
+import { cleanRecentsAction } from './actions/recents'
+
 import { env } from './env'
 import * as minimist from 'minimist'
 const argv = minimist(process.argv.slice(2))
@@ -56,6 +58,8 @@ const getStore : (id : string) => Store<BortStore> = id => {
       }
     })
   })
+
+  setInterval(() => { console.log('cleaning recents!'); s.dispatch(cleanRecentsAction()) }, 60000)
 
   stores[id] = s
   return s

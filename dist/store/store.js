@@ -8,11 +8,13 @@ const immutable_1 = require("immutable");
 const env_1 = require("../env");
 const markov_1 = require("../reducers/markov");
 const concepts_1 = require("../reducers/concepts");
+const recents_1 = require("../reducers/recents");
 const markov_2 = require("../actions/markov");
 const assert = require("assert");
 const rootReducer = redux_immutable_1.combineReducers({
     wordBank: markov_1.markovReducers,
-    concepts: concepts_1.conceptReducers
+    concepts: concepts_1.conceptReducers,
+    recents: recents_1.recentsReducers
 });
 function makeStore(filename = 'state') {
     let initialState;
@@ -29,6 +31,11 @@ function makeStore(filename = 'state') {
         for (const k in props) {
             assert(props[k](json[k]), `Property ${k} not found in '${p}'!`);
         }
+        // short of having a way to migrate a schema, just add this in if it's not present
+        // when we load.
+        if (!json.recents) {
+            json.recents = {};
+        }
         initialState = immutable_1.fromJS(json);
         console.log(`Restored state from '${p}'!`);
     }
@@ -36,7 +43,8 @@ function makeStore(filename = 'state') {
         console.error(`Can't deserialize state! [Error: ${e}]\nRestoring from defaults instead.`);
         initialState = immutable_1.Map({
             wordBank: getInitialWordbank(),
-            concepts: getInitialConcepts()
+            concepts: getInitialConcepts(),
+            recents: immutable_1.Map()
         });
     }
     return redux_1.createStore(rootReducer, initialState);

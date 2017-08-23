@@ -30,7 +30,7 @@ const misc = [
   'if', 'unless', 'otherwise'
 ]
 
-const continueSet = new Set(prepositions.concat(determiners).concat(conjunctions).concat(misc))
+const continueSet = new Set([...prepositions, ...determiners, ...conjunctions, ...misc])
 const endTest = (output : string[]) => output.length > 3 && !continueSet.has(output[output.length - 1]) && Math.random() > 0.8
 
 export function getSeed(wordBank : WordBank) : string {

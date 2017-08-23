@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const chatter_1 = require("chatter");
 const busey_1 = require("./busey");
 const rhyme_1 = require("./rhyme");
+const weather_1 = require("./weather");
 const uptime_1 = require("./uptime");
 const images_1 = require("./images");
 const gifcities_1 = require("./gifcities");
@@ -25,6 +26,7 @@ const subCommands = [
     images_1.gifSearchCommand,
     gifcities_1.default,
     complete_1.default,
+    weather_1.default,
     uptime_1.default
 ];
 const helpCommand = chatter_1.createCommand({

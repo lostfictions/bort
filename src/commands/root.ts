@@ -4,6 +4,7 @@ import { AdjustedArgs } from './AdjustedArgs'
 
 import buseyCommand from './busey'
 import rhymeCommand from './rhyme'
+import weatherCommand from './weather'
 import uptimeCommand from './uptime'
 import {
   imageSearchCommand,
@@ -43,6 +44,7 @@ const subCommands = [
   gifSearchCommand,
   gifcitiesCommand,
   completeCommand,
+  weatherCommand,
   uptimeCommand
 ]
 

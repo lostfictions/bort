@@ -59,7 +59,7 @@ const getStore : (id : string) => Store<BortStore> = id => {
     })
   })
 
-  setInterval(() => { console.log('cleaning recents!'); s.dispatch(cleanRecentsAction()) }, 60000)
+  setInterval(() => s.dispatch(cleanRecentsAction()), 60000)
 
   stores[id] = s
   return s

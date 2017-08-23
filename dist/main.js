@@ -38,7 +38,7 @@ const getStore = id => {
             }
         });
     });
-    setInterval(() => { console.log('cleaning recents!'); s.dispatch(recents_1.cleanRecentsAction()); }, 60000);
+    setInterval(() => s.dispatch(recents_1.cleanRecentsAction()), 60000);
     stores[id] = s;
     return s;
 };

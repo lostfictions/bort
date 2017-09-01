@@ -53,7 +53,10 @@ const makeRootCommand = ({ store, name }) => chatter_1.createArgsAdjuster({
         const wb = state.get('wordBank');
         if (message.length > 0) {
             if (trace_1.matcher.test(message)) {
-                return message.replace(trace_1.matcher, (_, concept) => trace_1.default(state.get('concepts'), concept));
+                return message.replace(trace_1.matcher, (_, concept) => trace_1.default({
+                    concepts: state.get('concepts'),
+                    concept
+                }));
             }
             const words = message.trim().split(' ').filter(w => w.length > 0);
             if (words.length > 0) {
@@ -75,7 +78,7 @@ function makeMessageHandler(store, name, isDM) {
         const concepts = store.getState().get('concepts');
         const matchedConcept = concepts.get(message);
         if (matchedConcept != null && matchedConcept.size > 0) {
-            return trace_1.default(concepts, message);
+            return trace_1.default({ concepts, concept: message });
         }
         return false;
     };

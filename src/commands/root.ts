@@ -81,7 +81,10 @@ const makeRootCommand = ({ store, name } : AdjustedArgs) => createArgsAdjuster(
       const wb = state.get('wordBank')
       if(message.length > 0) {
         if(traceMatcher.test(message)) {
-          return message.replace(traceMatcher, (_, concept) => trace(state.get('concepts'), concept))
+          return message.replace(traceMatcher, (_, concept) => trace({
+            concepts: state.get('concepts'),
+            concept
+          }))
         }
 
         const words = message.trim().split(' ').filter(w => w.length > 0)
@@ -108,7 +111,7 @@ function makeMessageHandler(store : Store<BortStore>, name : string, isDM : bool
     const concepts = store.getState().get('concepts')
     const matchedConcept = concepts.get(message)
     if(matchedConcept != null && matchedConcept.size > 0) {
-      return trace(concepts, message)
+      return trace({concepts, concept: message})
     }
     return false
   }

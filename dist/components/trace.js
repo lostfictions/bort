@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const util_1 = require("../util/util");
 exports.matcher = /\[([^\[\]]+)\]/g;
 const isVowel = (char) => /^[aeiou]$/i.test(char);
+//TODO: filter length 0 before passing through to simplify all of these
 exports.defaultModifiers = {
     s: word => {
         if (word.length < 1)
@@ -32,25 +33,41 @@ exports.defaultModifiers = {
                 return 'a ' + word;
         }
     },
-    ed: s => {
-        if (s.length < 1)
-            return s;
-        switch (s[s.length - 1]) {
+    ed: word => {
+        if (word.length < 1)
+            return word;
+        switch (word[word.length - 1]) {
             case 'e':
-                return s + 'd';
+                return word + 'd';
             case 'y':
-                return s.length > 1 && !isVowel(s[s.length - 2])
-                    ? s.substring(0, s.length - 1) + 'ied'
-                    : s + 'd';
+                return word.length > 1 && !isVowel(word[word.length - 2])
+                    ? word.substring(0, word.length - 1) + 'ied'
+                    : word + 'd';
             default:
-                return s + 'ed';
+                return word + 'ed';
         }
-    }
+    },
+    ing: word => {
+        if (word.length < 1)
+            return word;
+        if (word[word.length - 1].toLowerCase() === 'e')
+            return word.substring(0, word.length - 1) + 'ing';
+        return word + 'ing';
+    },
+    upper: word => word.toUpperCase(),
+    cap: word => word.length > 0 ? word[0].toUpperCase() + word.substring(1) : '',
+    swap: (word, search, replacement) => word.split(search).join(replacement)
 };
 exports.defaultModifiers['an'] = exports.defaultModifiers['a'];
 exports.defaultModifiers['es'] = exports.defaultModifiers['s'];
 function trace({ concepts, concept, maxCycles = 10, seen = {}, modifierList = exports.defaultModifiers }) {
-    const [resolvedConcept, ...modifierNames] = concept.split('|');
+    const [resolvedConcept, ...modifierChunks] = concept.split('|');
+    const modifiers = modifierChunks
+        .map(chunk => {
+        const [modifierName, ...args] = chunk.split(' ');
+        return [modifierList[modifierName], args];
+    })
+        .filter(resolved => resolved[0]);
     if (!concepts.has(resolvedConcept)) {
         return `{error: unknown concept "${resolvedConcept}"}`;
     }
@@ -68,7 +85,7 @@ function trace({ concepts, concept, maxCycles = 10, seen = {}, modifierList = ex
             seen: nextSeen
         });
     });
-    return modifierNames.reduce((result, m) => (modifierList[m] || (a => a))(result), traceResult);
+    return modifiers.reduce((result, m) => m[0](result, ...m[1]), traceResult);
 }
 exports.default = trace;
 function tryTrace(message, concepts) {

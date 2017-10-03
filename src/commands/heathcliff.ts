@@ -56,7 +56,7 @@ export default createCommand(
                 reject(e)
               }
               else {
-                resolve('http://' + env.OPENSHIFT_APP_DNS + `/${outputDirname}/${newFilename}.jpg`)
+                resolve('http://' + env.HOSTNAME + `/${outputDirname}/${newFilename}.jpg`)
               }
             })
         })

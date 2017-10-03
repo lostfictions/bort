@@ -13,7 +13,7 @@ const argv = minimist(process.argv.slice(2));
 const pingserver_1 = require("./components/pingserver");
 const path = require("path");
 const fs = require("fs");
-pingserver_1.pingserver(env_1.env.OPENSHIFT_NODEJS_PORT, env_1.env.OPENSHIFT_NODEJS_IP);
+pingserver_1.pingserver(env_1.env.PORT);
 const stores = {};
 const getStore = id => {
     if (id.length < 1) {
@@ -65,7 +65,7 @@ else {
             text,
             as_user: false,
             username: botName,
-            icon_url: 'http://' + env_1.env.OPENSHIFT_APP_DNS + '/bort.png',
+            icon_url: 'http://' + env_1.env.HOSTNAME + '/bort.png',
             unfurl_links: true,
             unfurl_media: true
         }),

@@ -42,7 +42,7 @@ exports.default = chatter_1.createCommand({
                     reject(e);
                 }
                 else {
-                    resolve('http://' + env_1.env.OPENSHIFT_APP_DNS + `/${outputDirname}/${newFilename}.jpg`);
+                    resolve('http://' + env_1.env.HOSTNAME + `/${outputDirname}/${newFilename}.jpg`);
                 }
             });
         });

@@ -29,7 +29,7 @@ type DiscordMeta = {
   user : DiscordUser
 }
 
-pingserver(env.OPENSHIFT_NODEJS_PORT, env.OPENSHIFT_NODEJS_IP)
+pingserver(env.PORT)
 
 const stores : { [id : string] : Store<BortStore> } = {}
 const getStore : (id : string) => Store<BortStore> = id => {
@@ -92,7 +92,7 @@ else {
       text,
       as_user: false,
       username: botName,
-      icon_url: 'http://' + env.OPENSHIFT_APP_DNS + '/bort.png',
+      icon_url: 'http://' + env.HOSTNAME + '/bort.png',
       unfurl_links: true,
       unfurl_media: true
     }),

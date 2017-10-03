@@ -33,7 +33,7 @@ const rootReducer = combineReducers<BortStore>({
 export function makeStore(filename : string = 'state') : Store<BortStore> {
   let initialState : BortStore
   try {
-    const p = path.join(env.OPENSHIFT_DATA_DIR, filename + '.json')
+    const p = path.join(env.DATA_DIR, filename + '.json')
     const d = fs.readFileSync(p).toString()
     const json = JSON.parse(d)
 

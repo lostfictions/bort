@@ -19,7 +19,7 @@ const rootReducer = redux_immutable_1.combineReducers({
 function makeStore(filename = 'state') {
     let initialState;
     try {
-        const p = path.join(env_1.env.OPENSHIFT_DATA_DIR, filename + '.json');
+        const p = path.join(env_1.env.DATA_DIR, filename + '.json');
         const d = fs.readFileSync(p).toString();
         const json = JSON.parse(d);
         // Basic sanity check on shape returned

@@ -28,7 +28,7 @@ const getStore = id => {
     // This is also reliant on the filename logic in makeStore()
     // staying the same. TODO
     s.subscribe(() => {
-        const p = path.join(env_1.env.OPENSHIFT_DATA_DIR, id + '.json');
+        const p = path.join(env_1.env.DATA_DIR, id + '.json');
         fs.writeFile(p, JSON.stringify(s.getState()), (e) => {
             if (e) {
                 console.error(`Couldn't write state to ${p}: [${e}]`);

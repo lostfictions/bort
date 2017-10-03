@@ -12,7 +12,7 @@ if (!fs.existsSync(outDir)) {
     console.log(outDir + ' not found! creating.');
     fs.mkdirSync(outDir);
 }
-const imgDir = path.join(env_1.env.OPENSHIFT_DATA_DIR, 'heathcliff');
+const imgDir = path.join(env_1.env.DATA_DIR, 'heathcliff');
 const filenames = fs.readdirSync(imgDir);
 async function load(files) {
     const nextFiles = files.slice();

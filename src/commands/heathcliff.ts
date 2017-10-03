@@ -14,7 +14,7 @@ if(!fs.existsSync(outDir)) {
   fs.mkdirSync(outDir)
 }
 
-const imgDir = path.join(env.OPENSHIFT_DATA_DIR, 'heathcliff')
+const imgDir = path.join(env.DATA_DIR, 'heathcliff')
 
 const filenames = fs.readdirSync(imgDir)
 

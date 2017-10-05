@@ -10,7 +10,7 @@ import {
   addRecentAction
 } from '../actions/recents'
 
-import { randomInArray } from '../util/util'
+import { randomInArray } from '../util'
 
 import { AdjustedArgs } from './AdjustedArgs'
 import { tryTrace } from '../components/trace'

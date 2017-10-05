@@ -1,4 +1,4 @@
-import { randomInRange } from '../util/util'
+import { randomInRange } from '../util'
 import { ConceptBank } from '../commands/concepts'
 
 export const matcher = /\[([^\[\]]+)\]/g // eslint-disable-line no-useless-escape

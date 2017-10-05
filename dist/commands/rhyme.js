@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const chatter_1 = require("chatter");
-const util_1 = require("../util/util");
+const util_1 = require("../util");
 const trace_1 = require("../components/trace");
 const cmu = require("cmu-pronouncing-dictionary");
 const flipdict = require('../../data/flipdict.json');

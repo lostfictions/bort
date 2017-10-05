@@ -1,5 +1,5 @@
 import { createCommand } from 'chatter'
-import { randomInArray } from '../util/util'
+import { randomInArray } from '../util'
 
 import { AdjustedArgs } from './AdjustedArgs'
 

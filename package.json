@@ -7,7 +7,8 @@
   "scripts": {
     "start": "node dist/main.js",
     "dev": "cross-env USE_CLI=true nodemon -i persist dist/main.js",
-    "watch": "tsc -w"
+    "watch": "tsc -w",
+    "build": "rm -rf dist/ && tsc"
   },
   "author": "s",
   "license": "GPL3",

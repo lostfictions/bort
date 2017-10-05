@@ -4,7 +4,7 @@ import * as path from 'path'
 import * as Jimp from 'jimp'
 
 import { AdjustedArgs } from './AdjustedArgs'
-import { randomInArray, randomInRange } from '../util/util'
+import { randomInArray, randomInRange } from '../util'
 import { env } from '../env'
 
 const outputDirname = 'cliffs'

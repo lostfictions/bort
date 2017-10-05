@@ -1,7 +1,7 @@
 import { createCommand } from 'chatter'
 import * as got from 'got'
 
-import { randomInArray } from '../util/util'
+import { randomInArray } from '../util'
 
 import { AdjustedArgs } from './AdjustedArgs'
 import { tryTrace } from '../components/trace'

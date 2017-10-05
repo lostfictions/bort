@@ -4,7 +4,7 @@ const chatter_1 = require("chatter");
 const got = require("got");
 const cheerio = require("cheerio");
 const recents_1 = require("../actions/recents");
-const util_1 = require("../util/util");
+const util_1 = require("../util");
 const trace_1 = require("../components/trace");
 // based on https://github.com/jimkang/g-i-s/blob/master/index.js
 const requestAndParse = (term, animated, exact) => got('http://images.google.com/search', {

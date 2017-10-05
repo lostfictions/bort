@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const chatter_1 = require("chatter");
 const got = require("got");
-const util_1 = require("../util/util");
+const util_1 = require("../util");
 const trace_1 = require("../components/trace");
 exports.default = chatter_1.createCommand({
     name: 'gifcities',

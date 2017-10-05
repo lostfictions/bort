@@ -1,4 +1,4 @@
-import { randomInRange, randomByWeight } from '../util/util'
+import { randomInRange, randomByWeight } from '../util'
 import { Map } from 'immutable'
 
 export type WordBank = Map<string, Map<string, number>>

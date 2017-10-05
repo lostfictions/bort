@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const util_1 = require("../util/util");
+const util_1 = require("../util");
 const prepositions = [
     'until', 'onto', 'of', 'into', 'out', 'except',
     'across', 'by', 'between', 'at', 'down', 'as', 'from', 'around', 'with',

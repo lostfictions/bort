@@ -73,8 +73,5 @@ function getInitialConcepts() {
     assert(Array.isArray(cb['consonant']));
     assert(Array.isArray(cb['vowel']));
     assert(Array.isArray(cb['verb']));
-    // cb['vidnite'] = require('../../data/watched.json').singular
-    // assert(Array.isArray(cb['vidnite']))
-    // cb['!vidrand'] = fs.readFileSync('data/letterboxd_watchlist_scraped.txt').toString().split('\n')
     return immutable_1.fromJS(cb);
 }

@@ -16,7 +16,7 @@ export type ConceptBank = Map<string, List<string>>
 // Match two groups:
 // 1: a bracket-delimited term of any length
 // 2: the rest of the message if there is any, ignoring any preceding whitespace
-const matcher = /^\[([^\[\]]+)\](?:$|\s+(.*))/g
+const matcher = /^\[([^\[\]]+)\](?:$|\s+(.*))/g //eslint-disable-line no-useless-escape
 
 export const conceptAddCommand = createCommand(
   {

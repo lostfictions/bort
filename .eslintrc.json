@@ -1,0 +1,55 @@
+{
+    "parser": "typescript-eslint-parser",
+    "env": {
+        "browser": true,
+        "commonjs": true,
+        "es6": true
+    },
+    "extends": ["eslint:recommended"],
+    "parserOptions": {
+        "ecmaFeatures": {
+            "experimentalObjectRestSpread": true,
+            "jsx": true
+        },
+        "sourceType": "module"
+    },
+    "plugins": [
+        "typescript"
+    ],
+    "rules": {
+        "indent": ["warn", 2, { "SwitchCase": 1 }],
+        "linebreak-style": ["warn", "unix"],
+        "quotes": ["warn", "single", { "avoidEscape": true }],
+        "semi": ["warn", "never"],
+        // TEMP: typescript-eslint-parser doesn't consider class field initializers as defining
+        "no-undef": "off",
+
+        // TEMP: typescript-eslint-parser doesn't consider decorators as using vars
+        "no-unused-vars": "off",
+
+        // TEMP: typescript-eslint-parser considers usage of types before definition an error,
+        // with no option to configure
+        // "no-use-before-define": ["error", "nofunc"],
+        "no-use-before-define": "off",
+
+        "no-useless-constructor": "off",
+        "space-infix-ops":"off",
+        "no-console": "off",
+
+        // ES6:
+        "no-duplicate-imports": "error",
+        "no-shadow-restricted-names": "error",
+        "no-unmodified-loop-condition": "error",
+        "no-unused-expressions": "warn",
+        "no-useless-computed-key":"warn",
+        "no-useless-rename": "warn",
+        "no-var": "error",
+        "prefer-const": "warn",
+        "prefer-rest-params": "warn",
+        "prefer-spread": "warn",
+        "symbol-description": "warn",
+
+        "typescript/no-angle-bracket-type-assertion": "warn"
+        // "typescript/no-unused-vars": "warn"
+    }
+}

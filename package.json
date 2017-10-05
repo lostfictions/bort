@@ -39,7 +39,10 @@
     "@types/node": "^8.0.24",
     "@types/redux-immutable": "^3.0.35",
     "@types/validator": "^6.2.2",
+    "eslint": "^4.8.0",
+    "eslint-plugin-typescript": "^0.7.0",
     "nodemon": "^1.11.0",
-    "typescript": "^2.4.2"
+    "typescript": "^2.4.2",
+    "typescript-eslint-parser": "^8.0.0"
   }
 }

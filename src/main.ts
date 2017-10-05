@@ -12,13 +12,17 @@ if(env.USE_CLI) {
   makeCLIBot(botName)
 }
 else {
-  const slackBots = env.SLACK_TOKENS
-    .split(',')
-    .map(t => t.trim())
-    .map(t => makeSlackBot(botName, t))
+  if(env.SLACK_TOKENS.length > 0) {
+    const slackBots = env.SLACK_TOKENS
+      .split(',')
+      .map(t => t.trim())
+      .map(t => makeSlackBot(botName, t))
 
-  slackBots.forEach(bot => bot.login())
+    slackBots.forEach(bot => bot.login())
+  }
 
-  const discordBot = makeDiscordBot(botName, env.DISCORD_TOKEN)
-  discordBot.login()
+  if(env.DISCORD_TOKEN.length > 0) {
+    const discordBot = makeDiscordBot(botName, env.DISCORD_TOKEN)
+    discordBot.login()
+  }
 }

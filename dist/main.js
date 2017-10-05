@@ -11,11 +11,15 @@ if (env_1.env.USE_CLI) {
     cli_1.makeCLIBot(botName);
 }
 else {
-    const slackBots = env_1.env.SLACK_TOKENS
-        .split(',')
-        .map(t => t.trim())
-        .map(t => slack_1.makeSlackBot(botName, t));
-    slackBots.forEach(bot => bot.login());
-    const discordBot = discord_1.makeDiscordBot(botName, env_1.env.DISCORD_TOKEN);
-    discordBot.login();
+    if (env_1.env.SLACK_TOKENS.length > 0) {
+        const slackBots = env_1.env.SLACK_TOKENS
+            .split(',')
+            .map(t => t.trim())
+            .map(t => slack_1.makeSlackBot(botName, t));
+        slackBots.forEach(bot => bot.login());
+    }
+    if (env_1.env.DISCORD_TOKEN.length > 0) {
+        const discordBot = discord_1.makeDiscordBot(botName, env_1.env.DISCORD_TOKEN);
+        discordBot.login();
+    }
 }

@@ -49,7 +49,7 @@
         "prefer-spread": "warn",
         "symbol-description": "warn",
 
-        "typescript/no-angle-bracket-type-assertion": "warn"
-        // "typescript/no-unused-vars": "warn"
+        "typescript/no-angle-bracket-type-assertion": "warn",
+        "typescript/no-unused-vars": "warn"
     }
 }

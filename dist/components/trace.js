@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const util_1 = require("../util/util");
-exports.matcher = /\[([^\[\]]+)\]/g;
+exports.matcher = /\[([^\[\]]+)\]/g; // eslint-disable-line no-useless-escape
 const isVowel = (char) => /^[aeiou]$/i.test(char);
 //TODO: filter length 0 before passing through to simplify all of these
 exports.defaultModifiers = {

@@ -109,7 +109,7 @@ function getRhymeFor(word) {
                 }
                 cursor = cursor[wordOrSyllable];
             }
-            break;
+            break; // eslint-disable-line no-unreachable
         }
         cursor = nextCursor;
     }

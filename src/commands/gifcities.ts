@@ -40,7 +40,7 @@ function doQuery(query : string) : Promise<string> {
     query: { q: query, limit: 5 },
     timeout: 5000
   })
-  .then(res => randomInArray<string>(
-    JSON.parse(res.body).map((g : GifResult) => 'https://web.archive.org/web/' + g.gif))
-  )
+    .then(res => randomInArray<string>(
+      JSON.parse(res.body).map((g : GifResult) => 'https://web.archive.org/web/' + g.gif))
+    )
 }

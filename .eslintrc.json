@@ -19,7 +19,7 @@
     "rules": {
         "indent": ["warn", 2, { "SwitchCase": 1 }],
         "linebreak-style": ["warn", "unix"],
-        "quotes": ["warn", "single", { "avoidEscape": true }],
+        "quotes": ["warn", "single", { "avoidEscape": true, "allowTemplateLiterals": true }],
         "semi": ["warn", "never"],
         // TEMP: typescript-eslint-parser doesn't consider class field initializers as defining
         "no-undef": "off",

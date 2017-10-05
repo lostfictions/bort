@@ -15,7 +15,7 @@ const traverse = (obj : any, path : string[]) : any => {
     path.forEach(p => obj = obj[p])
     return obj
   }
-  catch(e) {}
+  catch(e) { /* just toss out any failure to traverse and return null. */ }
   return null
 }
 

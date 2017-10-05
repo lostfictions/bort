@@ -1,7 +1,7 @@
 import { randomInRange } from '../util/util'
 import { ConceptBank } from '../commands/concepts'
 
-export const matcher = /\[([^\[\]]+)\]/g
+export const matcher = /\[([^\[\]]+)\]/g // eslint-disable-line no-useless-escape
 
 
 type Modifier = (token: string, ...args : string[]) => string

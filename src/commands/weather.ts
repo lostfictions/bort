@@ -19,6 +19,6 @@ export default createCommand(
         'User-Agent': 'curl'
       }
     })
-    .then(res => '```' + res.body + '```')
+      .then(res => '```' + res.body + '```')
   }
 )

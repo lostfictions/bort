@@ -3,9 +3,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const slack_1 = require("./clients/slack");
 const discord_1 = require("./clients/discord");
 const cli_1 = require("./clients/cli");
-const pingserver_1 = require("./components/pingserver");
+const server_1 = require("./components/server");
 const env_1 = require("./env");
-pingserver_1.createServer(env_1.env.PORT);
+server_1.createServer(env_1.env.PORT);
 const botName = env_1.env.BOT_NAME;
 if (env_1.env.USE_CLI) {
     cli_1.makeCLIBot(botName);

@@ -1,7 +1,7 @@
 import { makeSlackBot } from './clients/slack'
 import { makeDiscordBot } from './clients/discord'
 import { makeCLIBot } from './clients/cli'
-import { createServer } from './components/pingserver'
+import { createServer } from './components/server'
 import { env } from './env'
 
 createServer(env.PORT)

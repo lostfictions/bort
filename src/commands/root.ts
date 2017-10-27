@@ -13,6 +13,7 @@ import {
 import gifcitiesCommand from './gifcities'
 import completeCommand from './complete'
 import heathcliffCommand from './heathcliff'
+import wikihowCommand from './wikihow'
 import conceptLoadCommand from './concept-load'
 import {
   conceptAddCommand,
@@ -40,6 +41,7 @@ const subCommands = [
   buseyCommand,
   rhymeCommand,
   heathcliffCommand,
+  wikihowCommand,
   imageSearchCommand,
   gifSearchCommand,
   gifcitiesCommand,

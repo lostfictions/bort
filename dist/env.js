@@ -16,11 +16,19 @@ exports.env = envalid.cleanEnv(process.env, {
         default: false,
         desc: 'Start up an interface that reads from stdin and prints to stdout instead of connecting to servers.'
     })
-});
+}, { strict: true });
 if (!fs.existsSync(exports.env.DATA_DIR)) {
     console.log(exports.env.DATA_DIR + ' not found! creating.');
     fs.mkdirSync(exports.env.DATA_DIR);
 }
-if (!exports.env.SLACK_TOKENS && !exports.env.DISCORD_TOKEN && !exports.env.USE_CLI) {
-    console.warn(`No Slack or Discord API tokens found! Bot will do nothing if you're not running in CLI mode.`);
+const isValidConfiguration = exports.env.USE_CLI ||
+    exports.env.SLACK_TOKENS ||
+    exports.env.DISCORD_TOKEN;
+if (!isValidConfiguration) {
+    console.warn(`Environment configuration doesn't appear to be valid! Bot will do nothing if you're not running in CLI mode.`);
+    const configInfo = Object.entries({
+        'Slack': exports.env.SLACK_TOKENS ? 'OK' : 'NONE',
+        'Discord': exports.env.DISCORD_TOKEN ? 'OK' : 'NONE'
+    }).map(tuple => tuple.join(': ')).join('\n');
+    console.log(configInfo);
 }

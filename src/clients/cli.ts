@@ -4,10 +4,6 @@ import { processMessage, normalizeMessage } from 'chatter'
 import { getStore } from '../store/get-store'
 import makeMessageHandler from '../commands/root'
 
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
-})
 
 const simulate = (messageHandler : any, message : string) => processMessage(messageHandler, message)
   .then(response => {
@@ -16,6 +12,11 @@ const simulate = (messageHandler : any, message : string) => processMessage(mess
   })
 
 export const makeCLIBot = (botName : string ) => {
+  const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+  })
+
   const testBot = makeMessageHandler(getStore('test'), botName, false)
   rl.on('line', (input : string) => simulate(testBot, input))
   return testBot

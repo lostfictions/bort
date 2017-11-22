@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const slack_1 = require("./clients/slack");
 const discord_1 = require("./clients/discord");
+const peerio_1 = require("./clients/peerio");
 const cli_1 = require("./clients/cli");
 const server_1 = require("./components/server");
 const env_1 = require("./env");
@@ -21,5 +22,9 @@ else {
     if (env_1.env.DISCORD_TOKEN.length > 0) {
         const discordBot = discord_1.makeDiscordBot(botName, env_1.env.DISCORD_TOKEN);
         discordBot.login();
+    }
+    if (env_1.env.PEERIO_USERNAME.length > 0 && env_1.env.PEERIO_ACCOUNT_KEY.length > 0) {
+        const peerioBot = peerio_1.makePeerioBot(botName, env_1.env.PEERIO_USERNAME, env_1.env.PEERIO_ACCOUNT_KEY);
+        peerioBot.login();
     }
 }

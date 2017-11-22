@@ -17,8 +17,6 @@ environment variables are present. possible env vars are:
 - `PORT`: port number for the bot's server component (defaults to 8080 in a dev
   environment, required in production)
 
-(check the `peerio` branch if you're looking for support for that service.)
-
 bort uses the [envalid](https://github.com/af/envalid) package which in turn
 wraps [dotenv](https://github.com/motdotla/dotenv), so you can alternately stick
 any of the above environment variables in a file named `.env` in the project

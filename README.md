@@ -8,6 +8,8 @@ environment variables are present. possible env vars are:
 - `SLACK_TOKENS`: a Slack API token, or a comma-separated list of Slack API
   tokens
 - `DISCORD_TOKEN`: a Discord API token
+- `PEERIO_USERNAME` and `PEERIO_ACCOUNT_KEY`: what they say on the tin. both are
+  required for the Peerio client to work.
 - `USE_CLI`: if 'true', will start up an interface that reads from stdin and
   prints to stdout instead of connecting to any servers.
 - `HOSTNAME`: hostname for the bot's server component (defaults to  'localhost'

@@ -1,6 +1,8 @@
 import { makeSlackBot } from './clients/slack'
 import { makeDiscordBot } from './clients/discord'
+import { makePeerioBot } from './clients/peerio'
 import { makeCLIBot } from './clients/cli'
+
 import { createServer } from './components/server'
 import { env } from './env'
 
@@ -24,5 +26,10 @@ else {
   if(env.DISCORD_TOKEN.length > 0) {
     const discordBot = makeDiscordBot(botName, env.DISCORD_TOKEN)
     discordBot.login()
+  }
+
+  if(env.PEERIO_USERNAME.length > 0 && env.PEERIO_ACCOUNT_KEY.length > 0) {
+    const peerioBot = makePeerioBot(botName, env.PEERIO_USERNAME, env.PEERIO_ACCOUNT_KEY)
+    peerioBot.login()
   }
 }

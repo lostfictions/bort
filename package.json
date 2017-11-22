@@ -24,6 +24,7 @@
     "immutable": "^3.8.2",
     "jimp": "^0.2.28",
     "moment": "^2.19.2",
+    "icewrap": "github:lostfictions/icewrap",
     "react": "^16.1.1",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",

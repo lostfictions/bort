@@ -6,6 +6,8 @@ type EnvSchema = {
   DATA_DIR : string
   SLACK_TOKENS : string
   DISCORD_TOKEN : string
+  PEERIO_USERNAME : string
+  PEERIO_ACCOUNT_KEY : string
   HOSTNAME : string
   PORT : number
   USE_CLI : boolean
@@ -19,6 +21,8 @@ export const env = envalid.cleanEnv<EnvSchema>(process.env, {
     desc: 'A Slack API token, or a comma-separated list of Slack API tokens.'
   }),
   DISCORD_TOKEN: envalid.str({ default: '' }),
+  PEERIO_USERNAME: envalid.str({ default: '' }),
+  PEERIO_ACCOUNT_KEY: envalid.str({ default: '' }),
   HOSTNAME: envalid.str({ devDefault: 'localhost' }),
   PORT: envalid.num({ devDefault: 8080 }),
   USE_CLI: envalid.bool({
@@ -34,13 +38,15 @@ if(!fs.existsSync(env.DATA_DIR)) {
 
 const isValidConfiguration = env.USE_CLI ||
   env.SLACK_TOKENS ||
-  env.DISCORD_TOKEN
+  env.DISCORD_TOKEN ||
+  (env.PEERIO_USERNAME && env.PEERIO_ACCOUNT_KEY)
 
 if(!isValidConfiguration) {
   console.warn(`Environment configuration doesn't appear to be valid! Bot will do nothing if you're not running in CLI mode.`)
   const configInfo = Object.entries({
     'Slack': env.SLACK_TOKENS ? 'OK' : 'NONE',
-    'Discord': env.DISCORD_TOKEN ? 'OK' : 'NONE'
+    'Discord': env.DISCORD_TOKEN ? 'OK' : 'NONE',
+    'Peerio': (env.PEERIO_USERNAME && env.PEERIO_ACCOUNT_KEY) ? 'OK' : 'NONE'
   }).map(tuple => tuple.join(': ')).join('\n')
   console.log(configInfo)
 }

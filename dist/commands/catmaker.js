@@ -83,10 +83,10 @@ function getConfig(isBpf) {
         wrapResult: result => `\`\`\`\n${result}\n\`\`\``
     };
 }
-const sizeX = 30;
-const sizeY = 10;
+const sizeX = 16;
+const sizeY = 20;
 const startDirection = 1;
-const extraCatChance = 0.4;
+const extraCatChance = 0.5;
 const turnChance = {
     f: 1,
     l: 1,
@@ -100,7 +100,7 @@ function addCat(grid, config) {
     let y;
     do {
         x = util_1.randomInt(sizeX);
-        y = 0;
+        y = Math.max(util_1.randomInt(sizeY / 2) - 1, 0);
         attempts--;
         if (attempts === 0) {
             return false;

@@ -104,12 +104,12 @@ function getConfig(isBpf : boolean) : CatConfig {
   }
 }
 
-const sizeX = 30
-const sizeY = 10
+const sizeX = 16
+const sizeY = 20
 
 const startDirection = 1
 
-const extraCatChance = 0.4
+const extraCatChance = 0.5
 const turnChance = {
   f: 1,
   l: 1,
@@ -126,11 +126,11 @@ function addCat(grid : string[][], config : CatConfig) : boolean {
 
   // search for an empty spot to put the cat.
   let attempts = 5
-  let x
-  let y
+  let x : number
+  let y : number
   do {
     x = randomInt(sizeX)
-    y = 0
+    y = Math.max(randomInt(sizeY / 2) - 1, 0)
     attempts--
     if(attempts === 0) {
       return false

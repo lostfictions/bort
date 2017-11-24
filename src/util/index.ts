@@ -3,7 +3,7 @@ import { Collection } from 'immutable'
 /** Returns a random number between min (inclusive) and max (exclusive). */
 export function randomInt(max : number) : number
 export function randomInt(min : number, max : number) : number
-export function randomInt(min : number, max? : number) {
+export function randomInt(min : number, max? : number) : number {
   if(typeof max === 'undefined') {
     max = min
     min = 0

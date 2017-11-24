@@ -1,4 +1,5 @@
 import { createCommand } from 'chatter'
+import { env } from '../env'
 
 import { randomByWeight, WeightedValues, randomInArray, randomInt } from '../util'
 
@@ -135,7 +136,7 @@ function addCat(grid : string[][], config : CatConfig) : boolean {
     if(attempts === 0) {
       return false
     }
-  } while(grid[x][y] !== emptySprite && grid[x][y + 1] !== emptySprite)
+  } while(grid[x][y] !== emptySprite || grid[x][y + 1] !== emptySprite)
 
   grid[x][y] = startSprite
   y += 1
@@ -227,7 +228,8 @@ export default createCommand(
     description: 'get cat'
   },
   () : string => {
-    const config = getConfig(true)
+    // TODO: handle per-server via store
+    const config = getConfig(!env.USE_CLI)
 
     const grid : string[][] = []
     for(let i = 0; i < sizeX; i++) {

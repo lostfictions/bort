@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const chatter_1 = require("chatter");
+const env_1 = require("../env");
 const util_1 = require("../util");
 function getConfig(isBpf) {
     if (isBpf) {
@@ -105,7 +106,7 @@ function addCat(grid, config) {
         if (attempts === 0) {
             return false;
         }
-    } while (grid[x][y] !== emptySprite && grid[x][y + 1] !== emptySprite);
+    } while (grid[x][y] !== emptySprite || grid[x][y + 1] !== emptySprite);
     grid[x][y] = startSprite;
     y += 1;
     let dir = startDirection;
@@ -190,7 +191,8 @@ exports.default = chatter_1.createCommand({
     name: 'cat',
     description: 'get cat'
 }, () => {
-    const config = getConfig(true);
+    // TODO: handle per-server via store
+    const config = getConfig(!env_1.env.USE_CLI);
     const grid = [];
     for (let i = 0; i < sizeX; i++) {
         grid[i] = Array(sizeY).fill(config.emptySprite);

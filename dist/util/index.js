@@ -1,5 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+function randomInt(min, max) {
+    if (typeof max === 'undefined') {
+        max = min;
+        min = 0;
+    }
+    return Math.floor(Math.random() * (max - min)) + min;
+}
+exports.randomInt = randomInt;
 function randomInArray(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
 exports.randomInArray = randomInArray;
 function randomInRange(collection) {

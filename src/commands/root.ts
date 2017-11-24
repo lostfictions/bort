@@ -3,6 +3,7 @@ import { createArgsAdjuster, createCommand } from 'chatter'
 import { AdjustedArgs } from './AdjustedArgs'
 
 import buseyCommand from './busey'
+import catmakerCommand from './catmaker'
 import rhymeCommand from './rhyme'
 import weatherCommand from './weather'
 import uptimeCommand from './uptime'
@@ -47,6 +48,7 @@ const subCommands = [
   gifcitiesCommand,
   completeCommand,
   weatherCommand,
+  catmakerCommand,
   uptimeCommand
 ]
 

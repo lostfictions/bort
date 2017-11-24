@@ -4,10 +4,7 @@
     "module": "commonjs",
     "outDir": "dist",
     "allowJs": true,
-    "strictNullChecks": true,
-    "noImplicitAny": true,
-    "noImplicitReturns": true,
-    "noImplicitThis": true,
+    "strict": true,
     "rootDirs": ["./src"]
     // "allowSyntheticDefaultImports": true,
     // "noUnusedLocals": true

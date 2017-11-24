@@ -28,8 +28,9 @@ web-based management interface (that optionally authenticates through your Slack
 or Discord account via OAuth) but that's a bit ambitious for a hobby project
 designed for sharing funny gifs and making bad rhymes.
 
-`npm start` will start the bot, or use `npm run dev` to spin up a command line
-interface for testing.
+`npm start` will start the bot in production mode. Use `npm run dev` if you want
+to run online but restart on any change, or `npm run cli` to spin up a command
+line interface for testing that will restart on any change.
 
 bort is written in typescript, and compilation artifacts are committed (to
 simplify push-to-deploy-style scenarios; may be revisited in the future). run

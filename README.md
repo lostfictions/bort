@@ -17,6 +17,9 @@ environment variables are present. possible env vars are:
 
 (check the `peerio` branch if you're looking for support for that service.)
 
+each service that bort connects to gets its own isolated data store. stores are
+serialized to the directory provided as the `DATA_DIR`.
+
 bort uses the [envalid](https://github.com/af/envalid) package which in turn
 wraps [dotenv](https://github.com/motdotla/dotenv), so you can alternately stick
 any of the above environment variables in a file named `.env` in the project

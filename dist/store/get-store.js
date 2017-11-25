@@ -6,7 +6,12 @@ const store_1 = require("./store");
 const env_1 = require("../env");
 const recents_1 = require("../actions/recents");
 const storeCache = {};
-exports.getStore = id => {
+/**
+ * Get or create a store for a given ID. If you don't want different services or
+ * channels to share a store, make sure it has a unique ID!
+ * @param id The unique identifier for this store.
+ */
+function getStore(id) {
     if (id.length < 1) {
         throw new Error('Invalid id for store!');
     }
@@ -32,5 +37,6 @@ exports.getStore = id => {
     setInterval(() => s.dispatch(recents_1.cleanRecentsAction()), 60000);
     storeCache[id] = s;
     return s;
-};
+}
+exports.getStore = getStore;
 //# sourceMappingURL=get-store.js.map

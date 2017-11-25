@@ -122,6 +122,7 @@ function addCat(grid, config, turnChance) {
     // be configurable.
     let steps = util_1.randomInt(20, 100);
     do {
+        console.log(`steps left: ${steps}`);
         ////////////////////////////
         // log full state at each step.
         if (env_1.env.USE_CLI) {

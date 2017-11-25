@@ -9,7 +9,12 @@ import { cleanRecentsAction } from '../actions/recents'
 
 const storeCache : { [id : string] : Store<BortStore> } = {}
 
-export const getStore : (id : string) => Store<BortStore> = id => {
+/**
+ * Get or create a store for a given ID. If you don't want different services or
+ * channels to share a store, make sure it has a unique ID!
+ * @param id The unique identifier for this store.
+ */
+export function getStore(id : string) : Store<BortStore> {
   if(id.length < 1) {
     throw new Error('Invalid id for store!')
   }

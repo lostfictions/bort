@@ -14,7 +14,7 @@ exports.makeSlackBot = (botName, slackToken) => new chatter_1.SlackBot({
         text,
         as_user: false,
         username: botName,
-        icon_url: 'http://' + env_1.env.HOSTNAME + '/bort.png',
+        icon_url: `http://${env_1.env.HOSTNAME}/bort.png`,
         unfurl_links: true,
         unfurl_media: true
     }),

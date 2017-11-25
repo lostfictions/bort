@@ -18,7 +18,7 @@ environment variables are present. possible env vars are:
 (check the `peerio` branch if you're looking for support for that service.)
 
 each service that bort connects to gets its own isolated data store. stores are
-serialized to the directory provided as the `DATA_DIR`.
+serialized to json in the directory provided as the `DATA_DIR`.
 
 bort uses the [envalid](https://github.com/af/envalid) package which in turn
 wraps [dotenv](https://github.com/motdotla/dotenv), so you can alternately stick
@@ -43,7 +43,6 @@ making bad rhymes.
 to run online but restart on any change, or `npm run cli` to spin up a command
 line interface for testing that will restart on any change.
 
-bort is written in typescript, and compilation artifacts are committed (to
-simplify push-to-deploy-style scenarios; may be revisited in the future). run
-`npm run watch` if you're hacking on it, or just make sure you run `npm run
-build` before you deploy.
+bort is written in typescript, and the dockerfile will compile to js as part of
+its setup. run `npm run watch-cli` or `npm run watch-dev` if you're hacking on
+things and want an auto-reloading cli interface or live client, respectively.

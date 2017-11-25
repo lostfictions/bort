@@ -11,7 +11,7 @@ exports.default = chatter_1.createCommand({
     const maybeTraced = trace_1.tryTrace(message, store.getState().get('concepts'));
     let prefix = '';
     if (maybeTraced) {
-        message = maybeTraced;
+        message = maybeTraced; // tslint:disable-line:no-parameter-reassignment
         prefix = `(${maybeTraced})\n`;
     }
     const wb = store.getState().get('wordBank');

@@ -4,10 +4,12 @@ const chatter_1 = require("chatter");
 const util_1 = require("../util");
 const trace_1 = require("../components/trace");
 const cmu = require("cmu-pronouncing-dictionary");
+// tslint:disable:no-require-imports
 const flipdict = require('../../data/flipdict.json');
 const syllableSet = new Set(require('../../data/syllables.json'));
-function trim(string) {
-    const chars = string.split('');
+// tslint:enable:no-require-imports
+function trim(str) {
+    const chars = str.split('');
     const before = [];
     const after = [];
     while (chars.length > 0 && chars[0].match(/[^a-zA-Z]/)) {
@@ -41,7 +43,7 @@ exports.default = chatter_1.createCommand({
     const maybeTraced = trace_1.tryTrace(message, store.getState().get('concepts'));
     let prefix = '';
     if (maybeTraced) {
-        message = maybeTraced;
+        message = maybeTraced; // tslint:disable-line:no-parameter-reassignment
         prefix = `(${maybeTraced})\n`;
     }
     if (message.length === 0) {
@@ -79,7 +81,7 @@ exports.default = chatter_1.createCommand({
 function getRhymeFor(word) {
     const pronounciation = cmu[word];
     if (!pronounciation) {
-        //Push a wildcard, for which we'll try to find a candidate from the wordbank in the next step.
+        // Push a wildcard, for which we'll try to find a candidate from the wordbank in the next step.
         return '*';
     }
     let cursor = flipdict;

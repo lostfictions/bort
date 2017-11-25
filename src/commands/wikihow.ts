@@ -2,14 +2,6 @@ import { createCommand } from 'chatter'
 import * as got from 'got'
 import * as cheerio from 'cheerio'
 
-import { Map } from 'immutable'
-
-import { Store } from 'redux'
-import { BortStore } from '../store/store'
-import {
-  addRecentAction
-} from '../actions/recents'
-
 import { randomInArray } from '../util'
 
 import { AdjustedArgs } from './AdjustedArgs'

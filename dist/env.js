@@ -27,8 +27,8 @@ const isValidConfiguration = exports.env.USE_CLI ||
 if (!isValidConfiguration) {
     console.warn(`Environment configuration doesn't appear to be valid! Bot will do nothing if you're not running in CLI mode.`);
     const configInfo = Object.entries({
-        'Slack': exports.env.SLACK_TOKENS ? 'OK' : 'NONE',
-        'Discord': exports.env.DISCORD_TOKEN ? 'OK' : 'NONE'
+        Slack: exports.env.SLACK_TOKENS ? 'OK' : 'NONE',
+        Discord: exports.env.DISCORD_TOKEN ? 'OK' : 'NONE'
     }).map(tuple => tuple.join(': ')).join('\n');
     console.log(configInfo);
 }

@@ -39,8 +39,8 @@ export function makeStore(filename : string = 'state') : Store<BortStore> {
 
     // Basic sanity check on shape returned
     const props : { [ propName : string ] : (propValue : any) => any } = {
-      'wordBank': (p : any) => p,
-      'concepts': (p : any) => p
+      wordBank: (p : any) => p,
+      concepts: (p : any) => p
     }
     // tslint:disable-next-line:forin
     for(const k in props) {
@@ -69,7 +69,7 @@ export function makeStore(filename : string = 'state') : Store<BortStore> {
 }
 
 function getInitialWordbank() : WordBank {
-  const tarotLines : string[] = require('../../data/corpora').tarotLines
+  const tarotLines : string[] = require('../../data/corpora').tarotLines // tslint:disable-line:no-require-imports
 
   return tarotLines.reduce<WordBank>(
     (p, line) => markovReducers(p, addSentenceAction(line)),
@@ -80,7 +80,7 @@ function getInitialWordbank() : WordBank {
 function getInitialConcepts() : ConceptBank {
   const cb : any = {}
 
-  const corpora = require('../../data/corpora')
+  const corpora = require('../../data/corpora') // tslint:disable-line:no-require-imports
   cb['punc'] = corpora.punc
   cb['interjection'] = corpora.interjection
   cb['adj'] = corpora.adj

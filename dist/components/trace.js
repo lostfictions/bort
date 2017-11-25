@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const util_1 = require("../util");
 exports.matcher = /\[([^\[\]]+)\]/g; // eslint-disable-line no-useless-escape
 const isVowel = (char) => /^[aeiou]$/i.test(char);
-//TODO: filter length 0 before passing through to simplify all of these
+// TODO: filter length 0 before passing through to simplify all of these
 exports.defaultModifiers = {
     s: word => {
         if (word.length < 1)
@@ -50,8 +50,9 @@ exports.defaultModifiers = {
     ing: word => {
         if (word.length < 1)
             return word;
-        if (word[word.length - 1].toLowerCase() === 'e')
+        if (word[word.length - 1].toLowerCase() === 'e') {
             return word.substring(0, word.length - 1) + 'ing';
+        }
         return word + 'ing';
     },
     upper: word => word.toUpperCase(),
@@ -90,7 +91,7 @@ function trace({ concepts, concept, maxCycles = 10, seen = {}, modifierList = ex
 exports.default = trace;
 function tryTrace(message, concepts) {
     if (exports.matcher.test(message)) {
-        return message.replace(exports.matcher, (_, concept) => trace({ concepts, concept: concept }));
+        return message.replace(exports.matcher, (_, concept) => trace({ concepts, concept }));
     }
     return false;
 }

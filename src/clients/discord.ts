@@ -4,26 +4,27 @@ import { Bot } from 'chatter'
 import { getStore } from '../store/get-store'
 import makeMessageHandler from '../commands/root'
 
-type DiscordMeta = {
+interface DiscordMeta {
   bot : Bot
   client : DiscordClient,
   message : DiscordMessage,
   user : DiscordUser
 }
 
+// tslint:disable-next-line:typedef
 export function makeDiscordBot(botName : string, discordToken : string) {
 
   const client = new DiscordClient()
 
-  //tslint:disable:no-invalid-this
+  // tslint:disable:no-invalid-this
   const bot = new Bot({
-    createMessageHandler: function(id : any, meta : DiscordMeta) : any {
+    createMessageHandler(id : any, meta : DiscordMeta) : any {
       if(meta.message.guild) {
         return makeMessageHandler(getStore(meta.message.guild.id), botName, meta.message.channel.type === 'dm')
       }
       return makeMessageHandler(getStore(meta.message.channel.id), botName, meta.message.channel.type === 'dm')
     },
-    getMessageHandlerArgs: function(this : Bot, message : DiscordMessage) : any {
+    getMessageHandlerArgs(this : Bot, message : DiscordMessage) : any {
       if(message.author.bot) {
         return false
       }
@@ -45,15 +46,15 @@ export function makeDiscordBot(botName : string, discordToken : string) {
         args: [meta]
       }
     },
-    getMessageHandlerCacheId: function(meta : DiscordMeta) {
+    getMessageHandlerCacheId(meta : DiscordMeta) : string {
       return meta.message.channel.id
     },
-    sendResponse: function(message : DiscordMessage, text : string) {
+    sendResponse(message : DiscordMessage, text : string) : void {
       message.channel.sendMessage(text)
     }
 
   })
-  //tslint:enable:no-invalid-this
+  // tslint:enable:no-invalid-this
 
 
   client.on('ready', () => {

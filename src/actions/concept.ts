@@ -26,12 +26,14 @@ interface RemoveFromConceptAction {
   item : string
 }
 
-export const addConceptAction = (conceptName : string) : AddConceptAction => ({ type : 'ADD_CONCEPT', conceptName })
+export const addConceptAction =
+  (conceptName : string) : AddConceptAction => ({ type : 'ADD_CONCEPT', conceptName })
 export function isAddConceptAction(action : { type : string }) : action is AddConceptAction {
   return action.type === 'ADD_CONCEPT'
 }
 
-export const removeConceptAction = (conceptName : string) : RemoveConceptAction => ({ type : 'REMOVE_CONCEPT', conceptName })
+export const removeConceptAction =
+  (conceptName : string) : RemoveConceptAction => ({ type : 'REMOVE_CONCEPT', conceptName })
 export function isRemoveConceptAction(action : { type : string }) : action is RemoveConceptAction {
   return action.type === 'REMOVE_CONCEPT'
 }

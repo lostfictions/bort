@@ -12,7 +12,9 @@ import {
 } from '../actions/concept'
 
 
-export const conceptReducers : Reducer<ConceptBank> = (state : ConceptBank = Map<string, List<string>>(), action : Action) => {
+export const conceptReducers : Reducer<ConceptBank> =
+  (state : ConceptBank = Map<string, List<string>>(), action : Action) =>
+{
   if(isAddConceptAction(action)) {
     return state.set(action.conceptName, List([]))
   }

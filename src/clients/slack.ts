@@ -7,7 +7,7 @@ import { getStore } from '../store/get-store'
 
 // import { hostname } from 'os'
 
-//tslint:disable:no-invalid-this
+// tslint:disable:no-invalid-this
 export const makeSlackBot = (botName : string, slackToken : string) => new SlackBot({
   name: botName,
   // Override the message posting options so that we simply post as our bot user
@@ -19,7 +19,7 @@ export const makeSlackBot = (botName : string, slackToken : string) => new Slack
     unfurl_links: true,
     unfurl_media: true
   }),
-  getSlack: function(this : SlackBot) {
+  getSlack(this : SlackBot) { // tslint:disable-line:typedef
     const rtm = new RtmClient(slackToken, {
       dataStore: new MemoryDataStore(),
       autoReconnect: true,
@@ -40,11 +40,11 @@ export const makeSlackBot = (botName : string, slackToken : string) => new Slack
       webClient: new WebClient(slackToken)
     }
   },
-  createMessageHandler: function(this : SlackBot, id : any, meta : any) : any {
+  createMessageHandler(this : SlackBot, id : any, meta : any) : any {
     if(!this.slack.rtmClient.activeTeamId) {
       throw new Error(`Slack client: couldn't retrieve team id!`)
     }
     return makeMessageHandler(getStore(this.slack.rtmClient.activeTeamId), this.name, meta.channel.is_im)
   }
 })
-//tslint:enable:no-invalid-this
+// tslint:enable:no-invalid-this

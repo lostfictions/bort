@@ -24,8 +24,8 @@ function makeStore(filename = 'state') {
         const json = JSON.parse(d);
         // Basic sanity check on shape returned
         const props = {
-            'wordBank': (p) => p,
-            'concepts': (p) => p
+            wordBank: (p) => p,
+            concepts: (p) => p
         };
         // tslint:disable-next-line:forin
         for (const k in props) {
@@ -51,12 +51,12 @@ function makeStore(filename = 'state') {
 }
 exports.makeStore = makeStore;
 function getInitialWordbank() {
-    const tarotLines = require('../../data/corpora').tarotLines;
+    const tarotLines = require('../../data/corpora').tarotLines; // tslint:disable-line:no-require-imports
     return tarotLines.reduce((p, line) => markov_1.markovReducers(p, markov_2.addSentenceAction(line)), immutable_1.Map());
 }
 function getInitialConcepts() {
     const cb = {};
-    const corpora = require('../../data/corpora');
+    const corpora = require('../../data/corpora'); // tslint:disable-line:no-require-imports
     cb['punc'] = corpora.punc;
     cb['interjection'] = corpora.interjection;
     cb['adj'] = corpora.adj;

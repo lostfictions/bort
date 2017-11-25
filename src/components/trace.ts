@@ -4,11 +4,11 @@ import { ConceptBank } from '../commands/concepts'
 export const matcher = /\[([^\[\]]+)\]/g // eslint-disable-line no-useless-escape
 
 
-type Modifier = (token: string, ...args : string[]) => string
-type ModifierList = {
+type Modifier = (token : string, ...args : string[]) => string
+interface ModifierList {
   [filterName : string] : Modifier
 }
-type TraceArgs = {
+interface TraceArgs {
   concepts : ConceptBank
   concept : string
   maxCycles? : number
@@ -18,7 +18,7 @@ type TraceArgs = {
 
 const isVowel = (char : string) => /^[aeiou]$/i.test(char)
 
-//TODO: filter length 0 before passing through to simplify all of these
+// TODO: filter length 0 before passing through to simplify all of these
 export const defaultModifiers : ModifierList = {
   s: word => {
     if(word.length < 1) return word
@@ -62,8 +62,9 @@ export const defaultModifiers : ModifierList = {
   },
   ing : word => {
     if(word.length < 1) return word
-    if(word[word.length - 1].toLowerCase() === 'e')
+    if(word[word.length - 1].toLowerCase() === 'e') {
       return word.substring(0, word.length - 1) + 'ing'
+    }
     return word + 'ing'
   },
   upper : word => word.toUpperCase(),
@@ -98,7 +99,7 @@ export default function trace({
       if(seen[nextConcept] > maxCycles) {
         return '{error: max cycles exceeded}'
       }
-      const nextSeen = Object.assign({}, seen)
+      const nextSeen = { ...seen }
       nextSeen[nextConcept] = nextSeen[nextConcept] + 1 || 1
       return trace({
         concepts,
@@ -112,7 +113,7 @@ export default function trace({
 
 export function tryTrace(message : string, concepts : ConceptBank) : string | false {
   if(matcher.test(message)) {
-    return message.replace(matcher, (_, concept) => trace({concepts, concept: concept}))
+    return message.replace(matcher, (_, concept) => trace({concepts, concept}))
   }
   return false
 }

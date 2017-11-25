@@ -7,7 +7,9 @@ const sentenceSplitter = /(?:\.|\?|\n)/ig
 const wordNormalizer = (word : string) => word.toLowerCase()
 const wordFilter = (word : string) => word.length > 0 && !word.startsWith('<')
 
-export const markovReducers : Reducer<WordBank> = (state : WordBank = Map<string, Map<string, number>>(), action : Action) => {
+export const markovReducers : Reducer<WordBank> =
+  (state : WordBank = Map<string, Map<string, number>>(), action : Action) =>
+{
   if(isAddSentenceAction(action)) {
     action.sentence.split(sentenceSplitter).forEach(line => {
       const words = line

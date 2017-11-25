@@ -1,8 +1,6 @@
 import { createCommand } from 'chatter'
 import * as got from 'got'
 
-import { getSentence } from '../components/markov'
-
 import { AdjustedArgs } from './AdjustedArgs'
 
 import { tryTrace } from '../components/trace'

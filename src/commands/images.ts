@@ -2,8 +2,6 @@ import { createCommand } from 'chatter'
 import * as got from 'got'
 import * as cheerio from 'cheerio'
 
-import { Map } from 'immutable'
-
 import { Store } from 'redux'
 import { BortStore } from '../store/store'
 import {
@@ -21,12 +19,13 @@ const requestAndParse = (term : string, animated : boolean, exact : boolean) => 
   query: {
     q: term,
     tbm: 'isch', // perform an image search
-    nfpr: exact ? 1 : 0, //exact search, don't correct typos
+    nfpr: exact ? 1 : 0, // exact search, don't correct typos
     tbs: animated ? 'itp:animated' : undefined
   },
   timeout: 5000,
   headers: {
-    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.86 Safari/537.36'
+    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) ' +
+      'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.86 Safari/537.36'
   }
 }).then(res => {
   const $ = cheerio.load(res.body)
@@ -48,7 +47,7 @@ const search = (term : string, store : Store<BortStore>, animated = false) =>
   requestAndParse(term, animated, true)
     .then(res => {
       if(res.length === 0) {
-        //if no results, try an inexact search
+        // if no results, try an inexact search
         return requestAndParse(term, animated, false)
       }
       return res

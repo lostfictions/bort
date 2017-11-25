@@ -16,7 +16,8 @@ const requestAndParse = (term, animated, exact) => got('http://images.google.com
     },
     timeout: 5000,
     headers: {
-        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.86 Safari/537.36'
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) ' +
+            'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.86 Safari/537.36'
     }
 }).then(res => {
     const $ = cheerio.load(res.body);
@@ -36,7 +37,7 @@ const requestAndParse = (term, animated, exact) => got('http://images.google.com
 const search = (term, store, animated = false) => requestAndParse(term, animated, true)
     .then(res => {
     if (res.length === 0) {
-        //if no results, try an inexact search
+        // if no results, try an inexact search
         return requestAndParse(term, animated, false);
     }
     return res;

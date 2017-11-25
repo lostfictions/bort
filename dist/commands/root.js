@@ -101,7 +101,7 @@ function makeMessageHandler(store, name, isDM) {
     return [
         chatter_1.createCommand({
             isParent: true,
-            name: name,
+            name,
             // name: botNames.name,
             // aliases: botNames.aliases,
             description: `it ${name}`

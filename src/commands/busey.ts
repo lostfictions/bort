@@ -18,7 +18,7 @@ export default createCommand(
     const maybeTraced = tryTrace(message, store.getState().get('concepts'))
     let prefix = ''
     if(maybeTraced) {
-      message = maybeTraced
+      message = maybeTraced // tslint:disable-line:no-parameter-reassignment
       prefix = `(${maybeTraced})\n`
     }
 

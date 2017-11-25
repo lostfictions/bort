@@ -11,7 +11,7 @@ const simulate = (messageHandler : any, message : string) => processMessage(mess
     console.log(text)
   })
 
-export const makeCLIBot = (botName : string ) => {
+export const makeCLIBot = (botName : string) => {
   const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout

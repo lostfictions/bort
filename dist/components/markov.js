@@ -26,7 +26,9 @@ const misc = [
     'if', 'unless', 'otherwise'
 ];
 const continueSet = new Set([...prepositions, ...determiners, ...conjunctions, ...misc]);
-const endTest = (output) => output.length > 3 && !continueSet.has(output[output.length - 1]) && Math.random() > 0.8;
+const endTest = (output) => (output.length > 3 &&
+    !continueSet.has(output[output.length - 1]) &&
+    Math.random() > 0.8);
 function getSeed(wordBank) {
     return util_1.randomInRange(wordBank.keySeq());
 }

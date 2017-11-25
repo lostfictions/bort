@@ -16,7 +16,7 @@ export type ConceptBank = Map<string, List<string>>
 // Match two groups:
 // 1: a bracket-delimited term of any length
 // 2: the rest of the message if there is any, ignoring any preceding whitespace
-const matcher = /^\[([^\[\]]+)\](?:$|\s+(.*))/g //eslint-disable-line no-useless-escape
+const matcher = /^\[([^\[\]]+)\](?:$|\s+(.*))/g // eslint-disable-line no-useless-escape
 
 export const conceptAddCommand = createCommand(
   {
@@ -76,7 +76,8 @@ export const conceptListCommand = createCommand(
 
     const items = concepts.get(message)
     if(items.size > 100) {
-      return `"${ message }" has ${ items.size } items in it! Only showing the first 100.\n${ items.slice(0, 100).join(', ') }`
+      return `"${ message }" has ${ items.size } items in it! Only showing the first 100.\n` +
+        items.slice(0, 100).join(', ')
     }
     return `*${ message }:*\n` + (items.size > 0 ? items.join(', ') : '_Empty._')
   }

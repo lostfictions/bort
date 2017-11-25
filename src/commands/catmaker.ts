@@ -1,7 +1,7 @@
 import { createCommand } from 'chatter'
 import { env } from '../env'
 
-import { randomByWeight, WeightedValues, randomInArray, randomInt } from '../util'
+import { randomByWeight, WeightedValues, randomInt } from '../util'
 
 
 // const crossoverSprite = [':catcross1:', ':catcross2:']

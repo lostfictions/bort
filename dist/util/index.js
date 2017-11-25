@@ -8,6 +8,7 @@ function randomInt(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
 }
 exports.randomInt = randomInt;
+/* tslint:enable:no-parameter-reassignment */
 function randomInArray(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
 exports.randomInArray = randomInArray;
 function randomInRange(collection) {

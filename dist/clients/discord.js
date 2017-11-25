@@ -4,17 +4,18 @@ const discord_js_1 = require("discord.js");
 const chatter_1 = require("chatter");
 const get_store_1 = require("../store/get-store");
 const root_1 = require("../commands/root");
+// tslint:disable-next-line:typedef
 function makeDiscordBot(botName, discordToken) {
     const client = new discord_js_1.Client();
-    //tslint:disable:no-invalid-this
+    // tslint:disable:no-invalid-this
     const bot = new chatter_1.Bot({
-        createMessageHandler: function (id, meta) {
+        createMessageHandler(id, meta) {
             if (meta.message.guild) {
                 return root_1.default(get_store_1.getStore(meta.message.guild.id), botName, meta.message.channel.type === 'dm');
             }
             return root_1.default(get_store_1.getStore(meta.message.channel.id), botName, meta.message.channel.type === 'dm');
         },
-        getMessageHandlerArgs: function (message) {
+        getMessageHandlerArgs(message) {
             if (message.author.bot) {
                 return false;
             }
@@ -35,14 +36,14 @@ function makeDiscordBot(botName, discordToken) {
                 args: [meta]
             };
         },
-        getMessageHandlerCacheId: function (meta) {
+        getMessageHandlerCacheId(meta) {
             return meta.message.channel.id;
         },
-        sendResponse: function (message, text) {
+        sendResponse(message, text) {
             message.channel.sendMessage(text);
         }
     });
-    //tslint:enable:no-invalid-this
+    // tslint:enable:no-invalid-this
     client.on('ready', () => {
         console.log(`Connected to Discord guilds ${client.guilds.array().map(g => `'${g.name}'`).join(', ')} as ${botName}`);
     });

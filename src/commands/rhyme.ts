@@ -9,13 +9,15 @@ import { tryTrace } from '../components/trace'
 
 import * as cmu from 'cmu-pronouncing-dictionary'
 
-type DictNode = { [syllOrWord : string ] : DictNode | '!' }
+interface DictNode { [syllOrWord : string ] : DictNode | '!' }
 
+// tslint:disable:no-require-imports
 const flipdict = require('../../data/flipdict.json') as DictNode
 const syllableSet = new Set<string>(require('../../data/syllables.json'))
+// tslint:enable:no-require-imports
 
-function trim(string : string) : [string, string, string] {
-  const chars = string.split('')
+function trim(str : string) : [string, string, string] {
+  const chars = str.split('')
 
   const before = []
   const after = []
@@ -57,7 +59,7 @@ export default createCommand(
     const maybeTraced = tryTrace(message, store.getState().get('concepts'))
     let prefix = ''
     if(maybeTraced) {
-      message = maybeTraced
+      message = maybeTraced // tslint:disable-line:no-parameter-reassignment
       prefix = `(${maybeTraced})\n`
     }
 
@@ -108,7 +110,7 @@ export default createCommand(
 function getRhymeFor(word : string) : string {
   const pronounciation = cmu[word] as string | undefined
   if(!pronounciation) {
-    //Push a wildcard, for which we'll try to find a candidate from the wordbank in the next step.
+    // Push a wildcard, for which we'll try to find a candidate from the wordbank in the next step.
     return '*'
   }
 

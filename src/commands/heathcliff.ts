@@ -32,7 +32,7 @@ async function load(files : string[]) : Promise<[Jimp, string[]]> {
     const fn = randomInArray(nextFiles)
     nextFiles.splice(nextFiles.indexOf(fn), 1)
     img = await Jimp.read(path.join(imgDir, fn))
-  } while(img.bitmap.width > img.bitmap.height) //NO SUNDAYS
+  } while(img.bitmap.width > img.bitmap.height) // NO SUNDAYS
 
   return [img, nextFiles]
 }

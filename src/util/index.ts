@@ -19,6 +19,7 @@ export function randomInRange<T>(collection : Collection.Indexed<T>) : T {
   return collection.get(Math.floor(Math.random() * collection.size))
 }
 
+// TODO: handle empty objects, zero weights
 export interface WeightedValues { [value : string] : number }
 export function randomByWeight<T extends WeightedValues, K extends keyof T>(weights : T) : K {
   const keys = Object.keys(weights) as K[]

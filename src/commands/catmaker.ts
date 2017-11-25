@@ -14,6 +14,7 @@ interface CatConfig {
   emptySprite : string
   startSprite : string
   headSprites : WeightedValues
+  crossoverSprites : WeightedValues
   directions : {
     f : CatDirection
     l : CatDirection
@@ -30,6 +31,7 @@ function getConfig(isBpf : boolean) : CatConfig {
       startSprite: ':catbot:',
       headSprites: {
         ':cattop:': 120,
+        ':cattoprev:': 50,
         ':chapo:': 1,
         ':dmx:': 1,
         ':dncash:': 1,
@@ -41,6 +43,10 @@ function getConfig(isBpf : boolean) : CatConfig {
         ':kuchi:': 5,
         ':murphy:': 1,
         ':robocop:': 1
+      },
+      crossoverSprites: {
+        ':catcross1:': 1,
+        ':catcross2:': 1
       },
       directions: [
         // facing right
@@ -75,6 +81,7 @@ function getConfig(isBpf : boolean) : CatConfig {
     emptySprite: ' ',
     startSprite: 'X',
     headSprites: { O: 1 },
+    crossoverSprites: { '┼': 1 },
     directions: [
       // facing right
       {
@@ -105,22 +112,30 @@ function getConfig(isBpf : boolean) : CatConfig {
   }
 }
 
+
+interface TurnChance {
+  f : number
+  l : number
+  r : number
+}
+
 const sizeX = 16
 const sizeY = 20
 
 const startDirection = 1
 
-const extraCatChance = 0.5
-const turnChance = {
+const defaultExtraCatChance = 0.5
+const defaultTurnChance : TurnChance = {
   f: 1,
   l: 1,
   r: 1
 }
 
-function addCat(grid : string[][], config : CatConfig) : boolean {
+function addCat(grid : string[][], config : CatConfig, turnChance : TurnChance) : boolean {
   const {
     emptySprite,
     startSprite,
+    crossoverSprites,
     directions,
     headSprites
   } = config
@@ -138,6 +153,7 @@ function addCat(grid : string[][], config : CatConfig) : boolean {
     }
   } while(grid[x][y] !== emptySprite || grid[x][y + 1] !== emptySprite)
 
+  // lay initial sprite.
   grid[x][y] = startSprite
   y += 1
   let dir = startDirection
@@ -159,8 +175,9 @@ function addCat(grid : string[][], config : CatConfig) : boolean {
     ////////////////////////////
 
     const nextDirections = directions[dir]
-    const validTurns = { ...turnChance }
 
+    // remove all invalid turns
+    const validTurns = { ...turnChance }
     for(const [dir, { delta: [dX, dY] }] of Object.entries(nextDirections)) {
       // don't go out of bounds, and stop 1 below the top row so we always have space for the head
       if(
@@ -225,9 +242,23 @@ function addCat(grid : string[][], config : CatConfig) : boolean {
 export default createCommand(
   {
     name: 'cat',
-    description: 'get cat'
+    description: 'get cat',
+    usage: '[extra cat chance [go left chance [go right chance [go straight chance]]]]'
   },
-  () : string => {
+  (message : string) : string => {
+    const turnChance = { ...defaultTurnChance }
+    let extraCatChance = defaultExtraCatChance
+    if(message.length > 0) {
+      const [chance, l, r, f] = message.split(' ')
+        .map(n => parseInt(n, 10))
+        .filter(n => !isNaN(n)) as (number | undefined)[]
+
+      if(typeof chance === 'number') extraCatChance = chance / 100
+      if(typeof l === 'number') turnChance.l = l
+      if(typeof r === 'number') turnChance.r = r
+      if(typeof f === 'number') turnChance.f = f
+    }
+
     // TODO: handle per-server via store
     const config = getConfig(!env.USE_CLI)
 
@@ -236,10 +267,10 @@ export default createCommand(
       grid[i] = Array<string>(sizeY).fill(config.emptySprite)
     }
 
-    let lastAddSucceeded = addCat(grid, config)
+    let lastAddSucceeded = addCat(grid, config, turnChance)
 
     while(Math.random() < extraCatChance && lastAddSucceeded) {
-      lastAddSucceeded = addCat(grid, config)
+      lastAddSucceeded = addCat(grid, config, turnChance)
     }
 
     // print out the result.

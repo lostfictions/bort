@@ -6,8 +6,9 @@
   "main": "dist/main.js",
   "scripts": {
     "start": "node dist/main.js",
-    "dev": "cross-env nodemon -i persist dist/main.js",
-    "cli": "cross-env USE_CLI=true nodemon -i persist dist/main.js",
+    "watch-dev": "run-p -l watch dev",
+    "watch-cli": "USE_CLI=true run-p -l watch dev",
+    "dev": "nodemon -i persist dist/main.js",
     "watch": "tsc -w",
     "build": "rm -rf dist/ && tsc"
   },
@@ -39,9 +40,10 @@
     "@types/node": "^8.0.53",
     "@types/redux-immutable": "^3.0.38",
     "@types/validator": "^6.3.0",
-    "cross-env": "^5.1.1",
     "eslint": "^4.11.0",
     "nodemon": "^1.12.1",
+    "npm-run-all": "^4.1.2",
+    "tslint": "^5.8.0",
     "typescript": "^2.6.1"
   },
   "engines": {

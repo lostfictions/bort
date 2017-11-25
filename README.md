@@ -3,14 +3,14 @@ a nice bot 4 u.
 dockerized. will spin up Slack and/or Discord clients if the respective
 environment variables are present. possible env vars are:
 
-- `BOT_NAME`: the bot name (default: 'bort')
-- `DATA_DIR`: the directory to store persistent data (default: 'persist')
 - `SLACK_TOKENS`: a Slack API token, or a comma-separated list of Slack API
   tokens
 - `DISCORD_TOKEN`: a Discord API token
 - `USE_CLI`: if 'true', will start up an interface that reads from stdin and
   prints to stdout instead of connecting to any servers.
-- `HOSTNAME`: hostname for the bot's server component (defaults to  'localhost'
+- `BOT_NAME`: the bot name (default: 'bort')
+- `DATA_DIR`: the directory to store persistent data (default: 'persist')
+- `HOSTNAME`: hostname for the bot's server component (defaults to 'localhost'
   in a dev environment, required in production)
 - `PORT`: port number for the bot's server component (defaults to 8080 in a dev
   environment, required in production)
@@ -20,7 +20,8 @@ environment variables are present. possible env vars are:
 bort uses the [envalid](https://github.com/af/envalid) package which in turn
 wraps [dotenv](https://github.com/motdotla/dotenv), so you can alternately stick
 any of the above environment variables in a file named `.env` in the project
-root. (it's gitignored.)
+root. (it's gitignored, so there's no risk of accidentally committing private
+API tokens you put in there.)
 
 the "server component" mentioned above currently serves two purposes:
 

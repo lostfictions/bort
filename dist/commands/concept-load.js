@@ -70,3 +70,4 @@ exports.default = chatter_1.createCommand({
         .then(length => `Loaded ${length} items from ${url}.`)
         .catch(e => e);
 });
+//# sourceMappingURL=concept-load.js.map

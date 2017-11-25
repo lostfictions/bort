@@ -59,3 +59,4 @@ function makeDiscordBot(botName, discordToken) {
     };
 }
 exports.makeDiscordBot = makeDiscordBot;
+//# sourceMappingURL=discord.js.map

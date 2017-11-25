@@ -21,3 +21,4 @@ exports.markovReducers = (state = immutable_1.Map(), action) => {
     }
     return state;
 };
+//# sourceMappingURL=markov.js.map

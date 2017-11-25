@@ -45,3 +45,4 @@ exports.makeSlackBot = (botName, slackToken) => new chatter_1.SlackBot({
     }
 });
 // tslint:enable:no-invalid-this
+//# sourceMappingURL=slack.js.map

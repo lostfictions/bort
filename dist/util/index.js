@@ -28,3 +28,4 @@ function randomByWeight(weights) {
     throw new Error('We goofed!');
 }
 exports.randomByWeight = randomByWeight;
+//# sourceMappingURL=index.js.map

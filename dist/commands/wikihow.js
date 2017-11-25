@@ -45,3 +45,4 @@ exports.default = chatter_1.createCommand({
     }
     return search(message);
 });
+//# sourceMappingURL=wikihow.js.map

@@ -5,6 +5,7 @@
     "outDir": "dist",
     "allowJs": true,
     "strict": true,
+    "sourceMap": true,
     "rootDirs": ["./src"]
     // "allowSyntheticDefaultImports": true,
     // "noUnusedLocals": true

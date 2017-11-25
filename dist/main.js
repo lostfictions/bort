@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+require('source-map-support').install(); // tslint:disable-line:no-require-imports
 const slack_1 = require("./clients/slack");
 const discord_1 = require("./clients/discord");
 const cli_1 = require("./clients/cli");
@@ -23,3 +24,4 @@ else {
         discordBot.login();
     }
 }
+//# sourceMappingURL=main.js.map

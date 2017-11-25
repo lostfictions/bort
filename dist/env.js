@@ -32,3 +32,4 @@ if (!isValidConfiguration) {
     }).map(tuple => tuple.join(': ')).join('\n');
     console.log(configInfo);
 }
+//# sourceMappingURL=env.js.map

@@ -88,3 +88,4 @@ exports.gifSearchCommand = chatter_1.createCommand({
     }
     return search(message, store, true);
 });
+//# sourceMappingURL=images.js.map

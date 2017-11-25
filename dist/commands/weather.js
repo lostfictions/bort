@@ -17,3 +17,4 @@ exports.default = chatter_1.createCommand({
     })
         .then(res => '```' + res.body + '```');
 });
+//# sourceMappingURL=weather.js.map

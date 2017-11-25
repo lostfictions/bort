@@ -20,3 +20,4 @@ exports.conceptReducers = (state = immutable_1.Map(), action) => {
     }
     return state;
 };
+//# sourceMappingURL=concepts.js.map

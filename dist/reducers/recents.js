@@ -11,3 +11,4 @@ exports.recentsReducers = (state = immutable_1.Map(), action) => {
     }
     return state;
 };
+//# sourceMappingURL=recents.js.map

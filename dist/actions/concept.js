@@ -25,3 +25,4 @@ function isRemoveFromConceptAction(action) {
     return action.type === 'REMOVE_FROM_CONCEPT';
 }
 exports.isRemoveFromConceptAction = isRemoveFromConceptAction;
+//# sourceMappingURL=concept.js.map

@@ -33,3 +33,4 @@ exports.getStore = id => {
     storeCache[id] = s;
     return s;
 };
+//# sourceMappingURL=get-store.js.map

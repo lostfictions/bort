@@ -30,3 +30,4 @@ exports.default = chatter_1.createCommand({
         return prefix + '¯\\_(ツ)_/¯';
     });
 });
+//# sourceMappingURL=complete.js.map

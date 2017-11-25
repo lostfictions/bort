@@ -42,3 +42,4 @@ exports.default = chatter_1.createCommand({
     }
     return prefix + 'Please Inspect Senseless Sentences';
 });
+//# sourceMappingURL=busey.js.map

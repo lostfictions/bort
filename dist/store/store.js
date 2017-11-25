@@ -75,3 +75,4 @@ function getInitialConcepts() {
     assert(Array.isArray(cb['verb']));
     return immutable_1.fromJS(cb);
 }
+//# sourceMappingURL=store.js.map

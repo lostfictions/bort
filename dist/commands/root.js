@@ -33,6 +33,7 @@ const subCommands = [
     catmaker_1.default,
     uptime_1.default
 ];
+// TODO: allow getting usage for subcommands
 const helpCommand = chatter_1.createCommand({
     name: 'list',
     aliases: ['help', 'usage']
@@ -117,3 +118,4 @@ function makeMessageHandler(store, name, isDM) {
     ];
 }
 exports.default = makeMessageHandler;
+//# sourceMappingURL=root.js.map

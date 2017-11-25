@@ -10,3 +10,4 @@ function isCleanRecentsAction(action) {
     return action.type === 'CLEAN_RECENTS';
 }
 exports.isCleanRecentsAction = isCleanRecentsAction;
+//# sourceMappingURL=recents.js.map

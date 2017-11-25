@@ -52,6 +52,7 @@ const subCommands = [
   uptimeCommand
 ]
 
+// TODO: allow getting usage for subcommands
 const helpCommand = createCommand(
   {
     name: 'list',

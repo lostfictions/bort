@@ -18,3 +18,4 @@ exports.makeCLIBot = (botName) => {
     rl.on('line', (input) => simulate(testBot, input));
     return testBot;
 };
+//# sourceMappingURL=cli.js.map

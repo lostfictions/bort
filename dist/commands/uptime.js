@@ -10,3 +10,4 @@ exports.default = chatter_1.createCommand({
     const uptime = moment.duration(process.uptime(), 'seconds').humanize();
     return `hi its me <@${name}> i have been here for *${uptime}* via \`${os_1.hostname()}\``;
 });
+//# sourceMappingURL=uptime.js.map

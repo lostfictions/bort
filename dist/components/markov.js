@@ -46,3 +46,4 @@ function getSentence(wordBank, seed = getSeed(wordBank)) {
     return sentence.join(' ');
 }
 exports.getSentence = getSentence;
+//# sourceMappingURL=markov.js.map

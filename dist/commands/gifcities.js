@@ -25,3 +25,4 @@ function doQuery(query) {
     })
         .then(res => util_1.randomInArray(JSON.parse(res.body).map((g) => 'https://web.archive.org/web/' + g.gif)));
 }
+//# sourceMappingURL=gifcities.js.map

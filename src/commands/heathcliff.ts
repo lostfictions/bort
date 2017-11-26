@@ -5,7 +5,7 @@ import * as Jimp from 'jimp'
 
 import { AdjustedArgs } from './AdjustedArgs'
 import { randomInArray, randomInRange } from '../util'
-import { env } from '../env'
+import { DATA_DIR, HOSTNAME } from '../env'
 
 const outputDirname = 'cliffs'
 const outDir = path.join(__dirname, '../../static/', outputDirname)
@@ -14,7 +14,7 @@ if(!fs.existsSync(outDir)) {
   fs.mkdirSync(outDir)
 }
 
-const imgDir = path.join(env.DATA_DIR, 'heathcliff')
+const imgDir = path.join(DATA_DIR, 'heathcliff')
 
 let filenames : string[] = []
 if(!fs.existsSync(imgDir)) {
@@ -66,7 +66,7 @@ export default createCommand(
                   reject(e)
                 }
                 else {
-                  resolve(`http://${env.HOSTNAME}/${outputDirname}/${newFilename}.jpg`)
+                  resolve(`http://${HOSTNAME}/${outputDirname}/${newFilename}.jpg`)
                 }
               })
           })

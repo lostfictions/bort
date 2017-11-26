@@ -1,5 +1,7 @@
 import * as fs from 'fs'
 import * as envalid from 'envalid'
+import * as debug from 'debug'
+const log = debug('bort:env')
 
 interface EnvSchema {
   BOT_NAME : string
@@ -11,7 +13,7 @@ interface EnvSchema {
   USE_CLI : boolean
 }
 
-export const env = envalid.cleanEnv<EnvSchema>(
+const env = envalid.cleanEnv<EnvSchema>(
   process.env,
   {
     BOT_NAME: envalid.str({ default: 'bort' }),
@@ -31,23 +33,29 @@ export const env = envalid.cleanEnv<EnvSchema>(
   { strict: true }
 )
 
-if(!fs.existsSync(env.DATA_DIR)) {
-  console.log(env.DATA_DIR + ' not found! creating.')
-  fs.mkdirSync(env.DATA_DIR)
+export const {
+  BOT_NAME,
+  DATA_DIR,
+  SLACK_TOKENS,
+  DISCORD_TOKEN,
+  HOSTNAME,
+  PORT,
+  USE_CLI
+} = env
+
+if(!fs.existsSync(DATA_DIR)) {
+  log(DATA_DIR + ' not found! creating.')
+  fs.mkdirSync(DATA_DIR)
 }
 
-const isValidConfiguration = env.USE_CLI ||
-  env.SLACK_TOKENS ||
-  env.DISCORD_TOKEN
+const isValidConfiguration = USE_CLI || SLACK_TOKENS || DISCORD_TOKEN
 
 if(!isValidConfiguration) {
   console.warn(
     `Environment configuration doesn't appear to be valid! Bot will do nothing if you're not running in CLI mode.`
   )
 
-  const configInfo = Object.entries({
-    Slack: env.SLACK_TOKENS ? 'OK' : 'NONE',
-    Discord: env.DISCORD_TOKEN ? 'OK' : 'NONE'
-  }).map(tuple => tuple.join(': ')).join('\n')
-  console.log(configInfo)
+  const varsToCheck : [keyof EnvSchema] = ['SLACK_TOKENS', 'DISCORD_TOKEN']
+  const configInfo = varsToCheck.map(key => `${key}: ${env[key] ? 'OK' : 'NONE'}`).join('\n')
+  console.warn(configInfo)
 }

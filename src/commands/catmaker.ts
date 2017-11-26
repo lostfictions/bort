@@ -1,8 +1,8 @@
 import { createCommand } from 'chatter'
-import { env } from '../env'
-
+import * as debug from 'debug'
+import { USE_CLI } from '../env'
 import { randomByWeight, WeightedValues, randomInt } from '../util'
-
+const log = debug('bort:commands:catmaker')
 
 interface CatDirection {
   sprite : string
@@ -29,7 +29,7 @@ function getConfig(isBpf : boolean) : CatConfig {
       startSprite: ':catbot:',
       headSprites: {
         ':cattop:': 120,
-        ':cattoprev:': 50,
+        ':cattoprev:': 60,
         ':chapo:': 1,
         ':dmx:': 1,
         ':dncash:': 1,
@@ -37,7 +37,7 @@ function getConfig(isBpf : boolean) : CatConfig {
         ':gape:': 2,
         ':hayao:': 2,
         ':heathcliff:': 5,
-        ':hi:': 3,
+        ':hi:': 5,
         ':kuchi:': 5,
         ':murphy:': 1,
         ':robocop:': 1
@@ -138,7 +138,7 @@ function addCat(grid : string[][], config : CatConfig, turnChance : TurnChance) 
     headSprites
   } = config
 
-  console.log('new cat!')
+  log('new cat!')
 
   // search for an empty spot to put the cat.
   let attempts = 5
@@ -162,10 +162,10 @@ function addCat(grid : string[][], config : CatConfig, turnChance : TurnChance) 
   // be configurable.
   let steps = randomInt(20, 100)
   do {
-    console.log(`steps left: ${steps}`)
+    log(`steps left: ${steps}`)
     ////////////////////////////
     // log full state at each step.
-    if(env.USE_CLI) {
+    if(USE_CLI) {
       const rows : string[] = []
       for(let i = sizeY - 1; i >= 0; i--) {
         const row = []
@@ -174,8 +174,8 @@ function addCat(grid : string[][], config : CatConfig, turnChance : TurnChance) 
         }
         rows.push(row.join(','))
       }
-      console.log('state:')
-      console.log(rows.join('\n'))
+      log('state:')
+      log(rows.join('\n'))
     }
     ////////////////////////////
 
@@ -188,7 +188,7 @@ function addCat(grid : string[][], config : CatConfig, turnChance : TurnChance) 
         // TODO: will go OOB or onto another non-crossover sprite
         x += dX
         y += dY
-        console.log(`crossover! pos now [${x},${y}]`)
+        log(`crossover! pos now [${x},${y}]`)
         continue
       }
       console.warn(`Expected empty sprite at [${x},${y}], found ${grid[x][y]}`)
@@ -202,7 +202,7 @@ function addCat(grid : string[][], config : CatConfig, turnChance : TurnChance) 
       // don't go out of bounds, and stop 1 below the top row so we always have
       // space for the head
       if(x + dX < 0 || x + dX >= sizeX || y + dY < 0 || y + dY >= sizeY - 1) {
-        console.log(`deleting ${dir}`)
+        log(`deleting ${dir}`)
         delete (validTurns as any)[dir]
         continue
       }
@@ -228,7 +228,7 @@ function addCat(grid : string[][], config : CatConfig, turnChance : TurnChance) 
     }
 
     if(Object.keys(validTurns).length === 0) {
-      console.log('no valid turns')
+      log('no valid turns')
       break
     }
 
@@ -237,7 +237,7 @@ function addCat(grid : string[][], config : CatConfig, turnChance : TurnChance) 
     grid[x][y] = sprite
     x += dX
     y += dY
-    console.log(`pos now [${x},${y}]`)
+    log(`pos now [${x},${y}]`)
 
     if(nextDirection === 'l') {
       dir = (dir + 1) % 4
@@ -317,11 +317,11 @@ export default createCommand(
       if(typeof l === 'number') turnChance.l = l
       if(typeof r === 'number') turnChance.r = r
       if(typeof f === 'number') turnChance.f = f
-      console.log(`cat chance ${extraCatChance} l ${turnChance.l} r ${turnChance.r} f ${turnChance.f}`)
+      log(`cat chance ${extraCatChance} l ${turnChance.l} r ${turnChance.r} f ${turnChance.f}`)
     }
 
     // TODO: handle per-server via store
-    const config = getConfig(!env.USE_CLI)
+    const config = getConfig(!USE_CLI)
 
     const grid : string[][] = []
     for(let i = 0; i < sizeX; i++) {

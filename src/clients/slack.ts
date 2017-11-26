@@ -1,6 +1,6 @@
 import { SlackBot } from 'chatter'
 import { RtmClient, WebClient, MemoryDataStore } from '@slack/client'
-import { env } from '../env'
+import { HOSTNAME } from '../env'
 
 import makeMessageHandler from '../commands/root'
 import { getStore } from '../store/get-store'
@@ -15,7 +15,7 @@ export const makeSlackBot = (botName : string, slackToken : string) => new Slack
     text,
     as_user: false,
     username: botName,
-    icon_url: `http://${env.HOSTNAME}/bort.png`,
+    icon_url: `http://${HOSTNAME}/bort.png`,
     unfurl_links: true,
     unfurl_media: true
   }),

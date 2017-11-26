@@ -3,7 +3,7 @@ import * as fs from 'fs'
 
 import { Store } from 'redux'
 import { makeStore, BortStore } from './store'
-import { env } from '../env'
+import { DATA_DIR } from '../env'
 
 import { cleanRecentsAction } from '../actions/recents'
 
@@ -30,7 +30,7 @@ export function getStore(id : string) : Store<BortStore> {
   // This is also reliant on the filename logic in makeStore()
   // staying the same. TODO
   s.subscribe(() => {
-    const p = path.join(env.DATA_DIR, id + '.json')
+    const p = path.join(DATA_DIR, id + '.json')
     fs.writeFile(p, JSON.stringify(s.getState()), (e) => {
       if(e) {
         console.error(`Couldn't write state to ${ p }: [${ e }]`)

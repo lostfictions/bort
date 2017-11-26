@@ -1,9 +1,12 @@
 import * as fs from 'fs'
 import * as path from 'path'
+import * as assert from 'assert'
+
 import { createStore, Store } from 'redux'
 import { combineReducers } from 'redux-immutable'
 import { fromJS, Map } from 'immutable'
-import { env } from '../env'
+
+import { DATA_DIR } from '../env'
 
 import { markovReducers } from '../reducers/markov'
 import { conceptReducers } from '../reducers/concepts'
@@ -13,8 +16,6 @@ import { WordBank } from '../components/markov'
 import { ConceptBank } from '../commands/concepts'
 
 import { addSentenceAction } from '../actions/markov'
-
-import * as assert from 'assert'
 
 export interface BortStore extends Map<string, any> {
   get(key : 'wordBank') : WordBank
@@ -33,7 +34,7 @@ const rootReducer = combineReducers<BortStore>({
 export function makeStore(filename : string = 'state') : Store<BortStore> {
   let initialState : BortStore
   try {
-    const p = path.join(env.DATA_DIR, filename + '.json')
+    const p = path.join(DATA_DIR, filename + '.json')
     const d = fs.readFileSync(p).toString()
     const json = JSON.parse(d)
 

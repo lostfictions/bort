@@ -1,14 +1,12 @@
 import { createCommand } from 'chatter'
 import * as got from 'got'
 
-import { AdjustedArgs } from './AdjustedArgs'
-
 export default createCommand(
   {
     name: 'weather',
     description: 'rain or shine'
   },
-  (message : string, { store } : AdjustedArgs) : Promise<string> | false => {
+  (message : string) : Promise<string> | false => {
     if(message.length === 0) {
       return false
     }

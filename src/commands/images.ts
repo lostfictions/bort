@@ -31,7 +31,7 @@ const requestAndParse = (term : string, animated : boolean, exact : boolean) => 
   const $ = cheerio.load(res.body)
   const metaLinks = $('.rg_meta')
   const urls : string[] = []
-  metaLinks.each((i, el) => {
+  metaLinks.each((_i, el) => {
     if(el.children.length > 0 && 'data' in el.children[0]) {
       const metadata = JSON.parse((el.children[0] as any).data)
       if(metadata.ou) {

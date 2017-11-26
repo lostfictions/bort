@@ -241,7 +241,8 @@
       "variable-name": [
         true,
         "ban-keywords",
-        "check-format"
+        "check-format",
+        "allow-leading-underscore"
       ],
       "whitespace": [
         true,

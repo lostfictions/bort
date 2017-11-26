@@ -1,5 +1,5 @@
 import { Action, Reducer } from 'redux'
-import { Map, List } from 'immutable'
+import { Map } from 'immutable'
 
 import {
   isAddRecentAction,

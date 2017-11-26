@@ -40,7 +40,7 @@ export const makeSlackBot = (botName : string, slackToken : string) => new Slack
       webClient: new WebClient(slackToken)
     }
   },
-  createMessageHandler(this : SlackBot, id : any, meta : any) : any {
+  createMessageHandler(this : SlackBot, _id : any, meta : any) : any {
     if(!this.slack.rtmClient.activeTeamId) {
       throw new Error(`Slack client: couldn't retrieve team id!`)
     }

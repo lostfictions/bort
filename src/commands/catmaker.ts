@@ -4,8 +4,6 @@ import { env } from '../env'
 import { randomByWeight, WeightedValues, randomInt } from '../util'
 
 
-// const crossoverSprite = [':catcross1:', ':catcross2:']
-
 interface CatDirection {
   sprite : string
   delta : [number, number]

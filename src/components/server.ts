@@ -7,7 +7,7 @@ export function createServer(port : number) : express.Express {
   const app = express()
   app.use(express.static(path.join(__dirname, '../../static')))
 
-  app.get('/', (req, res) => {
+  app.get('/', (_req, res) => {
     res.status(200).end()
   })
   app.listen(port)

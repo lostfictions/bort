@@ -6,10 +6,10 @@
     "allowJs": true,
     "strict": true,
     "sourceMap": true,
-    "rootDirs": ["./src"]
+    "rootDirs": ["./src"],
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
     // "allowSyntheticDefaultImports": true,
-    // "noUnusedLocals": true
-    // "noUnusedParameters": true
 	},
   "include": [
     "./defs/**/*",

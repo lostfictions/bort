@@ -1,6 +1,6 @@
 import * as fs from 'fs'
 import * as path from 'path'
-import { createStore, Store, Reducer, StoreEnhancer } from 'redux'
+import { createStore, Store } from 'redux'
 import { combineReducers } from 'redux-immutable'
 import { fromJS, Map } from 'immutable'
 import { env } from '../env'

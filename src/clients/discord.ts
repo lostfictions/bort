@@ -18,7 +18,7 @@ export function makeDiscordBot(botName : string, discordToken : string) {
 
   // tslint:disable:no-invalid-this
   const bot = new Bot({
-    createMessageHandler(id : any, meta : DiscordMeta) : any {
+    createMessageHandler(_id : any, meta : DiscordMeta) : any {
       if(meta.message.guild) {
         return makeMessageHandler(getStore(meta.message.guild.id), botName, meta.message.channel.type === 'dm')
       }

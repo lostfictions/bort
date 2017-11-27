@@ -8,7 +8,7 @@
     "start": "node dist/main.js",
     "start-dev": "DEBUG=\"bort:*\" DEBUG_HIDE_DATE=true DEBUG_COLORS=true nodemon -i persist dist/main.js",
     "dev": "run-p -l watch:ts start-dev",
-    "dev-cli": "USE_CLI=true run-p -l watch:ts start-dev",
+    "dev-cli": "USE_CLI=true npm run dev",
     "build": "rm -rf dist/ && tsc",
     "test": "jest",
     "watch:ts": "tsc -w",

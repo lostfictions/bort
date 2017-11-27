@@ -135,7 +135,7 @@ const startDirection = 1
 const straightSegments = new Set([CatParts.UD, CatParts.LR])
 
 function addCat(grid : CatParts[][], turnChance : TurnChance, minSteps : number, maxSteps : number) : boolean {
-  log('new cat!')
+  // log('new cat!')
 
   // search for an empty spot to put the cat.
   let attempts = 5
@@ -177,22 +177,6 @@ function addCat(grid : CatParts[][], turnChance : TurnChance, minSteps : number,
     //   log(rows.join('\n'))
     // }
     ////////////////////////////
-
-    // we should only have been placed in a non-empty sprite if we're doing a crossover
-    if(grid[x][y] !== CatParts.Empty) {
-      if(((dir === 1 || dir === 3) && grid[x][y] === directions[0].f.part) ||
-        ((dir === 0 || dir === 2) && grid[x][y] === directions[1].f.part)) {
-        grid[x][y] = CatParts.Cross
-        const [dX, dY] = directions[dir].f.delta
-        x += dX
-        y += dY
-        // log(`crossover! pos now [${x},${y}]`)
-        // continue immediately! don't reduce steps for crossover
-        continue
-      }
-      console.warn(`Expected empty sprite at [${x},${y}], found ${grid[x][y]}`)
-    }
-
     const nextDirections = directions[dir]
 
     // remove all invalid turns:
@@ -226,9 +210,11 @@ function addCat(grid : CatParts[][], turnChance : TurnChance, minSteps : number,
         }
         // if it's an empty space above, we can go in that direction.
         if(grid[xToCheck][yToCheck] === CatParts.Empty) break
-        // if it's anything except an empty space or a straight segment, we can't go in that direction.
+        // if it's anything except an empty space or a straight segment, we
+        // can't go in that direction.
         if(!straightSegments.has(grid[xToCheck][yToCheck])) { shouldDelete = true; break }
-        // if it's a straight segment, check the same conditions for the next space in that direction.
+        // if it's a straight segment, check the same conditions for the next
+        // space in that direction.
       } while(true)
       if(shouldDelete) {
         delete (validTurns as any)[nextDir]
@@ -261,8 +247,21 @@ function addCat(grid : CatParts[][], turnChance : TurnChance, minSteps : number,
       }
     }
 
-    // FIXME: if the next step will be a crossover, we shouldn't subtract
-    // steps-- we might end on a cross segment.
+    // we should only have been placed in a non-empty cell if we're doing a crossover
+    while(grid[x][y] !== CatParts.Empty) {
+      if(((dir === 1 || dir === 3) && grid[x][y] === directions[0].f.part) ||
+        ((dir === 0 || dir === 2) && grid[x][y] === directions[1].f.part)) {
+        grid[x][y] = CatParts.Cross
+        const [dX, dY] = directions[dir].f.delta
+        x += dX
+        y += dY
+        // log(`crossover! pos now [${x},${y}]`)
+      }
+      else {
+        console.warn(`Expected empty sprite at [${x},${y}], found ${grid[x][y]}`)
+        break
+      }
+    }
     stepsLeft--
   } while(stepsLeft > 0)
 
@@ -313,11 +312,12 @@ export default createCommand(
       f: 'straightchance',
       min: 'minsteps',
       max: 'maxsteps',
-      steps: 'maxsteps', // see below
-      s: 'maxsteps',     // see below
-      num: 'maxsteps',   // see below
-      n: 'maxsteps',     // see below
-      length: 'maxsteps' // see below
+      steps: 'maxsteps',  // see below
+      s: 'maxsteps',      // see below
+      num: 'maxsteps',    // see below
+      n: 'maxsteps',      // see below
+      length: 'maxsteps', // see below
+      len: 'maxsteps'     // see below
     }
     if(message.length > 0) {
       const argMatcher = /^([a-zA-Z]+)=([0-9]+)$/
@@ -334,7 +334,7 @@ export default createCommand(
               ] = parsedVal
 
               // HACK: these aliases set min and max to the same value
-              if(['steps', 's', 'num', 'n', 'length'].includes(argName)) {
+              if(['steps', 's', 'num', 'n', 'length', 'len'].includes(argName)) {
                 config.minsteps = parsedVal
               }
             }

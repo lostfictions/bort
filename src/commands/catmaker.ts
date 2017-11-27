@@ -314,9 +314,10 @@ export default createCommand(
       min: 'minsteps',
       max: 'maxsteps',
       steps: 'maxsteps', // see below
-      s: 'maxsteps', // see below
-      num: 'maxsteps', // see below
-      n: 'maxsteps' // see below
+      s: 'maxsteps',     // see below
+      num: 'maxsteps',   // see below
+      n: 'maxsteps',     // see below
+      length: 'maxsteps' // see below
     }
     if(message.length > 0) {
       const argMatcher = /^([a-zA-Z]+)=([0-9]+)$/
@@ -333,7 +334,7 @@ export default createCommand(
               ] = parsedVal
 
               // HACK: these aliases set min and max to the same value
-              if(['steps', 's', 'num', 'n'].includes(argName)) {
+              if(['steps', 's', 'num', 'n', 'length'].includes(argName)) {
                 config.minsteps = parsedVal
               }
             }

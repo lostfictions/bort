@@ -117,8 +117,8 @@ interface TurnChance {
   r : number
 }
 
-const sizeX = 16
-const sizeY = 20
+const gridSizeX = 16
+const gridSizeY = 20
 
 const startDirection = 1
 
@@ -137,6 +137,7 @@ function addCat(grid : string[][], config : CatConfig, turnChance : TurnChance) 
     directions,
     headSprites
   } = config
+  const straightSegments = new Set([directions[0].f.sprite, directions[1].f.sprite])
 
   log('new cat!')
 
@@ -145,31 +146,55 @@ function addCat(grid : string[][], config : CatConfig, turnChance : TurnChance) 
   let x : number
   let y : number
   do {
-    x = randomInt(sizeX)
-    y = Math.max(randomInt(sizeY / 2) - 1, 0)
+    x = randomInt(gridSizeX)
+    y = Math.max(randomInt(gridSizeY / 2) - 1, 0)
     attempts--
     if(attempts === 0) {
+      log(`can't find an empty space!`)
       return false
     }
   } while(grid[x][y] !== emptySprite || grid[x][y + 1] !== emptySprite)
+
+  // we can infer previous steps if we need to backtrack, but this is simpler
+  const steps : { prevSprite : string, delta : [number, number] }[] = []
 
   // lay initial sprite.
   grid[x][y] = startSprite
   y += 1
   let dir = startDirection
 
+  // function canGoInDirection(direction : number) : boolean {
+  //   // if we're facing the opposite direction, we can't go in that direction.
+  //   if(dir === (direction + 2) % 4) return false
+
+  //   let xToCheck = x
+  //   let yToCheck = y
+  //   do {
+  //     const [dX, dY] = directions[direction].f.delta
+  //     xToCheck = xToCheck + dX
+  //     yToCheck = yToCheck + dY
+  //     if(xToCheck < 0 || xToCheck >= gridSizeX || yToCheck < 0 || yToCheck >= gridSizeY) return false
+  //     // if it's an empty space above, we can go in that direction.
+  //     if(grid[xToCheck][yToCheck] === emptySprite) return true
+  //     // if it's anything except an empty space or a straight segment, we can't go in that direction.
+  //     if(!straightSegments.has(grid[xToCheck][yToCheck])) return false
+  //     // if it's a straight segment, check the same conditions for the next space in that direction.
+  //   } while(true)
+  // }
+
+
   // TODO: number of steps might be more interesting as a gaussian, and should
   // be configurable.
-  let steps = randomInt(20, 100)
+  let stepsLeft = randomInt(20, 100)
   do {
-    log(`steps left: ${steps}`)
+    log(`steps left: ${stepsLeft}`)
     ////////////////////////////
     // log full state at each step.
     if(USE_CLI) {
       const rows : string[] = []
-      for(let i = sizeY - 1; i >= 0; i--) {
+      for(let i = gridSizeY - 1; i >= 0; i--) {
         const row = []
-        for(let j = 0; j < sizeX; j++) {
+        for(let j = 0; j < gridSizeX; j++) {
           row.push(grid[j][i])
         }
         rows.push(row.join(','))
@@ -185,7 +210,6 @@ function addCat(grid : string[][], config : CatConfig, turnChance : TurnChance) 
         (dir === 0 || dir === 2 && grid[x][y] === directions[1].f.sprite)) {
         grid[x][y] = randomByWeight(crossoverSprites)
         const [dX, dY] = directions[dir].f.delta
-        // TODO: will go OOB or onto another non-crossover sprite
         x += dX
         y += dY
         log(`crossover! pos now [${x},${y}]`)
@@ -196,34 +220,46 @@ function addCat(grid : string[][], config : CatConfig, turnChance : TurnChance) 
 
     const nextDirections = directions[dir]
 
-    // remove all invalid turns
+    // remove all invalid turns:
     const validTurns = { ...turnChance }
-    for(const [dir, { delta: [dX, dY] }] of Object.entries(nextDirections)) {
+    for(const [nextDir, { delta: [dX, dY] }] of Object.entries(nextDirections)) {
       // don't go out of bounds, and stop 1 below the top row so we always have
       // space for the head
-      if(x + dX < 0 || x + dX >= sizeX || y + dY < 0 || y + dY >= sizeY - 1) {
-        log(`deleting ${dir}`)
-        delete (validTurns as any)[dir]
+      if(x + dX < 0 || x + dX >= gridSizeX || y + dY < 0 || y + dY >= gridSizeY - 1) {
+        log(`deleting ${nextDir}`)
+        delete (validTurns as any)[nextDir]
         continue
       }
+
+      // if the cell is occupied and we're not going forward, this isn't a valid direction.
+      if(grid[x + dX][y + dY] !== emptySprite && nextDir !== 'f') {
+        delete (validTurns as any)[nextDir]
+        continue
+      }
+
+      // FIXME: all this logic is duplicated in the canGoInDirection method above.
+
       // don't go over non-empty cells, UNLESS the direction is forward and the
       // segment is a straight that's perpendicular -- we'll make it a crossover.
-
-      // TODO: lookahead to ensure we have either
-      // - a free space on the other side, or
-      // - another of the same sprite (continuing until there's a free space)
-      const spriteAtNextCell = grid[x + dX][y + dY]
-      if(spriteAtNextCell !== emptySprite) {
-        if(dir !== 'f' ||
-          // we don't have to check specifically whether it's perpendicular --
-          // the way we generate straight segments means they're always bounded
-          // on either "open" side, so if we're hitting one it's by necessity
-          // perpendicular to us.
-          (spriteAtNextCell !== directions[0].f.sprite && spriteAtNextCell !== directions[1].f.sprite)
-        ) {
-          delete (validTurns as any)[dir]
-          continue
+      let xToCheck = x
+      let yToCheck = y
+      let shouldDelete = false
+      do {
+        xToCheck = xToCheck + dX
+        yToCheck = yToCheck + dY
+        if(xToCheck < 0 || xToCheck >= gridSizeX || yToCheck < 0 || yToCheck >= gridSizeY) {
+          shouldDelete = true
+          break
         }
+        // if it's an empty space above, we can go in that direction.
+        if(grid[xToCheck][yToCheck] === emptySprite) break
+        // if it's anything except an empty space or a straight segment, we can't go in that direction.
+        if(!straightSegments.has(grid[xToCheck][yToCheck])) { shouldDelete = true; break }
+        // if it's a straight segment, check the same conditions for the next space in that direction.
+      } while(true)
+      if(shouldDelete) {
+        delete (validTurns as any)[nextDir]
+        continue
       }
     }
 
@@ -232,67 +268,74 @@ function addCat(grid : string[][], config : CatConfig, turnChance : TurnChance) 
       break
     }
 
-    const nextDirection = randomByWeight(validTurns)
-    const { sprite, delta: [dX, dY] } = nextDirections[nextDirection]
-    grid[x][y] = sprite
-    x += dX
-    y += dY
-    log(`pos now [${x},${y}]`)
+    // update our current position and facing
+    {
+      const nextDirection = randomByWeight(validTurns)
+      const { sprite, delta: [dX, dY] } = nextDirections[nextDirection]
 
-    if(nextDirection === 'l') {
-      dir = (dir + 1) % 4
-    }
-    else if(nextDirection === 'r') {
-      dir = dir - 1
-      if(dir === -1) dir = 3
+      steps.push({ prevSprite: grid[x][y], delta: [dX, dY] })
+
+      grid[x][y] = sprite
+      x += dX
+      y += dY
+      log(`pos now [${x},${y}]`)
+
+      if(nextDirection === 'l') {
+        dir = (dir + 1) % 4
+      }
+      else if(nextDirection === 'r') {
+        dir = dir - 1
+        if(dir === -1) dir = 3
+      }
     }
 
-    steps--
-  } while(steps > 0)
+    stepsLeft--
+  } while(stepsLeft > 0)
 
   // end by moving up and placing the head.
   // TODO: backtrack until going up is valid;
   // we can also move up into a straight segment if there's space on the other side
   // (looking forward until there's a non-straight segment OR a free space)
-  switch(dir) {
-    case 0:
-      // facing east: turn north
-      grid[x][y] = directions[dir].l.sprite
-      grid[x][y + 1] = randomByWeight(headSprites)
-      break
-    case 1:
-      // facing north: just place the head
-      grid[x][y] = randomByWeight(headSprites)
-      break
-    case 2:
-      // facing west: turn north
-      grid[x][y] = directions[dir].r.sprite
-      grid[x][y + 1] = randomByWeight(headSprites)
-      break
-    case 3:
-      // if we're facing south, we have a bit of a tricky situation. we can't
-      // move straight up, so we want to backtrack and change the last sprite
-      // to face up. except the last sprite could be '┐', '┌', or '│', and if
-      // it's the latter, we have to keep backtracking until we hit a
-      // different direction.
-      grid[x][y] = emptySprite
-      y = y + 1
-      while(grid[x][y] === directions[3].f.sprite) {
-        grid[x][y] = emptySprite
-        y = y + 1
-      }
+  grid[x][y] = randomByWeight(headSprites)
+  // switch(dir) {
+  //   case 0:
+  //     // facing east: turn north
+  //     grid[x][y] = directions[dir].l.sprite
+  //     grid[x][y + 1] = randomByWeight(headSprites)
+  //     break
+  //   case 1:
+  //     // facing north: just place the head
+  //     grid[x][y] = randomByWeight(headSprites)
+  //     break
+  //   case 2:
+  //     // facing west: turn north
+  //     grid[x][y] = directions[dir].r.sprite
+  //     grid[x][y + 1] = randomByWeight(headSprites)
+  //     break
+  //   case 3:
+  //     // if we're facing south, we have a bit of a tricky situation. we can't
+  //     // move straight up, so we want to backtrack and change the last sprite
+  //     // to face up. except the last sprite could be '┐', '┌', or '│', and if
+  //     // it's the latter, we have to keep backtracking until we hit a
+  //     // different direction.
+  //     grid[x][y] = emptySprite
+  //     y = y + 1
+  //     while(grid[x][y] === directions[3].f.sprite) {
+  //       grid[x][y] = emptySprite
+  //       y = y + 1
+  //     }
 
-      if(grid[x][y] === directions[0].r.sprite) { // ┐
-        grid[x][y] = directions[0].l.sprite
-      }
-      else {
-        grid[x][y] = directions[2].r.sprite
-      }
-      grid[x][y + 1] = randomByWeight(headSprites)
-      break
-    default:
-      throw new Error('unknown direction')
-  }
+  //     if(grid[x][y] === directions[0].r.sprite) { // ┐
+  //       grid[x][y] = directions[0].l.sprite
+  //     }
+  //     else {
+  //       grid[x][y] = directions[2].r.sprite
+  //     }
+  //     grid[x][y + 1] = randomByWeight(headSprites)
+  //     break
+  //   default:
+  //     throw new Error('unknown direction')
+  // }
   return true
 }
 
@@ -324,8 +367,8 @@ export default createCommand(
     const config = getConfig(!USE_CLI)
 
     const grid : string[][] = []
-    for(let i = 0; i < sizeX; i++) {
-      grid[i] = Array<string>(sizeY).fill(config.emptySprite)
+    for(let i = 0; i < gridSizeX; i++) {
+      grid[i] = Array<string>(gridSizeY).fill(config.emptySprite)
     }
 
     let lastAddSucceeded = addCat(grid, config, turnChance)
@@ -336,9 +379,9 @@ export default createCommand(
 
     // print out the result.
     const rows : string[] = []
-    for(let i = sizeY - 1; i >= 0; i--) {
+    for(let i = gridSizeY - 1; i >= 0; i--) {
       const row = []
-      for(let j = 0; j < sizeX; j++) {
+      for(let j = 0; j < gridSizeX; j++) {
         row.push(grid[j][i])
       }
       rows.push(row.join(''))

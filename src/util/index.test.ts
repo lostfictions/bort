@@ -13,7 +13,7 @@ function pairsToObj<T>(pairs : [string, T][]) : { [k : string] : T } {
 describe('random by weight', () => {
   jsc.property(
     'result is one of inputs',
-    jsc.nearray(jsc.tuple([jsc.string, jsc.number]) as jsc.Arbitrary<[string, number]>),
+    jsc.nearray(jsc.tuple([jsc.string, jsc.number(0, 10)]) as jsc.Arbitrary<[string, number]>),
     arrayOfWeights => {
       const keys = new Set(arrayOfWeights.map(([k]) => k))
       return keys.has(randomByWeight(pairsToObj(arrayOfWeights)))
@@ -31,6 +31,16 @@ describe('random by weight', () => {
     expect(() => randomByWeight({
       dog: 0.1,
       cat: 1,
+      flower: 0.25
+    })).not.toThrow()
+
+    expect(() => randomByWeight({
+      dog: 0.1
+    })).not.toThrow()
+
+    expect(() => randomByWeight({
+      dog: 0.1,
+      cat: 0,
       flower: 0.25
     })).not.toThrow()
   })
@@ -52,6 +62,17 @@ describe('random by weight', () => {
       dog: 0,
       cat: 1,
       flower: 0
+    })).toEqual('cat')
+
+    expect(randomByWeight({
+      dog: 0,
+      cat: 0.1,
+      flower: 0
+    })).toEqual('cat')
+
+    expect(randomByWeight({
+      cat: 0.001,
+      dog: 0
     })).toEqual('cat')
   })
 })

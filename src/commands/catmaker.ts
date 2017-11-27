@@ -27,12 +27,12 @@ const enum CatParts {
   EndD = 'v'
 }
 
-interface CatConfig {
+interface PrintConfig {
   sprites : { [part in CatParts] : () => string }
   resultWrapper : (result : string) => string
 }
 
-function getConfig(concepts : ConceptBank, palette = 'cat') : CatConfig {
+function getConfig(concepts : ConceptBank, palette = 'cat') : PrintConfig {
   let didFallback = false
   const getFromConcepts = (key : string, fallback : string) => {
     const fullKey = `${palette}_${key}`
@@ -75,7 +75,7 @@ function getConfig(concepts : ConceptBank, palette = 'cat') : CatConfig {
   }
 }
 
-function printResult(grid : CatParts[][], config : CatConfig) : string {
+function printResult(grid : CatParts[][], config : PrintConfig) : string {
   const rows : string[] = []
   for(let i = gridSizeY - 1; i >= 0; i--) {
     const row = []
@@ -132,17 +132,9 @@ const gridSizeY = 20
 
 const startDirection = 1
 
-const defaultExtraCatChance = 0.5
-const defaultTurnChance : TurnChance = {
-  f: 1,
-  l: 1,
-  r: 1
-}
-
 const straightSegments = new Set([CatParts.UD, CatParts.LR])
 
-function addCat(grid : CatParts[][], turnChance : TurnChance) : boolean {
-
+function addCat(grid : CatParts[][], turnChance : TurnChance, minSteps : number, maxSteps : number) : boolean {
   log('new cat!')
 
   // search for an empty spot to put the cat.
@@ -167,25 +159,23 @@ function addCat(grid : CatParts[][], turnChance : TurnChance) : boolean {
   y += 1
   let dir = startDirection
 
-  // TODO: number of steps might be more interesting as a gaussian, and should
-  // be configurable.
-  let stepsLeft = randomInt(20, 100)
+  let stepsLeft = randomInt(minSteps, maxSteps)
   do {
-    log(`steps left: ${stepsLeft}`)
+    // log(`steps left: ${stepsLeft}`)
     ////////////////////////////
     // log full state at each step.
-    if(USE_CLI) {
-      const rows : string[] = []
-      for(let i = gridSizeY - 1; i >= 0; i--) {
-        const row = []
-        for(let j = 0; j < gridSizeX; j++) {
-          row.push(grid[j][i])
-        }
-        rows.push(row.join(','))
-      }
-      log('state:')
-      log(rows.join('\n'))
-    }
+    // if(USE_CLI) {
+    //   const rows : string[] = []
+    //   for(let i = gridSizeY - 1; i >= 0; i--) {
+    //     const row = []
+    //     for(let j = 0; j < gridSizeX; j++) {
+    //       row.push(grid[j][i])
+    //     }
+    //     rows.push(row.join(','))
+    //   }
+    //   log('state:')
+    //   log(rows.join('\n'))
+    // }
     ////////////////////////////
 
     // we should only have been placed in a non-empty sprite if we're doing a crossover
@@ -196,7 +186,8 @@ function addCat(grid : CatParts[][], turnChance : TurnChance) : boolean {
         const [dX, dY] = directions[dir].f.delta
         x += dX
         y += dY
-        log(`crossover! pos now [${x},${y}]`)
+        // log(`crossover! pos now [${x},${y}]`)
+        // continue immediately! don't reduce steps for crossover
         continue
       }
       console.warn(`Expected empty sprite at [${x},${y}], found ${grid[x][y]}`)
@@ -210,7 +201,7 @@ function addCat(grid : CatParts[][], turnChance : TurnChance) : boolean {
       // don't go out of bounds, and stop 1 below the top row so we always have
       // space for the head
       if(x + dX < 0 || x + dX >= gridSizeX || y + dY < 0 || y + dY >= gridSizeY - 1) {
-        log(`deleting ${nextDir}`)
+        // log(`deleting ${nextDir}`)
         delete (validTurns as any)[nextDir]
         continue
       }
@@ -241,7 +232,6 @@ function addCat(grid : CatParts[][], turnChance : TurnChance) : boolean {
       } while(true)
       if(shouldDelete) {
         delete (validTurns as any)[nextDir]
-        continue
       }
     }
 
@@ -260,7 +250,7 @@ function addCat(grid : CatParts[][], turnChance : TurnChance) : boolean {
       grid[x][y] = part
       x += dX
       y += dY
-      log(`pos now [${x},${y}]`)
+      // log(`pos now [${x},${y}]`)
 
       if(nextDirection === 'l') {
         dir = (dir + 1) % 4
@@ -271,6 +261,8 @@ function addCat(grid : CatParts[][], turnChance : TurnChance) : boolean {
       }
     }
 
+    // FIXME: if the next step will be a crossover, we shouldn't subtract
+    // steps-- we might end on a cross segment.
     stepsLeft--
   } while(stepsLeft > 0)
 
@@ -290,37 +282,89 @@ function addCat(grid : CatParts[][], turnChance : TurnChance) : boolean {
 export default createCommand(
   {
     name: 'cat',
-    description: 'get cat',
-    usage: '[extra cat chance [go left chance [go right chance [go straight chance]]]]'
+    description: 'get cat'
   },
   (message : string, { store } : AdjustedArgs) : string => {
-    const turnChance = { ...defaultTurnChance }
-    let extraCatChance = defaultExtraCatChance
-    if(message.length > 0) {
-      const [chance, l, r, f] = message.split(' ')
-        .map(n => parseInt(n, 10))
-        .filter(n => !isNaN(n)) as (number | undefined)[]
-
-      if(typeof chance === 'number') extraCatChance = chance / 100
-      if(typeof l === 'number') turnChance.l = l
-      if(typeof r === 'number') turnChance.r = r
-      if(typeof f === 'number') turnChance.f = f
-      log(`cat chance ${extraCatChance} l ${turnChance.l} r ${turnChance.r} f ${turnChance.f}`)
+    const config = {
+      catchance: 50,
+      leftchance: 50,
+      rightchance: 50,
+      straightchance: 50,
+      minsteps: randomInt(2, 20),
+      maxsteps: randomInt(30, 60)
     }
+    const configAliases = {
+      catchance: 'catchance',
+      leftchance: 'leftchance',
+      rightchance: 'rightchance',
+      straightchance: 'straightchance',
+      minsteps: 'minsteps',
+      maxsteps: 'maxsteps',
 
-    const config = getConfig(store.getState().get('concepts'))
+      chance: 'catchance',
+      cat: 'catchance',
+      c: 'catchance',
+      left: 'leftchance',
+      l: 'leftchance',
+      right: 'rightchance',
+      r: 'rightchance',
+      straight: 'straightchance',
+      forward: 'straightchance',
+      f: 'straightchance',
+      min: 'minsteps',
+      max: 'maxsteps',
+      steps: 'maxsteps', // see below
+      s: 'maxsteps', // see below
+      num: 'maxsteps', // see below
+      n: 'maxsteps' // see below
+    }
+    if(message.length > 0) {
+      const argMatcher = /^([a-zA-Z]+)=([0-9]+)$/
+      const chunks = message.split(' ')
+      chunks.forEach(chunk => {
+        const res = argMatcher.exec(chunk)
+        if(res) {
+          const [, argName, value] = res
+          if(argName.toLowerCase() in configAliases) {
+            const parsedVal = parseInt(value, 10)
+            if(!isNaN(parsedVal) && parsedVal >= 0) {
+              (config as any)[
+                (configAliases as any)[argName.toLowerCase()]
+              ] = parsedVal
+
+              // HACK: these aliases set min and max to the same value
+              if(['steps', 's', 'num', 'n'].includes(argName)) {
+                config.minsteps = parsedVal
+              }
+            }
+          }
+        }
+      })
+    }
+    log(config)
+
+    // only add turn chances to our object if they're nonzero!
+    // we remove entries when checking turns, and randomByWeight
+    // will fail if there's only zero-weighted values in the object.
+    const turnChance : any = {}
+    if(config.leftchance > 0) turnChance.l = config.leftchance
+    if(config.rightchance > 0) turnChance.r = config.rightchance
+    if(config.straightchance > 0) turnChance.f = config.straightchance
+
+
+    const printConfig = getConfig(store.getState().get('concepts'))
 
     const grid : CatParts[][] = []
     for(let i = 0; i < gridSizeX; i++) {
       grid[i] = Array<CatParts>(gridSizeY).fill(CatParts.Empty)
     }
 
-    let lastAddSucceeded = addCat(grid, turnChance)
+    let lastAddSucceeded = addCat(grid, turnChance, config.minsteps, config.maxsteps)
 
-    while(Math.random() < extraCatChance && lastAddSucceeded) {
-      lastAddSucceeded = addCat(grid, turnChance)
+    while(Math.random() < config.catchance / 100 && lastAddSucceeded) {
+      lastAddSucceeded = addCat(grid, turnChance, config.minsteps, config.maxsteps)
     }
 
-    return printResult(grid, config)
+    return printResult(grid, printConfig)
   }
 )

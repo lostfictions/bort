@@ -6,12 +6,13 @@
   "main": "dist/main.js",
   "scripts": {
     "start": "node dist/main.js",
-    "watch-dev": "run-p -l watch dev",
-    "watch-cli": "USE_CLI=true run-p -l watch dev",
-    "dev": "DEBUG=\"bort:*\" DEBUG_HIDE_DATE=true DEBUG_COLORS=true nodemon -i persist dist/main.js",
-    "watch": "tsc -w",
+    "start-dev": "DEBUG=\"bort:*\" DEBUG_HIDE_DATE=true DEBUG_COLORS=true nodemon -i persist dist/main.js",
+    "dev": "run-p -l watch:ts start-dev",
+    "dev-cli": "USE_CLI=true run-p -l watch:ts start-dev",
     "build": "rm -rf dist/ && tsc",
-    "test": "jest"
+    "test": "jest",
+    "watch:ts": "tsc -w",
+    "watch:test": "jest --colors --watch"
   },
   "author": "s",
   "license": "GPL3",

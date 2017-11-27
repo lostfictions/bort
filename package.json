@@ -10,7 +10,8 @@
     "watch-cli": "USE_CLI=true run-p -l watch dev",
     "dev": "DEBUG=\"bort:*\" DEBUG_HIDE_DATE=true DEBUG_COLORS=true nodemon -i persist dist/main.js",
     "watch": "tsc -w",
-    "build": "rm -rf dist/ && tsc"
+    "build": "rm -rf dist/ && tsc",
+    "test": "jest"
   },
   "author": "s",
   "license": "GPL3",
@@ -40,16 +41,33 @@
     "@types/debug": "0.0.30",
     "@types/express": "^4.0.39",
     "@types/express-serve-static-core": "^4.0.56",
+    "@types/jest": "^21.1.8",
     "@types/node": "^8.0.53",
     "@types/redux-immutable": "^3.0.38",
     "@types/validator": "^6.3.0",
     "eslint": "^4.11.0",
+    "jest": "^21.2.1",
+    "jsverify": "^0.8.3",
     "nodemon": "^1.12.1",
     "npm-run-all": "^4.1.2",
+    "ts-jest": "^21.2.3",
     "tslint": "^5.8.0",
     "typescript": "^2.6.1"
   },
   "engines": {
     "node": ">=8.7.0"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json"
+    ]
   }
 }

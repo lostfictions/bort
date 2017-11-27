@@ -1,0 +1,57 @@
+import * as jsc from 'jsverify'
+
+import { randomByWeight } from './index'
+
+function pairsToObj<T>(pairs : [string, T][]) : { [k : string] : T } {
+  const res = {}
+  for(const [k, v] of pairs) {
+    res[k] = v
+  }
+  return res
+}
+
+describe('random by weight', () => {
+  jsc.property(
+    'result is one of inputs',
+    jsc.nearray(jsc.tuple([jsc.string, jsc.number]) as jsc.Arbitrary<[string, number]>),
+    arrayOfWeights => {
+      const keys = new Set(arrayOfWeights.map(([k]) => k))
+      return keys.has(randomByWeight(pairsToObj(arrayOfWeights)))
+    }
+  )
+
+  test('with integer weights', () => {
+    expect(() => randomByWeight({
+      dog: 1,
+      cat: 1000
+    })).not.toThrow()
+  })
+
+  test('with float weights', () => {
+    expect(() => randomByWeight({
+      dog: 0.1,
+      cat: 1,
+      flower: 0.25
+    })).not.toThrow()
+  })
+
+  test('with zero weights', () => {
+    expect(randomByWeight({
+      cat: 1,
+      dog: 0,
+      flower: 0
+    })).toEqual('cat')
+
+    expect(randomByWeight({
+      dog: 0,
+      flower: 0,
+      cat: 1
+    })).toEqual('cat')
+
+    expect(randomByWeight({
+      dog: 0,
+      cat: 1,
+      flower: 0
+    })).toEqual('cat')
+  })
+})

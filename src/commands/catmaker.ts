@@ -28,8 +28,7 @@ const enum CatParts {
 }
 
 interface CatConfig {
-  // currently impossible to typedef this better as of TS 2.6.1
-  sprites : { [part : string] : () => string }
+  sprites : { [part in CatParts] : () => string }
   resultWrapper : (result : string) => string
 }
 
@@ -44,7 +43,7 @@ function getConfig(concepts : ConceptBank, palette = 'cat') : CatConfig {
   }
 
 
-  const config = {
+  return {
     sprites: {
       [CatParts.Empty]: getFromConcepts('empty', CatParts.Empty),
       [CatParts.UD]: getFromConcepts('ud', CatParts.UD),
@@ -74,8 +73,6 @@ function getConfig(concepts : ConceptBank, palette = 'cat') : CatConfig {
       ? (result : string) => `\`\`\`\n${result}\n\`\`\``
       : (result : string) => result
   }
-
-  return config
 }
 
 function printResult(grid : CatParts[][], config : CatConfig) : string {

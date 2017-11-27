@@ -1,115 +1,128 @@
 import { createCommand } from 'chatter'
 import * as debug from 'debug'
+import { List } from 'immutable'
+
+import { AdjustedArgs } from './AdjustedArgs'
+import { ConceptBank } from './concepts'
+import { randomByWeight, randomInt, randomInRange } from '../util'
+
 import { USE_CLI } from '../env'
-import { randomByWeight, WeightedValues, randomInt } from '../util'
+
 const log = debug('bort:commands:catmaker')
+log.enabled = USE_CLI
 
-interface CatDirection {
-  sprite : string
-  delta : [number, number]
+const enum CatParts {
+  Empty = ' ',
+  UD = '│',
+  LR = '─',
+  UL = '┘',
+  UR = '└',
+  DL = '┐',
+  DR = '┌',
+  Cross = '┼',
+  Start = 'X',
+  EndR = '>',
+  EndU = '^',
+  EndL = '<',
+  EndD = 'v'
 }
+
 interface CatConfig {
-  emptySprite : string
-  startSprite : string
-  headSprites : WeightedValues
-  crossoverSprites : WeightedValues
-  directions : {
-    f : CatDirection
-    l : CatDirection
-    r : CatDirection
-  }[]
-  /** We may want to wrap the result in a block, eg ensure monospace formatting. */
-  wrapResult : (result : string) => string
+  // currently impossible to typedef this better as of TS 2.6.1
+  sprites : { [part : string] : () => string }
+  resultWrapper : (result : string) => string
 }
 
-function getConfig(isBpf : boolean) : CatConfig {
-  if(isBpf) {
-    return {
-      emptySprite: ':catspace:',
-      startSprite: ':catbot:',
-      headSprites: {
-        ':cattop:': 120,
-        ':cattoprev:': 60,
-        ':chapo:': 1,
-        ':dmx:': 1,
-        ':dncash:': 1,
-        ':drago:': 1,
-        ':gape:': 2,
-        ':hayao:': 2,
-        ':heathcliff:': 5,
-        ':hi:': 5,
-        ':kuchi:': 5,
-        ':murphy:': 1,
-        ':robocop:': 1
-      },
-      crossoverSprites: {
-        ':catcross1:': 1,
-        ':catcross2:': 1
-      },
-      directions: [
-        // facing right
-        {
-          f: { sprite: ':catlr:', delta: [ 1,  0] },
-          l: { sprite: ':catul:', delta: [ 0,  1] },
-          r: { sprite: ':catld:', delta: [ 0, -1] }
-        },
-        // facing up
-        {
-          f: { sprite: ':catud:', delta: [ 0,  1] },
-          l: { sprite: ':catld:', delta: [-1,  0] },
-          r: { sprite: ':catdr:', delta: [ 1,  0] }
-        },
-        // facing left
-        {
-          f: { sprite: ':catlr:', delta: [-1,  0] },
-          l: { sprite: ':catdr:', delta: [ 0, -1] },
-          r: { sprite: ':catur:', delta: [ 0,  1] }
-        },
-        // facing down
-        {
-          f: { sprite: ':catud:', delta: [ 0, -1] },
-          l: { sprite: ':catur:', delta: [ 1,  0] },
-          r: { sprite: ':catul:', delta: [-1,  0] }
-        }
-      ],
-      wrapResult: result => result
+function getConfig(concepts : ConceptBank, palette = 'cat') : CatConfig {
+  let didFallback = false
+  const getFromConcepts = (key : string, fallback : string) => {
+    const fullKey = `${palette}_${key}`
+    if(!concepts.has(fullKey)) {
+      didFallback = true
     }
+    return () => randomInRange(concepts.get(fullKey, List())) || fallback
   }
-  return {
-    emptySprite: ' ',
-    startSprite: 'X',
-    headSprites: { O: 1 },
-    crossoverSprites: { '┼': 1 },
-    directions: [
-      // facing right
-      {
-        f: { sprite: '─', delta: [ 1,  0] },
-        l: { sprite: '┘', delta: [ 0,  1] },
-        r: { sprite: '┐', delta: [ 0, -1] }
-      },
-      // facing up
-      {
-        f: { sprite: '│', delta: [ 0,  1] },
-        l: { sprite: '┐', delta: [-1,  0] },
-        r: { sprite: '┌', delta: [ 1,  0] }
-      },
-      // facing left
-      {
-        f: { sprite: '─', delta: [-1,  0] },
-        l: { sprite: '┌', delta: [ 0, -1] },
-        r: { sprite: '└', delta: [ 0,  1] }
-      },
-      // facing down
-      {
-        f: { sprite: '│', delta: [ 0, -1] },
-        l: { sprite: '└', delta: [ 1,  0] },
-        r: { sprite: '┘', delta: [-1,  0] }
-      }
-    ],
-    wrapResult: result => `\`\`\`\n${result}\n\`\`\``
+
+
+  const config = {
+    sprites: {
+      [CatParts.Empty]: getFromConcepts('empty', CatParts.Empty),
+      [CatParts.UD]: getFromConcepts('ud', CatParts.UD),
+      [CatParts.LR]: getFromConcepts('lr', CatParts.LR),
+      [CatParts.UL]: getFromConcepts('ul', CatParts.UL),
+      [CatParts.UR]: getFromConcepts('ur', CatParts.UR),
+      [CatParts.DL]: getFromConcepts('dl', CatParts.DL),
+      [CatParts.DR]: getFromConcepts('dr', CatParts.DR),
+      [CatParts.Cross]: getFromConcepts('cross', CatParts.Cross),
+      [CatParts.Start]: getFromConcepts('start', CatParts.Start),
+      // if we have the specific head direction in the concept bank then use it,
+      // otherwise fall back to the generic direction, then the generic value
+      [CatParts.EndR]: concepts.has(`${palette}_head_right`)
+        ? getFromConcepts('head_right', '_neverUsed')
+        : getFromConcepts('head', CatParts.EndR),
+      [CatParts.EndU]: concepts.has(`${palette}_head_up`)
+        ? getFromConcepts('head_up', '_neverUsed')
+        : getFromConcepts('head', CatParts.EndU),
+      [CatParts.EndL]: concepts.has(`${palette}_head_left`)
+        ? getFromConcepts('head_left', '_neverUsed')
+        : getFromConcepts('head', CatParts.EndL),
+      [CatParts.EndD]: concepts.has(`${palette}_head_down`)
+        ? getFromConcepts('head_down', '_neverUsed')
+        : getFromConcepts('head', CatParts.EndD)
+    },
+    resultWrapper: didFallback
+      ? (result : string) => `\`\`\`\n${result}\n\`\`\``
+      : (result : string) => result
   }
+
+  return config
 }
 
+function printResult(grid : CatParts[][], config : CatConfig) : string {
+  const rows : string[] = []
+  for(let i = gridSizeY - 1; i >= 0; i--) {
+    const row = []
+    for(let j = 0; j < gridSizeX; j++) {
+      row.push(config.sprites[grid[j][i]]())
+    }
+    rows.push(row.join(''))
+  }
+  return config.resultWrapper(rows.join('\n'))
+}
+
+// Lookup table mapping from directions [right, up, left, down]
+// to parts to use and position delta to apply.
+interface CatDirection { part : CatParts, delta : [number, number] }
+const directions : {
+  f : CatDirection
+  l : CatDirection
+  r : CatDirection
+}[] = [
+  // facing right
+  {
+    f: { part: CatParts.LR, delta: [1, 0] },
+    l: { part: CatParts.UL, delta: [0, 1] },
+    r: { part: CatParts.DL, delta: [0, -1] }
+  },
+  // facing up
+  {
+    f: { part: CatParts.UD, delta: [0, 1] },
+    l: { part: CatParts.DL, delta: [-1, 0] },
+    r: { part: CatParts.DR, delta: [1, 0] }
+  },
+  // facing left
+  {
+    f: { part: CatParts.LR, delta: [-1, 0] },
+    l: { part: CatParts.DR, delta: [0, -1] },
+    r: { part: CatParts.UR, delta: [0, 1] }
+  },
+  // facing down
+  {
+    f: { part: CatParts.UD, delta: [0, -1] },
+    l: { part: CatParts.UR, delta: [1, 0] },
+    r: { part: CatParts.UL, delta: [-1, 0] }
+  }
+]
 
 interface TurnChance {
   f : number
@@ -129,15 +142,9 @@ const defaultTurnChance : TurnChance = {
   r: 1
 }
 
-function addCat(grid : string[][], config : CatConfig, turnChance : TurnChance) : boolean {
-  const {
-    emptySprite,
-    startSprite,
-    crossoverSprites,
-    directions,
-    headSprites
-  } = config
-  const straightSegments = new Set([directions[0].f.sprite, directions[1].f.sprite])
+const straightSegments = new Set([CatParts.UD, CatParts.LR])
+
+function addCat(grid : CatParts[][], turnChance : TurnChance) : boolean {
 
   log('new cat!')
 
@@ -153,35 +160,15 @@ function addCat(grid : string[][], config : CatConfig, turnChance : TurnChance) 
       log(`can't find an empty space!`)
       return false
     }
-  } while(grid[x][y] !== emptySprite || grid[x][y + 1] !== emptySprite)
+  } while(grid[x][y] !== CatParts.Empty || grid[x][y + 1] !== CatParts.Empty)
 
   // we can infer previous steps if we need to backtrack, but this is simpler
   const steps : { prevSprite : string, delta : [number, number] }[] = []
 
   // lay initial sprite.
-  grid[x][y] = startSprite
+  grid[x][y] = CatParts.Start
   y += 1
   let dir = startDirection
-
-  // function canGoInDirection(direction : number) : boolean {
-  //   // if we're facing the opposite direction, we can't go in that direction.
-  //   if(dir === (direction + 2) % 4) return false
-
-  //   let xToCheck = x
-  //   let yToCheck = y
-  //   do {
-  //     const [dX, dY] = directions[direction].f.delta
-  //     xToCheck = xToCheck + dX
-  //     yToCheck = yToCheck + dY
-  //     if(xToCheck < 0 || xToCheck >= gridSizeX || yToCheck < 0 || yToCheck >= gridSizeY) return false
-  //     // if it's an empty space above, we can go in that direction.
-  //     if(grid[xToCheck][yToCheck] === emptySprite) return true
-  //     // if it's anything except an empty space or a straight segment, we can't go in that direction.
-  //     if(!straightSegments.has(grid[xToCheck][yToCheck])) return false
-  //     // if it's a straight segment, check the same conditions for the next space in that direction.
-  //   } while(true)
-  // }
-
 
   // TODO: number of steps might be more interesting as a gaussian, and should
   // be configurable.
@@ -205,10 +192,10 @@ function addCat(grid : string[][], config : CatConfig, turnChance : TurnChance) 
     ////////////////////////////
 
     // we should only have been placed in a non-empty sprite if we're doing a crossover
-    if(grid[x][y] !== emptySprite) {
-      if((dir === 1 || dir === 3 && grid[x][y] === directions[0].f.sprite) ||
-        (dir === 0 || dir === 2 && grid[x][y] === directions[1].f.sprite)) {
-        grid[x][y] = randomByWeight(crossoverSprites)
+    if(grid[x][y] !== CatParts.Empty) {
+      if(((dir === 1 || dir === 3) && grid[x][y] === directions[0].f.part) ||
+        ((dir === 0 || dir === 2) && grid[x][y] === directions[1].f.part)) {
+        grid[x][y] = CatParts.Cross
         const [dX, dY] = directions[dir].f.delta
         x += dX
         y += dY
@@ -232,12 +219,10 @@ function addCat(grid : string[][], config : CatConfig, turnChance : TurnChance) 
       }
 
       // if the cell is occupied and we're not going forward, this isn't a valid direction.
-      if(grid[x + dX][y + dY] !== emptySprite && nextDir !== 'f') {
+      if(grid[x + dX][y + dY] !== CatParts.Empty && nextDir !== 'f') {
         delete (validTurns as any)[nextDir]
         continue
       }
-
-      // FIXME: all this logic is duplicated in the canGoInDirection method above.
 
       // don't go over non-empty cells, UNLESS the direction is forward and the
       // segment is a straight that's perpendicular -- we'll make it a crossover.
@@ -252,7 +237,7 @@ function addCat(grid : string[][], config : CatConfig, turnChance : TurnChance) 
           break
         }
         // if it's an empty space above, we can go in that direction.
-        if(grid[xToCheck][yToCheck] === emptySprite) break
+        if(grid[xToCheck][yToCheck] === CatParts.Empty) break
         // if it's anything except an empty space or a straight segment, we can't go in that direction.
         if(!straightSegments.has(grid[xToCheck][yToCheck])) { shouldDelete = true; break }
         // if it's a straight segment, check the same conditions for the next space in that direction.
@@ -271,11 +256,11 @@ function addCat(grid : string[][], config : CatConfig, turnChance : TurnChance) 
     // update our current position and facing
     {
       const nextDirection = randomByWeight(validTurns)
-      const { sprite, delta: [dX, dY] } = nextDirections[nextDirection]
+      const { part, delta: [dX, dY] } = nextDirections[nextDirection]
 
       steps.push({ prevSprite: grid[x][y], delta: [dX, dY] })
 
-      grid[x][y] = sprite
+      grid[x][y] = part
       x += dX
       y += dY
       log(`pos now [${x},${y}]`)
@@ -292,50 +277,13 @@ function addCat(grid : string[][], config : CatConfig, turnChance : TurnChance) 
     stepsLeft--
   } while(stepsLeft > 0)
 
-  // end by moving up and placing the head.
-  // TODO: backtrack until going up is valid;
-  // we can also move up into a straight segment if there's space on the other side
-  // (looking forward until there's a non-straight segment OR a free space)
-  grid[x][y] = randomByWeight(headSprites)
-  // switch(dir) {
-  //   case 0:
-  //     // facing east: turn north
-  //     grid[x][y] = directions[dir].l.sprite
-  //     grid[x][y + 1] = randomByWeight(headSprites)
-  //     break
-  //   case 1:
-  //     // facing north: just place the head
-  //     grid[x][y] = randomByWeight(headSprites)
-  //     break
-  //   case 2:
-  //     // facing west: turn north
-  //     grid[x][y] = directions[dir].r.sprite
-  //     grid[x][y + 1] = randomByWeight(headSprites)
-  //     break
-  //   case 3:
-  //     // if we're facing south, we have a bit of a tricky situation. we can't
-  //     // move straight up, so we want to backtrack and change the last sprite
-  //     // to face up. except the last sprite could be '┐', '┌', or '│', and if
-  //     // it's the latter, we have to keep backtracking until we hit a
-  //     // different direction.
-  //     grid[x][y] = emptySprite
-  //     y = y + 1
-  //     while(grid[x][y] === directions[3].f.sprite) {
-  //       grid[x][y] = emptySprite
-  //       y = y + 1
-  //     }
-
-  //     if(grid[x][y] === directions[0].r.sprite) { // ┐
-  //       grid[x][y] = directions[0].l.sprite
-  //     }
-  //     else {
-  //       grid[x][y] = directions[2].r.sprite
-  //     }
-  //     grid[x][y + 1] = randomByWeight(headSprites)
-  //     break
-  //   default:
-  //     throw new Error('unknown direction')
-  // }
+  switch(dir) {
+    case 0: grid[x][y] = CatParts.EndR; break
+    case 1: grid[x][y] = CatParts.EndU; break
+    case 2: grid[x][y] = CatParts.EndL; break
+    case 3: grid[x][y] = CatParts.EndD; break
+    default: throw new Error('unknown direction')
+  }
   return true
 }
 
@@ -348,7 +296,7 @@ export default createCommand(
     description: 'get cat',
     usage: '[extra cat chance [go left chance [go right chance [go straight chance]]]]'
   },
-  (message : string) : string => {
+  (message : string, { store } : AdjustedArgs) : string => {
     const turnChance = { ...defaultTurnChance }
     let extraCatChance = defaultExtraCatChance
     if(message.length > 0) {
@@ -363,29 +311,19 @@ export default createCommand(
       log(`cat chance ${extraCatChance} l ${turnChance.l} r ${turnChance.r} f ${turnChance.f}`)
     }
 
-    // TODO: handle per-server via store
-    const config = getConfig(!USE_CLI)
+    const config = getConfig(store.getState().get('concepts'))
 
-    const grid : string[][] = []
+    const grid : CatParts[][] = []
     for(let i = 0; i < gridSizeX; i++) {
-      grid[i] = Array<string>(gridSizeY).fill(config.emptySprite)
+      grid[i] = Array<CatParts>(gridSizeY).fill(CatParts.Empty)
     }
 
-    let lastAddSucceeded = addCat(grid, config, turnChance)
+    let lastAddSucceeded = addCat(grid, turnChance)
 
     while(Math.random() < extraCatChance && lastAddSucceeded) {
-      lastAddSucceeded = addCat(grid, config, turnChance)
+      lastAddSucceeded = addCat(grid, turnChance)
     }
 
-    // print out the result.
-    const rows : string[] = []
-    for(let i = gridSizeY - 1; i >= 0; i--) {
-      const row = []
-      for(let j = 0; j < gridSizeX; j++) {
-        row.push(grid[j][i])
-      }
-      rows.push(row.join(''))
-    }
-    return config.wrapResult(rows.join('\n'))
+    return printResult(grid, config)
   }
 )

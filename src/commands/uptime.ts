@@ -9,8 +9,8 @@ export default createCommand(
     name: 'uptime',
     description: 'info about me'
   },
-  (_ : any, { name } : AdjustedArgs) => {
+  (_ : any, { botName } : AdjustedArgs) => {
     const uptime = moment.duration(process.uptime(), 'seconds').humanize()
-    return `hi its me <@${ name }> i have been here for *${uptime}* via \`${ hostname() }\``
+    return `hi its me <@${ botName }> i have been here for *${uptime}* via \`${ hostname() }\``
   }
 )

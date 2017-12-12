@@ -11,6 +11,7 @@ import { DATA_DIR } from '../env'
 import { markovReducers } from '../reducers/markov'
 import { conceptReducers } from '../reducers/concepts'
 import { recentsReducers } from '../reducers/recents'
+import { seenReducers } from '../reducers/seen'
 
 import { WordBank } from '../components/markov'
 import { ConceptBank } from '../commands/concepts'
@@ -20,15 +21,24 @@ import { addSentenceAction } from '../actions/markov'
 export interface BortStore extends Map<string, any> {
   get(key : 'wordBank') : WordBank
   get(key : 'concepts') : ConceptBank
-  // a cache of recent responses to avoid repetition.
-  // maps from response -> time sent (in ms from epoch)
+  /**
+   * a cache of recent responses to avoid repetition.
+   *
+   * maps from response -> time sent (in ms from epoch)
+   */
   get(key : 'recents') : Map<string, number>
+  /**
+   * maps usernames to a tuple of the last message that user sent
+   * and the date it was sent (in ms from epoch)
+   */
+  get(key : 'seen') : Map<string, [string, number]>
 }
 
 const rootReducer = combineReducers<BortStore>({
   wordBank: markovReducers,
   concepts: conceptReducers,
-  recents: recentsReducers
+  recents: recentsReducers,
+  seen: seenReducers
 })
 
 export function makeStore(filename : string = 'state') : Store<BortStore> {
@@ -40,16 +50,16 @@ export function makeStore(filename : string = 'state') : Store<BortStore> {
 
     // Basic sanity check on shape returned
     const props : { [ propName : string ] : (propValue : any) => any } = {
-      wordBank: (p : any) => p,
-      concepts: (p : any) => p
+      wordBank: (_ : any) => _,
+      concepts: (_ : any) => _
     }
     // tslint:disable-next-line:forin
     for(const k in props) {
       assert(props[k](json[k]), `Property ${ k } not found in '${ p }'!`)
     }
 
-    // short of having a way to migrate a schema, just add this in if it's not present
-    // when we load.
+    // short of having a way to migrate a schema, just add this in if it's not
+    // present when we load.
     if(!json.recents) {
       json.recents = {}
     }

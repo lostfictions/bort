@@ -3,6 +3,7 @@ import { createArgsAdjuster, createCommand } from 'chatter'
 import { AdjustedArgs } from './AdjustedArgs'
 
 import buseyCommand from './busey'
+import seenCommand from './seen'
 import catmakerCommand from './catmaker'
 import rhymeCommand from './rhyme'
 import weatherCommand from './weather'
@@ -28,6 +29,7 @@ import { getSentence } from '../components/markov'
 import trace, { matcher as traceMatcher } from '../components/trace'
 
 import { addSentenceAction } from '../actions/markov'
+import { setSeenAction } from '../actions/seen'
 
 
 import { Store } from 'redux'
@@ -40,6 +42,7 @@ const subCommands = [
   conceptLoadCommand,
   conceptListCommand,
   buseyCommand,
+  seenCommand,
   rhymeCommand,
   heathcliffCommand,
   wikihowCommand,
@@ -71,9 +74,9 @@ const helpCommand = createCommand(
   }
 )
 
-const makeRootCommand = ({ store, name } : AdjustedArgs) => createArgsAdjuster(
+const makeRootCommand = ({ store, botName } : AdjustedArgs) => createArgsAdjuster(
   {
-    adjustArgs: (message : string) => [message, { store, name }]
+    adjustArgs: (message : string) => [message, { store, botName }]
   },
   [
     ...subCommands,
@@ -105,9 +108,14 @@ const makeRootCommand = ({ store, name } : AdjustedArgs) => createArgsAdjuster(
   ]
 )
 
-function makeMessageHandler(store : Store<BortStore>, name : string, isDM : boolean) : {} {
+function makeMessageHandler(store : Store<BortStore>, botName : string, isDM : boolean) : {} {
 
-  const rootCommand = makeRootCommand({ store, name })
+  const rootCommand = makeRootCommand({ store, botName })
+
+  const addRecent = (message : string) : false => {
+    store.dispatch(setSeenAction('username', message))
+    return false
+  }
 
   const handleDirectConcepts = (message : string) : string | false => {
     if(!message.startsWith('!')) {
@@ -139,10 +147,10 @@ function makeMessageHandler(store : Store<BortStore>, name : string, isDM : bool
     createCommand(
       {
         isParent: true,
-        name,
+        botName,
         // name: botNames.name,
         // aliases: botNames.aliases,
-        description: `it ${name}`
+        description: `it ${botName}`
       },
       rootCommand
     ),

@@ -33,9 +33,7 @@
       },
       "member-access": [
         true,
-        "check-accessor",
-        "check-constructor",
-        "check-parameter-property"
+        "no-public"
       ],
       "member-ordering": [
         true,
@@ -59,9 +57,7 @@
       "prefer-for-of": true,
       "typedef": [
         true,
-        "call-signature",
-        "property-declaration",
-        "member-variable-declaration"
+        "call-signature"
       ],
       "typedef-whitespace": [
         true,

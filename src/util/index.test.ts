@@ -3,7 +3,7 @@ import * as jsc from 'jsverify'
 import { randomByWeight } from './index'
 
 function pairsToObj<T>(pairs : [string, T][]) : { [k : string] : T } {
-  const res = {}
+  const res : any = {}
   for(const [k, v] of pairs) {
     res[k] = v
   }

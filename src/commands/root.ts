@@ -2,7 +2,7 @@ import { BOT_NAME } from '../env'
 
 import { processMessage, makeCommand, Handler } from '../util/handler'
 
-import { HandlerArgs } from './AdjustedArgs'
+import { HandlerArgs } from './HandlerArgs'
 
 import buseyCommand from './busey'
 import seenCommand from './seen'

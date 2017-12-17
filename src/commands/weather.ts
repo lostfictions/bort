@@ -1,4 +1,4 @@
-import { HandlerArgs } from './AdjustedArgs'
+import { HandlerArgs } from './HandlerArgs'
 import { makeCommand } from '../util/handler'
 import * as got from 'got'
 

@@ -4,7 +4,7 @@ import * as cheerio from 'cheerio'
 
 import { randomInArray } from '../util'
 
-import { HandlerArgs } from './AdjustedArgs'
+import { HandlerArgs } from './HandlerArgs'
 import { tryTrace } from '../components/trace'
 
 function getRandomImage(body : string) : string {

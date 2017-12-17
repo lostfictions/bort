@@ -2,7 +2,7 @@ import { makeCommand } from '../util/handler'
 import * as debug from 'debug'
 import { List } from 'immutable'
 
-import { HandlerArgs } from './AdjustedArgs'
+import { HandlerArgs } from './HandlerArgs'
 import { ConceptBank } from './concepts'
 import { randomByWeight, randomInt, randomInRange } from '../util'
 

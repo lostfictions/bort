@@ -3,7 +3,7 @@ import * as got from 'got'
 
 import { randomInArray } from '../util'
 
-import { HandlerArgs } from './AdjustedArgs'
+import { HandlerArgs } from './HandlerArgs'
 import { tryTrace } from '../components/trace'
 
 interface GifResult {

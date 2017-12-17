@@ -3,7 +3,7 @@ import * as fs from 'fs'
 import * as path from 'path'
 import * as Jimp from 'jimp'
 
-import { HandlerArgs } from './AdjustedArgs'
+import { HandlerArgs } from './HandlerArgs'
 import { randomInArray, randomInRange } from '../util'
 import { DATA_DIR, HOSTNAME } from '../env'
 

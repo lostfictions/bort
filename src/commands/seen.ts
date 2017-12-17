@@ -1,7 +1,7 @@
 import { makeCommand } from '../util/handler'
 import { Map } from 'immutable'
 
-import { HandlerArgs } from './AdjustedArgs'
+import { HandlerArgs } from './HandlerArgs'
 
 
 export default makeCommand<HandlerArgs>(

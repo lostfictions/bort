@@ -42,16 +42,21 @@ interface CommandOptions {
   details? : string
 }
 
+export type CommandFn<TData, TResult> = HandlerFn<TData, TResult> & {
+  readonly usage? : string
+  readonly description? : string
+  readonly details? : string
+}
+
 export function makeCommand<
-    TData extends { message : string }, TReturn = string
+    TData extends { message : string }, TResult = string
   >(
-    options : CommandOptions, handlerOrHandlers : HandlerOrHandlers<TData, TReturn>
-  ) : (data : TData) => Promise<TReturn | false> {
+    options : CommandOptions, handlerOrHandlers : HandlerOrHandlers<TData, TResult>
+  ) : CommandFn<TData, TResult> {
 
   const aliases = [options.name, ...options.aliases || []]
 
-  // TODO: add metadata fields
-  return async (data : TData) => {
+  const fn : CommandFn<TData, TResult> = async (data : TData) => {
     const matchingAlias = aliases.find(alias => data.message.startsWith(alias + ' '))
     if(matchingAlias != null) {
       const commandData : TData = { ...data as any, message: data.message.substr(matchingAlias.length + 1) }
@@ -59,6 +64,14 @@ export function makeCommand<
     }
     return false
   }
+
+  ['usage', 'description', 'details'].forEach(prop => {
+    if(prop in options) {
+      (fn as any)[prop] = (options as any)[prop]
+    }
+  })
+
+  return fn
 }
 
 export function adjustArgs<

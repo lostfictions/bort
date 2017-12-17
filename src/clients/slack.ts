@@ -7,7 +7,7 @@ import {
   DM
 } from '@slack/client'
 
-import { HOSTNAME } from '../env'
+import { HOSTNAME, BOT_NAME } from '../env'
 
 import { parseMessage } from './parse-slack-message'
 
@@ -18,7 +18,7 @@ import { HandlerArgs } from '../handler-args'
 import { processMessage } from '../util/handler'
 
 
-export const makeSlackBot = (botName : string, slackToken : string) => {
+export const makeSlackBot = (slackToken : string) => {
   const rtmClient = new RtmClient(slackToken, {
     dataStore: new MemoryDataStore(),
     autoReconnect: true,
@@ -29,7 +29,7 @@ export const makeSlackBot = (botName : string, slackToken : string) => {
   const getPostOptions = (text : string) => ({
     text,
     as_user: false,
-    username: botName,
+    username: BOT_NAME,
     icon_url: `http://${HOSTNAME}/bort.png`,
     unfurl_links: true,
     unfurl_media: true
@@ -79,8 +79,8 @@ export const makeSlackBot = (botName : string, slackToken : string) => {
       webClient.chat.postMessage(message.channel, null, getPostOptions(response))
     }
     catch(error) {
+      console.error(`Error in Slack client (${teamName}): '${error.message}'`)
       webClient.chat.postMessage(message.channel, null, getPostOptions((`[Something went wrong!] [${error.message}]`)))
-      console.error(`Error in Slack client ${botName} (${teamName}): '${error.message}'`)
     }
   }
 

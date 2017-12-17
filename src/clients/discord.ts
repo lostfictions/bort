@@ -13,8 +13,10 @@ import { processMessage } from '../util/handler'
 
 
 // tslint:disable-next-line:typedef
-export function makeDiscordBot(botName : string, discordToken : string) {
+export function makeDiscordBot(discordToken : string) {
   const client = new DiscordClient()
+
+  let guildList = 'guild-list-not-yet-retrieved'
 
   async function onMessage(message : DiscordMessage) : Promise<false | undefined> {
     try {
@@ -72,17 +74,14 @@ export function makeDiscordBot(botName : string, discordToken : string) {
       message.channel.sendMessage(response)
     }
     catch(error) {
+      console.error(`Error in Discord client (${guildList}): '${error.message}'`)
       message.channel.sendMessage(`[Something went wrong!] [${error.message}]`)
-      console.error(`Error in Discord client ${botName} (${
-        client.guilds.array().map(g => `'${g.name}'`).join(', ')
-      }): '${error.message}'`)
     }
   }
 
   client.on('ready', () => {
-    console.log(`Connected to Discord guilds ${
-      client.guilds.array().map(g => `'${g.name}'`).join(', ')
-    } as ${botName}`)
+    guildList = client.guilds.array().map(g => `'${g.name}'`).join(', ')
+    console.log(`Connected to Discord guilds ${guildList} as ${client.user.username}`)
   })
   client.on('message', onMessage)
   client.on('disconnect', (ev : CloseEvent) => {

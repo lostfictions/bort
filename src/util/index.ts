@@ -1,5 +1,16 @@
 import { Collection } from 'immutable'
 
+
+/**
+ * Escape special characters that would cause errors if we interpolated them
+ * into a regex.
+ * @param expression The string to escape.
+ * @returns The escaped string, usable in a regular expression constructor.
+ */
+export function escapeForRegex(expression : string) : string {
+  return expression.replace(/[\\^$*+?.()|[\]{}]/g, '\\$&')
+}
+
 /** Returns a random number between min (inclusive) and max (exclusive). */
 /* tslint:disable:no-parameter-reassignment */
 export function randomInt(max : number) : number
@@ -26,10 +37,13 @@ export function randomInRange<T>(collection : Collection.Indexed<T>) : T {
 export interface WeightedValues { [value : string] : number }
 export function randomByWeight<T extends WeightedValues, K extends keyof T>(weights : T) : K {
   const keys = Object.keys(weights) as K[]
-  const sum = Object.values(weights).reduce((p, c) => {
-    if(c < 0) throw new Error('Negative weight!')
-    return p + c
-  }, 0)
+  const sum = Object.values(weights).reduce(
+    (p, c) => {
+      if(c < 0) throw new Error('Negative weight!')
+      return p + c
+    },
+    0
+  )
   if(sum === 0) throw new Error('Weights add up to zero!')
   const choose = Math.floor(Math.random() * sum)
   for (let i = 0, count = 0; i < keys.length; i++) {

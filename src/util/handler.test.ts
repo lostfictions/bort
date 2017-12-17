@@ -26,6 +26,13 @@ describe('processMessage', () => {
     )).resolves.toBe('yo')
   )
 
+  it('should resolve a handler function that throws to a message', () =>
+    expect(processMessage(
+      () => { throw new Error('butt') },
+      { message: 'yo' }
+    )).resolves.toBe(`[Something went wrong!] [Error: butt]`)
+  )
+
   it('should resolve an array of handler objects and functions to a message', () => {
     const handlers : Handler<{ message : string }, string>[] = [
       { handleMessage: () => false },
@@ -48,10 +55,16 @@ describe('processMessage', () => {
 })
 
 describe('makeCommand', () => {
-  it('should resolve a command to a message', () =>
+  it('should resolve a command with an argument to a message', () =>
     expect(
       processMessage(makeCommand({ name: 'butt' }, ({ message }) => message), { message : 'butt mess' })
     ).resolves.toBe('mess')
+  )
+
+  it('should resolve a command without an argument to a message', () =>
+    expect(
+      processMessage(makeCommand({ name: 'butt' }, () => 'yo'), { message: 'butt' })
+    ).resolves.toBe('yo')
   )
 
   it('should resolve a command with nested handlers to a message', () => {

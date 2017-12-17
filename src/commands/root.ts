@@ -137,7 +137,7 @@ const messageHandler : Handler<HandlerArgs, string>[] = [
   handleDirectConcepts,
   // If it's a DM, don't require prefixing with the bot name and don't add any
   // input to our wordbank.
-  async args => args.isDM ? processMessage(rootCommand, args) : bortCommand(args),
+  async args => args.isDM ? processMessage(rootCommand, args) : processMessage(bortCommand, args),
   // If we didn't match anything, add to our markov chain.
   ({ message, store }) => {
     if(message.length > 0 && message.trim().split(' ').filter(s => s.length > 0).length > 1) {

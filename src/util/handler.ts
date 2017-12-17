@@ -1,37 +1,44 @@
-export type HandlerResult<T> = T | false | Promise<T | false>
+import { escapeForRegex } from './index'
+
+type HandlerResult<T> = T | false | Promise<T | false>
 type HandlerFn<TData, TResult> = (data : TData) => HandlerResult<TResult>
-export type Handler<TData, TResult> =
+export type Handler<TData, TResult = string> =
   HandlerFn<TData, TResult> |
   { handleMessage : HandlerFn<TData, TResult> }
 
-export type HandlerOrHandlers<TData, TResult> =
-  Handler<TData, TResult> |
-  Handler<TData, TResult>[]
+export type HandlerOrHandlers<TData> =
+  Handler<TData> |
+  Handler<TData>[]
 
 // tslint:disable-next-line: interface-over-type-literal
 type DefaultData = { message : string }
 
-export async function processMessage<
-    TData = DefaultData, TResult = string
-  >(handlerOrHandlers : HandlerOrHandlers<TData, TResult>, data : TData) : Promise<TResult | false> {
+export async function processMessage<TData = DefaultData>(
+  handlerOrHandlers : HandlerOrHandlers<TData>, data : TData
+  ) : Promise<string | false> {
 
-  if(!Array.isArray(handlerOrHandlers)) {
-    if(typeof handlerOrHandlers === 'function') {
-      return handlerOrHandlers(data)
+  try {
+    if(!Array.isArray(handlerOrHandlers)) {
+      if(typeof handlerOrHandlers === 'function') {
+        return handlerOrHandlers(data)
+      }
+      else {
+        return handlerOrHandlers.handleMessage(data)
+      }
     }
-    else {
-      return handlerOrHandlers.handleMessage(data)
+
+    for(const handler of handlerOrHandlers) {
+      const res = await processMessage(handler, data)
+
+      if(res !== false) {
+        return res
+      }
     }
+    return false
   }
-
-  for(const handler of handlerOrHandlers) {
-    const res = await processMessage(handler, data)
-
-    if(res !== false) {
-      return res
-    }
+  catch(e) {
+    return `[Something went wrong!] [${e}]`
   }
-  return false
 }
 
 interface CommandOptions {
@@ -42,44 +49,55 @@ interface CommandOptions {
   details? : string
 }
 
-export type CommandFn<TData, TResult> = HandlerFn<TData, TResult> & {
+export interface Command<TData> {
+  handleMessage : HandlerFn<TData, string>
+  readonly name : string
   readonly usage? : string
   readonly description? : string
   readonly details? : string
 }
 
-export function makeCommand<
-    TData extends { message : string }, TResult = string
-  >(
-    options : CommandOptions, handlerOrHandlers : HandlerOrHandlers<TData, TResult>
-  ) : CommandFn<TData, TResult> {
+export function makeCommand<TData extends { message : string }>(
+    options : CommandOptions, handlerOrHandlers : HandlerOrHandlers<TData>
+  ) : Command<TData> {
 
-  const aliases = [options.name, ...options.aliases || []]
+  const escapedAliases = [ options.name, ...options.aliases || [] ]
+    .map(escapeForRegex)
+    .join('|')
 
-  const fn : CommandFn<TData, TResult> = async (data : TData) => {
-    const matchingAlias = aliases.find(alias => data.message.startsWith(alias + ' '))
-    if(matchingAlias != null) {
-      const commandData : TData = { ...data as any, message: data.message.substr(matchingAlias.length + 1) }
+  const aliasRegex = new RegExp(
+    `(?:${escapedAliases})(?:\\s+|$)([\\s\\S]*)`,
+    'i'
+  )
+
+  const handleMessage = async (data : TData) => {
+    const matchResult = data.message.match(aliasRegex)
+    if(matchResult) {
+      const message = matchResult[1]
+      const commandData : TData = { ...data as any, message }
       return processMessage(handlerOrHandlers, commandData)
     }
     return false
   }
 
+  const command = {
+    handleMessage,
+    name: options.name
+  };
+
   ['usage', 'description', 'details'].forEach(prop => {
     if(prop in options) {
-      (fn as any)[prop] = (options as any)[prop]
+      (command as any)[prop] = (options as any)[prop]
     }
   })
 
-  return fn
+  return command
 }
 
-export function adjustArgs<
-    TAdjusted = { message : string }, TData = TAdjusted, TReturn = string
-  >(
+export function adjustArgs<TAdjusted = { message : string }, TData = TAdjusted>(
     adjuster : (data : TData) => TAdjusted | false,
-    handlerOrHandlers : HandlerOrHandlers<TAdjusted, TReturn>
-  ) : (data : TData) => Promise<TReturn | false> {
+    handlerOrHandlers : HandlerOrHandlers<TAdjusted>
+  ) : (data : TData) => Promise<string | false> {
 
   return async (data : TData) => {
     const adjustedData = adjuster(data)

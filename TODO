@@ -1,7 +1,3 @@
-
-Chatter migration:
-  - replace SlackBot
-
 - replace weather command
 - wikihow: just use google image search instead of scraping
 - service-independent formatting (markdown -> whatever?)

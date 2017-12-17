@@ -72,7 +72,10 @@ export function makeDiscordBot(botName : string, discordToken : string) {
       message.channel.sendMessage(response)
     }
     catch(error) {
-      message.channel.sendMessage(`An error occurred: ${error.message}`)
+      message.channel.sendMessage(`[Something went wrong!] [${error.message}]`)
+      console.error(`Error in Discord client ${botName} (${
+        client.guilds.array().map(g => `'${g.name}'`).join(', ')
+      }): '${error.message}'`)
     }
   }
 

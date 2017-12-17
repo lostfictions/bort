@@ -18,6 +18,8 @@ export const makeCLIBot = () => {
     isDM: false
   }).then(response => {
     console.log(response !== false ? `[bort]: ${response}` : '-')
+  }).catch(e => {
+    console.error(e)
   }))
 
   return rl

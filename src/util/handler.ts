@@ -49,6 +49,8 @@ export function makeCommand<
   ) : (data : TData) => Promise<TReturn | false> {
 
   const aliases = [options.name, ...options.aliases || []]
+
+  // TODO: add metadata fields
   return async (data : TData) => {
     const matchingAlias = aliases.find(alias => data.message.startsWith(alias + ' '))
     if(matchingAlias != null) {
@@ -60,11 +62,18 @@ export function makeCommand<
 }
 
 export function adjustArgs<
-    TAdjusted, TData = { message : string }, TReturn = string
+    TAdjusted = { message : string }, TData = TAdjusted, TReturn = string
   >(
-    adjuster : (data : TData) => TAdjusted,
+    adjuster : (data : TData) => TAdjusted | false,
     handlerOrHandlers : HandlerOrHandlers<TAdjusted, TReturn>
   ) : (data : TData) => Promise<TReturn | false> {
 
-  return async (data : TData) => processMessage(handlerOrHandlers, adjuster(data))
+  return async (data : TData) => {
+    const adjustedData = adjuster(data)
+    if(adjustedData === false) {
+      return false
+    }
+
+    return processMessage(handlerOrHandlers, adjustedData)
+  }
 }

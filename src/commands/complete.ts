@@ -1,18 +1,18 @@
-import { createCommand } from 'chatter'
+import { makeCommand } from '../util/handler'
 import * as got from 'got'
 
-import { AdjustedArgs } from './AdjustedArgs'
+import { HandlerArgs } from './AdjustedArgs'
 
 import { tryTrace } from '../components/trace'
 
 
-export default createCommand(
+export default makeCommand<HandlerArgs>(
   {
     name: 'complete',
     aliases: ['tell me'],
     description: "we know each other so well we finish each other's sentences"
   },
-  (message : string, { store } : AdjustedArgs) : Promise<string> | false => {
+  ({ message, store }) : Promise<string> | false => {
     if(message.length === 0) {
       return false
     }

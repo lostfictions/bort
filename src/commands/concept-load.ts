@@ -1,7 +1,7 @@
-import { createCommand } from 'chatter'
+import { makeCommand } from '../util/handler'
 import * as got from 'got'
 import { isURL } from 'validator'
-import { AdjustedArgs } from './AdjustedArgs'
+import { HandlerArgs } from './AdjustedArgs'
 import {
   loadConceptAction
 } from '../actions/concept'
@@ -19,13 +19,13 @@ const traverse = (obj : any, path : string[]) : any => {
   return null
 }
 
-export default createCommand(
+export default makeCommand<HandlerArgs>(
   {
     name: 'load',
     aliases: ['json'],
     description: 'load a concept list from a url, overwriting existing concept if it exists'
   },
-  (message : string, { store } : AdjustedArgs) : Promise<string> | string | false => {
+  ({ message, store }) : Promise<string> | string | false => {
     if(message.length === 0) {
       return false
     }

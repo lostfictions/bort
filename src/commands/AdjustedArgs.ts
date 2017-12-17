@@ -1,4 +1,9 @@
 import { Store } from 'redux'
 import { BortStore } from '../store/store'
 
-export interface AdjustedArgs { store : Store<BortStore>, botName : string }
+export interface HandlerArgs {
+  message : string
+  channel : string
+  store : Store<BortStore>
+  isDM : boolean
+}

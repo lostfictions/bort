@@ -1,4 +1,4 @@
-import { createCommand } from 'chatter'
+import { makeCommand } from '../util/handler'
 import * as got from 'got'
 import * as cheerio from 'cheerio'
 
@@ -10,7 +10,7 @@ import {
 
 import { randomInArray } from '../util'
 
-import { AdjustedArgs } from './AdjustedArgs'
+import { HandlerArgs } from './AdjustedArgs'
 import { tryTrace } from '../components/trace'
 
 // based on https://github.com/jimkang/g-i-s/blob/master/index.js
@@ -73,13 +73,13 @@ const search = (term : string, store : Store<BortStore>, animated = false) =>
       return result
     })
 
-export const imageSearchCommand = createCommand(
+export const imageSearchCommand = makeCommand<HandlerArgs>(
   {
     name: 'image',
-    aliases: [`what's`, `who's`, `what is`, `who is`, `show me`],
+    aliases: [`what's`, `who's`, `what is`, `who is`, `show me the`, `show me an`, `show me a`, `show me`],
     description: 'i will show you'
   },
-  (message : string, { store } : AdjustedArgs) : Promise<string> | false => {
+  ({ message, store }) : Promise<string> | false => {
     if(message.length === 0) {
       return false
     }
@@ -94,13 +94,13 @@ export const imageSearchCommand = createCommand(
   }
 )
 
-export const gifSearchCommand = createCommand(
+export const gifSearchCommand = makeCommand<HandlerArgs>(
   {
     name: 'gifsearch',
-    aliases: ['gif me the', 'gif me a', 'gif me', 'gif'],
+    aliases: ['gif me the', 'gif me an', 'gif me a', 'gif me', 'gif'],
     description: 'moving pictures'
   },
-  (message : string, { store } : AdjustedArgs) : Promise<string> | false => {
+  ({ message, store }) : Promise<string> | false => {
     if(message.length === 0) {
       return false
     }

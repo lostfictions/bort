@@ -1,15 +1,15 @@
-import { createCommand } from 'chatter'
+import { makeCommand } from '../util/handler'
 import { Map } from 'immutable'
 
-import { AdjustedArgs } from './AdjustedArgs'
+import { HandlerArgs } from './AdjustedArgs'
 
 
-export default createCommand(
+export default makeCommand<HandlerArgs>(
   {
     name: 'seen',
     description: 'note when the given user was last seen'
   },
-  (message : string, { store } : AdjustedArgs) => {
+  ({ message, store, channel }) => {
     const seen = store.getState().get('seen')
 
     const username = message.trim().toLowerCase()

@@ -1,9 +1,7 @@
-import { createCommand, createMatcher, createArgsAdjuster } from 'chatter'
+import { makeCommand, adjustArgs } from '../util/handler'
 import { Map, List } from 'immutable'
-import { Store } from 'redux'
-import { BortStore } from '../store/store'
 
-import { AdjustedArgs } from './AdjustedArgs'
+import { HandlerArgs } from './AdjustedArgs'
 import {
   addConceptAction,
   removeConceptAction,
@@ -13,18 +11,20 @@ import {
 
 export type ConceptBank = Map<string, List<string>>
 
+type HandlerArgsWithConcept = HandlerArgs & { concept : string }
+
 // Match two groups:
 // 1: a bracket-delimited term of any length
 // 2: the rest of the message if there is any, ignoring any preceding whitespace
 const matcher = /^\[([^\[\]]+)\](?:$|\s+(.*))/g // eslint-disable-line no-useless-escape
 
-export const conceptAddCommand = createCommand(
+export const conceptAddCommand = makeCommand<HandlerArgs>(
   {
     name: 'add',
     aliases: ['+'],
     description: 'add a new concept'
   },
-  (message : string, { store } : AdjustedArgs) : boolean | string => {
+  ({ message, store }) => {
     if(message.length === 0) {
       return false
     }
@@ -38,13 +38,13 @@ export const conceptAddCommand = createCommand(
   }
 )
 
-export const conceptRemoveCommand = createCommand(
+export const conceptRemoveCommand = makeCommand<HandlerArgs>(
   {
     name: 'remove',
     aliases: ['delete', '-'],
     description: 'delete an existing concept'
   },
-  (message : string, { store } : AdjustedArgs) : boolean | string => {
+  ({ message, store }) => {
     if(message.length === 0) {
       return false
     }
@@ -58,13 +58,13 @@ export const conceptRemoveCommand = createCommand(
   }
 )
 
-export const conceptListCommand = createCommand(
+export const conceptListCommand = makeCommand<HandlerArgs>(
   {
     name: 'list',
     aliases: ['get'],
     description: 'list everything in a concept'
   },
-  (message : string, { store } : AdjustedArgs) : string | boolean => {
+  ({ message, store }) => {
     if(message.length === 0) {
       return false
     }
@@ -88,13 +88,13 @@ export const conceptListCommand = createCommand(
 // concepts, while the commands below add and remove the
 // contents of individual concepts.
 
-const conceptAddToCommand = createCommand(
+const conceptAddToCommand = makeCommand<HandlerArgsWithConcept>(
   {
     name: 'add',
     aliases: ['+'],
     description: 'add to a concept'
   },
-  (message : string, concept : string, store : Store<BortStore>) : boolean | string => {
+  ({ message, store, concept }) => {
     if(message.length === 0) {
       return false
     }
@@ -108,13 +108,13 @@ const conceptAddToCommand = createCommand(
   }
 )
 
-const conceptRemoveFromCommand = createCommand(
+const conceptRemoveFromCommand = makeCommand<HandlerArgsWithConcept>(
   {
     name: 'remove',
     aliases: ['delete', '-'],
     description: 'remove from a concept'
   },
-  (message : string, concept : string, store : Store<BortStore>) : boolean | string => {
+  ({ message, store, concept }) => {
     if(message.length === 0) {
       return false
     }
@@ -133,44 +133,41 @@ const conceptRemoveFromCommand = createCommand(
 // adjusts the arguments to include the normalized concept in question
 // and removes it from the message, and then redirects to one of the
 // commands above.
-export const conceptMatcher = createMatcher(
-  {
-    match: (message : string, { store } : AdjustedArgs) : boolean | string => {
-      if(message.length === 0) {
-        return false
-      }
-
-      // The matcher will match concepts/commands either in the format
-      // "adj add humongous" OR "[adj] add humongous".
-      // This lets us match concepts that contain whitespace
-      // like "[kind of animal]", as well as concepts that might
-      // otherwise be processed as a keyword or command, like "[delete]".
-
-      // We try matching against the "matcher" regex above, then
-      // normalize the results.
-      let matches : string[] | null = message.match(matcher)
-      if(matches == undefined) {
-        const split = message.split(' ')
-        matches = ['', split[0], split.slice(1).join(' ')]
-      }
-
-      const [, concept, command] = matches
-
-      const concepts = store.getState().get('concepts')
-      if(!concepts.has(concept)) {
-        return false
-      }
-      return concept + ' ' + command
+export const conceptMatcher = adjustArgs<HandlerArgs>(
+  args => {
+    const { message, store } = args
+    if(message.length === 0) {
+      return false
     }
+
+    // The matcher will match concepts/commands either in the format
+    // "adj add humongous" OR "[adj] add humongous".
+    // This lets us match concepts that contain whitespace
+    // like "[kind of animal]", as well as concepts that might
+    // otherwise be processed as a keyword or command, like "[delete]".
+
+    // We try matching against the "matcher" regex above, then
+    // normalize the results.
+    let matches : string[] | null = message.match(matcher)
+    if(matches == undefined) {
+      const split = message.split(' ')
+      matches = ['', split[0], split.slice(1).join(' ')]
+    }
+
+    const [, concept, command] = matches
+
+    const concepts = store.getState().get('concepts')
+    if(!concepts.has(concept)) {
+      return false
+    }
+    return { ...args, message: concept + ' ' + command }
   },
-  createArgsAdjuster(
-    {
-      adjustArgs: (message : string, { store } : AdjustedArgs) => {
-        const split = message.split(' ')
-        const concept = split[0]
-        const adjustedMessage = split.slice(1).join(' ')
-        return [adjustedMessage, concept, store]
-      }
+  adjustArgs<HandlerArgsWithConcept, HandlerArgs>(
+    args => {
+      const split = args.message.split(' ')
+      const concept = split[ 0 ]
+      const adjustedMessage = split.slice(1).join(' ')
+      return { ...args, message: adjustedMessage, concept }
     },
     [
       conceptAddToCommand,

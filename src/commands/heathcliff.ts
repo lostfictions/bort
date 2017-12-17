@@ -1,9 +1,9 @@
-import { createCommand } from 'chatter'
+import { makeCommand } from '../util/handler'
 import * as fs from 'fs'
 import * as path from 'path'
 import * as Jimp from 'jimp'
 
-import { AdjustedArgs } from './AdjustedArgs'
+import { HandlerArgs } from './AdjustedArgs'
 import { randomInArray, randomInRange } from '../util'
 import { DATA_DIR, HOSTNAME } from '../env'
 
@@ -37,13 +37,13 @@ async function load(files : string[]) : Promise<[Jimp, string[]]> {
   return [img, nextFiles]
 }
 
-export default createCommand(
+export default makeCommand<HandlerArgs>(
   {
     name: 'heathcliff',
     aliases: [`cliff`, `heath`, `bortcliff`, `borthcliff`],
     description: 'cliff composition'
   },
-  (_ : string, { store } : AdjustedArgs) : Promise<string> | false => {
+  ({ store }) : Promise<string> | false => {
     if(filenames.length === 0) {
       return false
     }

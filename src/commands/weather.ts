@@ -1,12 +1,13 @@
-import { createCommand } from 'chatter'
+import { HandlerArgs } from './AdjustedArgs'
+import { makeCommand } from '../util/handler'
 import * as got from 'got'
 
-export default createCommand(
+export default makeCommand<HandlerArgs>(
   {
     name: 'weather',
     description: 'rain or shine'
   },
-  (message : string) : Promise<string> | false => {
+  ({ message }) : Promise<string> | false => {
     if(message.length === 0) {
       return false
     }

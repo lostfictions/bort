@@ -1,9 +1,9 @@
-import { createCommand } from 'chatter'
+import { makeCommand } from '../util/handler'
 import * as got from 'got'
 
 import { randomInArray } from '../util'
 
-import { AdjustedArgs } from './AdjustedArgs'
+import { HandlerArgs } from './AdjustedArgs'
 import { tryTrace } from '../components/trace'
 
 interface GifResult {
@@ -16,13 +16,13 @@ interface GifResult {
   height : number
 }
 
-export default createCommand(
+export default makeCommand<HandlerArgs>(
   {
     name: 'gifcities',
     aliases: ['geocities'],
     description: 'geocities classix'
   },
-  (message : string, { store } : AdjustedArgs) : Promise<string> | false => {
+  ({ message, store }) : Promise<string> | false => {
     if(message.length === 0) {
       return false
     }

@@ -1,5 +1,11 @@
 - replace weather command
 - wikihow: just use google image search instead of scraping
-- service-independent formatting (markdown -> whatever?)
 - document commands, internally and externally (more useful help command, list aliases)
 
+- allow normalizing differences between clients
+  - format username (for "seen" command, etc.)
+  - service-independent formatting (markdown -> whatever?)
+
+- reinstate radio command for discord
+
+- dynamically import command list; make configurable via env vars

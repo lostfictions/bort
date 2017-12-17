@@ -6,14 +6,13 @@ import { makeCLIBot } from './clients/cli'
 import { createServer } from './components/server'
 import {
   USE_CLI,
-  BOT_NAME,
   PORT,
   SLACK_TOKENS,
   DISCORD_TOKEN
 } from './env'
 
 if(USE_CLI) {
-  makeCLIBot(BOT_NAME)
+  makeCLIBot()
 }
 else {
   createServer(PORT)
@@ -22,13 +21,13 @@ else {
     const slackBots = SLACK_TOKENS
       .split(',')
       .map(t => t.trim())
-      .map(t => makeSlackBot(BOT_NAME, t))
+      .map(makeSlackBot)
 
     slackBots.forEach(bot => bot.login())
   }
 
   if(DISCORD_TOKEN.length > 0) {
-    const discordBot = makeDiscordBot(BOT_NAME, DISCORD_TOKEN)
+    const discordBot = makeDiscordBot(DISCORD_TOKEN)
     discordBot.login()
   }
 }

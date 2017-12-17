@@ -1,23 +1,26 @@
 import * as readline from 'readline'
-import { processMessage, normalizeMessage } from 'chatter'
+import { processMessage } from '../util/handler'
 
 import { getStore } from '../store/get-store'
-import makeMessageHandler from '../commands/root'
+import messageHandler from '../root-handler'
 
-
-const simulate = (messageHandler : any, message : string) => processMessage(messageHandler, message)
-  .then(response => {
-    const text = response !== false ? normalizeMessage(response) : '-'
-    console.log(text)
-  })
-
-export const makeCLIBot = (botName : string) => {
+export const makeCLIBot = () => {
   const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
   })
 
-  const testBot = makeMessageHandler(getStore('test'), botName, false)
-  rl.on('line', (input : string) => simulate(testBot, input))
-  return testBot
+  rl.on('line', (message : string) => processMessage(messageHandler, {
+    store: getStore('test'),
+    message,
+    username: 'cli-user',
+    channel: 'cli-channel',
+    isDM: false
+  }).then(response => {
+    console.log(response !== false ? `[bort]: ${response}` : '-')
+  }).catch(e => {
+    console.error(e)
+  }))
+
+  return rl
 }

@@ -1,16 +1,15 @@
+import { BOT_NAME } from '../env'
 import { hostname } from 'os'
 import * as moment from 'moment'
-import { createCommand } from 'chatter'
+import { makeCommand } from '../util/handler'
 
-import { AdjustedArgs } from './AdjustedArgs'
-
-export default createCommand(
+export default makeCommand(
   {
     name: 'uptime',
     description: 'info about me'
   },
-  (_ : any, { name } : AdjustedArgs) => {
+  () => {
     const uptime = moment.duration(process.uptime(), 'seconds').humanize()
-    return `hi its me <@${ name }> i have been here for *${uptime}* via \`${ hostname() }\``
+    return `hi its me <@${BOT_NAME}> i have been here for *${uptime}* via \`${ hostname() }\``
   }
 )

@@ -1,7 +1,7 @@
-import { createCommand } from 'chatter'
+import { makeCommand } from '../util/handler'
 import { randomInArray } from '../util'
 
-import { AdjustedArgs } from './AdjustedArgs'
+import { HandlerArgs } from '../handler-args'
 
 import { Map } from 'immutable'
 
@@ -49,13 +49,13 @@ following conditions:
 
 */
 
-export default createCommand(
+export default makeCommand(
   {
     name: 'rhyme',
     aliases: ['rap'],
     description: 'bust a rhyme like you never seen / taco beats gonna make you scream'
   },
-  (message : string, { store } : AdjustedArgs) : string | false => {
+  ({ message, store } : HandlerArgs) : string | false => {
     const maybeTraced = tryTrace(message, store.getState().get('concepts'))
     let prefix = ''
     if(maybeTraced) {

@@ -1,20 +1,20 @@
-import { createCommand } from 'chatter'
+import { makeCommand } from '../util/handler'
 import { randomInArray } from '../util'
 
-import { AdjustedArgs } from './AdjustedArgs'
+import { HandlerArgs } from '../handler-args'
 
 import { Map } from 'immutable'
 
 import { tryTrace } from '../components/trace'
 
 
-export default createCommand(
+export default makeCommand<HandlerArgs>(
   {
     name: 'busey',
-    aliases: ['acronym'],
+    aliases: ['acro', 'acronym'],
     description: 'make buseyisms'
   },
-  (message : string, { store } : AdjustedArgs) => {
+  ({ message, store }) => {
     const maybeTraced = tryTrace(message, store.getState().get('concepts'))
     let prefix = ''
     if(maybeTraced) {

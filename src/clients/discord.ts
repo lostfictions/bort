@@ -1,73 +1,94 @@
-import { Client as DiscordClient, Message as DiscordMessage, User as DiscordUser } from 'discord.js'
-import { Bot } from 'chatter'
+import {
+  Client as DiscordClient,
+  Message as DiscordMessage,
+  TextChannel,
+  DMChannel
+} from 'discord.js'
 
 import { getStore } from '../store/get-store'
-import makeMessageHandler from '../commands/root'
+import messageHandler from '../root-handler'
+import { HandlerArgs } from '../handler-args'
 
-interface DiscordMeta {
-  bot : Bot
-  client : DiscordClient,
-  message : DiscordMessage,
-  user : DiscordUser
-}
+import { processMessage } from '../util/handler'
+
 
 // tslint:disable-next-line:typedef
-export function makeDiscordBot(botName : string, discordToken : string) {
-
+export function makeDiscordBot(discordToken : string) {
   const client = new DiscordClient()
 
-  // tslint:disable:no-invalid-this
-  const bot = new Bot({
-    createMessageHandler(_id : any, meta : DiscordMeta) : any {
-      if(meta.message.guild) {
-        return makeMessageHandler(getStore(meta.message.guild.id), botName, meta.message.channel.type === 'dm')
-      }
-      return makeMessageHandler(getStore(meta.message.channel.id), botName, meta.message.channel.type === 'dm')
-    },
-    getMessageHandlerArgs(this : Bot, message : DiscordMessage) : any {
+  let guildList = 'guild-list-not-yet-retrieved'
+
+  async function onMessage(message : DiscordMessage) : Promise<false | undefined> {
+    try {
       if(message.author.bot) {
         return false
       }
-      // Ignore non-message messages.
+
+      // Don't respond to non-message messages.
       if(message.type !== 'DEFAULT') {
         console.log(`Discord bot: Ignoring message type "${message.type}"`)
         return false
       }
 
-      const user = message.author
-      const meta : DiscordMeta = {
-        bot: this,
-        client,
-        message,
-        user
+      const channel = (() => {
+        switch(true) {
+          case message.guild != null:
+            return message.guild.name
+          case message.channel.type === 'text':
+            return (message.channel as TextChannel).name
+          case message.channel.type === 'dm':
+            return (message.channel as DMChannel).recipient.username
+          default:
+            return `other-${message.channel.id}`
+        }
+      })()
+
+      const storeName = (() => { switch(true) {
+        case message.guild != null:
+          return `discord-${message.guild.name}-${message.guild.id}`
+        case message.channel.type === 'text':
+          return `discord-${(message.channel as TextChannel).name}-${message.channel.id}`
+        case message.channel.type === 'dm':
+          return `discord-dm-${(message.channel as DMChannel).recipient.username}-${message.channel.id}`
+        default:
+          return `discord-other-${message.channel.id}`
+      }})()
+
+      const store = getStore(storeName)
+
+      const response = await processMessage<HandlerArgs>(
+        messageHandler,
+        {
+          store,
+          message: message.content,
+          username: message.author.username,
+          channel,
+          isDM: message.channel.type === 'dm'
+        }
+      )
+
+      if(response === false) {
+        return false
       }
-      return {
-        text: message.content,
-        args: [meta]
-      }
-    },
-    getMessageHandlerCacheId(meta : DiscordMeta) : string {
-      return meta.message.channel.id
-    },
-    sendResponse(message : DiscordMessage, text : string) : void {
-      message.channel.sendMessage(text)
+
+      message.channel.sendMessage(response)
     }
-
-  })
-  // tslint:enable:no-invalid-this
-
+    catch(error) {
+      console.error(`Error in Discord client (${guildList}): '${error.message}'`)
+      message.channel.sendMessage(`[Something went wrong!] [${error.message}]`)
+    }
+  }
 
   client.on('ready', () => {
-    console.log(`Connected to Discord guilds ${client.guilds.array().map(g => `'${g.name}'`).join(', ')} as ${botName}`)
+    guildList = client.guilds.array().map(g => `'${g.name}'`).join(', ')
+    console.log(`Connected to Discord guilds ${guildList} as ${client.user.username}`)
   })
-  client.on('message', bot.onMessage.bind(bot))
+  client.on('message', onMessage)
   client.on('disconnect', (ev : CloseEvent) => {
     console.log('Discord bot disconnected! reason: ' + ev.reason)
-    // setTimeout(() => discordClient.destroy().then(createDiscordBot), 10000)
   })
 
   return {
-    bot,
     client,
     login: client.login.bind(client, discordToken) as () => Promise<string>
   }

@@ -6,7 +6,7 @@ declare module '@slack/client' {
     latest_event_ts: string
     channels: Channel[]
     groups: any[]
-    ims: Im[]
+    ims: DM[]
     cache_ts: number
     subteams: {
       self: any[]
@@ -269,10 +269,10 @@ declare module '@slack/client' {
     over_integrations_limit: boolean
   }
 
-  interface Channel {
+  export interface Channel {
     id: string
     name: string
-    is_channel: boolean
+    is_channel: true
     created: number
     creator: string
     is_archived: boolean
@@ -284,17 +284,17 @@ declare module '@slack/client' {
     unread_count_display: number
     //TODO
     history: any
-    latest: any 
+    latest: any
     members: any
     topic: any
     purpose: any
   }
 
-  interface Im {
+  export interface DM {
     id: string
     user: string
     created: number
-    is_im: boolean
+    is_im: true
     is_org_shared: boolean
     has_pins: boolean
     last_read: string
@@ -355,14 +355,32 @@ declare module '@slack/client' {
     }
   }
 
+  export interface Message {
+    type : "message"
+    subtype? : string
+    channel : string
+    user : string
+    text : string
+    ts : string
+    edited? : {
+      user : string
+      ts : string
+    }
+    attachments? : any[]
+  }
+
   abstract class DataStore {
     logger(...args : any[]) : void
     users: { [id : string] : User }
     channels: { [id : string] : Channel }
-    dms: { [id : string] : Im }
+    dms: { [id : string] : DM }
     groups: { [id: string] : any } //TODO
     bots: { [id : string] : Bot }
     teams: { [id : string] : Team }
+    getChannelById(id : string) : Channel
+    getChannelGroupOrDMById(id : string) : Channel | DM
+    getUserById(id : string) : User
+    getTeamById(id : string) : Team
   }
 
   interface ClientOpts {
@@ -375,6 +393,8 @@ declare module '@slack/client' {
     logLevel?: string
     logger?: (logLevel : string, logMessage : string) => void
   }
+
+  export const RTM_EVENTS : Readonly<{ [eventName : string] : string }>
 
   export class RtmClient {
     constructor(token : string, opts : ClientOpts)
@@ -401,10 +421,17 @@ declare module '@slack/client' {
     updateMessage(message : any, optCb?: () => void) : Promise<any>
     sendTyping(channelId : string) : void
     send(message : any, optCb?: () => void) : Promise<any>
-    on(type: "open", listener: (this: this) => void): void;
+    on(type : "open", listener : (this : this) => void) : void;
+    on(type : "message", listener : (this : this, message : Message) => void) : void;
   }
 
   export class MemoryDataStore extends DataStore {}
-  export const WebClient : any
+  export class WebClient {
+    constructor(token : string)
+    chat : {
+      postMessage(id : string, message : string | null, options? : any) : Promise<void>
+      postMessage(id : string, message : string | null, options? : any, callback? : (err : Error, res : any) => void) : void
+    }
+  }
 }
 

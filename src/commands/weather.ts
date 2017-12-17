@@ -1,22 +1,24 @@
-import { createCommand } from 'chatter'
+import { HandlerArgs } from '../handler-args'
+import { makeCommand } from '../util/handler'
 import * as got from 'got'
 
-export default createCommand(
+export default makeCommand<HandlerArgs>(
   {
     name: 'weather',
     description: 'rain or shine'
   },
-  (message : string) : Promise<string> | false => {
+  async ({ message }) => {
     if(message.length === 0) {
       return false
     }
 
-    return got(`http://wttr.in/${message}?q0T`, {
+    const res = await got(`http://wttr.in/${message}?q0T`, {
       timeout: 5000,
       headers: {
         'User-Agent': 'curl'
       }
     })
-      .then(res => '```' + res.body + '```')
+
+    return '```' + res.body + '```'
   }
 )

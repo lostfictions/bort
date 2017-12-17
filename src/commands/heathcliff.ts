@@ -1,9 +1,9 @@
-import { createCommand } from 'chatter'
+import { makeCommand } from '../util/handler'
 import * as fs from 'fs'
 import * as path from 'path'
 import * as Jimp from 'jimp'
 
-import { AdjustedArgs } from './AdjustedArgs'
+import { HandlerArgs } from '../handler-args'
 import { randomInArray, randomInRange } from '../util'
 import { DATA_DIR, HOSTNAME } from '../env'
 
@@ -37,40 +37,38 @@ async function load(files : string[]) : Promise<[Jimp, string[]]> {
   return [img, nextFiles]
 }
 
-export default createCommand(
+export default makeCommand<HandlerArgs>(
   {
     name: 'heathcliff',
     aliases: [`cliff`, `heath`, `bortcliff`, `borthcliff`],
     description: 'cliff composition'
   },
-  (_ : string, { store } : AdjustedArgs) : Promise<string> | false => {
+  async ({ store }) : Promise<string | false> => {
     if(filenames.length === 0) {
       return false
     }
-    return new Promise<string>((resolve, reject) => {
-      load(filenames)
-        .then(([i, nextFiles]) => {
-          load(nextFiles).then(([j]) => {
-            const [small, big] = i.bitmap.width < j.bitmap.width ? [i, j] : [j, i]
-            big.resize(small.bitmap.width, Jimp.AUTO)
 
-            i.blit(j, 0, i.bitmap.height * 0.9, 0, j.bitmap.height * 0.9, j.bitmap.width, j.bitmap.height * 0.1)
+    const [i, nextFiles] = await load(filenames)
 
-            const nouns = store.getState().get('concepts').get('noun')
-            const newFilename = [randomInRange(nouns), randomInRange(nouns), randomInRange(nouns)].join('-')
+    const [j] = await load(nextFiles)
 
-            i.write(
-              path.join(outDir, newFilename + '.jpg'),
-              e => {
-                if(e) {
-                  reject(e)
-                }
-                else {
-                  resolve(`http://${HOSTNAME}/${outputDirname}/${newFilename}.jpg`)
-                }
-              })
-          })
-        })
+    const [small, big] = i.bitmap.width < j.bitmap.width ? [i, j] : [j, i]
+    big.resize(small.bitmap.width, Jimp.AUTO)
+
+    i.blit(j, 0, i.bitmap.height * 0.9, 0, j.bitmap.height * 0.9, j.bitmap.width, j.bitmap.height * 0.1)
+
+    const nouns = store.getState().get('concepts').get('noun')
+    const newFilename = [randomInRange(nouns), randomInRange(nouns), randomInRange(nouns)].join('-')
+
+    return new Promise<string>((res, rej) => {
+      i.write(path.join(outDir, newFilename + '.jpg'), e => {
+        if(e) {
+          rej(e)
+        }
+        else {
+          res(`http://${HOSTNAME}/${outputDirname}/${newFilename}.jpg`)
+        }
+      })
     })
   }
 )

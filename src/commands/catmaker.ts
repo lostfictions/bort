@@ -1,8 +1,8 @@
-import { createCommand } from 'chatter'
+import { makeCommand } from '../util/handler'
 import * as debug from 'debug'
 import { List } from 'immutable'
 
-import { AdjustedArgs } from './AdjustedArgs'
+import { HandlerArgs } from '../handler-args'
 import { ConceptBank } from './concepts'
 import { randomByWeight, randomInt, randomInRange } from '../util'
 
@@ -278,12 +278,12 @@ function addCat(grid : CatParts[][], turnChance : TurnChance, minSteps : number,
 
 // The main command.
 
-export default createCommand(
+export default makeCommand<HandlerArgs>(
   {
     name: 'cat',
     description: 'get cat'
   },
-  (message : string, { store } : AdjustedArgs) : string => {
+  ({ message, store }) : string => {
     const config = {
       catchance: 50,
       leftchance: 50,

@@ -1,10 +1,10 @@
-import { createCommand } from 'chatter'
+import { makeCommand } from '../util/handler'
 import * as got from 'got'
 import * as cheerio from 'cheerio'
 
 import { randomInArray } from '../util'
 
-import { AdjustedArgs } from './AdjustedArgs'
+import { HandlerArgs } from '../handler-args'
 import { tryTrace } from '../components/trace'
 
 function getRandomImage(body : string) : string {
@@ -17,6 +17,7 @@ function getRandomImage(body : string) : string {
 async function search(term : string) : Promise<string> {
   try {
     const res = await got('https://www.wikihow.com/wikiHowTo', { query: { search: term } })
+
     let topResult = cheerio
       .load(res.body)('a.result_link').toArray()
       .map(a => a.attribs.href)
@@ -34,13 +35,13 @@ async function search(term : string) : Promise<string> {
   return 'dunno how :('
 }
 
-export default createCommand(
+export default makeCommand<HandlerArgs>(
   {
     name: 'wikihow',
     aliases: [`how do i`, `how to`],
     description: 'learn anything'
   },
-  (message : string, { store } : AdjustedArgs) : Promise<string> => {
+  ({ message, store }) : Promise<string> => {
     if(message.length === 0) {
       return got('https://www.wikihow.com/Special:Randomizer')
         .then(res => getRandomImage(res.body))

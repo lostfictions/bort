@@ -10,7 +10,10 @@
     "dev": "run-p -l watch:ts start-dev",
     "dev-cli": "USE_CLI=true npm run dev",
     "build": "rm -rf dist/ && tsc",
-    "test": "jest",
+    "test": "run-p -l test:*",
+    "test:jest": "jest --colors",
+    "test:ts": "tsc --noEmit",
+    "test:tslint": "tslint --project .",
     "watch:ts": "tsc -w",
     "watch:test": "jest --colors --watch"
   },

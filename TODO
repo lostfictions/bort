@@ -1,0 +1,10 @@
+
+- finally rip out chatter
+  - deprecate SlackBot
+  - remove indirection from messageHandler
+
+- "last seen" command
+- replace weather command
+- service-independent formatting (markdown -> whatever?)
+- document commands, internally and externally (more useful help command, list aliases)
+

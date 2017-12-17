@@ -108,14 +108,14 @@ const makeRootCommand = ({ store, botName } : AdjustedArgs) => createArgsAdjuste
   ]
 )
 
-function makeMessageHandler(store : Store<BortStore>, botName : string, isDM : boolean) : {} {
+function makeMessageHandler(store : Store<BortStore>, botName : string, isDM : boolean) : any[] {
 
   const rootCommand = makeRootCommand({ store, botName })
 
-  const addRecent = (message : string) : false => {
-    store.dispatch(setSeenAction('username', message))
-    return false
-  }
+  // const addRecent = (message : string) : false => {
+  //   store.dispatch(setSeenAction('username', message))
+  //   return false
+  // }
 
   const handleDirectConcepts = (message : string) : string | false => {
     if(!message.startsWith('!')) {

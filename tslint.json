@@ -171,7 +171,7 @@
         "multiline"
       ],
       "binary-expression-operand-order": true,
-      "callable-types": true,
+      "callable-types": false,
       "class-name": true,
       "comment-format": [
         true,

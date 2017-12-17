@@ -1,5 +1,5 @@
 import * as readline from 'readline'
-import { processMessage, normalizeMessage } from 'chatter'
+import { processMessage } from '../util/handler'
 
 import { getStore } from '../store/get-store'
 import makeMessageHandler from '../commands/root'
@@ -7,8 +7,9 @@ import makeMessageHandler from '../commands/root'
 
 const simulate = (messageHandler : any, message : string) => processMessage(messageHandler, message)
   .then(response => {
-    const text = response !== false ? normalizeMessage(response) : '-'
-    console.log(text)
+    if(response !== false) {
+      console.log(response)
+    }
   })
 
 export const makeCLIBot = (botName : string) => {

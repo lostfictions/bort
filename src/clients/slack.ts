@@ -1,50 +1,95 @@
-import { SlackBot } from 'chatter'
-import { RtmClient, WebClient, MemoryDataStore } from '@slack/client'
+import {
+  RtmClient,
+  WebClient,
+  MemoryDataStore,
+  Message,
+  Channel,
+  DM
+} from '@slack/client'
+
 import { HOSTNAME } from '../env'
 
-import makeMessageHandler from '../commands/root'
+import { parseMessage } from './parse-slack-message'
+
+import messageHandler from '../root-handler'
 import { getStore } from '../store/get-store'
+import { HandlerArgs } from '../handler-args'
 
-// import { hostname } from 'os'
+import { processMessage } from '../util/handler'
 
-// tslint:disable:no-invalid-this
-export const makeSlackBot = (botName : string, slackToken : string) => new SlackBot({
-  name: botName,
-  // Override the message posting options so that we simply post as our bot user
-  postMessageOptions: (text : string) => ({
+
+export const makeSlackBot = (botName : string, slackToken : string) => {
+  const rtmClient = new RtmClient(slackToken, {
+    dataStore: new MemoryDataStore(),
+    autoReconnect: true,
+    logLevel: 'error'
+  })
+  const webClient = new WebClient(slackToken)
+
+  const getPostOptions = (text : string) => ({
     text,
     as_user: false,
     username: botName,
     icon_url: `http://${HOSTNAME}/bort.png`,
     unfurl_links: true,
     unfurl_media: true
-  }),
-  getSlack(this : SlackBot) { // tslint:disable-line:typedef
-    const rtm = new RtmClient(slackToken, {
-      dataStore: new MemoryDataStore(),
-      autoReconnect: true,
-      logLevel: 'error'
-    })
+  })
 
-    // Post a message to all the channels we belong to.
-    // const b = this
-    // rtm.on('open', function() : void {
-    //   const cs = this.dataStore.channels
-    //   Object.keys(cs)
-    //     .filter(c => cs[c].is_member && !cs[c].is_archived)
-    //     .forEach(c => b.postMessage(c, `${b.name} (on \`${hostname()}\`)`))
-    // })
+  let teamName = 'error-team-name-not-retrieved'
 
-    return {
-      rtmClient: rtm,
-      webClient: new WebClient(slackToken)
+  rtmClient.on('open', () => {
+    const { dataStore, activeUserId, activeTeamId } = rtmClient
+    const user = dataStore.getUserById(activeUserId)
+    const team = dataStore.getTeamById(activeTeamId)
+
+    teamName = team.name
+
+    console.log(`Connected to ${team.name} as ${user.name}.`)
+  })
+
+  async function onMessage(message : Message) : Promise<false | undefined> {
+    try {
+      if(message.type !== 'message'
+        || message.subtype != null
+        || message.attachments != null) {
+        return false
+      }
+
+      // One store for the entire Slack team.
+      const store = getStore(`slack-${teamName}-${rtmClient.activeTeamId}`)
+
+      const user = rtmClient.dataStore.getUserById(message.user)
+      const channelOrDM = rtmClient.dataStore.getChannelGroupOrDMById(message.channel)
+
+      const response = await processMessage<HandlerArgs>(
+        messageHandler,
+        {
+          store,
+          message: parseMessage(rtmClient.dataStore, message.text),
+          username: user.name,
+          channel: (channelOrDM as Channel).name || `dm_with_${user.name}`,
+          isDM: Boolean((channelOrDM as DM).is_im)
+        }
+      )
+
+      if(response === false) {
+        return false
+      }
+
+      webClient.chat.postMessage(message.channel, null, getPostOptions(response))
     }
-  },
-  createMessageHandler(this : SlackBot, _id : any, meta : any) : any {
-    if(!this.slack.rtmClient.activeTeamId) {
-      throw new Error(`Slack client: couldn't retrieve team id!`)
+    catch(error) {
+      webClient.chat.postMessage(message.channel, null, getPostOptions((`[Something went wrong!] [${error.message}]`)))
+      console.error(`Error in Slack client ${botName} (${teamName}): '${error.message}'`)
     }
-    return makeMessageHandler(getStore(this.slack.rtmClient.activeTeamId), this.name, meta.channel.is_im)
   }
-})
-// tslint:enable:no-invalid-this
+
+  rtmClient.on('message', onMessage)
+
+  return {
+    login: () => {
+      rtmClient.start()
+      return new Promise<void>(res => { rtmClient.on('open', res) })
+    }
+  }
+}

@@ -17,28 +17,23 @@ export async function processMessage<TData = DefaultData>(
   handlerOrHandlers : HandlerOrHandlers<TData>, data : TData
   ) : Promise<string | false> {
 
-  try {
-    if(!Array.isArray(handlerOrHandlers)) {
-      if(typeof handlerOrHandlers === 'function') {
-        return handlerOrHandlers(data)
-      }
-      else {
-        return handlerOrHandlers.handleMessage(data)
-      }
+  if(!Array.isArray(handlerOrHandlers)) {
+    if(typeof handlerOrHandlers === 'function') {
+      return handlerOrHandlers(data)
     }
-
-    for(const handler of handlerOrHandlers) {
-      const res = await processMessage(handler, data)
-
-      if(res !== false) {
-        return res
-      }
+    else {
+      return handlerOrHandlers.handleMessage(data)
     }
-    return false
   }
-  catch(e) {
-    return `[Something went wrong!] [${e}]`
+
+  for(const handler of handlerOrHandlers) {
+    const res = await processMessage(handler, data)
+
+    if(res !== false) {
+      return res
+    }
   }
+  return false
 }
 
 interface CommandOptions {

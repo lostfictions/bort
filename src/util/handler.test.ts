@@ -26,11 +26,11 @@ describe('processMessage', () => {
     )).resolves.toBe('yo')
   )
 
-  it('should resolve a handler function that throws to a message', () =>
+  it('should reject a handler function that throws', () =>
     expect(processMessage(
       () => { throw new Error('butt') },
       { message: 'yo' }
-    )).resolves.toBe(`[Something went wrong!] [Error: butt]`)
+    )).rejects.toBeDefined()
   )
 
   it('should resolve an array of handler objects and functions to a message', () => {

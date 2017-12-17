@@ -1,6 +1,5 @@
 
 Chatter migration:
-  - handle rejections
   - replace SlackBot
 
 - replace weather command

@@ -1,7 +1,7 @@
 import { makeCommand } from '../util/handler'
 import { randomInArray } from '../util'
 
-import { HandlerArgs } from './HandlerArgs'
+import { HandlerArgs } from '../handler-args'
 
 import { Map } from 'immutable'
 

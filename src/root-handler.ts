@@ -1,37 +1,37 @@
-import { BOT_NAME } from '../env'
+import { BOT_NAME } from './env'
 
-import { processMessage, makeCommand, Handler } from '../util/handler'
+import { processMessage, makeCommand, Handler } from './util/handler'
 
-import { HandlerArgs } from './HandlerArgs'
+import { HandlerArgs } from './handler-args'
 
-import buseyCommand from './busey'
-import seenCommand from './seen'
-import catmakerCommand from './catmaker'
-import rhymeCommand from './rhyme'
-import weatherCommand from './weather'
-import uptimeCommand from './uptime'
+import buseyCommand from './commands/busey'
+import seenCommand from './commands/seen'
+import catmakerCommand from './commands/catmaker'
+import rhymeCommand from './commands/rhyme'
+import weatherCommand from './commands/weather'
+import uptimeCommand from './commands/uptime'
 import {
   imageSearchCommand,
   gifSearchCommand
-} from './images'
-import gifcitiesCommand from './gifcities'
-import completeCommand from './complete'
-import heathcliffCommand from './heathcliff'
-import wikihowCommand from './wikihow'
-import conceptLoadCommand from './concept-load'
+} from './commands/images'
+import gifcitiesCommand from './commands/gifcities'
+import completeCommand from './commands/complete'
+import heathcliffCommand from './commands/heathcliff'
+import wikihowCommand from './commands/wikihow'
+import conceptLoadCommand from './commands/concept-load'
 import {
   conceptAddCommand,
   conceptRemoveCommand,
   conceptListCommand,
   conceptMatcher
-} from './concepts'
+} from './commands/concepts'
 
 
-import { getSentence } from '../components/markov'
-import trace, { matcher as traceMatcher } from '../components/trace'
+import { getSentence } from './components/markov'
+import trace, { matcher as traceMatcher } from './components/trace'
 
-import { addSentenceAction } from '../actions/markov'
-import { setSeenAction } from '../actions/seen'
+import { addSentenceAction } from './actions/markov'
+import { setSeenAction } from './actions/seen'
 
 
 const subCommands = [

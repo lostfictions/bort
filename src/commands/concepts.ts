@@ -1,7 +1,7 @@
 import { makeCommand, adjustArgs } from '../util/handler'
 import { Map, List } from 'immutable'
 
-import { HandlerArgs } from './HandlerArgs'
+import { HandlerArgs } from '../handler-args'
 import {
   addConceptAction,
   removeConceptAction,

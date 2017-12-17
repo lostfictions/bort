@@ -1,7 +1,7 @@
 import * as moment from 'moment'
 
 import { makeCommand } from '../util/handler'
-import { HandlerArgs } from './HandlerArgs'
+import { HandlerArgs } from '../handler-args'
 
 export default makeCommand<HandlerArgs>(
   {

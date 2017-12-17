@@ -10,7 +10,7 @@ import {
 
 import { randomInArray } from '../util'
 
-import { HandlerArgs } from './HandlerArgs'
+import { HandlerArgs } from '../handler-args'
 import { tryTrace } from '../components/trace'
 
 // based on https://github.com/jimkang/g-i-s/blob/master/index.js

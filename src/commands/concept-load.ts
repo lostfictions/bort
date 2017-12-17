@@ -1,7 +1,7 @@
 import { makeCommand } from '../util/handler'
 import * as got from 'got'
 import { isURL } from 'validator'
-import { HandlerArgs } from './HandlerArgs'
+import { HandlerArgs } from '../handler-args'
 import {
   loadConceptAction
 } from '../actions/concept'

@@ -1,5 +1,5 @@
 import { Store } from 'redux'
-import { BortStore } from '../store/store'
+import { BortStore } from './store/store'
 
 export interface HandlerArgs {
   message : string

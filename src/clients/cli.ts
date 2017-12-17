@@ -2,7 +2,7 @@ import * as readline from 'readline'
 import { processMessage } from '../util/handler'
 
 import { getStore } from '../store/get-store'
-import messageHandler from '../commands/root'
+import messageHandler from '../root-handler'
 
 export const makeCLIBot = () => {
   const rl = readline.createInterface({

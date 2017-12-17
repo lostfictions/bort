@@ -1,7 +1,7 @@
 import { makeCommand } from '../util/handler'
 import * as got from 'got'
 
-import { HandlerArgs } from './HandlerArgs'
+import { HandlerArgs } from '../handler-args'
 
 import { tryTrace } from '../components/trace'
 

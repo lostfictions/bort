@@ -12,6 +12,7 @@ const slackEscapeRegex = /^<(.+)>$/
 
 const traverse = (obj : any, path : string[]) : any => {
   try {
+    // tslint:disable-next-line no-parameter-reassignment
     path.forEach(p => obj = obj[p])
     return obj
   }
@@ -25,7 +26,7 @@ export default makeCommand<HandlerArgs>(
     aliases: ['json'],
     description: 'load a concept list from a url, overwriting existing concept if it exists'
   },
-  ({ message, store }) : Promise<string> | string | false => {
+  async ({ message, store }) => {
     if(message.length === 0) {
       return false
     }
@@ -50,39 +51,38 @@ export default makeCommand<HandlerArgs>(
       *load* usage: [url] (path=path) as [concept]`
     }
 
-    return (got(url, { json: true }) as Promise<{ body : any }>)
-      .then(({ body: json }) => {
-        if(path) {
-          const itemOrItems = traverse(json, path)
-          if(!itemOrItems) {
-            const validKeys = Object.keys(json).slice(0, 5).map(k => `'${k}'`).join(', ')
-            throw new Error(`Invalid path: '${rawPath}'. Some valid keys: ${validKeys}...`)
-          }
-          if(Array.isArray(itemOrItems)) {
-            return itemOrItems.map(i => i.toString())
-          }
+    const { body: json } = await (got(url, { json: true }) as Promise<{ body : any }>)
 
-          const res = itemOrItems.toString()
-          if(res === '[object Object]') {
-            throw new Error(`Requested item does not appear to be a primitive or array! Aborting.`)
-          }
-          return [res]
-        }
-        if(Array.isArray(json)) {
-          return json.map(i => i.toString())
-        }
-
-        const res = json.toString()
-        if(res === '[object Object]') {
+    let items : string[]
+    if(path) {
+      const itemOrItems = traverse(json, path)
+      if(!itemOrItems) {
+        const validKeys = Object.keys(json).slice(0, 5).map(k => `'${k}'`).join(', ')
+        throw new Error(`Invalid path: '${rawPath}'. Some valid keys: ${validKeys}...`)
+      }
+      if(Array.isArray(itemOrItems)) {
+        items = itemOrItems.map(i => i.toString())
+      }
+      else {
+        const item = itemOrItems.toString()
+        if(item === '[object Object]') {
           throw new Error(`Requested item does not appear to be a primitive or array! Aborting.`)
         }
-        return [res]
-      })
-      .then(items => {
-        store.dispatch(loadConceptAction(concept, items))
-        return items.length
-      })
-      .then(length => `Loaded ${length} items from ${url}.`)
-      .catch(e => e)
+        items = [item]
+      }
+    }
+    else if(Array.isArray(json)) {
+      items = json.map(i => i.toString())
+    }
+    else {
+      const item = json.toString()
+      if(item === '[object Object]') {
+        throw new Error(`Requested item does not appear to be a primitive or array! Aborting.`)
+      }
+      items = [item]
+    }
+
+    store.dispatch(loadConceptAction(concept, items))
+    return `Loaded ${length} items from ${url}.`
   }
 )

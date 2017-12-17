@@ -35,12 +35,12 @@ export default makeCommand<HandlerArgs>(
   }
 )
 
-function doQuery(query : string) : Promise<string> {
-  return got(`https://gifcities.archive.org/api/v1/gifsearch`, {
+async function doQuery(query : string) : Promise<string> {
+  const res = await got(`https://gifcities.archive.org/api/v1/gifsearch`, {
     query: { q: query, limit: 5 },
     timeout: 5000
   })
-    .then(res => randomInArray<string>(
-      JSON.parse(res.body).map((g : GifResult) => 'https://web.archive.org/web/' + g.gif))
-    )
+
+  return randomInArray<string>(JSON.parse(res.body)
+    .map((g : GifResult) => 'https://web.archive.org/web/' + g.gif))
 }

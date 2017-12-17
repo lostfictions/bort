@@ -17,6 +17,7 @@ function getRandomImage(body : string) : string {
 async function search(term : string) : Promise<string> {
   try {
     const res = await got('https://www.wikihow.com/wikiHowTo', { query: { search: term } })
+
     let topResult = cheerio
       .load(res.body)('a.result_link').toArray()
       .map(a => a.attribs.href)

@@ -41,6 +41,7 @@
     "@types/debug": "0.0.30",
     "@types/express": "^4.0.39",
     "@types/express-serve-static-core": "^4.0.56",
+    "@types/got": "^7.1.6",
     "@types/jest": "^21.1.8",
     "@types/node": "^8.0.53",
     "@types/redux-immutable": "^3.0.38",

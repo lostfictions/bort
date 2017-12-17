@@ -1,10 +1,13 @@
 import {
   Client as DiscordClient,
-  Message as DiscordMessage
+  Message as DiscordMessage,
+  TextChannel,
+  DMChannel
 } from 'discord.js'
 
 import { getStore } from '../store/get-store'
-import makeMessageHandler from '../commands/root'
+import messageHandler from '../root-handler'
+import { HandlerArgs } from '../handler-args'
 
 import { processMessage } from '../util/handler'
 
@@ -25,24 +28,48 @@ export function makeDiscordBot(botName : string, discordToken : string) {
         return false
       }
 
-      const text = message.content
-      const args = {
-        client,
-        message,
-        user: message.author
-      }
+      const channel = (() => {
+        switch(true) {
+          case message.guild != null:
+            return message.guild.name
+          case message.channel.type === 'text':
+            return (message.channel as TextChannel).name
+          case message.channel.type === 'dm':
+            return (message.channel as DMChannel).recipient.username
+          default:
+            return `other-${message.channel.id}`
+        }
+      })()
 
-      const store = getStore(message.guild ? message.guild.id : message.channel.id)
+      const storeName = (() => { switch(true) {
+        case message.guild != null:
+          return `discord-${message.guild.name}-${message.guild.id}`
+        case message.channel.type === 'text':
+          return `discord-${(message.channel as TextChannel).name}-${message.channel.id}`
+        case message.channel.type === 'dm':
+          return `discord-dm-${(message.channel as DMChannel).recipient.username}-${message.channel.id}`
+        default:
+          return `discord-other-${message.channel.id}`
+      }})()
 
-      const messageHandler = makeMessageHandler(store, botName, message.channel.type === 'dm')
+      const store = getStore(storeName)
 
-      const response = await processMessage(messageHandler, text, args)
+      const response = await processMessage<HandlerArgs>(
+        messageHandler,
+        {
+          store,
+          message: message.content,
+          username: message.author.username,
+          channel,
+          isDM: message.channel.type === 'dm'
+        }
+      )
 
       if(response === false) {
         return false
       }
 
-      message.channel.sendMessage(text)
+      message.channel.sendMessage(response)
     }
     catch(error) {
       message.channel.sendMessage(`An error occurred: ${error.message}`)

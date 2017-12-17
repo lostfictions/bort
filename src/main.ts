@@ -13,7 +13,7 @@ import {
 } from './env'
 
 if(USE_CLI) {
-  makeCLIBot(BOT_NAME)
+  makeCLIBot()
 }
 else {
   createServer(PORT)

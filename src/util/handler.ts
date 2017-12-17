@@ -34,15 +34,25 @@ export async function processMessage<
   return false
 }
 
+interface CommandOptions {
+  name : string
+  aliases? : string[]
+  usage? : string
+  description? : string
+  details? : string
+}
+
 export function makeCommand<
     TData extends { message : string }, TReturn = string
   >(
-    command : string, handlerOrHandlers : HandlerOrHandlers<TData, TReturn>
+    options : CommandOptions, handlerOrHandlers : HandlerOrHandlers<TData, TReturn>
   ) : (data : TData) => Promise<TReturn | false> {
 
+  const aliases = [options.name, ...options.aliases || []]
   return async (data : TData) => {
-    if(data.message.startsWith(command + ' ')) {
-      const commandData : TData = { ...data as any, message: data.message.substr(command.length + 1) }
+    const matchingAlias = aliases.find(alias => data.message.startsWith(alias + ' '))
+    if(matchingAlias != null) {
+      const commandData : TData = { ...data as any, message: data.message.substr(matchingAlias.length + 1) }
       return processMessage(handlerOrHandlers, commandData)
     }
     return false

@@ -1,6 +1,7 @@
-import { createArgsAdjuster, createCommand } from 'chatter'
+import { BOT_NAME } from '../env'
 
 import { AdjustedArgs } from './AdjustedArgs'
+import { processMessage, makeCommand, Handler } from '../util/handler'
 
 import buseyCommand from './busey'
 import seenCommand from './seen'
@@ -32,10 +33,6 @@ import { addSentenceAction } from '../actions/markov'
 import { setSeenAction } from '../actions/seen'
 
 
-import { Store } from 'redux'
-import { BortStore } from '../store/store'
-
-
 const subCommands = [
   conceptAddCommand,
   conceptRemoveCommand,
@@ -56,12 +53,12 @@ const subCommands = [
 ]
 
 // TODO: allow getting usage for subcommands
-const helpCommand = createCommand(
+const helpCommand = makeCommand<HandlerArgs>(
   {
     name: 'list',
     aliases: ['help', 'usage']
   },
-  (_ : never, { store } : AdjustedArgs) : string => {
+  ({ store }) => {
 
     const concepts = store.getState().get('concepts').keySeq().toJS()
 
@@ -74,16 +71,12 @@ const helpCommand = createCommand(
   }
 )
 
-const makeRootCommand = ({ store, botName } : AdjustedArgs) => createArgsAdjuster(
-  {
-    adjustArgs: (message : string) => [message, { store, botName }]
-  },
-  [
+const rootCommand = [
     ...subCommands,
     conceptMatcher,
     helpCommand,
     // If we match nothing, check if we can trace! if not, just return a markov sentence
-    (message : string, { store } : AdjustedArgs) : string => {
+  ({ message, store } : HandlerArgs) : string => {
 
       const state = store.getState()
       const wb = state.get('wordBank')
@@ -105,19 +98,9 @@ const makeRootCommand = ({ store, botName } : AdjustedArgs) => createArgsAdjuste
       }
       return getSentence(wb)
     }
-  ]
-)
+] as Handler<HandlerArgs, string>[]
 
-function makeMessageHandler(store : Store<BortStore>, botName : string, isDM : boolean) : any[] {
-
-  const rootCommand = makeRootCommand({ store, botName })
-
-  // const addRecent = (message : string) : false => {
-  //   store.dispatch(setSeenAction('username', message))
-  //   return false
-  // }
-
-  const handleDirectConcepts = (message : string) : string | false => {
+const handleDirectConcepts = ({ message, store } : HandlerArgs) : string | false => {
     if(!message.startsWith('!')) {
       return false
     }
@@ -129,40 +112,36 @@ function makeMessageHandler(store : Store<BortStore>, botName : string, isDM : b
     return false
   }
 
-  // If it's a DM, don't require prefixing with the bot
-  // name and don't add any input to our wordbank.
-
-  // Handling the direct concepts first should be safe --
-  // it prevents the markov generator fallback of the root
-  // command from eating our input.
-  if(isDM) {
-    return [
-      handleDirectConcepts,
-      rootCommand
-    ]
+const setSeen = ({ message, store } : HandlerArgs) : false => {
+  store.dispatch(setSeenAction('username', message))
+  return false
   }
 
-  // Otherwise, it's a public channel message.
-  return [
-    createCommand(
+const bortCommand = makeCommand<HandlerArgs>(
       {
-        isParent: true,
-        botName,
+    // isParent: true,
+    name: BOT_NAME,
         // name: botNames.name,
         // aliases: botNames.aliases,
-        description: `it ${botName}`
+    description: `it ${BOT_NAME}`
       },
       rootCommand
-    ),
+)
+
+const messageHandler : Handler<HandlerArgs, string>[] = [
+  // Handling the direct concepts first should be safe -- it prevents the markov
+  // generator fallback of the root command from eating our input.
     handleDirectConcepts,
+  // If it's a DM, don't require prefixing with the bot name and don't add any
+  // input to our wordbank.
+  async (args) => args.isDM ? processMessage(rootCommand, args) : bortCommand(args),
     // If we didn't match anything, add to our markov chain.
-    (message : string) => {
-      if(message.length > 0 && message.split(' ').length > 1) {
+  ({ message, store }) => {
+    if(message.length > 0 && message.trim().split(' ').filter(s => s.length > 0).length > 1) {
         store.dispatch(addSentenceAction(message))
       }
       return false
     }
   ]
-}
 
-export default makeMessageHandler
+export default messageHandler

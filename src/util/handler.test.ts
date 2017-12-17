@@ -50,7 +50,7 @@ describe('processMessage', () => {
 describe('makeCommand', () => {
   it('should resolve a command to a message', () =>
     expect(
-      processMessage(makeCommand('butt', ({ message }) => message), { message : 'butt mess' })
+      processMessage(makeCommand({ name: 'butt' }, ({ message }) => message), { message : 'butt mess' })
     ).resolves.toBe('mess')
   )
 
@@ -63,7 +63,7 @@ describe('makeCommand', () => {
     ]
 
     return expect(
-      processMessage(makeCommand('butt', handlers), { message: 'butt mess' })
+      processMessage(makeCommand({ name: 'butt' }, handlers), { message: 'butt mess' })
     ).resolves.toBe('mess')
   })
 })

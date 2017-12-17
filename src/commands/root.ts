@@ -113,8 +113,8 @@ const handleDirectConcepts = ({ message, store } : HandlerArgs) : string | false
   return false
 }
 
-const setSeen = ({ message, store } : HandlerArgs) : false => {
-  store.dispatch(setSeenAction('username', message))
+const setSeen = ({ username, message, store, channel } : HandlerArgs) : false => {
+  store.dispatch(setSeenAction(username, message, channel))
   return false
 }
 
@@ -129,13 +129,15 @@ const bortCommand = makeCommand<HandlerArgs>(
   rootCommand
 )
 
+// FIXME: is 'async' necessary here?
 const messageHandler : Handler<HandlerArgs, string>[] = [
+  async args => args.isDM ? false : processMessage(setSeen, args),
   // Handling the direct concepts first should be safe -- it prevents the markov
   // generator fallback of the root command from eating our input.
   handleDirectConcepts,
   // If it's a DM, don't require prefixing with the bot name and don't add any
   // input to our wordbank.
-  async (args) => args.isDM ? processMessage(rootCommand, args) : bortCommand(args),
+  async args => args.isDM ? processMessage(rootCommand, args) : bortCommand(args),
   // If we didn't match anything, add to our markov chain.
   ({ message, store }) => {
     if(message.length > 0 && message.trim().split(' ').filter(s => s.length > 0).length > 1) {

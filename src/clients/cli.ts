@@ -11,14 +11,13 @@ export const makeCLIBot = () => {
   })
 
   rl.on('line', (message : string) => processMessage(messageHandler, {
-    message,
     store: getStore('test'),
-    isDM: false,
-    channel: 'cli'
+    message,
+    username: 'cli-user',
+    channel: 'cli-channel',
+    isDM: false
   }).then(response => {
-    if(response !== false) {
-      console.log(response)
-    }
+    console.log(response !== false ? `[bort]: ${response}` : '-')
   }))
 
   return rl

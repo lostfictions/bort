@@ -11,7 +11,7 @@ import { DATA_DIR } from '../env'
 import { markovReducers } from '../reducers/markov'
 import { conceptReducers } from '../reducers/concepts'
 import { recentsReducers } from '../reducers/recents'
-import { seenReducers } from '../reducers/seen'
+import { seenReducers, SeenData } from '../reducers/seen'
 
 import { WordBank } from '../components/markov'
 import { ConceptBank } from '../commands/concepts'
@@ -31,7 +31,7 @@ export interface BortStore extends Map<string, any> {
    * maps usernames to a tuple of the last message that user sent
    * and the date it was sent (in ms from epoch)
    */
-  get(key : 'seen') : Map<string, [string, number]>
+  get(key : 'seen') : Map<string, SeenData>
 }
 
 const rootReducer = combineReducers<BortStore>({

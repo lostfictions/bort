@@ -36,6 +36,99 @@ function meteorologicalAngleToDirection(deg : number) : string {
   }
 }
 
+
+export default makeCommand<HandlerArgs>(
+  {
+    name: 'weather',
+    description: 'rain or shine'
+  },
+  async ({ message }) => {
+    if(message.length === 0) {
+      return false
+    }
+
+    let completionRes : got.Response<WUAutocompleteResponse>
+    try {
+      completionRes = await got(`http://autocomplete.wunderground.com/aq`, {
+        query: {
+          query: message,
+          h: 0
+        },
+        json: true,
+        timeout: 5000
+      })
+    }
+    catch(e) {
+      return `Error getting geocoding results: ${e}`
+    }
+
+    if(!completionRes.body.RESULTS || completionRes.body.RESULTS.length === 0) {
+      return `dunno where '${message}' is ¯\\_(ツ)_/¯`
+    }
+
+    const { lat, lon, name } = completionRes.body.RESULTS[0]
+    if(!lat || !lon) {
+      throw new Error(`Latitude or longitude missing in query for location '${message}'`)
+    }
+
+
+    let owmRes : got.Response<OWMResponse>
+    try {
+       owmRes = await got(`https://api.openweathermap.org/data/2.5/weather`, {
+        query: {
+          lat,
+          lon,
+          appid: OPEN_WEATHER_MAP_KEY
+        },
+        json: true,
+        timeout: 5000
+      })
+    }
+    catch(e) {
+      if(e.statusCode === 404) {
+        return `dunno where '${message}' is ¯\\_(ツ)_/¯`
+      }
+      return `Can't get weather for '${message}'! (Error: ${e})`
+    }
+
+    const { sys, weather, main, wind } = owmRes.body
+
+    let formattedWind = ''
+    if(wind) {
+      formattedWind = `wind: ${Math.round(msToKmH(wind.speed))}km/h (${Math.round(msTompH(wind.speed))}mph)`
+      if(wind.deg) {
+        formattedWind += ` ${meteorologicalAngleToDirection(wind.deg)}`
+      }
+    }
+
+    return stripIndent`
+      ${name}, ${sys.country}
+      ${weather[0].description}
+      ${Math.round(kelvinToC(main.temp))}°C (${Math.round(kelvinToF(main.temp))}°F)
+      ${main.humidity}% humidity
+      ${formattedWind}
+    `
+  }
+)
+
+interface WUAutocompleteResponse {
+  RESULTS : WULocation[]
+}
+
+interface WULocation {
+  name : string
+  type : string
+  c : string
+  zmw : string
+  tz : string
+  tzs : string
+  l : string
+  ll : string
+  lat : string
+  lon : string
+}
+
+
 interface OWMResponse {
   coord : {
     lon : number
@@ -106,51 +199,3 @@ interface OWMResponse {
   /** City name */
   name : string
 }
-
-export default makeCommand<HandlerArgs>(
-  {
-    name: 'weather',
-    description: 'rain or shine'
-  },
-  async ({ message }) => {
-    if(message.length === 0) {
-      return false
-    }
-
-    let res : got.Response<OWMResponse>
-    try {
-       res = await got(`https://api.openweathermap.org/data/2.5/weather`, {
-        query: {
-          q: message,
-          appid: OPEN_WEATHER_MAP_KEY
-        },
-        json: true,
-        timeout: 5000
-      })
-    }
-    catch(e) {
-      if(e.statusCode === 404) {
-        return `dunno where '${message}' is ¯\\_(ツ)_/¯`
-      }
-      return `Can't get weather for '${message}'! (Error: ${e})`
-    }
-
-    const { name, sys, weather, main, wind } = res.body
-
-    let formattedWind = ''
-    if(wind) {
-      formattedWind = `wind: ${Math.round(msToKmH(wind.speed))}km/h (${Math.round(msTompH(wind.speed))}mph)`
-      if(wind.deg) {
-        formattedWind += ` ${meteorologicalAngleToDirection(wind.deg)}`
-      }
-    }
-
-    return stripIndent`
-      ${name}, ${sys.country}
-      ${weather[0].description}
-      ${Math.round(kelvinToC(main.temp))}°C (${Math.round(kelvinToF(main.temp))}°F)
-      ${main.humidity}% humidity
-      ${formattedWind}
-    `
-  }
-)

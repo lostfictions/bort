@@ -76,11 +76,11 @@ interface OWMResponse {
     grnd_level? : number
 
   }
-  wind : {
+  wind? : {
     /** Wind speed. Unit Default: meter/sec */
     speed : number
     /** Wind direction, degrees (meteorological) */
-    deg : number
+    deg? : number
   }
   clouds : {
     all : number
@@ -137,14 +137,20 @@ export default makeCommand<HandlerArgs>(
 
     const { name, sys, weather, main, wind } = res.body
 
-    const windDirection = meteorologicalAngleToDirection(wind.deg)
+    let formattedWind = ''
+    if(wind) {
+      formattedWind = `wind: ${Math.round(msToKmH(wind.speed))}km/h (${Math.round(msTompH(wind.speed))}mph)`
+      if(wind.deg) {
+        formattedWind += ` ${meteorologicalAngleToDirection(wind.deg)}`
+      }
+    }
 
     return stripIndent`
       ${name}, ${sys.country}
       ${weather[0].description}
       ${Math.round(kelvinToC(main.temp))}°C (${Math.round(kelvinToF(main.temp))}°F)
       ${main.humidity}% humidity
-      wind: ${Math.round(msToKmH(wind.speed))}km/h (${Math.round(msTompH(wind.speed))}mph) ${windDirection}
+      ${formattedWind}
     `
   }
 )

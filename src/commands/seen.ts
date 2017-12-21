@@ -14,7 +14,7 @@ export default makeCommand<HandlerArgs>(
     const username = message.trim().toLowerCase()
 
     if(!seen.has(username)) {
-      return `Unknown username: "${username}"`
+      return `i haven't seen ${username}!`
     }
     const { message: lastMessage, time, channel } = seen.get(username)
 

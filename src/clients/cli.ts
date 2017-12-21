@@ -17,7 +17,7 @@ export const makeCLIBot = () => {
     channel: 'cli-channel',
     isDM: false
   }).then(response => {
-    console.log(response !== false ? `[bort]: ${response}` : '-')
+    console.log(response !== false ? response.split('\n').map(line => `[bort] ${line}`).join('\n') : '-')
   }).catch(e => {
     console.error(e)
   }))

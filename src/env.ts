@@ -3,17 +3,8 @@ import * as envalid from 'envalid'
 import * as debug from 'debug'
 const log = debug('bort:env')
 
-interface EnvSchema {
-  BOT_NAME : string
-  DATA_DIR : string
-  SLACK_TOKENS : string
-  DISCORD_TOKEN : string
-  HOSTNAME : string
-  PORT : number
-  USE_CLI : boolean
-}
 
-const env = envalid.cleanEnv<EnvSchema>(
+const env = envalid.cleanEnv(
   process.env,
   {
     BOT_NAME: envalid.str({ default: 'bort' }),
@@ -23,6 +14,7 @@ const env = envalid.cleanEnv<EnvSchema>(
       desc: 'A Slack API token, or a comma-separated list of Slack API tokens.'
     }),
     DISCORD_TOKEN: envalid.str({ default: '' }),
+    OPEN_WEATHER_MAP_KEY: envalid.str({ default: '' }),
     HOSTNAME: envalid.str({ devDefault: 'localhost' }),
     PORT: envalid.num({ devDefault: 8080 }),
     USE_CLI: envalid.bool({
@@ -38,6 +30,7 @@ export const {
   DATA_DIR,
   SLACK_TOKENS,
   DISCORD_TOKEN,
+  OPEN_WEATHER_MAP_KEY,
   HOSTNAME,
   PORT,
   USE_CLI
@@ -55,7 +48,7 @@ if(!isValidConfiguration) {
     `Environment configuration doesn't appear to be valid! Bot will do nothing if you're not running in CLI mode.`
   )
 
-  const varsToCheck : [keyof EnvSchema] = ['SLACK_TOKENS', 'DISCORD_TOKEN']
-  const configInfo = varsToCheck.map(key => `${key}: ${env[key] ? 'OK' : 'NONE'}`).join('\n')
+  const varsToCheck = ['SLACK_TOKENS', 'DISCORD_TOKEN']
+  const configInfo = varsToCheck.map(key => `${key}: ${(env as any)[key] ? 'OK' : 'NONE'}`).join('\n')
   console.warn(configInfo)
 }

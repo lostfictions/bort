@@ -1,9 +1,23 @@
 {
   "search.exclude": {
     "**/node_modules": true,
-    "data/*" : true,
-    "dist/*" : true,
-    "persist/*" : true
+    "data/*": true,
+    "dist/*": true,
+    "persist/*": true
   },
-  "typescript.tsdk": "node_modules/typescript/lib"
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "tslint.enable": false,
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+  "files.exclude": {
+    "**/.git": true,
+    "**/.DS_Store": true,
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/persist": true
+  }
 }

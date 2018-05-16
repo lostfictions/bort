@@ -1,10 +1,8 @@
 a nice bot 4 u.
 
-dockerized. will spin up Slack and/or Discord clients if the respective
+dockerized. will spin up ~~Slack and/or~~ Discord clients if the respective
 environment variables are present. possible env vars are:
 
-- `SLACK_TOKENS`: a Slack API token, or a comma-separated list of Slack API
-  tokens
 - `DISCORD_TOKEN`: a Discord API token
 - `USE_CLI`: if 'true', will start up an interface that reads from stdin and
   prints to stdout instead of connecting to any servers.
@@ -15,7 +13,9 @@ environment variables are present. possible env vars are:
 - `PORT`: port number for the bot's server component (defaults to 8080 in a dev
   environment, required in production)
 
-(check the `peerio` branch if you're looking for support for that service.)
+_(Slack support is removed as of `4.0.0` -- there were some breaking changes in
+the client API and it didn't seem like bort was running on any Slack teams. if
+there's interest it can be re-added.)_
 
 each service that bort connects to gets its own isolated data store. stores are
 serialized to json in the directory provided as the `DATA_DIR`.
@@ -40,9 +40,9 @@ that's a bit ambitious for a hobby project designed for sharing funny gifs and
 making bad rhymes.
 
 `npm start` will start the bot in production mode. Use `npm run dev` if you want
-to run online but restart on any change, or `npm run cli` to spin up a command
-line interface for testing that will restart on any change.
+to run a local bot that will connect to services but restart on any change, or
+`npm run dev-cli` to spin up an offline command-line interface for testing that
+will restart on any change.
 
 bort is written in typescript, and the dockerfile will compile to js as part of
-its setup. run `npm run watch-cli` or `npm run watch-dev` if you're hacking on
-things and want an auto-reloading cli interface or live client, respectively.
+its setup.

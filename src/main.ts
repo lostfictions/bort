@@ -1,4 +1,4 @@
-require('source-map-support').install() // tslint:disable-line:no-require-imports
+require("source-map-support").install();
 
 import { makeDiscordBot } from './clients/discord'
 import { makeCLIBot } from './clients/cli'

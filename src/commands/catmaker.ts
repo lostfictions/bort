@@ -215,9 +215,9 @@ function addCat(grid : CatParts[][], turnChance : TurnChance, minSteps : number,
         if(!straightSegments.has(grid[xToCheck][yToCheck])) { shouldDelete = true; break }
         // if it's a straight segment, check the same conditions for the next
         // space in that direction.
-      } while(true)
       if(shouldDelete) {
         delete (validTurns as any)[nextDir]
+      } while (true); // eslint-disable-line no-constant-condition
       }
     }
 

@@ -9,10 +9,6 @@ const env = envalid.cleanEnv(
   {
     BOT_NAME: envalid.str({ default: 'bort' }),
     DATA_DIR: envalid.str({ default: 'persist' }),
-    SLACK_TOKENS: envalid.str({
-      default: '',
-      desc: 'A Slack API token, or a comma-separated list of Slack API tokens.'
-    }),
     DISCORD_TOKEN: envalid.str({ default: '' }),
     OPEN_WEATHER_MAP_KEY: envalid.str({ default: '' }),
     HOSTNAME: envalid.str({ devDefault: 'localhost' }),
@@ -28,7 +24,6 @@ const env = envalid.cleanEnv(
 export const {
   BOT_NAME,
   DATA_DIR,
-  SLACK_TOKENS,
   DISCORD_TOKEN,
   OPEN_WEATHER_MAP_KEY,
   HOSTNAME,
@@ -41,14 +36,14 @@ if(!fs.existsSync(DATA_DIR)) {
   fs.mkdirSync(DATA_DIR)
 }
 
-const isValidConfiguration = USE_CLI || SLACK_TOKENS || DISCORD_TOKEN
+const isValidConfiguration = USE_CLI || DISCORD_TOKEN;
 
 if(!isValidConfiguration) {
   console.warn(
     `Environment configuration doesn't appear to be valid! Bot will do nothing if you're not running in CLI mode.`
   )
 
-  const varsToCheck = ['SLACK_TOKENS', 'DISCORD_TOKEN']
   const configInfo = varsToCheck.map(key => `${key}: ${(env as any)[key] ? 'OK' : 'NONE'}`).join('\n')
   console.warn(configInfo)
+  const varsToCheck = ["DISCORD_TOKEN"];
 }

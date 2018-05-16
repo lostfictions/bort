@@ -1,36 +1,38 @@
-import { makeCommand } from '../util/handler'
-import { randomInArray } from '../util'
+import { makeCommand } from "../util/handler";
+import { randomInArray } from "../util";
 
-import { HandlerArgs } from '../handler-args'
+import { HandlerArgs } from "../handler-args";
 
-import { Map } from 'immutable'
+import { Map } from "immutable";
 
-import { tryTrace } from '../components/trace'
+import { tryTrace } from "../components/trace";
 
-import * as cmu from 'cmu-pronouncing-dictionary'
+import * as cmu from "cmu-pronouncing-dictionary";
 
-interface DictNode { [syllOrWord : string ] : DictNode | '!' }
+interface DictNode {
+  [syllOrWord: string]: DictNode | "!";
+}
 
 // tslint:disable:no-require-imports
-const flipdict = require('../../data/flipdict.json') as DictNode
-const syllableSet = new Set<string>(require('../../data/syllables.json'))
+const flipdict = require("../../data/flipdict.json") as DictNode;
+const syllableSet = new Set<string>(require("../../data/syllables.json"));
 // tslint:enable:no-require-imports
 
-function trim(str : string) : [string, string, string] {
-  const chars = str.split('')
+function trim(str: string): [string, string, string] {
+  const chars = str.split("");
 
-  const before = []
-  const after = []
+  const before = [];
+  const after = [];
 
-  while(chars.length > 0 && chars[0].match(/[^a-zA-Z]/)) {
-    before.push(chars.shift())
+  while (chars.length > 0 && chars[0].match(/[^a-zA-Z]/)) {
+    before.push(chars.shift());
   }
 
-  while(chars.length > 0 && chars[chars.length - 1].match(/[^a-zA-Z]/)) {
-    after.push(chars.pop())
+  while (chars.length > 0 && chars[chars.length - 1].match(/[^a-zA-Z]/)) {
+    after.push(chars.pop());
   }
 
-  return [before.join(''), chars.join(''), after.join('')]
+  return [before.join(""), chars.join(""), after.join("")];
 }
 
 /*
@@ -51,108 +53,110 @@ following conditions:
 
 export default makeCommand(
   {
-    name: 'rhyme',
-    aliases: ['rap'],
-    description: 'bust a rhyme like you never seen / taco beats gonna make you scream'
+    name: "rhyme",
+    aliases: ["rap"],
+    description:
+      "bust a rhyme like you never seen / taco beats gonna make you scream"
   },
-  ({ message, store } : HandlerArgs) : string | false => {
-    const maybeTraced = tryTrace(message, store.getState().get('concepts'))
-    let prefix = ''
-    if(maybeTraced) {
-      message = maybeTraced // tslint:disable-line:no-parameter-reassignment
-      prefix = `(${maybeTraced})\n`
+  ({ message, store }: HandlerArgs): string | false => {
+    const maybeTraced = tryTrace(message, store.getState().get("concepts"));
+    let prefix = "";
+    if (maybeTraced) {
+      message = maybeTraced; // tslint:disable-line:no-parameter-reassignment
+      prefix = `(${maybeTraced})\n`;
     }
 
-    if(message.length === 0) {
-      return false
+    if (message.length === 0) {
+      return false;
     }
 
-    const words = message.split(' ')
-    if(words.length === 0) {
-      return false
+    const words = message.split(" ");
+    if (words.length === 0) {
+      return false;
     }
 
-    const wb = store.getState().get('wordBank')
-    const reply = []
+    const wb = store.getState().get("wordBank");
+    const reply = [];
 
-    for(const word of words) {
-      const [before, trimmedWord, after] = trim(word)
+    for (const word of words) {
+      const [before, trimmedWord, after] = trim(word);
 
-      let rhyme = ''
-      if(trimmedWord.length > 0) {
-        rhyme = getRhymeFor(trimmedWord.toLowerCase())
+      let rhyme = "";
+      if (trimmedWord.length > 0) {
+        rhyme = getRhymeFor(trimmedWord.toLowerCase());
       }
 
-      if(rhyme === '*') {
-        const nexts : Map<string, number> | undefined = wb.get(reply[reply.length - 1])
-        if(nexts != null) {
-          rhyme = randomInArray(nexts.keySeq().toJS())
-        }
-        else {
-          rhyme = randomInArray(wb.keySeq().toJS())
+      if (rhyme === "*") {
+        const nexts: Map<string, number> | undefined = wb.get(
+          reply[reply.length - 1]
+        );
+        if (nexts != null) {
+          rhyme = randomInArray(nexts.keySeq().toJS());
+        } else {
+          rhyme = randomInArray(wb.keySeq().toJS());
         }
       }
 
-      reply.push([before, rhyme, after].join(''))
+      reply.push([before, rhyme, after].join(""));
     }
 
-    let joined = reply.join(' ')
+    let joined = reply.join(" ");
 
-    if(joined.length === 0) {
-      joined = '¯\\_(ツ)_/¯'
+    if (joined.length === 0) {
+      joined = "¯\\_(ツ)_/¯";
     }
 
-    return prefix + joined
+    return prefix + joined;
   }
-)
+);
 
-
-function getRhymeFor(word : string) : string {
-  const pronounciation = cmu[word] as string | undefined
-  if(!pronounciation) {
+function getRhymeFor(word: string): string {
+  const pronounciation = cmu[word] as string | undefined;
+  if (!pronounciation) {
     // Push a wildcard, for which we'll try to find a candidate from the wordbank in the next step.
-    return '*'
+    return "*";
   }
 
-  let cursor = flipdict
+  let cursor = flipdict;
 
-  const syllables = pronounciation.toLowerCase().split(' ')
-  while(syllables.length > 0) {
-    const syll = syllables.pop()!
-    const isPrimaryStress = syll.endsWith('1')
+  const syllables = pronounciation.toLowerCase().split(" ");
+  while (syllables.length > 0) {
+    const syll = syllables.pop()!;
+    const isPrimaryStress = syll.endsWith("1");
 
-    const nextCursor = cursor[syll] as DictNode
+    const nextCursor = cursor[syll] as DictNode;
 
-    if(!nextCursor) {
-      break
+    if (!nextCursor) {
+      break;
     }
 
-    if(isPrimaryStress) {
+    if (isPrimaryStress) {
       // grab any word from the set that's not the articulation preceding our stress
       // (if there is one)
-      const preceding = syllables.pop()
-      const validArticulations = Object.keys(nextCursor)
-        .filter(a => a !== preceding && syllableSet.has(a))
+      const preceding = syllables.pop();
+      const validArticulations = Object.keys(nextCursor).filter(
+        a => a !== preceding && syllableSet.has(a)
+      );
 
       // if there's no valid articulations for a perfect rhyme, just pick from lower
       // in the tree.
-      if(validArticulations.length > 0) {
-        cursor = nextCursor[randomInArray(validArticulations)] as DictNode
+      if (validArticulations.length > 0) {
+        cursor = nextCursor[randomInArray(validArticulations)] as DictNode;
       }
 
-      while(1) { // eslint-disable-line no-constant-condition
-        const wordOrSyllable = randomInArray(Object.keys(cursor))
-        if(!syllableSet.has(wordOrSyllable)) {
-          return wordOrSyllable
+      while (1) {
+        // eslint-disable-line no-constant-condition
+        const wordOrSyllable = randomInArray(Object.keys(cursor));
+        if (!syllableSet.has(wordOrSyllable)) {
+          return wordOrSyllable;
         }
-        cursor = cursor[wordOrSyllable] as DictNode
+        cursor = cursor[wordOrSyllable] as DictNode;
       }
-      break // eslint-disable-line no-unreachable
+      break; // eslint-disable-line no-unreachable
     }
 
-    cursor = nextCursor
+    cursor = nextCursor;
   }
 
-  return word
+  return word;
 }
-

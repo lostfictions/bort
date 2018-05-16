@@ -1,88 +1,96 @@
-import { makeCommand } from '../util/handler'
-import * as got from 'got'
-import { isURL } from 'validator'
-import { HandlerArgs } from '../handler-args'
-import {
-  loadConceptAction
-} from '../actions/concept'
+import { makeCommand } from "../util/handler";
+import * as got from "got";
+import { isURL } from "validator";
+import { HandlerArgs } from "../handler-args";
+import { loadConceptAction } from "../actions/concept";
 
-const loaderRegex = /^([^ ]+) +(?:path[=: ]([\w\d.]+) +)?(?:as|to) +([^\s]+)$/
+const loaderRegex = /^([^ ]+) +(?:path[=: ]([\w\d.]+) +)?(?:as|to) +([^\s]+)$/;
 
-const slackEscapeRegex = /^<(.+)>$/
+const slackEscapeRegex = /^<(.+)>$/;
 
-const traverse = (obj : any, path : string[]) : any => {
+const traverse = (obj: any, path: string[]): any => {
   try {
     // tslint:disable-next-line no-parameter-reassignment
-    path.forEach(p => obj = obj[p])
-    return obj
+    path.forEach(p => (obj = obj[p]));
+    return obj;
+  } catch (e) {
+    /* just toss out any failure to traverse and return null. */
   }
-  catch(e) { /* just toss out any failure to traverse and return null. */ }
-  return null
-}
+  return null;
+};
 
 export default makeCommand<HandlerArgs>(
   {
-    name: 'load',
-    aliases: ['json'],
-    description: 'load a concept list from a url, overwriting existing concept if it exists'
+    name: "load",
+    aliases: ["json"],
+    description:
+      "load a concept list from a url, overwriting existing concept if it exists"
   },
   async ({ message, store }) => {
-    if(message.length === 0) {
-      return false
+    if (message.length === 0) {
+      return false;
     }
 
-    const matches = loaderRegex.exec(message)
-    if(!matches) {
-      return `*load* usage: [url] (path=path) as [concept]`
+    const matches = loaderRegex.exec(message);
+    if (!matches) {
+      return `*load* usage: [url] (path=path) as [concept]`;
     }
 
-    const [, rawUrl, rawPath, concept] = matches
+    const [, rawUrl, rawPath, concept] = matches;
 
-    const path = rawPath.split('.')
+    const path = rawPath.split(".");
 
-    let url = rawUrl
-    const slackFixedUrl = slackEscapeRegex.exec(rawUrl)
-    if(slackFixedUrl) {
-      url = slackFixedUrl[1]
+    let url = rawUrl;
+    const slackFixedUrl = slackEscapeRegex.exec(rawUrl);
+    if (slackFixedUrl) {
+      url = slackFixedUrl[1];
     }
 
-    if(!isURL(url)) {
+    if (!isURL(url)) {
       return `Error: '${url}' doesn't appear to be a valid URL.
-      *load* usage: [url] (path=path) as [concept]`
+      *load* usage: [url] (path=path) as [concept]`;
     }
 
-    const { body: json } = await (got(url, { json: true }) as Promise<{ body : any }>)
+    const { body: json } = await (got(url, { json: true }) as Promise<{
+      body: any;
+    }>);
 
-    let items : string[]
-    if(path) {
-      const itemOrItems = traverse(json, path)
-      if(!itemOrItems) {
-        const validKeys = Object.keys(json).slice(0, 5).map(k => `'${k}'`).join(', ')
-        throw new Error(`Invalid path: '${rawPath}'. Some valid keys: ${validKeys}...`)
+    let items: string[];
+    if (path) {
+      const itemOrItems = traverse(json, path);
+      if (!itemOrItems) {
+        const validKeys = Object.keys(json)
+          .slice(0, 5)
+          .map(k => `'${k}'`)
+          .join(", ");
+        throw new Error(
+          `Invalid path: '${rawPath}'. Some valid keys: ${validKeys}...`
+        );
       }
-      if(Array.isArray(itemOrItems)) {
-        items = itemOrItems.map(i => i.toString())
-      }
-      else {
-        const item = itemOrItems.toString()
-        if(item === '[object Object]') {
-          throw new Error(`Requested item does not appear to be a primitive or array! Aborting.`)
+      if (Array.isArray(itemOrItems)) {
+        items = itemOrItems.map(i => i.toString());
+      } else {
+        const item = itemOrItems.toString();
+        if (item === "[object Object]") {
+          throw new Error(
+            `Requested item does not appear to be a primitive or array! Aborting.`
+          );
         }
-        items = [item]
+        items = [item];
       }
-    }
-    else if(Array.isArray(json)) {
-      items = json.map(i => i.toString())
-    }
-    else {
-      const item = json.toString()
-      if(item === '[object Object]') {
-        throw new Error(`Requested item does not appear to be a primitive or array! Aborting.`)
+    } else if (Array.isArray(json)) {
+      items = json.map(i => i.toString());
+    } else {
+      const item = json.toString();
+      if (item === "[object Object]") {
+        throw new Error(
+          `Requested item does not appear to be a primitive or array! Aborting.`
+        );
       }
-      items = [item]
+      items = [item];
     }
 
-    store.dispatch(loadConceptAction(concept, items))
-    return `Loaded ${length} items from ${url}.`
+    store.dispatch(loadConceptAction(concept, items));
+    return `Loaded ${length} items from ${url}.`;
   }
-)
+);

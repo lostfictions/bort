@@ -3,93 +3,103 @@ import {
   Message as DiscordMessage,
   TextChannel,
   DMChannel
-} from 'discord.js'
+} from "discord.js";
 
-import { getStore } from '../store/get-store'
-import messageHandler from '../root-handler'
-import { HandlerArgs } from '../handler-args'
+import { getStore } from "../store/get-store";
+import messageHandler from "../root-handler";
+import { HandlerArgs } from "../handler-args";
 
-import { processMessage } from '../util/handler'
-
+import { processMessage } from "../util/handler";
 
 // tslint:disable-next-line:typedef
-export function makeDiscordBot(discordToken : string) {
-  const client = new DiscordClient()
+export function makeDiscordBot(discordToken: string) {
+  const client = new DiscordClient();
 
-  let guildList = 'guild-list-not-yet-retrieved'
+  let guildList = "guild-list-not-yet-retrieved";
 
-  async function onMessage(message : DiscordMessage) : Promise<false | undefined> {
+  async function onMessage(
+    message: DiscordMessage
+  ): Promise<false | undefined> {
     try {
-      if(message.author.bot) {
-        return false
+      if (message.author.bot) {
+        return false;
       }
 
       // Don't respond to non-message messages.
-      if(message.type !== 'DEFAULT') {
-        console.log(`Discord bot: Ignoring message type "${message.type}"`)
-        return false
+      if (message.type !== "DEFAULT") {
+        console.log(`Discord bot: Ignoring message type "${message.type}"`);
+        return false;
       }
 
       const channel = (() => {
-        switch(true) {
+        switch (true) {
           case message.guild != null:
-            return message.guild.name
-          case message.channel.type === 'text':
-            return (message.channel as TextChannel).name
-          case message.channel.type === 'dm':
-            return (message.channel as DMChannel).recipient.username
+            return message.guild.name;
+          case message.channel.type === "text":
+            return (message.channel as TextChannel).name;
+          case message.channel.type === "dm":
+            return (message.channel as DMChannel).recipient.username;
           default:
-            return `other-${message.channel.id}`
+            return `other-${message.channel.id}`;
         }
-      })()
+      })();
 
-      const storeName = (() => { switch(true) {
-        case message.guild != null:
-          return `discord-${message.guild.name}-${message.guild.id}`
-        case message.channel.type === 'text':
-          return `discord-${(message.channel as TextChannel).name}-${message.channel.id}`
-        case message.channel.type === 'dm':
-          return `discord-dm-${(message.channel as DMChannel).recipient.username}-${message.channel.id}`
-        default:
-          return `discord-other-${message.channel.id}`
-      }})()
-
-      const store = getStore(storeName)
-
-      const response = await processMessage<HandlerArgs>(
-        messageHandler,
-        {
-          store,
-          message: message.content,
-          username: message.author.username,
-          channel,
-          isDM: message.channel.type === 'dm'
+      const storeName = (() => {
+        switch (true) {
+          case message.guild != null:
+            return `discord-${message.guild.name}-${message.guild.id}`;
+          case message.channel.type === "text":
+            return `discord-${(message.channel as TextChannel).name}-${
+              message.channel.id
+            }`;
+          case message.channel.type === "dm":
+            return `discord-dm-${
+              (message.channel as DMChannel).recipient.username
+            }-${message.channel.id}`;
+          default:
+            return `discord-other-${message.channel.id}`;
         }
-      )
+      })();
 
-      if(response === false) {
-        return false
+      const store = getStore(storeName);
+
+      const response = await processMessage<HandlerArgs>(messageHandler, {
+        store,
+        message: message.content,
+        username: message.author.username,
+        channel,
+        isDM: message.channel.type === "dm"
+      });
+
+      if (response === false) {
+        return false;
       }
 
-      message.channel.sendMessage(response)
-    }
-    catch(error) {
-      console.error(`Error in Discord client (${guildList}): '${error.message}'`)
-      message.channel.sendMessage(`[Something went wrong!] [${error.message}]`)
+      message.channel.sendMessage(response);
+    } catch (error) {
+      console.error(
+        `Error in Discord client (${guildList}): '${error.message}'`
+      );
+      message.channel.sendMessage(`[Something went wrong!] [${error.message}]`);
     }
   }
 
-  client.on('ready', () => {
-    guildList = client.guilds.array().map(g => `'${g.name}'`).join(', ')
-    console.log(`Connected to Discord guilds ${guildList} as ${client.user.username}`)
-  })
-  client.on('message', onMessage)
-  client.on('disconnect', (ev : CloseEvent) => {
-    console.log('Discord bot disconnected! reason: ' + ev.reason)
-  })
+  client.on("ready", () => {
+    guildList = client.guilds
+      .array()
+      .map(g => `'${g.name}'`)
+      .join(", ");
+    console.log(
+      `Connected to Discord guilds ${guildList} as ${client.user.username}`
+    );
+  });
+  client.on("message", onMessage);
+  client.on("disconnect", (ev: CloseEvent) => {
+    console.log("Discord bot disconnected! reason: " + ev.reason);
+  });
 
   return {
     client,
     login: client.login.bind(client, discordToken) as () => Promise<string>
-  }
+  };
 }

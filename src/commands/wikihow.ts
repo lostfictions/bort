@@ -1,58 +1,65 @@
-import { makeCommand } from '../util/handler'
-import * as got from 'got'
-import * as cheerio from 'cheerio'
+import { makeCommand } from "../util/handler";
+import * as got from "got";
+import * as cheerio from "cheerio";
 
-import { randomInArray } from '../util'
+import { randomInArray } from "../util";
 
-import { HandlerArgs } from '../handler-args'
-import { tryTrace } from '../components/trace'
+import { HandlerArgs } from "../handler-args";
+import { tryTrace } from "../components/trace";
 
-function getRandomImage(body : string) : string {
-  const imgs = cheerio.load(body)('img.whcdn').toArray()
-    .map(img => img.attribs['data-src'])
-    .filter(url => url) // only images with this attribute!
-  return randomInArray(imgs)
+function getRandomImage(body: string): string {
+  const imgs = cheerio
+    .load(body)("img.whcdn")
+    .toArray()
+    .map(img => img.attribs["data-src"])
+    .filter(url => url); // only images with this attribute!
+  return randomInArray(imgs);
 }
 
-async function search(term : string) : Promise<string> {
+async function search(term: string): Promise<string> {
   try {
-    const res = await got('https://www.wikihow.com/wikiHowTo', { query: { search: term } })
+    const res = await got("https://www.wikihow.com/wikiHowTo", {
+      query: { search: term }
+    });
 
     let topResult = cheerio
-      .load(res.body)('a.result_link').toArray()
+      .load(res.body)("a.result_link")
+      .toArray()
       .map(a => a.attribs.href)
-      .find(url => !url.includes('Category:')) // first link that isn't a category
+      .find(url => !url.includes("Category:")); // first link that isn't a category
 
-    if(topResult) {
-      if(topResult.startsWith('//')) { // got can't handle uris without protocols.
-        topResult = 'https:' + topResult
+    if (topResult) {
+      if (topResult.startsWith("//")) {
+        // got can't handle uris without protocols.
+        topResult = "https:" + topResult;
       }
-      const wikiRes = await got(topResult)
-      return getRandomImage(wikiRes.body)
+      const wikiRes = await got(topResult);
+      return getRandomImage(wikiRes.body);
     }
+  } catch (e) {
+    /* Don't care how we failed */
   }
-  catch(e) { /* Don't care how we failed */ }
-  return 'dunno how :('
+  return "dunno how :(";
 }
 
 export default makeCommand<HandlerArgs>(
   {
-    name: 'wikihow',
+    name: "wikihow",
     aliases: [`how do i`, `how to`],
-    description: 'learn anything'
+    description: "learn anything"
   },
-  ({ message, store }) : Promise<string> => {
-    if(message.length === 0) {
-      return got('https://www.wikihow.com/Special:Randomizer')
-        .then(res => getRandomImage(res.body))
+  ({ message, store }): Promise<string> => {
+    if (message.length === 0) {
+      return got("https://www.wikihow.com/Special:Randomizer").then(res =>
+        getRandomImage(res.body)
+      );
     }
 
-    const maybeTraced = tryTrace(message, store.getState().get('concepts'))
-    if(maybeTraced) {
-      return search(maybeTraced)
-        .then(res => `(${maybeTraced})\n${res}`)
+    const maybeTraced = tryTrace(message, store.getState().get("concepts"));
+    if (maybeTraced) {
+      return search(maybeTraced).then(res => `(${maybeTraced})\n${res}`);
     }
 
-    return search(message)
+    return search(message);
   }
-)
+);

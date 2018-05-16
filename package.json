@@ -10,6 +10,7 @@
     "dev": "run-p -l watch:ts start-dev",
     "dev-cli": "USE_CLI=true npm run dev",
     "build": "rm -rf dist/ && tsc",
+    "prettier": "prettier 'src/**/*' --write",
     "test": "run-s -l test:*",
     "test:jest": "jest --colors",
     "test:ts": "tsc --noEmit",

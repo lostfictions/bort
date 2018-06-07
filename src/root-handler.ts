@@ -1,6 +1,7 @@
 import { BOT_NAME } from "./env";
 
-import { processMessage, makeCommand, Handler } from "./util/handler";
+import { escapeForRegex } from "./util";
+import { processMessage, makeCommand, Handler, Command } from "./util/handler";
 
 import { HandlerArgs } from "./handler-args";
 
@@ -48,13 +49,66 @@ const subCommands = [
   uptimeCommand
 ];
 
+const subcommandsByNameOrAlias: { [name: string]: Command<HandlerArgs> } = {};
+subCommands.forEach(c => {
+  const allAliases = [c.name, ...(c.aliases || [])];
+  for (const a of allAliases) {
+    if (a in subcommandsByNameOrAlias) {
+      console.error(
+        `Command named ${a} already exists in command list! (Canonical name ${
+          subcommandsByNameOrAlias[a].name
+        })`
+      );
+    } else {
+      subcommandsByNameOrAlias[a] = c;
+    }
+  }
+});
+
+const subcommandsMatcher = new RegExp(
+  `^\\s*(${Object.keys(subcommandsByNameOrAlias)
+    .map(a => escapeForRegex(a))
+    .join("|")})\\s*$`
+);
+
 // TODO: allow getting usage for subcommands
 const helpCommand = makeCommand<HandlerArgs>(
   {
     name: "list",
     aliases: ["help", "usage"]
   },
-  ({ store }) => {
+  ({ message, store }) => {
+    if (message.trim().length > 0) {
+      const match = message.match(subcommandsMatcher);
+      if (match) {
+        const command = subcommandsByNameOrAlias[match[1]];
+
+        if (command) {
+          const reply = [command.name];
+          if (command.aliases) {
+            reply.push(
+              "Aliases: " + command.aliases.map(a => `*${a}*`).join(", ")
+            );
+          }
+          if (command.description) {
+            reply.push(command.description);
+          }
+          if (command.usage) {
+            reply.push(command.usage);
+          } else {
+            reply.push("No usage info available for this command :(");
+          }
+          if (command.details) {
+            reply.push(command.details);
+          }
+
+          return reply.join("\n");
+        }
+      } else {
+        return "I CAN'T HELP YOU WITH THAT";
+      }
+    }
+
     const concepts = store
       .getState()
       .get("concepts")
@@ -62,13 +116,13 @@ const helpCommand = makeCommand<HandlerArgs>(
       .toJS();
 
     return (
-      "*Commands:*\n" +
-      subCommands.map(c => `> *${c.name}* - ${c.description}`).join("\n") +
+      "**Commands:**\n" +
+      subCommands.map(c => `· *${c.name}* - ${c.description}`).join("\n") +
       "\n" +
-      "*Listens:*\n> " +
+      "**Listens:**\n· " +
       concepts.filter((c: string) => c.startsWith("!")).join(", ") +
       "\n" +
-      "*Concepts:*\n> " +
+      "**Concepts:**\n· " +
       concepts.filter((c: string) => !c.startsWith("!")).join(", ")
     );
   }

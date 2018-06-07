@@ -44,6 +44,7 @@ interface CommandOptions {
 export interface Command<TData> {
   handleMessage: HandlerFn<TData, string>;
   readonly name: string;
+  readonly aliases?: string[];
   readonly usage?: string;
   readonly description?: string;
   readonly details?: string;
@@ -77,7 +78,7 @@ export function makeCommand<TData extends { message: string }>(
     name: options.name
   };
 
-  ["usage", "description", "details"].forEach(prop => {
+  ["usage", "description", "details", "aliases"].forEach(prop => {
     if (prop in options) {
       (command as any)[prop] = (options as any)[prop];
     }

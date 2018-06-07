@@ -144,8 +144,8 @@ function getRhymeFor(word: string): string {
         cursor = nextCursor[randomInArray(validArticulations)] as DictNode;
       }
 
+      // eslint-disable-next-line no-constant-condition
       while (1) {
-        // eslint-disable-line no-constant-condition
         const wordOrSyllable = randomInArray(Object.keys(cursor));
         if (!syllableSet.has(wordOrSyllable)) {
           return wordOrSyllable;

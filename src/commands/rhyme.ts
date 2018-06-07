@@ -13,10 +13,8 @@ interface DictNode {
   [syllOrWord: string]: DictNode | "!";
 }
 
-// tslint:disable:no-require-imports
 const flipdict = require("../../data/flipdict.json") as DictNode;
 const syllableSet = new Set<string>(require("../../data/syllables.json"));
-// tslint:enable:no-require-imports
 
 function trim(str: string): [string, string, string] {
   const chars = str.split("");
@@ -131,15 +129,15 @@ function getRhymeFor(word: string): string {
     }
 
     if (isPrimaryStress) {
-      // grab any word from the set that's not the articulation preceding our stress
-      // (if there is one)
+      // grab any word from the set that's not the articulation preceding our
+      // stress (if there is one)
       const preceding = syllables.pop();
       const validArticulations = Object.keys(nextCursor).filter(
         a => a !== preceding && syllableSet.has(a)
       );
 
-      // if there's no valid articulations for a perfect rhyme, just pick from lower
-      // in the tree.
+      // if there's no valid articulations for a perfect rhyme, just pick from
+      // lower in the tree.
       if (validArticulations.length > 0) {
         cursor = nextCursor[randomInArray(validArticulations)] as DictNode;
       }

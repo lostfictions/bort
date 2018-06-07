@@ -58,7 +58,7 @@ export function makeCommand<TData extends { message: string }>(
     .join("|");
 
   const aliasRegex = new RegExp(
-    `(?:${escapedAliases})(?:\\s+|$)([\\s\\S]*)`,
+    `^(?:${escapedAliases})(?:\\s+|$)([\\s\\S]*)`,
     "i"
   );
 

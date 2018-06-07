@@ -115,4 +115,11 @@ describe("makeCommand", () => {
       })
     ).resolves.toBe("mess");
   });
+
+  it("should only match commands at the beginning of a message", () =>
+    expect(
+      processMessage(makeCommand({ name: "butt" }, ({ message }) => message), {
+        message: "something butt mess"
+      })
+    ).resolves.toBe(false));
 });

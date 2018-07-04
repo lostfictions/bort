@@ -112,6 +112,32 @@ const conceptAddToCommand = makeCommand<HandlerArgsWithConcept>(
   }
 );
 
+const conceptBulkAddToCommand = makeCommand<HandlerArgsWithConcept>(
+  {
+    name: "bulkadd",
+    aliases: ["++"],
+    description: "add a comma-separated list of things to a concept"
+  },
+  ({ message, store, concept }) => {
+    if (message.length === 0) {
+      return false;
+    }
+    const conceptsToAdd = message.split(",").map(s => s.trim());
+
+    const concepts = store.getState().get("concepts");
+    const results: string[] = [];
+    for (const c of conceptsToAdd) {
+      if (concepts.get(concept).indexOf(c) !== -1) {
+        results.push(`"${c}" already exists in "${concept}"!`);
+      } else {
+        store.dispatch(addToConceptAction(concept, c));
+        results.push(`Added "${c}".`);
+      }
+    }
+    return results.join("\n");
+  }
+);
+
 const conceptRemoveFromCommand = makeCommand<HandlerArgsWithConcept>(
   {
     name: "remove",
@@ -173,6 +199,6 @@ export const conceptMatcher = adjustArgs<HandlerArgs>(
       const adjustedMessage = split.slice(1).join(" ");
       return { ...args, message: adjustedMessage, concept };
     },
-    [conceptAddToCommand, conceptRemoveFromCommand]
+    [conceptAddToCommand, conceptBulkAddToCommand, conceptRemoveFromCommand]
   )
 );

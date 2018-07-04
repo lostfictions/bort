@@ -17,6 +17,7 @@ import completeCommand from "./commands/complete";
 import heathcliffCommand from "./commands/heathcliff";
 import wikihowCommand from "./commands/wikihow";
 import conceptLoadCommand from "./commands/concept-load";
+import shuffleCommand from "./commands/shuffle";
 import {
   conceptAddCommand,
   conceptRemoveCommand,
@@ -35,6 +36,7 @@ const subCommands = [
   conceptRemoveCommand,
   conceptLoadCommand,
   conceptListCommand,
+  shuffleCommand,
   buseyCommand,
   seenCommand,
   rhymeCommand,

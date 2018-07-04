@@ -1,3 +1,11 @@
+cleanup messages? (eg. confirmations will disappear after 10 seconds; poor man's
+emulation of slack bot messages only visible to the user who invoked the
+command)
+
+
+
+---------------------------------------------------------------
+
 - dynamically import command list; make configurable via env vars
 - allow commands to be automatically disabled if eg. api keys are missing
 

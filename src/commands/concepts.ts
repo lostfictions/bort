@@ -16,7 +16,25 @@ type HandlerArgsWithConcept = HandlerArgs & { concept: string };
 // Match two groups:
 // 1: a bracket-delimited term of any length
 // 2: the rest of the message if there is any, ignoring any preceding whitespace
-const matcher = /^\[([^\[\]]+)\](?:$|\s+(.*))/g; // eslint-disable-line no-useless-escape
+const matcher = /^\[([^\[\]]+)\](?:$|\s+(.*))/; // eslint-disable-line no-useless-escape
+
+function normalizeMessageWithLeadingConcept(message: string): [string, string] {
+  // The matcher will match concepts/commands either in the format
+  // "adj add humongous" OR "[adj] add humongous".
+  // This lets us match concepts that contain whitespace
+  // like "[kind of animal]", as well as concepts that might
+  // otherwise be processed as a keyword or command, like "[delete]".
+
+  // We try matching against the "matcher" regex above, then
+  // normalize the results.
+  let matches = message.match(matcher);
+  if (!matches) {
+    const split = message.split(" ");
+    matches = ["", split[0], split.slice(1).join(" ")];
+  }
+
+  return [matches[1], matches[2]];
+}
 
 export const conceptAddCommand = makeCommand<HandlerArgs>(
   {
@@ -55,6 +73,40 @@ export const conceptRemoveCommand = makeCommand<HandlerArgs>(
     }
     store.dispatch(removeConceptAction(message));
     return `Okay! Deleted concept "${message}".`;
+  }
+);
+
+export const conceptSetCommand = makeCommand<HandlerArgs>(
+  {
+    name: "set",
+    description:
+      "set the contents of a concept, overwriting the existing concept if it exists"
+  },
+  ({ message, store }) => {
+    if (message.length === 0) {
+      return false;
+    }
+
+    const [concept, remainder] = normalizeMessageWithLeadingConcept(message);
+    const args = remainder.split(",").map(s => s.trim());
+    const result: string[] = [];
+
+    const concepts = store.getState().get("concepts");
+    if (concepts.has(concept)) {
+      const count = concepts.get(concept).count();
+      store.dispatch(removeConceptAction(concept));
+      result.push(`Overwrote concept "${concept}" (that had ${count} entries)`);
+    } else {
+      result.push(`Added new concept "${concept}"`);
+    }
+    store.dispatch(addConceptAction(concept));
+
+    for (const c of args) {
+      store.dispatch(addToConceptAction(concept, c));
+    }
+
+    result.push(`with ${args.length} new entries.`);
+    return result.join(" ");
   }
 );
 
@@ -170,21 +222,7 @@ export const conceptMatcher = adjustArgs<HandlerArgs>(
       return false;
     }
 
-    // The matcher will match concepts/commands either in the format
-    // "adj add humongous" OR "[adj] add humongous".
-    // This lets us match concepts that contain whitespace
-    // like "[kind of animal]", as well as concepts that might
-    // otherwise be processed as a keyword or command, like "[delete]".
-
-    // We try matching against the "matcher" regex above, then
-    // normalize the results.
-    let matches: string[] | null = message.match(matcher);
-    if (matches == undefined) {
-      const split = message.split(" ");
-      matches = ["", split[0], split.slice(1).join(" ")];
-    }
-
-    const [, concept, command] = matches;
+    const [concept, command] = normalizeMessageWithLeadingConcept(message);
 
     const concepts = store.getState().get("concepts");
     if (!concepts.has(concept)) {

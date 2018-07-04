@@ -1,8 +1,8 @@
-cleanup messages? (eg. confirmations will disappear after 10 seconds; poor man's
-emulation of slack bot messages only visible to the user who invoked the
-command)
+- cleanup messages? (eg. confirmations will disappear after 10 seconds; poor
+  man's emulation of slack bot messages only visible to the user who invoked the
+  command)
 
-
+- undo!
 
 ---------------------------------------------------------------
 

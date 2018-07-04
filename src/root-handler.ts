@@ -20,6 +20,7 @@ import conceptLoadCommand from "./commands/concept-load";
 import shuffleCommand from "./commands/shuffle";
 import {
   conceptAddCommand,
+  conceptSetCommand,
   conceptRemoveCommand,
   conceptListCommand,
   conceptMatcher
@@ -33,6 +34,7 @@ import { setSeenAction } from "./actions/seen";
 
 const subCommands = [
   conceptAddCommand,
+  conceptSetCommand,
   conceptRemoveCommand,
   conceptLoadCommand,
   conceptListCommand,

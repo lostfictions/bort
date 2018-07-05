@@ -9,7 +9,6 @@
 - dynamically import command list; make configurable via env vars
 - allow commands to be automatically disabled if eg. api keys are missing
 
-- wikihow: just use google image search instead of scraping
 - document commands usage
 
 - allow normalizing differences between clients

@@ -43,7 +43,11 @@ const requestAndParse = (term: string, animated: boolean, exact: boolean) =>
     return urls;
   });
 
-const search = (term: string, store: Store<BortStore>, animated = false) =>
+export const search = (
+  term: string,
+  store: Store<BortStore>,
+  animated = false
+) =>
   requestAndParse(term, animated, true)
     .then(res => {
       if (res.length === 0) {

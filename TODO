@@ -17,8 +17,6 @@
 
 - reinstate radio command for discord
 
-- run in prod in dockerfile
-
 - use ci install in dockerfile? (install prod deps only at first, use ci command
   if available)
 

@@ -7,14 +7,12 @@ import { HandlerArgs } from "./handler-args";
 
 import buseyCommand from "./commands/busey";
 import seenCommand from "./commands/seen";
-import catmakerCommand from "./commands/catmaker";
 import rhymeCommand from "./commands/rhyme";
 import weatherCommand from "./commands/weather";
 import uptimeCommand from "./commands/uptime";
 import { imageSearchCommand, gifSearchCommand } from "./commands/images";
 import gifcitiesCommand from "./commands/gifcities";
 import completeCommand from "./commands/complete";
-import heathcliffCommand from "./commands/heathcliff";
 import wikihowCommand from "./commands/wikihow";
 import conceptLoadCommand from "./commands/concept-load";
 import shuffleCommand from "./commands/shuffle";
@@ -42,14 +40,12 @@ const subCommands = [
   buseyCommand,
   seenCommand,
   rhymeCommand,
-  heathcliffCommand,
   wikihowCommand,
   imageSearchCommand,
   gifSearchCommand,
   gifcitiesCommand,
   completeCommand,
   weatherCommand,
-  catmakerCommand,
   uptimeCommand
 ];
 

@@ -7,7 +7,7 @@ import { makeCommand } from "../util/handler";
 import { OPEN_WEATHER_MAP_KEY } from "../env";
 
 const kelvinToC = (kelvin: number) => kelvin - 273.15;
-const kelvinToF = (kelvin: number) => kelvin * 9 / 5 - 459.67;
+const kelvinToF = (kelvin: number) => (kelvin * 9) / 5 - 459.67;
 const msToKmH = (ms: number) => ms * 3.6;
 const msTompH = (ms: number) => ms * 2.23694;
 

@@ -11,7 +11,6 @@ import { HandlerArgs } from "../handler-args";
 
 import { processMessage } from "../util/handler";
 
-// tslint:disable-next-line:typedef
 export function makeDiscordBot(discordToken: string) {
   const client = new DiscordClient();
 

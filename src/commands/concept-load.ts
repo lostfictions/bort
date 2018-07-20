@@ -10,7 +10,6 @@ const slackEscapeRegex = /^<(.+)>$/;
 
 const traverse = (obj: any, path: string[]): any => {
   try {
-    // tslint:disable-next-line no-parameter-reassignment
     path.forEach(p => (obj = obj[p]));
     return obj;
   } catch (e) {

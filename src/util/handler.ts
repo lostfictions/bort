@@ -8,7 +8,6 @@ export type Handler<TData, TResult = string> =
 
 export type HandlerOrHandlers<TData> = Handler<TData> | Handler<TData>[];
 
-// tslint:disable-next-line: interface-over-type-literal
 type DefaultData = { message: string };
 
 export async function processMessage<TData = DefaultData>(

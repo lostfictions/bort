@@ -11,7 +11,6 @@ export function escapeForRegex(expression: string): string {
 }
 
 /** Returns a random number between min (inclusive) and max (exclusive). */
-/* tslint:disable:no-parameter-reassignment */
 export function randomInt(max: number): number;
 export function randomInt(min: number, max: number): number;
 export function randomInt(min: number, max?: number): number {
@@ -24,7 +23,6 @@ export function randomInt(min: number, max?: number): number {
   }
   return Math.floor(Math.random() * (max - min)) + min;
 }
-/* tslint:enable:no-parameter-reassignment */
 
 export function randomInArray<T>(arr: T[]): T {
   return arr[Math.floor(Math.random() * arr.length)];

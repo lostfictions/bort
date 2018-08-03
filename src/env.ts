@@ -36,6 +36,12 @@ if (!fs.existsSync(DATA_DIR)) {
   fs.mkdirSync(DATA_DIR);
 }
 
+if (OPEN_WEATHER_MAP_KEY.length === 0) {
+  console.warn(
+    `Open Weather Map key appears invalid! Weather command may not work.`
+  );
+}
+
 const isValidConfiguration = USE_CLI || DISCORD_TOKEN;
 
 if (!isValidConfiguration) {

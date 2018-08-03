@@ -5,6 +5,7 @@ import {
   DMChannel
 } from "discord.js";
 
+import { replaceDbName } from "../store/store";
 import { getStore } from "../store/get-store";
 import messageHandler from "../root-handler";
 import { HandlerArgs } from "../handler-args";
@@ -60,7 +61,7 @@ export function makeDiscordBot(discordToken: string) {
         }
       })();
 
-      const store = await getStore(storeName);
+      const store = await getStore(replaceDbName(storeName));
 
       const response = await processMessage<HandlerArgs>(messageHandler, {
         store,

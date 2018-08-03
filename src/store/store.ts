@@ -17,6 +17,10 @@ import { WordBank } from "../components/markov";
 import { ConceptBank } from "../commands/concepts";
 
 const invalidDbNameRegex = /[^a-z0-9_-]+/i;
+const dbNameReplacementRegex = /[^a-z0-9_-]/gi;
+export function replaceDbName(dbName: string): string {
+  return dbName.replace(dbNameReplacementRegex, "_");
+}
 
 // TODO: get rid of immutable
 

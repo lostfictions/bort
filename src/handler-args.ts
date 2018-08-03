@@ -1,10 +1,9 @@
-import { Store } from "redux";
-import { BortStore } from "./store/store";
+import { Store } from "./store/store";
 
 export interface HandlerArgs {
   message: string;
   username: string;
   channel: string;
-  store: Store<BortStore>;
+  store: Store;
   isDM: boolean;
 }

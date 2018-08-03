@@ -4,7 +4,7 @@ import * as cheerio from "cheerio";
 
 import { Store } from "redux";
 import { BortStore } from "../store/store";
-import { addRecentAction } from "../actions/recents";
+import { addRecentAction } from "../reducers/recents";
 
 import { randomInArray } from "../util";
 

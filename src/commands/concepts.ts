@@ -7,7 +7,7 @@ import {
   removeConceptAction,
   addToConceptAction,
   removeFromConceptAction
-} from "../actions/concept";
+} from "../reducers/concepts";
 
 export type ConceptBank = Map<string, List<string>>;
 

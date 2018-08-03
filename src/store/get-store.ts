@@ -5,7 +5,7 @@ import { Store } from "redux";
 import { makeStore, BortStore } from "./store";
 import { DATA_DIR } from "../env";
 
-import { cleanRecentsAction } from "../actions/recents";
+import { cleanRecentsAction } from "../reducers/recents";
 
 const storeCache: { [id: string]: Store<BortStore> } = {};
 

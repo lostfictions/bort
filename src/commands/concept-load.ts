@@ -2,7 +2,7 @@ import { makeCommand } from "../util/handler";
 import * as got from "got";
 import { isURL } from "validator";
 import { HandlerArgs } from "../handler-args";
-import { loadConceptAction } from "../actions/concept";
+import { loadConceptAction } from "../reducers/concepts";
 
 const loaderRegex = /^([^ ]+) +(?:path[=: ]([\w\d.]+) +)?(?:as|to) +([^\s]+)$/;
 

@@ -27,8 +27,8 @@ import {
 import { getSentence } from "./components/markov";
 import trace, { matcher as traceMatcher } from "./components/trace";
 
-import { addSentenceAction } from "./actions/markov";
-import { setSeenAction } from "./actions/seen";
+import { addSentenceAction } from "./reducers/markov";
+import { setSeenAction } from "./reducers/seen";
 
 const subCommands = [
   conceptAddCommand,

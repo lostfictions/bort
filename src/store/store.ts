@@ -2,7 +2,7 @@ import * as fs from "fs";
 import * as path from "path";
 import * as assert from "assert";
 
-import { createStore, Store } from "redux";
+import { createStore, Store, Reducer } from "redux";
 import { combineReducers } from "redux-immutable";
 import { fromJS, Map } from "immutable";
 
@@ -16,7 +16,7 @@ import { seenReducers, SeenData } from "../reducers/seen";
 import { WordBank } from "../components/markov";
 import { ConceptBank } from "../commands/concepts";
 
-import { addSentenceAction } from "../actions/markov";
+import { addSentenceAction } from "../reducers/markov";
 
 export interface BortStore extends Map<string, any> {
   get(key: "wordBank"): WordBank;
@@ -35,10 +35,10 @@ export interface BortStore extends Map<string, any> {
 }
 
 const rootReducer = combineReducers<BortStore>({
-  wordBank: markovReducers,
-  concepts: conceptReducers,
-  recents: recentsReducers,
-  seen: seenReducers
+  wordBank: markovReducers as Reducer<any>,
+  concepts: conceptReducers as Reducer<any>,
+  recents: recentsReducers as Reducer<any>,
+  seen: seenReducers as Reducer<any>
 });
 
 export function makeStore(filename: string = "state"): Store<BortStore> {

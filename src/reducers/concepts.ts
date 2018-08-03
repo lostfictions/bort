@@ -1,33 +1,87 @@
-import { Action, Reducer } from "redux";
 import { Map, List } from "immutable";
 
 import { ConceptBank } from "../commands/concepts";
 
-import {
-  isAddConceptAction,
-  isRemoveConceptAction,
-  isLoadConceptAction,
-  isAddToConceptAction,
-  isRemoveFromConceptAction
-} from "../actions/concept";
+interface AddConceptAction {
+  type: "ADD_CONCEPT";
+  conceptName: string;
+}
 
-export const conceptReducers: Reducer<ConceptBank> = (
-  state: ConceptBank = Map<string, List<string>>(),
-  action: Action
+interface RemoveConceptAction {
+  type: "REMOVE_CONCEPT";
+  conceptName: string;
+}
+
+interface LoadConceptAction {
+  type: "LOAD_CONCEPT";
+  conceptName: string;
+  items: string[];
+}
+
+interface AddToConceptAction {
+  type: "ADD_TO_CONCEPT";
+  conceptName: string;
+  item: string;
+}
+
+interface RemoveFromConceptAction {
+  type: "REMOVE_FROM_CONCEPT";
+  conceptName: string;
+  item: string;
+}
+
+export const addConceptAction = (conceptName: string): AddConceptAction => ({
+  type: "ADD_CONCEPT",
+  conceptName
+});
+
+export const removeConceptAction = (
+  conceptName: string
+): RemoveConceptAction => ({ type: "REMOVE_CONCEPT", conceptName });
+
+export const loadConceptAction = (
+  conceptName: string,
+  items: string[]
+): LoadConceptAction => ({ type: "LOAD_CONCEPT", conceptName, items });
+
+export const addToConceptAction = (
+  conceptName: string,
+  item: string
+): AddToConceptAction => ({ type: "ADD_TO_CONCEPT", conceptName, item });
+
+export const removeFromConceptAction = (
+  conceptName: string,
+  item: string
+): RemoveFromConceptAction => ({
+  type: "REMOVE_FROM_CONCEPT",
+  conceptName,
+  item
+});
+
+type ConceptAction =
+  | AddConceptAction
+  | RemoveConceptAction
+  | LoadConceptAction
+  | AddToConceptAction
+  | RemoveFromConceptAction;
+
+export const conceptReducers = (
+  state: ConceptBank = Map(),
+  action: ConceptAction
 ) => {
-  if (isAddConceptAction(action)) {
-    return state.set(action.conceptName, List([]));
-  } else if (isRemoveConceptAction(action)) {
-    return state.delete(action.conceptName);
-  } else if (isLoadConceptAction(action)) {
-    return state.set(action.conceptName, List(action.items));
-  } else if (isAddToConceptAction(action)) {
-    return state.update(action.conceptName, items => items.push(action.item));
-  } else if (isRemoveFromConceptAction(action)) {
-    return state.update(action.conceptName, items =>
-      items.delete(items.indexOf(action.item))
-    );
+  switch (action.type) {
+    case "ADD_CONCEPT":
+      return state.set(action.conceptName, List([]));
+    case "REMOVE_CONCEPT":
+      return state.delete(action.conceptName);
+    case "LOAD_CONCEPT":
+      return state.set(action.conceptName, List(action.items));
+    case "ADD_TO_CONCEPT":
+      return state.update(action.conceptName, items => items.push(action.item));
+    case "REMOVE_FROM_CONCEPT":
+      return state.update(action.conceptName, items =>
+        items.delete(items.indexOf(action.item))
+      );
   }
-
   return state;
 };

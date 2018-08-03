@@ -1,7 +1,24 @@
-import { Action, Reducer } from "redux";
 import { Map } from "immutable";
 
-import { isSetSeenAction } from "../actions/seen";
+interface SetSeenAction {
+  type: "SET_SEEN";
+  username: string;
+  time: number;
+  message: string;
+  channel: string;
+}
+
+export const setSeenAction = (
+  username: string,
+  message: string,
+  channel: string
+): SetSeenAction => ({
+  type: "SET_SEEN",
+  username,
+  time: Date.now(),
+  message,
+  channel
+});
 
 export interface SeenData {
   time: number;
@@ -9,13 +26,15 @@ export interface SeenData {
   channel: string;
 }
 
-export const seenReducers: Reducer<Map<string, SeenData>> = (
+export const seenReducers = (
   state = Map<string, SeenData>(),
-  action: Action
+  action: SetSeenAction
 ) => {
-  if (isSetSeenAction(action)) {
-    const { username, type, ...data } = action;
-    return state.set(username, data);
+  switch (action.type) {
+    case "SET_SEEN": {
+      const { username, type, ...data } = action;
+      return state.set(username, data);
+    }
   }
 
   return state;

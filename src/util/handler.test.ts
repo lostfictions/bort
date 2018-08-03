@@ -82,16 +82,25 @@ describe("processMessage", () => {
 describe("makeCommand", () => {
   it("should resolve a command with an argument to a message", () =>
     expect(
-      processMessage(makeCommand({ name: "butt" }, ({ message }) => message), {
-        message: "butt mess"
-      })
+      processMessage(
+        makeCommand<{ message: string }>(
+          { name: "butt" },
+          ({ message }) => message
+        ),
+        {
+          message: "butt mess"
+        }
+      )
     ).resolves.toBe("mess"));
 
   it("should resolve a command without an argument to a message", () =>
     expect(
-      processMessage(makeCommand({ name: "butt" }, () => "yo"), {
-        message: "butt"
-      })
+      processMessage(
+        makeCommand<{ message: string }>({ name: "butt" }, () => "yo"),
+        {
+          message: "butt"
+        }
+      )
     ).resolves.toBe("yo"));
 
   it("should resolve a command with nested handlers to a message", () => {
@@ -118,8 +127,14 @@ describe("makeCommand", () => {
 
   it("should only match commands at the beginning of a message", () =>
     expect(
-      processMessage(makeCommand({ name: "butt" }, ({ message }) => message), {
-        message: "something butt mess"
-      })
+      processMessage(
+        makeCommand<{ message: string }>(
+          { name: "butt" },
+          ({ message }) => message
+        ),
+        {
+          message: "something butt mess"
+        }
+      )
     ).resolves.toBe(false));
 });

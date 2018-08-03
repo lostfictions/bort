@@ -20,6 +20,7 @@
       "consistent"
     ],
     "no-console": "off",
+    "no-dupe-class-members": "off",
     "no-empty": "warn",
     "no-undef": "off",
     "no-unused-expressions": "error",

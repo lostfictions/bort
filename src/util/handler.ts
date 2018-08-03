@@ -1,5 +1,5 @@
 import { escapeForRegex } from "./index";
-
+import { HandlerArgs } from "../handler-args";
 type HandlerResult<T> = T | false | Promise<T | false>;
 type HandlerFn<TData, TResult> = (data: TData) => HandlerResult<TResult>;
 export type Handler<TData, TResult = string> =
@@ -49,7 +49,7 @@ export interface Command<TData> {
   readonly details?: string;
 }
 
-export function makeCommand<TData extends { message: string }>(
+export function makeCommand<TData extends { message: string } = HandlerArgs>(
   options: CommandOptions,
   handlerOrHandlers: HandlerOrHandlers<TData>
 ): Command<TData> {
@@ -87,11 +87,11 @@ export function makeCommand<TData extends { message: string }>(
 }
 
 export function adjustArgs<TAdjusted = { message: string }, TData = TAdjusted>(
-  adjuster: (data: TData) => TAdjusted | false,
+  adjuster: (data: TData) => TAdjusted | false | Promise<TAdjusted | false>,
   handlerOrHandlers: HandlerOrHandlers<TAdjusted>
 ): (data: TData) => Promise<string | false> {
   return async (data: TData) => {
-    const adjustedData = adjuster(data);
+    const adjustedData = await adjuster(data);
     if (adjustedData === false) {
       return false;
     }

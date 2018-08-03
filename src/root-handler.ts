@@ -72,12 +72,12 @@ const subcommandsMatcher = new RegExp(
 );
 
 // TODO: allow getting usage for subcommands
-const helpCommand = makeCommand<HandlerArgs>(
+const helpCommand = makeCommand(
   {
     name: "list",
     aliases: ["help", "usage"]
   },
-  ({ message, store }) => {
+  async ({ message, store }) => {
     if (message.trim().length > 0) {
       const match = message.match(subcommandsMatcher);
       if (match) {
@@ -109,11 +109,7 @@ const helpCommand = makeCommand<HandlerArgs>(
       }
     }
 
-    const concepts = store
-      .getState()
-      .get("concepts")
-      .keySeq()
-      .toJS();
+    const concepts = (await store.get("concepts")).keySeq().toJS();
 
     return (
       "**Commands:**\n" +
@@ -133,14 +129,14 @@ const rootCommand = [
   conceptMatcher,
   helpCommand,
   // If we match nothing, check if we can trace! if not, just return a markov sentence
-  ({ message, store }: HandlerArgs): string => {
-    const state = store.getState();
-    const wb = state.get("wordBank");
+  async ({ message, store }: HandlerArgs): Promise<string> => {
+    const wb = await store.get("wordBank");
+    const concepts = await store.get("concepts");
     if (message.length > 0) {
       if (traceMatcher.test(message)) {
         return message.replace(traceMatcher, (_, concept) =>
           trace({
-            concepts: state.get("concepts"),
+            concepts,
             concept
           })
         );
@@ -161,14 +157,14 @@ const rootCommand = [
   }
 ] as Handler<HandlerArgs, string>[];
 
-const handleDirectConcepts = ({
+const handleDirectConcepts = async ({
   message,
   store
-}: HandlerArgs): string | false => {
+}: HandlerArgs): Promise<string | false> => {
   if (!message.startsWith("!")) {
     return false;
   }
-  const concepts = store.getState().get("concepts");
+  const concepts = await store.get("concepts");
   const matchedConcept = concepts.get(message);
   if (matchedConcept != null && matchedConcept.size > 0) {
     return trace({ concepts, concept: message });

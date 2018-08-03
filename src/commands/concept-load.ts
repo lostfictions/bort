@@ -1,7 +1,7 @@
-import { makeCommand } from "../util/handler";
 import * as got from "got";
 import { isURL } from "validator";
-import { HandlerArgs } from "../handler-args";
+
+import { makeCommand } from "../util/handler";
 import { loadConceptAction } from "../reducers/concepts";
 
 const loaderRegex = /^([^ ]+) +(?:path[=: ]([\w\d.]+) +)?(?:as|to) +([^\s]+)$/;
@@ -18,7 +18,7 @@ const traverse = (obj: any, path: string[]): any => {
   return null;
 };
 
-export default makeCommand<HandlerArgs>(
+export default makeCommand(
   {
     name: "load",
     aliases: ["json"],

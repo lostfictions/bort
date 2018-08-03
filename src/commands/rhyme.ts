@@ -1,9 +1,7 @@
+import { Map as ImmMap } from "immutable";
+
 import { makeCommand } from "../util/handler";
 import { randomInArray } from "../util";
-
-import { HandlerArgs } from "../handler-args";
-
-import { Map } from "immutable";
 
 import { tryTrace } from "../components/trace";
 
@@ -56,8 +54,9 @@ export default makeCommand(
     description:
       "bust a rhyme like you never seen / taco beats gonna make you scream"
   },
-  ({ message, store }: HandlerArgs): string | false => {
-    const maybeTraced = tryTrace(message, store.getState().get("concepts"));
+  async ({ message, store }): Promise<string | false> => {
+    const concepts = await store.get("concepts");
+    const maybeTraced = tryTrace(message, concepts);
     let prefix = "";
     if (maybeTraced) {
       message = maybeTraced;
@@ -73,7 +72,7 @@ export default makeCommand(
       return false;
     }
 
-    const wb = store.getState().get("wordBank");
+    const wb = await store.get("wordBank");
     const reply = [];
 
     for (const word of words) {
@@ -85,7 +84,7 @@ export default makeCommand(
       }
 
       if (rhyme === "*") {
-        const nexts: Map<string, number> | undefined = wb.get(
+        const nexts: ImmMap<string, number> | undefined = wb.get(
           reply[reply.length - 1]
         );
         if (nexts != null) {

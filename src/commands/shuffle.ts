@@ -1,14 +1,13 @@
 import { makeCommand } from "../util/handler";
-import { HandlerArgs } from "../handler-args";
 
 import { randomInt } from "../util";
 
-export default makeCommand<HandlerArgs>(
+export default makeCommand(
   {
     name: "shuffle",
     description: "pull things out of a bag until there's none left"
   },
-  ({ message, store }): string => {
+  async ({ message, store }): Promise<string> => {
     if (message.length === 0) {
       return "I need a concept to shuffle!";
     }
@@ -17,7 +16,7 @@ export default makeCommand<HandlerArgs>(
       normalizedMessage = message.slice(1, -1);
     }
 
-    const concepts = store.getState().get("concepts");
+    const concepts = await store.get("concepts");
     if (!concepts.has(normalizedMessage)) {
       return `Unknown concept: [${normalizedMessage}]`;
     }

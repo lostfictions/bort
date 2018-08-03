@@ -4,7 +4,6 @@ import * as cheerio from "cheerio";
 
 import { randomInArray } from "../util";
 
-import { HandlerArgs } from "../handler-args";
 import { tryTrace } from "../components/trace";
 
 import { search } from "./images";
@@ -20,24 +19,30 @@ function getRandomWikihowImage(): Promise<string> {
   });
 }
 
-export default makeCommand<HandlerArgs>(
+export default makeCommand(
   {
     name: "wikihow",
     aliases: [`how do i`, `how to`],
     description: "learn anything"
   },
-  ({ message, store }): Promise<string> => {
+  async ({ message, store }): Promise<string> => {
     if (message.length === 0) {
       return getRandomWikihowImage();
     }
 
-    const maybeTraced = tryTrace(message, store.getState().get("concepts"));
+    const dispatch = store.dispatch;
+    const recents = await store.get("recents");
+
+    const concepts = await store.get("concepts");
+    const maybeTraced = tryTrace(message, concepts);
     if (maybeTraced) {
-      return search(maybeTraced + " site:wikihow.com", store).then(
-        res => `(${maybeTraced})\n${res}`
-      );
+      return search({
+        term: maybeTraced + " site:wikihow.com",
+        dispatch,
+        recents
+      }).then(res => `(${maybeTraced})\n${res}`);
     }
 
-    return search(message + " site:wikihow.com", store);
+    return search({ term: message + " site:wikihow.com", dispatch, recents });
   }
 );

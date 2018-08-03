@@ -1,27 +1,26 @@
 import { makeCommand } from "../util/handler";
 import { randomInArray } from "../util";
 
-import { HandlerArgs } from "../handler-args";
-
-import { Map } from "immutable";
+import { Map as ImmMap } from "immutable";
 
 import { tryTrace } from "../components/trace";
 
-export default makeCommand<HandlerArgs>(
+export default makeCommand(
   {
     name: "busey",
     aliases: ["acro", "acronym"],
     description: "make buseyisms"
   },
-  ({ message, store }) => {
-    const maybeTraced = tryTrace(message, store.getState().get("concepts"));
+  async ({ message, store }) => {
+    const concepts = await store.get("concepts");
+    const maybeTraced = tryTrace(message, concepts);
     let prefix = "";
     if (maybeTraced) {
       message = maybeTraced;
       prefix = `(${maybeTraced})\n`;
     }
 
-    const wb = store.getState().get("wordBank");
+    const wb = await store.get("wordBank");
 
     const letters = message
       .toLowerCase()
@@ -36,7 +35,7 @@ export default makeCommand<HandlerArgs>(
 
       // First, try to find something that follows from our previous word
       if (lastWord) {
-        const nexts: Map<string, number> | undefined = wb.get(lastWord);
+        const nexts: ImmMap<string, number> | undefined = wb.get(lastWord);
         if (nexts != null) {
           candidates = nexts
             .keySeq()

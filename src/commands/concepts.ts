@@ -1,5 +1,5 @@
 import { makeCommand, adjustArgs } from "../util/handler";
-import { Map, List } from "immutable";
+import { Map as ImmMap, List as ImmList } from "immutable";
 
 import { HandlerArgs } from "../handler-args";
 import {
@@ -9,7 +9,7 @@ import {
   removeFromConceptAction
 } from "../reducers/concepts";
 
-export type ConceptBank = Map<string, List<string>>;
+export type ConceptBank = ImmMap<string, ImmList<string>>;
 
 type HandlerArgsWithConcept = HandlerArgs & { concept: string };
 
@@ -36,18 +36,18 @@ function normalizeMessageWithLeadingConcept(message: string): [string, string] {
   return [matches[1], matches[2]];
 }
 
-export const conceptAddCommand = makeCommand<HandlerArgs>(
+export const conceptAddCommand = makeCommand(
   {
     name: "add",
     aliases: ["+"],
     description: "add a new concept"
   },
-  ({ message, store }) => {
+  async ({ message, store }) => {
     if (message.length === 0) {
       return false;
     }
 
-    const concepts = store.getState().get("concepts");
+    const concepts = await store.get("concepts");
     if (concepts.has(message)) {
       return `Concept "${message}" already exists!`;
     }
@@ -62,12 +62,12 @@ export const conceptRemoveCommand = makeCommand<HandlerArgs>(
     aliases: ["delete", "-"],
     description: "delete an existing concept"
   },
-  ({ message, store }) => {
+  async ({ message, store }) => {
     if (message.length === 0) {
       return false;
     }
 
-    const concepts = store.getState().get("concepts");
+    const concepts = await store.get("concepts");
     if (!concepts.has(message)) {
       return `Concept "${message}" doesn't exist!`;
     }
@@ -76,13 +76,13 @@ export const conceptRemoveCommand = makeCommand<HandlerArgs>(
   }
 );
 
-export const conceptSetCommand = makeCommand<HandlerArgs>(
+export const conceptSetCommand = makeCommand(
   {
     name: "set",
     description:
       "set the contents of a concept, overwriting the existing concept if it exists"
   },
-  ({ message, store }) => {
+  async ({ message, store }) => {
     if (message.length === 0) {
       return false;
     }
@@ -91,7 +91,7 @@ export const conceptSetCommand = makeCommand<HandlerArgs>(
     const args = remainder.split(",").map(s => s.trim());
     const result: string[] = [];
 
-    const concepts = store.getState().get("concepts");
+    const concepts = await store.get("concepts");
     if (concepts.has(concept)) {
       const count = concepts.get(concept).count();
       store.dispatch(removeConceptAction(concept));
@@ -110,18 +110,18 @@ export const conceptSetCommand = makeCommand<HandlerArgs>(
   }
 );
 
-export const conceptListCommand = makeCommand<HandlerArgs>(
+export const conceptListCommand = makeCommand(
   {
     name: "list",
     aliases: ["get"],
     description: "list everything in a concept"
   },
-  ({ message, store }) => {
+  async ({ message, store }) => {
     if (message.length === 0) {
       return false;
     }
 
-    const concepts = store.getState().get("concepts");
+    const concepts = await store.get("concepts");
     if (!concepts.has(message)) {
       return `Concept "${message}" doesn't exist!`;
     }
@@ -150,12 +150,12 @@ const conceptAddToCommand = makeCommand<HandlerArgsWithConcept>(
     aliases: ["+"],
     description: "add to a concept"
   },
-  ({ message, store, concept }) => {
+  async ({ message, store, concept }) => {
     if (message.length === 0) {
       return false;
     }
 
-    const concepts = store.getState().get("concepts");
+    const concepts = await store.get("concepts");
     if (concepts.get(concept).indexOf(message) !== -1) {
       return `"${message}" already exists in "${concept}"!`;
     }
@@ -170,13 +170,13 @@ const conceptBulkAddToCommand = makeCommand<HandlerArgsWithConcept>(
     aliases: ["++"],
     description: "add a comma-separated list of things to a concept"
   },
-  ({ message, store, concept }) => {
+  async ({ message, store, concept }) => {
     if (message.length === 0) {
       return false;
     }
     const conceptsToAdd = message.split(",").map(s => s.trim());
 
-    const concepts = store.getState().get("concepts");
+    const concepts = await store.get("concepts");
     const results: string[] = [];
     for (const c of conceptsToAdd) {
       if (concepts.get(concept).indexOf(c) !== -1) {
@@ -196,12 +196,12 @@ const conceptRemoveFromCommand = makeCommand<HandlerArgsWithConcept>(
     aliases: ["delete", "-"],
     description: "remove from a concept"
   },
-  ({ message, store, concept }) => {
+  async ({ message, store, concept }) => {
     if (message.length === 0) {
       return false;
     }
 
-    const concepts = store.getState().get("concepts");
+    const concepts = await store.get("concepts");
 
     if (concepts.get(concept).indexOf(message) === -1) {
       return `"${message}" doesn't exist in "${concept}"!`;
@@ -216,7 +216,7 @@ const conceptRemoveFromCommand = makeCommand<HandlerArgsWithConcept>(
 // and removes it from the message, and then redirects to one of the
 // commands above.
 export const conceptMatcher = adjustArgs<HandlerArgs>(
-  args => {
+  async args => {
     const { message, store } = args;
     if (message.length === 0) {
       return false;
@@ -224,7 +224,7 @@ export const conceptMatcher = adjustArgs<HandlerArgs>(
 
     const [concept, command] = normalizeMessageWithLeadingConcept(message);
 
-    const concepts = store.getState().get("concepts");
+    const concepts = await store.get("concepts");
     if (!concepts.has(concept)) {
       return false;
     }

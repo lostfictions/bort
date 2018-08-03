@@ -1,15 +1,14 @@
 import * as moment from "moment";
 
 import { makeCommand } from "../util/handler";
-import { HandlerArgs } from "../handler-args";
 
-export default makeCommand<HandlerArgs>(
+export default makeCommand(
   {
     name: "seen",
     description: "note when the given user was last seen"
   },
-  ({ message, store }) => {
-    const seen = store.getState().get("seen");
+  async ({ message, store }) => {
+    const seen = await store.get("seen");
 
     const username = message.trim().toLowerCase();
 

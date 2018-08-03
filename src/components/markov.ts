@@ -1,7 +1,7 @@
 import { randomInRange, randomByWeight } from "../util";
-import { Map } from "immutable";
+import { Map as ImmMap } from "immutable";
 
-export type WordBank = Map<string, Map<string, number>>;
+export type WordBank = ImmMap<string, ImmMap<string, number>>;
 
 //prettier-ignore
 const prepositions = [

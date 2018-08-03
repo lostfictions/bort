@@ -1,9 +1,8 @@
-import { makeCommand } from "../util/handler";
 import * as got from "got";
 
 import { randomInArray } from "../util";
+import { makeCommand } from "../util/handler";
 
-import { HandlerArgs } from "../handler-args";
 import { tryTrace } from "../components/trace";
 
 interface GifResult {
@@ -16,18 +15,19 @@ interface GifResult {
   height: number;
 }
 
-export default makeCommand<HandlerArgs>(
+export default makeCommand(
   {
     name: "gifcities",
     aliases: ["geocities"],
     description: "geocities classix"
   },
-  ({ message, store }): Promise<string> | false => {
+  async ({ message, store }): Promise<string | false> => {
     if (message.length === 0) {
       return false;
     }
 
-    const maybeTraced = tryTrace(message, store.getState().get("concepts"));
+    const concepts = await store.get("concepts");
+    const maybeTraced = tryTrace(message, concepts);
     if (maybeTraced) {
       return doQuery(maybeTraced).then(res => `(${maybeTraced})\n${res}`);
     }

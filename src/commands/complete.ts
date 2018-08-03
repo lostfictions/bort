@@ -16,7 +16,8 @@ export default makeCommand<HandlerArgs>(
       return false;
     }
 
-    const maybeTraced = tryTrace(message, store.getState().get("concepts"));
+    const concepts = await store.get("concepts");
+    const maybeTraced = tryTrace(message, concepts);
 
     const res = await got(`https://suggestqueries.google.com/complete/search`, {
       query: { q: maybeTraced || message, client: "firefox" },

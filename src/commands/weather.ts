@@ -1,7 +1,6 @@
 import * as got from "got";
 import { stripIndent } from "common-tags";
 
-import { HandlerArgs } from "../handler-args";
 import { makeCommand } from "../util/handler";
 
 import { OPEN_WEATHER_MAP_KEY } from "../env";
@@ -50,7 +49,7 @@ function meteorologicalAngleToDirection(deg: number): string {
   }
 }
 
-export default makeCommand<HandlerArgs>(
+export default makeCommand(
   {
     name: "weather",
     description: "rain or shine"

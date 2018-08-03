@@ -1,14 +1,11 @@
-import { makeCommand } from "../util/handler";
+import { Map as ImmMap } from "immutable";
 import * as got from "got";
 import * as cheerio from "cheerio";
 
-import { Store } from "redux";
-import { BortStore } from "../store/store";
-import { addRecentAction } from "../reducers/recents";
-
 import { randomInArray } from "../util";
+import { makeCommand } from "../util/handler";
 
-import { HandlerArgs } from "../handler-args";
+import { addRecentAction } from "../reducers/recents";
 import { tryTrace } from "../components/trace";
 
 // based on https://github.com/jimkang/g-i-s/blob/master/index.js
@@ -43,11 +40,17 @@ const requestAndParse = (term: string, animated: boolean, exact: boolean) =>
     return urls;
   });
 
-export const search = (
-  term: string,
-  store: Store<BortStore>,
+export const search = ({
+  term,
+  recents,
+  dispatch,
   animated = false
-) =>
+}: {
+  term: string;
+  recents: ImmMap<string, number>;
+  dispatch: (action: any) => void;
+  animated?: boolean;
+}) =>
   requestAndParse(term, animated, true)
     .then(res => {
       if (res.length === 0) {
@@ -57,13 +60,10 @@ export const search = (
       return res;
     })
     .then(res => {
-      const state = store.getState();
-      const excluding = state.get("recents");
-
       const unseenResults = [];
       while (res.length > 0 && unseenResults.length < 5) {
         const i = res.shift()!;
-        if (!excluding.has(i)) {
+        if (!recents.has(i)) {
           unseenResults.push(i);
         }
       }
@@ -73,11 +73,11 @@ export const search = (
       }
 
       const result = randomInArray(unseenResults);
-      store.dispatch(addRecentAction(result));
+      dispatch(addRecentAction(result));
       return result;
     });
 
-export const imageSearchCommand = makeCommand<HandlerArgs>(
+export const imageSearchCommand = makeCommand(
   {
     name: "image",
     aliases: [
@@ -92,38 +92,51 @@ export const imageSearchCommand = makeCommand<HandlerArgs>(
     ],
     description: "i will show you"
   },
-  ({ message, store }): Promise<string> | false => {
+  async ({ message, store }): Promise<string | false> => {
     if (message.length === 0) {
       return false;
     }
 
-    const maybeTraced = tryTrace(message, store.getState().get("concepts"));
+    const concepts = await store.get("concepts");
+    const recents = await store.get("recents");
+    const dispatch = store.dispatch;
+
+    const maybeTraced = tryTrace(message, concepts);
     if (maybeTraced) {
-      return search(maybeTraced, store).then(res => `(${maybeTraced})\n${res}`);
+      return search({ term: maybeTraced, recents, dispatch }).then(
+        res => `(${maybeTraced})\n${res}`
+      );
     }
 
-    return search(message, store);
+    return search({ term: message, recents, dispatch });
   }
 );
 
-export const gifSearchCommand = makeCommand<HandlerArgs>(
+export const gifSearchCommand = makeCommand(
   {
     name: "gifsearch",
     aliases: ["gif me the", "gif me an", "gif me a", "gif me", "gif"],
     description: "moving pictures"
   },
-  ({ message, store }): Promise<string> | false => {
+  async ({ message, store }): Promise<string | false> => {
     if (message.length === 0) {
       return false;
     }
 
-    const maybeTraced = tryTrace(message, store.getState().get("concepts"));
+    const concepts = await store.get("concepts");
+    const recents = await store.get("recents");
+    const dispatch = store.dispatch;
+
+    const maybeTraced = tryTrace(message, concepts);
     if (maybeTraced) {
-      return search(maybeTraced, store, true).then(
-        res => `(${maybeTraced})\n${res}`
-      );
+      return search({
+        term: maybeTraced,
+        recents,
+        dispatch,
+        animated: true
+      }).then(res => `(${maybeTraced})\n${res}`);
     }
 
-    return search(message, store, true);
+    return search({ term: message, recents, dispatch, animated: true });
   }
 );

@@ -45,7 +45,7 @@ export class Store<T = StoreShape> {
       throw new Error(`Invalid db name! Permitted characters: [a-zA-Z0-9_-]`);
     }
 
-    const dbPath = Store.dbPath(dbName);
+    const dbPath = Store.getEnsuredDbPath(dbName);
 
     let shouldInitialize = false;
     if (fs.existsSync(dbPath)) {
@@ -61,10 +61,19 @@ export class Store<T = StoreShape> {
 
     this.db = level(dbPath, { valueEncoding: "json" });
     if (shouldInitialize) {
-      const puts = Object.entries(defaultData).map((key, val) =>
-        this.db.put(key, val)
+      // FIXME: remove immutable
+      const plainDefaultData = ImmMap.isMap(defaultData)
+        ? (defaultData as any).toJS()
+        : defaultData;
+
+      const puts = Object.entries(plainDefaultData).map(([key, val]) =>
+        this.db.put(key, val).then(() => {
+          console.log(`Initialized "${key}" in DB with default values.`);
+        })
       );
-      this.initializer = Promise.all(puts).then(() => {});
+      this.initializer = Promise.all(puts).then(() => {
+        console.log("Finished initializing DB.");
+      });
     }
   }
 
@@ -129,9 +138,21 @@ export class Store<T = StoreShape> {
 
   //   return true;
   // }
+  private static readonly dbBasePath = path.join(DATA_DIR, "db");
+  private static getEnsuredDbPath(dbName: string): string {
+    if (!fs.existsSync(DATA_DIR)) {
+      throw new Error(`Invalid data dir! "${DATA_DIR}"`);
+    }
+    const dbBasePathExists = fs.existsSync(this.dbBasePath);
+    if (!dbBasePathExists) {
+      fs.mkdirSync(this.dbBasePath);
+    } else if (!fs.statSync(this.dbBasePath).isDirectory()) {
+      throw new Error(
+        `DB base path exists at "${this.dbBasePath}", but is not a directory!`
+      );
+    }
 
-  private static dbPath(dbName: string): string {
-    return path.join(DATA_DIR, "db", dbName);
+    return path.join(this.dbBasePath, dbName);
   }
 }
 

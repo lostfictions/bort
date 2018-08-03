@@ -8,7 +8,7 @@ const storeCache: { [id: string]: Store } = {};
  * channels to share a store, make sure it has a unique ID!
  * @param id The unique identifier for this store.
  */
-export function getStore(id: string): Store {
+export async function getStore(id: string): Promise<Store> {
   if (id.length < 1) {
     throw new Error("Invalid id for store!");
   }
@@ -16,7 +16,7 @@ export function getStore(id: string): Store {
   if (id in storeCache) {
     return storeCache[id];
   }
-  const s = makeStore(id);
+  const s = await makeStore(id);
 
   setInterval(() => s.dispatch(cleanRecentsAction()), 60000);
 

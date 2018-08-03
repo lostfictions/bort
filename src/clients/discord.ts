@@ -60,7 +60,7 @@ export function makeDiscordBot(discordToken: string) {
         }
       })();
 
-      const store = getStore(storeName);
+      const store = await getStore(storeName);
 
       const response = await processMessage<HandlerArgs>(messageHandler, {
         store,

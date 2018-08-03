@@ -154,7 +154,7 @@ interface StoreShape {
 }
 
 let defaultData: StoreShape;
-export function makeStore(dbName: string): Store<StoreShape> {
+export async function makeStore(dbName: string): Promise<Store<StoreShape>> {
   if (!defaultData) {
     defaultData = ImmMap<string, any>({
       wordBank: getInitialWordbank(),
@@ -164,7 +164,7 @@ export function makeStore(dbName: string): Store<StoreShape> {
     }) as any; // FIXME
   }
 
-  return new Store({
+  const store = new Store({
     dbName,
     reducerTree: {
       wordBank: markovReducers as Reducer,
@@ -174,6 +174,12 @@ export function makeStore(dbName: string): Store<StoreShape> {
     },
     defaultData
   });
+
+  if (store.initializer) {
+    await store.initializer;
+  }
+
+  return store;
 }
 
 function getInitialWordbank(): WordBank {

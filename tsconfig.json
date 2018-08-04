@@ -3,14 +3,11 @@
     "target": "es2017",
     "module": "commonjs",
     "outDir": "dist",
-    "allowJs": true,
     "strict": true,
     "sourceMap": true,
-    "rootDirs": ["./src"],
     "noUnusedLocals": true,
     "noUnusedParameters": true
-    // "allowSyntheticDefaultImports": true,
-	},
+  },
   "include": [
     "./defs/**/*",
     "./src/**/*"

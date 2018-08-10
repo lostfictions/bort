@@ -1,4 +1,4 @@
-import { Store } from "../store/store";
+import { BortStore } from "../store/make-store";
 import { randomInArray } from "../util";
 import { ConceptBank } from "../commands/concepts";
 
@@ -127,7 +127,7 @@ export function tryTrace(
   return false;
 }
 
-export async function maybeTraced(message: string, store: Store) {
+export async function maybeTraced(message: string, store: BortStore) {
   const concepts = await store.get("concepts");
   const traced = tryTrace(message, concepts);
   let prefix = "";

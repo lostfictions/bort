@@ -4,7 +4,7 @@ import * as cheerio from "cheerio";
 import { randomInArray } from "../util";
 import { makeCommand } from "../util/handler";
 
-import { Store } from "../store/store";
+import { BortStore } from "../store/make-store";
 import { addRecentAction } from "../reducers/recents";
 import { maybeTraced } from "../components/trace";
 
@@ -77,7 +77,11 @@ export const search = ({
       return result;
     });
 
-async function doSearch(rawMessage: string, store: Store, animated = false) {
+async function doSearch(
+  rawMessage: string,
+  store: BortStore,
+  animated = false
+) {
   let message: string;
   let prefix: string;
   if (rawMessage.length === 0) {

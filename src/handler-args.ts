@@ -1,9 +1,9 @@
-import { Store } from "./store/store";
+import { BortStore } from "./store/make-store";
 
 export interface HandlerArgs {
   message: string;
   username: string;
   channel: string;
-  store: Store;
+  store: BortStore;
   isDM: boolean;
 }

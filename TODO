@@ -6,6 +6,12 @@
 - low-hanging optimizations for level: namespace wordbank and only write changed
   keys, etc.
 
+- allow normalizing differences between clients
+  - normalized username format (for "seen" command, etc.)
+  - (maybe) service-independent formatting (markdown -> whatever?)
+
+- reminder command
+
 ----------------------------------------------------
 
 - cleanup messages? (eg. confirmations will disappear after 10 seconds; poor
@@ -21,12 +27,4 @@
 
 - document commands usage
 
-- allow normalizing differences between clients
-  - format username (for "seen" command, etc.)
-  - service-independent formatting (markdown -> whatever?)
-
 - reinstate radio command for discord
-
-- use ci install in dockerfile? (install prod deps only at first, use ci command
-  if available)
-

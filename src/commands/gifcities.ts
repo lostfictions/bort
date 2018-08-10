@@ -3,7 +3,7 @@ import * as got from "got";
 import { randomInArray } from "../util";
 import { makeCommand } from "../util/handler";
 
-import { tryTrace } from "../components/trace";
+import { maybeTraced } from "../components/trace";
 
 interface GifResult {
   page: string;
@@ -21,17 +21,22 @@ export default makeCommand(
     aliases: ["geocities"],
     description: "geocities classix"
   },
-  async ({ message, store }): Promise<string | false> => {
-    if (message.length === 0) {
-      return false;
+  async ({ message: rawMessage, store }) => {
+    let message: string;
+    let prefix: string;
+    if (rawMessage.length === 0) {
+      const concepts = await store.get("concepts");
+      if (concepts.has("noun")) {
+        message = randomInArray(concepts.get("noun").toArray());
+        prefix = message;
+      } else {
+        return false;
+      }
+    } else {
+      ({ message, prefix } = await maybeTraced(rawMessage, store));
     }
 
-    const concepts = await store.get("concepts");
-    const maybeTraced = tryTrace(message, concepts);
-    if (maybeTraced) {
-      return doQuery(maybeTraced).then(res => `(${maybeTraced})\n${res}`);
-    }
-    return doQuery(message);
+    return prefix + (await doQuery(message));
   }
 );
 
@@ -41,9 +46,9 @@ async function doQuery(query: string): Promise<string> {
     timeout: 5000
   });
 
-  return randomInArray<string>(
-    JSON.parse(res.body).map(
-      (g: GifResult) => "https://web.archive.org/web/" + g.gif
+  return randomInArray(
+    (JSON.parse(res.body) as GifResult[]).map(
+      g => "https://web.archive.org/web/" + g.gif
     )
   );
 }

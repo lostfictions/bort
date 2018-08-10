@@ -15,6 +15,7 @@ export default makeCommand(
     if (!seen.has(username)) {
       return `i haven't seen ${username}!`;
     }
+
     const { message: lastMessage, time, channel } = seen.get(username);
 
     return `${username} was last seen ${moment(

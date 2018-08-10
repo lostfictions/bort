@@ -5,8 +5,9 @@ import * as cheerio from "cheerio";
 import { randomInArray } from "../util";
 import { makeCommand } from "../util/handler";
 
+import { Store } from "../store/store";
 import { addRecentAction } from "../reducers/recents";
-import { tryTrace } from "../components/trace";
+import { maybeTraced } from "../components/trace";
 
 // based on https://github.com/jimkang/g-i-s/blob/master/index.js
 
@@ -77,6 +78,29 @@ export const search = ({
       return result;
     });
 
+async function doSearch(rawMessage: string, store: Store, animated = false) {
+  let message: string;
+  let prefix: string;
+  if (rawMessage.length === 0) {
+    const concepts = await store.get("concepts");
+    if (concepts.has("noun")) {
+      message = randomInArray(concepts.get("noun").toArray());
+      prefix = message;
+    } else {
+      return false;
+    }
+  } else {
+    ({ message, prefix } = await maybeTraced(rawMessage, store));
+  }
+
+  const recents = await store.get("recents");
+  const dispatch = store.dispatch;
+
+  return (
+    prefix + (await search({ term: message, recents, dispatch, animated }))
+  );
+}
+
 export const imageSearchCommand = makeCommand(
   {
     name: "image",
@@ -88,28 +112,12 @@ export const imageSearchCommand = makeCommand(
       `show me the`,
       `show me an`,
       `show me a`,
-      `show me`
+      `show me`,
+      `show`
     ],
     description: "i will show you"
   },
-  async ({ message, store }): Promise<string | false> => {
-    if (message.length === 0) {
-      return false;
-    }
-
-    const concepts = await store.get("concepts");
-    const recents = await store.get("recents");
-    const dispatch = store.dispatch;
-
-    const maybeTraced = tryTrace(message, concepts);
-    if (maybeTraced) {
-      return search({ term: maybeTraced, recents, dispatch }).then(
-        res => `(${maybeTraced})\n${res}`
-      );
-    }
-
-    return search({ term: message, recents, dispatch });
-  }
+  async ({ message, store }) => doSearch(message, store)
 );
 
 export const gifSearchCommand = makeCommand(
@@ -118,25 +126,5 @@ export const gifSearchCommand = makeCommand(
     aliases: ["gif me the", "gif me an", "gif me a", "gif me", "gif"],
     description: "moving pictures"
   },
-  async ({ message, store }): Promise<string | false> => {
-    if (message.length === 0) {
-      return false;
-    }
-
-    const concepts = await store.get("concepts");
-    const recents = await store.get("recents");
-    const dispatch = store.dispatch;
-
-    const maybeTraced = tryTrace(message, concepts);
-    if (maybeTraced) {
-      return search({
-        term: maybeTraced,
-        recents,
-        dispatch,
-        animated: true
-      }).then(res => `(${maybeTraced})\n${res}`);
-    }
-
-    return search({ term: message, recents, dispatch, animated: true });
-  }
+  async ({ message, store }) => doSearch(message, store, true)
 );

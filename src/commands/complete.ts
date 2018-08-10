@@ -3,7 +3,7 @@ import * as got from "got";
 
 import { HandlerArgs } from "../handler-args";
 
-import { tryTrace } from "../components/trace";
+import { maybeTraced } from "../components/trace";
 
 export default makeCommand<HandlerArgs>(
   {
@@ -11,23 +11,17 @@ export default makeCommand<HandlerArgs>(
     aliases: ["tell me"],
     description: "we know each other so well we finish each other's sentences"
   },
-  async ({ message, store }) => {
-    if (message.length === 0) {
+  async ({ message: rawMessage, store }) => {
+    if (rawMessage.length === 0) {
       return false;
     }
 
-    const concepts = await store.get("concepts");
-    const maybeTraced = tryTrace(message, concepts);
+    const { message, prefix } = await maybeTraced(rawMessage, store);
 
     const res = await got(`https://suggestqueries.google.com/complete/search`, {
       query: { q: maybeTraced || message, client: "firefox" },
       timeout: 5000
     });
-
-    let prefix = "";
-    if (maybeTraced) {
-      prefix = `(${maybeTraced})\n`;
-    }
 
     if (res.body.length > 0) {
       const parsed = JSON.parse(res.body);

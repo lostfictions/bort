@@ -3,7 +3,7 @@ import { Map as ImmMap } from "immutable";
 import { makeCommand } from "../util/handler";
 import { randomInArray } from "../util";
 
-import { tryTrace } from "../components/trace";
+import { maybeTraced } from "../components/trace";
 
 import * as cmu from "cmu-pronouncing-dictionary";
 
@@ -54,18 +54,11 @@ export default makeCommand(
     description:
       "bust a rhyme like you never seen / taco beats gonna make you scream"
   },
-  async ({ message, store }): Promise<string | false> => {
-    const concepts = await store.get("concepts");
-    const maybeTraced = tryTrace(message, concepts);
-    let prefix = "";
-    if (maybeTraced) {
-      message = maybeTraced;
-      prefix = `(${maybeTraced})\n`;
-    }
-
-    if (message.length === 0) {
+  async ({ message: rawMessage, store }): Promise<string | false> => {
+    if (rawMessage.length === 0) {
       return false;
     }
+    const { message, prefix } = await maybeTraced(rawMessage, store);
 
     const words = message.split(" ");
     if (words.length === 0) {

@@ -11,6 +11,7 @@ export default makeCommand(
     if (message.length === 0) {
       return "I need a concept to shuffle!";
     }
+
     let normalizedMessage = message;
     if (message.startsWith("[") && message.endsWith("]")) {
       normalizedMessage = message.slice(1, -1);

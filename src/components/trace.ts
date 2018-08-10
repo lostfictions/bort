@@ -1,3 +1,4 @@
+import { Store } from "../store/store";
 import { randomInRange } from "../util";
 import { ConceptBank } from "../commands/concepts";
 
@@ -124,4 +125,18 @@ export function tryTrace(
     );
   }
   return false;
+}
+
+export async function maybeTraced(message: string, store: Store) {
+  const concepts = await store.get("concepts");
+  const traced = tryTrace(message, concepts);
+  let prefix = "";
+  if (traced) {
+    message = traced;
+    prefix = `(${traced})\n`;
+  }
+  return {
+    message,
+    prefix
+  };
 }

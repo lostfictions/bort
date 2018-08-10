@@ -3,7 +3,7 @@ import { randomInArray } from "../util";
 
 import { Map as ImmMap } from "immutable";
 
-import { tryTrace } from "../components/trace";
+import { maybeTraced } from "../components/trace";
 
 export default makeCommand(
   {
@@ -11,14 +11,8 @@ export default makeCommand(
     aliases: ["acro", "acronym"],
     description: "make buseyisms"
   },
-  async ({ message, store }) => {
-    const concepts = await store.get("concepts");
-    const maybeTraced = tryTrace(message, concepts);
-    let prefix = "";
-    if (maybeTraced) {
-      message = maybeTraced;
-      prefix = `(${maybeTraced})\n`;
-    }
+  async ({ message: rawMessage, store }) => {
+    const { message, prefix } = await maybeTraced(rawMessage, store);
 
     const wb = await store.get("wordBank");
 

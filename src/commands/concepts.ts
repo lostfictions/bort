@@ -1,6 +1,4 @@
 import { makeCommand, adjustArgs } from "../util/handler";
-import { Map as ImmMap, List as ImmList } from "immutable";
-
 import { HandlerArgs } from "../handler-args";
 import {
   addConceptAction,
@@ -9,7 +7,7 @@ import {
   removeFromConceptAction
 } from "../reducers/concepts";
 
-export type ConceptBank = ImmMap<string, ImmList<string>>;
+export type ConceptBank = { [conceptName: string]: string[] };
 
 type HandlerArgsWithConcept = HandlerArgs & { concept: string };
 
@@ -48,7 +46,7 @@ export const conceptAddCommand = makeCommand(
     }
 
     const concepts = await store.get("concepts");
-    if (concepts.has(message)) {
+    if (message in concepts) {
       return `Concept "${message}" already exists!`;
     }
     store.dispatch(addConceptAction(message));
@@ -68,7 +66,7 @@ export const conceptRemoveCommand = makeCommand<HandlerArgs>(
     }
 
     const concepts = await store.get("concepts");
-    if (!concepts.has(message)) {
+    if (!(message in concepts)) {
       return `Concept "${message}" doesn't exist!`;
     }
     store.dispatch(removeConceptAction(message));
@@ -92,8 +90,8 @@ export const conceptSetCommand = makeCommand(
     const result: string[] = [];
 
     const concepts = await store.get("concepts");
-    if (concepts.has(concept)) {
-      const count = concepts.get(concept).count();
+    if (concept in concepts) {
+      const count = concepts[concept].length;
       store.dispatch(removeConceptAction(concept));
       result.push(`Overwrote concept "${concept}" (that had ${count} entries)`);
     } else {
@@ -122,20 +120,22 @@ export const conceptListCommand = makeCommand(
     }
 
     const concepts = await store.get("concepts");
-    if (!concepts.has(message)) {
+    if (!(message in concepts)) {
       return `Concept "${message}" doesn't exist!`;
     }
 
-    const items = concepts.get(message);
-    if (items.size > 100) {
+    const items = concepts[message];
+    if (items.length > 100) {
       return (
         `"${message}" has ${
-          items.size
+          items.length
         } items in it! Only showing the first 100.\n` +
         items.slice(0, 100).join(", ")
       );
     }
-    return `*${message}:*\n` + (items.size > 0 ? items.join(", ") : "_Empty._");
+    return (
+      `*${message}:*\n` + (items.length > 0 ? items.join(", ") : "_Empty._")
+    );
   }
 );
 
@@ -156,7 +156,7 @@ const conceptAddToCommand = makeCommand<HandlerArgsWithConcept>(
     }
 
     const concepts = await store.get("concepts");
-    if (concepts.get(concept).indexOf(message) !== -1) {
+    if (concepts[concept].includes(message)) {
       return `"${message}" already exists in "${concept}"!`;
     }
     store.dispatch(addToConceptAction(concept, message));
@@ -179,7 +179,7 @@ const conceptBulkAddToCommand = makeCommand<HandlerArgsWithConcept>(
     const concepts = await store.get("concepts");
     const results: string[] = [];
     for (const c of conceptsToAdd) {
-      if (concepts.get(concept).indexOf(c) !== -1) {
+      if (concepts[concept].includes(c)) {
         results.push(`"${c}" already exists in "${concept}"!`);
       } else {
         store.dispatch(addToConceptAction(concept, c));
@@ -203,7 +203,7 @@ const conceptRemoveFromCommand = makeCommand<HandlerArgsWithConcept>(
 
     const concepts = await store.get("concepts");
 
-    if (concepts.get(concept).indexOf(message) === -1) {
+    if (!concepts[concept].includes(message)) {
       return `"${message}" doesn't exist in "${concept}"!`;
     }
     store.dispatch(removeFromConceptAction(concept, message));
@@ -225,7 +225,7 @@ export const conceptMatcher = adjustArgs<HandlerArgs>(
     const [concept, command] = normalizeMessageWithLeadingConcept(message);
 
     const concepts = await store.get("concepts");
-    if (!concepts.has(concept)) {
+    if (!(concept in concepts)) {
       return false;
     }
     return { ...args, message: concept + " " + command };

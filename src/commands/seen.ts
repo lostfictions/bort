@@ -12,11 +12,11 @@ export default makeCommand(
 
     const username = message.trim().toLowerCase();
 
-    if (!seen.has(username)) {
+    if (!(username in seen)) {
       return `i haven't seen ${username}!`;
     }
 
-    const { message: lastMessage, time, channel } = seen.get(username);
+    const { message: lastMessage, time, channel } = seen[username];
 
     return `${username} was last seen ${moment(
       time

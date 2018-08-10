@@ -1,5 +1,5 @@
 import { Store } from "../store/store";
-import { randomInRange } from "../util";
+import { randomInArray } from "../util";
 import { ConceptBank } from "../commands/concepts";
 
 export const matcher = /\[([^\[\]]+)\]/g; // eslint-disable-line no-useless-escape
@@ -93,10 +93,10 @@ export default function trace({
     })
     .filter(resolved => resolved[0]);
 
-  if (!concepts.has(resolvedConcept)) {
+  if (!(resolvedConcept in concepts)) {
     return `{error: unknown concept "${resolvedConcept}"}`;
   }
-  const traceResult = randomInRange(concepts.get(resolvedConcept)).replace(
+  const traceResult = randomInArray(concepts[resolvedConcept]).replace(
     matcher,
     (_, nextConcept) => {
       if (seen[nextConcept] > maxCycles) {

@@ -2,8 +2,6 @@ import * as fs from "fs";
 import * as path from "path";
 import * as assert from "assert";
 
-import { Map as ImmMap, fromJS } from "immutable";
-
 import * as level from "level";
 
 import { DATA_DIR } from "../env";
@@ -21,8 +19,6 @@ const dbNameReplacementRegex = /[^a-z0-9_-]/gi;
 export function replaceDbName(dbName: string): string {
   return dbName.replace(dbNameReplacementRegex, "_");
 }
-
-// TODO: get rid of immutable
 
 interface Action {
   type: string;
@@ -65,12 +61,7 @@ export class Store<T = StoreShape> {
 
     this.db = level(dbPath, { valueEncoding: "json" });
     if (shouldInitialize) {
-      // FIXME: remove immutable
-      const plainDefaultData = ImmMap.isMap(defaultData)
-        ? (defaultData as any).toJS()
-        : defaultData;
-
-      const puts = Object.entries(plainDefaultData).map(([key, val]) =>
+      const puts = Object.entries(defaultData).map(([key, val]) =>
         this.db.put(key, val).then(() => {
           console.log(`Initialized "${key}" in DB with default values.`);
         })
@@ -83,65 +74,23 @@ export class Store<T = StoreShape> {
 
   dispatch = async (action: Action): Promise<void> => {
     for (const [key, reducer] of Object.entries<Reducer>(this.reducerTree)) {
-      let value: any;
+      let state: unknown;
       try {
-        value = await this.db.get(key);
+        state = await this.db.get(key);
       } catch (e) {
         console.warn(`Can't get key "${key}" from DB:\n${e}`);
         return;
       }
 
-      // TEMP: remove immutable
-      const immVal = fromJS(value);
-      if (!ImmMap.isMap(immVal)) {
-        console.warn(
-          `Returned value for key ${key} did not translate to an immutable map!`
-        );
-        console.warn("Original value:");
-        console.dir(value);
-      }
-
-      const nextState = reducer(immVal, action);
-      if (nextState !== immVal) {
+      const nextState = reducer(state, action);
+      if (nextState !== state) {
         await this.db.put(key, nextState);
       }
     }
   };
 
-  get = async <K extends keyof T>(key: K): Promise<T[K]> => {
-    const value = await this.db.get(key);
+  get = <K extends keyof T>(key: K): Promise<T[K]> => this.db.get(key);
 
-    const immVal = fromJS(value);
-    if (!ImmMap.isMap(immVal)) {
-      console.warn(
-        `Returned value for key ${key} did not translate to an immutable map!`
-      );
-      console.warn("Original value:");
-      console.dir(value);
-    }
-    return immVal;
-  };
-
-  // static async exists(dbName: string): Promise<boolean | string> {
-  //   const dbPath = Store.dbPath(dbName);
-
-  //   if (!fs.existsSync(dbPath)) {
-  //     return false;
-  //   }
-
-  //   const stat = fs.statSync(dbPath);
-  //   if (!stat.isDirectory()) {
-  //     return `File "${dbPath}" exists, but it's not a directory!`;
-  //   }
-
-  //   try {
-  //     await level(dbPath, { createIfMissing: false, valueEncoding: "json" });
-  //   } catch (e) {
-  //     return `Error opening DB: ${e}`;
-  //   }
-
-  //   return true;
-  // }
   private static readonly dbBasePath = path.join(DATA_DIR, "db");
   private static getEnsuredDbPath(dbName: string): string {
     if (!fs.existsSync(DATA_DIR)) {
@@ -169,24 +118,24 @@ interface StoreShape {
    *
    * maps from response -> time sent (in ms from epoch)
    */
-  recents: ImmMap<string, number>;
+  recents: { [uri: string]: number };
 
   /**
    * maps usernames to a tuple of the last message that user sent
    * and the date it was sent (in ms from epoch)
    */
-  seen: ImmMap<string, SeenData>;
+  seen: { [username: string]: SeenData };
 }
 
 let defaultData: StoreShape;
 export async function makeStore(dbName: string): Promise<Store<StoreShape>> {
   if (!defaultData) {
-    defaultData = ImmMap<string, any>({
+    defaultData = {
       wordBank: getInitialWordbank(),
       concepts: getInitialConcepts(),
-      recents: ImmMap<string, number>(),
-      seen: ImmMap<string, SeenData>()
-    }) as any; // FIXME
+      recents: {},
+      seen: {}
+    };
   }
 
   const store = new Store({
@@ -210,9 +159,9 @@ export async function makeStore(dbName: string): Promise<Store<StoreShape>> {
 function getInitialWordbank(): WordBank {
   const tarotLines: string[] = require("../../data/corpora").tarotLines;
 
-  return tarotLines.reduce<WordBank>(
+  return tarotLines.reduce(
     (p, line) => markovReducers(p, addSentenceAction(line)),
-    ImmMap<string, ImmMap<string, number>>()
+    {} as WordBank
   );
 }
 
@@ -240,5 +189,5 @@ function getInitialConcepts(): ConceptBank {
   assert(Array.isArray(cb["vowel"]));
   assert(Array.isArray(cb["verb"]));
 
-  return fromJS(cb) as ConceptBank;
+  return cb;
 }

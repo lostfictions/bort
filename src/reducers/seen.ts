@@ -1,5 +1,3 @@
-import { Map } from "immutable";
-
 interface SetSeenAction {
   type: "SET_SEEN";
   username: string;
@@ -11,11 +9,12 @@ interface SetSeenAction {
 export const setSeenAction = (
   username: string,
   message: string,
-  channel: string
+  channel: string,
+  time = Date.now()
 ): SetSeenAction => ({
   type: "SET_SEEN",
   username,
-  time: Date.now(),
+  time,
   message,
   channel
 });
@@ -27,13 +26,13 @@ export interface SeenData {
 }
 
 export const seenReducers = (
-  state = Map<string, SeenData>(),
+  state: { [username: string]: SeenData } = {},
   action: SetSeenAction
 ) => {
   switch (action.type) {
     case "SET_SEEN": {
       const { username, type, ...data } = action;
-      return state.set(username, data);
+      return { ...state, [username]: data };
     }
   }
 

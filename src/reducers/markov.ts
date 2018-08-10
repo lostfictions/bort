@@ -1,5 +1,4 @@
 import { WordBank } from "../components/markov";
-import { Map } from "immutable";
 
 interface AddSentenceAction {
   type: "ADD_SENTENCE";
@@ -13,10 +12,12 @@ export const addSentenceAction = (sentence: string): AddSentenceAction => ({
 
 const sentenceSplitter = /(?:\.|\?|\n)/gi;
 const wordNormalizer = (word: string) => word.toLowerCase();
+
+// TODO: we need client-specific filters -- this was for slack!
 const wordFilter = (word: string) => word.length > 0 && !word.startsWith("<");
 
 export const markovReducers = (
-  state: WordBank = Map(),
+  state: WordBank = {},
   action: AddSentenceAction
 ) => {
   switch (action.type) {
@@ -27,12 +28,20 @@ export const markovReducers = (
           .map(wordNormalizer)
           .filter(wordFilter);
 
+        const nextState = { ...state };
         for (let i = 0; i < words.length - 1; i++) {
           const word = words[i];
           const nextWord = words[i + 1];
 
-          state = state.updateIn([word, nextWord], 0, v => v + 1);
+          if (!(word in nextState)) {
+            nextState[word] = {};
+          }
+          nextState[word] = {
+            ...nextState[word],
+            [nextWord]: (nextState[word][nextWord] || 0) + 1
+          };
         }
+        state = nextState;
       });
   }
 

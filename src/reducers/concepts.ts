@@ -1,5 +1,3 @@
-import { Map, List } from "immutable";
-
 import { ConceptBank } from "../commands/concepts";
 
 interface AddConceptAction {
@@ -66,22 +64,28 @@ type ConceptAction =
   | RemoveFromConceptAction;
 
 export const conceptReducers = (
-  state: ConceptBank = Map(),
+  state: ConceptBank = {},
   action: ConceptAction
 ) => {
   switch (action.type) {
     case "ADD_CONCEPT":
-      return state.set(action.conceptName, List([]));
-    case "REMOVE_CONCEPT":
-      return state.delete(action.conceptName);
+      return { ...state, [action.conceptName]: [] };
+    case "REMOVE_CONCEPT": {
+      const { [action.conceptName]: _, ...nextState } = state;
+      return nextState;
+    }
     case "LOAD_CONCEPT":
-      return state.set(action.conceptName, List(action.items));
+      return { ...state, [action.conceptName]: action.items };
     case "ADD_TO_CONCEPT":
-      return state.update(action.conceptName, items => items.push(action.item));
-    case "REMOVE_FROM_CONCEPT":
-      return state.update(action.conceptName, items =>
-        items.delete(items.indexOf(action.item))
-      );
+      return {
+        ...state,
+        [action.conceptName]: [...state[action.conceptName], action.item]
+      };
+    case "REMOVE_FROM_CONCEPT": {
+      const nextConcept = [...state[action.conceptName]];
+      nextConcept.splice(nextConcept.indexOf(action.item), 1);
+      return { ...state, [action.conceptName]: nextConcept };
+    }
   }
   return state;
 };

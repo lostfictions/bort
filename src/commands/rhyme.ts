@@ -1,5 +1,3 @@
-import { Map as ImmMap } from "immutable";
-
 import { makeCommand } from "../util/handler";
 import { randomInArray } from "../util";
 
@@ -77,13 +75,12 @@ export default makeCommand(
       }
 
       if (rhyme === "*") {
-        const nexts: ImmMap<string, number> | undefined = wb.get(
-          reply[reply.length - 1]
-        );
+        const nexts: { [word: string]: number } | undefined =
+          wb[reply[reply.length - 1]];
         if (nexts != null) {
-          rhyme = randomInArray(nexts.keySeq().toJS());
+          rhyme = randomInArray(Object.keys(nexts));
         } else {
-          rhyme = randomInArray(wb.keySeq().toJS());
+          rhyme = randomInArray(Object.keys(wb));
         }
       }
 

@@ -26,8 +26,8 @@ export default makeCommand(
     let prefix: string;
     if (rawMessage.length === 0) {
       const concepts = await store.get("concepts");
-      if (concepts.has("noun")) {
-        message = randomInArray(concepts.get("noun").toArray());
+      if ("noun" in concepts) {
+        message = randomInArray(concepts["noun"]);
         prefix = message;
       } else {
         return false;

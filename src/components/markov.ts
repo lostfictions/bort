@@ -1,7 +1,6 @@
-import { randomInRange, randomByWeight } from "../util";
-import { Map as ImmMap } from "immutable";
+import { randomInArray, randomByWeight } from "../util";
 
-export type WordBank = ImmMap<string, ImmMap<string, number>>;
+export type WordBank = { [word: string]: { [followedBy: string]: number } };
 
 //prettier-ignore
 const prepositions = [
@@ -44,21 +43,21 @@ const endTest = (output: string[]) =>
   Math.random() > 0.8;
 
 export function getSeed(wordBank: WordBank): string {
-  return randomInRange(wordBank.keySeq());
+  return randomInArray(Object.keys(wordBank));
 }
 
 export function getSentence(
   wordBank: WordBank,
   seed = getSeed(wordBank)
 ): string {
-  if (!wordBank.get(seed)) {
+  if (!wordBank[seed]) {
     return "";
   }
 
   let word = seed;
   const sentence = [word];
-  while (wordBank.has(word) && !endTest(sentence)) {
-    word = randomByWeight(wordBank.get(word).toJS());
+  while (word in wordBank && !endTest(sentence)) {
+    word = randomByWeight(wordBank[word]);
     sentence.push(word);
   }
   return sentence.join(" ");

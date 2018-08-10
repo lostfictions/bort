@@ -1,5 +1,3 @@
-import { Map } from "immutable";
-
 interface AddRecentAction {
   type: "ADD_RECENT";
   item: string;
@@ -11,10 +9,13 @@ interface CleanRecentsAction {
   olderThan: number;
 }
 
-export const addRecentAction = (item: string): AddRecentAction => ({
+export const addRecentAction = (
+  item: string,
+  time = Date.now()
+): AddRecentAction => ({
   type: "ADD_RECENT",
   item,
-  time: Date.now()
+  time
 });
 
 export const cleanRecentsAction = (
@@ -27,14 +28,21 @@ export const cleanRecentsAction = (
 type RecentsAction = AddRecentAction | CleanRecentsAction;
 
 export const recentsReducers = (
-  state = Map<string, number>(),
+  state: { [username: string]: number } = {},
   action: RecentsAction
 ) => {
   switch (action.type) {
     case "ADD_RECENT":
-      return state.set(action.item, action.time);
-    case "CLEAN_RECENTS":
-      return state.filter(time => (time || 0) - action.olderThan > 0);
+      return { ...state, [action.item]: action.time };
+    case "CLEAN_RECENTS": {
+      const nextState: { [username: string]: number } = {};
+      for (const [username, lastSeen] of Object.entries(state)) {
+        if ((lastSeen || 0) - action.olderThan > 0) {
+          nextState[username] = lastSeen;
+        }
+      }
+      return nextState;
+    }
   }
 
   return state;

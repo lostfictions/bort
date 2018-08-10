@@ -1,8 +1,5 @@
 import { makeCommand } from "../util/handler";
 import { randomInArray } from "../util";
-
-import { Map as ImmMap } from "immutable";
-
 import { maybeTraced } from "../components/trace";
 
 export default makeCommand(
@@ -29,21 +26,19 @@ export default makeCommand(
 
       // First, try to find something that follows from our previous word
       if (lastWord) {
-        const nexts: ImmMap<string, number> | undefined = wb.get(lastWord);
+        const nexts: { [word: string]: number } | undefined = wb[lastWord];
         if (nexts != null) {
-          candidates = nexts
-            .keySeq()
-            .filter(word => word != null && word.startsWith(l))
-            .toJS();
+          candidates = Object.keys(nexts).filter(
+            word => word != null && word.startsWith(l)
+          );
         }
       }
 
       // Otherwise, just grab a random word that matches our letter
       if (candidates == null || candidates.length === 0) {
-        candidates = wb
-          .keySeq()
-          .filter(word => word != null && word.startsWith(l))
-          .toJS();
+        candidates = Object.keys(wb).filter(
+          word => word != null && word.startsWith(l)
+        );
       }
 
       if (candidates != null && candidates.length > 0) {

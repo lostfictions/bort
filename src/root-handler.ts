@@ -109,7 +109,7 @@ const helpCommand = makeCommand(
       }
     }
 
-    const concepts = (await store.get("concepts")).keySeq().toJS();
+    const concepts = Object.keys(await store.get("concepts"));
 
     return (
       "**Commands:**\n" +
@@ -148,7 +148,7 @@ const rootCommand = [
         .filter(w => w.length > 0);
       if (words.length > 0) {
         const word = words[words.length - 1];
-        if (wb.has(word)) {
+        if (word in wb) {
           return getSentence(wb, word);
         }
       }
@@ -165,8 +165,8 @@ const handleDirectConcepts = async ({
     return false;
   }
   const concepts = await store.get("concepts");
-  const matchedConcept = concepts.get(message);
-  if (matchedConcept != null && matchedConcept.size > 0) {
+  const matchedConcept = concepts[message];
+  if (matchedConcept != null && matchedConcept.length > 0) {
     return trace({ concepts, concept: message });
   }
   return false;

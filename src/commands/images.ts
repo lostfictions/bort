@@ -1,4 +1,3 @@
-import { Map as ImmMap } from "immutable";
 import * as got from "got";
 import * as cheerio from "cheerio";
 
@@ -48,7 +47,7 @@ export const search = ({
   animated = false
 }: {
   term: string;
-  recents: ImmMap<string, number>;
+  recents: { [url: string]: number };
   dispatch: (action: any) => void;
   animated?: boolean;
 }) =>
@@ -64,7 +63,7 @@ export const search = ({
       const unseenResults = [];
       while (res.length > 0 && unseenResults.length < 5) {
         const i = res.shift()!;
-        if (!recents.has(i)) {
+        if (!(i in recents)) {
           unseenResults.push(i);
         }
       }
@@ -83,8 +82,8 @@ async function doSearch(rawMessage: string, store: Store, animated = false) {
   let prefix: string;
   if (rawMessage.length === 0) {
     const concepts = await store.get("concepts");
-    if (concepts.has("noun")) {
-      message = randomInArray(concepts.get("noun").toArray());
+    if ("noun" in concepts) {
+      message = randomInArray(concepts["noun"]);
       prefix = message;
     } else {
       return false;

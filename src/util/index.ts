@@ -1,5 +1,3 @@
-import { Collection } from "immutable";
-
 /**
  * Escape special characters that would cause errors if we interpolated them
  * into a regex.
@@ -26,10 +24,6 @@ export function randomInt(min: number, max?: number): number {
 
 export function randomInArray<T>(arr: T[]): T {
   return arr[Math.floor(Math.random() * arr.length)];
-}
-
-export function randomInRange<T>(collection: Collection.Indexed<T>): T {
-  return collection.get(Math.floor(Math.random() * collection.size));
 }
 
 // TODO: handle empty objects, zero weights

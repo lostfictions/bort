@@ -18,11 +18,11 @@ export default makeCommand(
     }
 
     const concepts = await store.get("concepts");
-    if (!concepts.has(normalizedMessage)) {
+    if (!(normalizedMessage in concepts)) {
       return `Unknown concept: [${normalizedMessage}]`;
     }
 
-    const bag = concepts.get(normalizedMessage).toArray();
+    const bag = concepts[normalizedMessage];
     const output: string[] = [];
     while (bag.length > 0) {
       output.push(...bag.splice(randomInt(bag.length), 1));

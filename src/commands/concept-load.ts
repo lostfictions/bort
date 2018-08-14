@@ -1,4 +1,4 @@
-import * as got from "got";
+import axios from "axios";
 import { isURL } from "validator";
 
 import { makeCommand } from "../util/handler";
@@ -50,9 +50,7 @@ export default makeCommand(
       *load* usage: [url] (path=path) as [concept]`;
     }
 
-    const { body: json } = await (got(url, { json: true }) as Promise<{
-      body: any;
-    }>);
+    const { data: json } = await axios.get(url, { responseType: "json" });
 
     let items: string[];
     if (path) {

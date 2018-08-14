@@ -1,4 +1,4 @@
-import * as got from "got";
+import axios from "axios";
 
 import { randomInArray } from "../util";
 import { makeCommand } from "../util/handler";
@@ -41,13 +41,16 @@ export default makeCommand(
 );
 
 async function doQuery(query: string): Promise<string> {
-  const res = await got(`https://gifcities.archive.org/api/v1/gifsearch`, {
-    query: { q: query, limit: 5 },
-    timeout: 5000
-  });
+  const res = await axios.get(
+    `https://gifcities.archive.org/api/v1/gifsearch`,
+    {
+      params: { q: query, limit: 5 },
+      timeout: 5000
+    }
+  );
 
   return randomInArray(
-    (JSON.parse(res.body) as GifResult[]).map(
+    (JSON.parse(res.data) as GifResult[]).map(
       g => "https://web.archive.org/web/" + g.gif
     )
   );

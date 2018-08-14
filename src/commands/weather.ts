@@ -1,4 +1,4 @@
-import * as got from "got";
+import axios, { AxiosResponse } from "axios";
 import { stripIndent } from "common-tags";
 
 import { makeCommand } from "../util/handler";
@@ -59,45 +59,51 @@ export default makeCommand(
       return false;
     }
 
-    let completionRes: got.Response<WUAutocompleteResponse>;
+    let completionRes: AxiosResponse<WUAutocompleteResponse>;
     try {
-      completionRes = await got(`http://autocomplete.wunderground.com/aq`, {
-        query: {
-          query: message,
-          h: 0
-        },
-        json: true,
-        timeout: 5000
-      });
+      completionRes = await axios.get(
+        `http://autocomplete.wunderground.com/aq`,
+        {
+          params: {
+            query: message,
+            h: 0
+          },
+          responseType: "json",
+          timeout: 5000
+        }
+      );
     } catch (e) {
       return `Error getting geocoding results: ${e}`;
     }
 
     if (
-      !completionRes.body.RESULTS ||
-      completionRes.body.RESULTS.length === 0
+      !completionRes.data.RESULTS ||
+      completionRes.data.RESULTS.length === 0
     ) {
       return `dunno where '${message}' is ¯\\_(ツ)_/¯`;
     }
 
-    const { lat, lon, name } = completionRes.body.RESULTS[0];
+    const { lat, lon, name } = completionRes.data.RESULTS[0];
     if (!lat || !lon) {
       throw new Error(
         `Latitude or longitude missing in query for location '${message}'`
       );
     }
 
-    let owmRes: got.Response<OWMResponse>;
+    let owmRes: AxiosResponse<OWMResponse>;
     try {
-      owmRes = await got(`https://api.openweathermap.org/data/2.5/weather`, {
-        query: {
-          lat,
-          lon,
-          appid: OPEN_WEATHER_MAP_KEY
-        },
-        json: true,
-        timeout: 5000
-      });
+      owmRes = await axios.get(
+        `https://api.openweathermap.org/data/2.5/weather`,
+        {
+          params: {
+            lat,
+            lon,
+            appid: OPEN_WEATHER_MAP_KEY
+          },
+          responseType: "json",
+          timeout: 5000
+        }
+      );
     } catch (e) {
       if (e.statusCode === 404) {
         return `dunno where '${message}' is ¯\\_(ツ)_/¯`;
@@ -105,7 +111,7 @@ export default makeCommand(
       return `Can't get weather for '${message}'! (Error: ${e})`;
     }
 
-    const { sys, weather, main, wind } = owmRes.body;
+    const { sys, weather, main, wind } = owmRes.data;
 
     let formattedWind = "";
     if (wind) {

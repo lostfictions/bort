@@ -1,7 +1,7 @@
-import { makeCommand } from "../util/handler";
-import * as got from "got";
+import axios from 'axios'
 import * as cheerio from "cheerio";
 
+import { makeCommand } from "../util/handler";
 import { randomInArray } from "../util";
 
 import { maybeTraced } from "../components/trace";
@@ -9,9 +9,9 @@ import { maybeTraced } from "../components/trace";
 import { search } from "./images";
 
 function getRandomWikihowImage(): Promise<string> {
-  return got("https://www.wikihow.com/Special:Randomizer").then(res => {
+  return axios.get("https://www.wikihow.com/Special:Randomizer").then(res => {
     const imgs = cheerio
-      .load(res.body)("img.whcdn")
+      .load(res.data)("img.whcdn")
       .toArray()
       .map(img => img.attribs["data-src"])
       .filter(url => url); // only images with this attribute!

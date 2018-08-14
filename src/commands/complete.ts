@@ -17,18 +17,19 @@ export default makeCommand<HandlerArgs>(
 
     const { message, prefix } = await maybeTraced(rawMessage, store);
 
-    const res = await axios(
+    const res = await axios.get(
       `https://suggestqueries.google.com/complete/search`,
       {
-        params: { q: maybeTraced || message, client: "firefox" },
-        timeout: 5000
+        params: { q: message, client: "firefox" },
+        timeout: 5000,
+        responseType: "json"
       }
     );
 
     if (res.data.length > 0) {
-      const parsed = JSON.parse(res.data);
-      if (parsed[1] && parsed[1].length && parsed[1].length > 0) {
-        return prefix + parsed[1].join("\n");
+      const data = res.data;
+      if (data[1] && data[1].length && data[1].length > 0) {
+        return prefix + data[1].join("\n");
       }
     }
 

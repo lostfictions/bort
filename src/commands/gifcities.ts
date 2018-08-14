@@ -41,17 +41,16 @@ export default makeCommand(
 );
 
 async function doQuery(query: string): Promise<string> {
-  const res = await axios.get(
+  const res = await axios.get<GifResult[]>(
     `https://gifcities.archive.org/api/v1/gifsearch`,
     {
       params: { q: query, limit: 5 },
-      timeout: 5000
+      timeout: 5000,
+      responseType: "json"
     }
   );
 
   return randomInArray(
-    (JSON.parse(res.data) as GifResult[]).map(
-      g => "https://web.archive.org/web/" + g.gif
-    )
+    res.data.map(g => "https://web.archive.org/web/" + g.gif)
   );
 }

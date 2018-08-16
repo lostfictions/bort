@@ -1,12 +1,16 @@
 import { makeCommand } from "../util/handler";
+import { maybeTraced } from "../components/trace";
 
-const whitespaceRegex = /\s+/
+const whitespaceRegex = /\s+/;
 
 export default makeCommand(
   {
     name: "clapify",
-    aliases: ['clap'],
+    aliases: ["clap"],
     description: ":clap: do :clap: it :clap: like :clap: this :clap:"
   },
-  async ({ message }) => ` ${message} `.split(whitespaceRegex).join(' :clap: ')
+  async ({ message: rawMessage, store }) => {
+    const { message, prefix } = await maybeTraced(rawMessage, store);
+    return prefix + ` ${message} `.split(whitespaceRegex).join(" :clap: ");
+  }
 );

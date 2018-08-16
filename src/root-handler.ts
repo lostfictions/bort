@@ -6,6 +6,7 @@ import { processMessage, makeCommand, Handler, Command } from "./util/handler";
 import { HandlerArgs } from "./handler-args";
 
 import buseyCommand from "./commands/busey";
+import clapifyCommand from "./commands/clapify";
 import seenCommand from "./commands/seen";
 import rhymeCommand from "./commands/rhyme";
 import weatherCommand from "./commands/weather";
@@ -38,6 +39,7 @@ const subCommands = [
   conceptListCommand,
   shuffleCommand,
   buseyCommand,
+  clapifyCommand,
   seenCommand,
   rhymeCommand,
   wikihowCommand,

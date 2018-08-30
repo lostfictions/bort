@@ -66,7 +66,7 @@ type ConceptAction =
 export const conceptReducers = (
   state: ConceptBank = {},
   action: ConceptAction
-) => {
+): ConceptBank => {
   switch (action.type) {
     case "ADD_CONCEPT":
       return { ...state, [action.conceptName]: [] };
@@ -86,6 +86,7 @@ export const conceptReducers = (
       nextConcept.splice(nextConcept.indexOf(action.item), 1);
       return { ...state, [action.conceptName]: nextConcept };
     }
+    default:
+      return state;
   }
-  return state;
 };

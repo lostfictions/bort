@@ -94,8 +94,11 @@ export default function trace({
     .filter(resolved => resolved[0]);
 
   if (!(resolvedConcept in concepts)) {
-    return `{error: unknown concept "${resolvedConcept}"}`;
+    return `{unknown concept "${resolvedConcept}"}`;
+  } else if (concepts[resolvedConcept].length === 0) {
+    return `{empty concept "${resolvedConcept}"}`;
   }
+
   const traceResult = randomInArray(concepts[resolvedConcept]).replace(
     matcher,
     (_, nextConcept) => {

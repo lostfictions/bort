@@ -26,7 +26,7 @@ import {
 } from "./commands/concepts";
 
 import { getSentence } from "./components/markov";
-import trace, { matcher as traceMatcher } from "./components/trace";
+import trace, { tryTrace } from "./components/trace";
 
 import { addSentenceAction } from "./reducers/markov";
 import { setSeenAction } from "./reducers/seen";
@@ -133,21 +133,16 @@ const rootCommand = [
   // If we match nothing, check if we can trace! if not, just return a markov sentence
   async ({ message, store }: HandlerArgs): Promise<string> => {
     const wb = await store.get("wordBank");
-    const concepts = await store.get("concepts");
     if (message.length > 0) {
-      if (traceMatcher.test(message)) {
-        return message.replace(traceMatcher, (_, concept) =>
-          trace({
-            concepts,
-            concept
-          })
-        );
-      }
+      const concepts = await store.get("concepts");
+      const res = tryTrace(message, concepts);
+      if (res !== false) return res;
 
       const words = message
         .trim()
         .split(" ")
         .filter(w => w.length > 0);
+
       if (words.length > 0) {
         const word = words[words.length - 1];
         if (word in wb) {
@@ -155,6 +150,7 @@ const rootCommand = [
         }
       }
     }
+
     return getSentence(wb);
   }
 ] as Handler<HandlerArgs, string>[];

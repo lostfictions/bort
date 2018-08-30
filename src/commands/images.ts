@@ -12,7 +12,7 @@ import { maybeTraced } from "../components/trace";
 
 const requestAndParse = (term: string, animated: boolean, exact: boolean) =>
   axios
-    .get("https://images.google.com/search", {
+    .get("http://images.google.com/search", {
       params: {
         q: term,
         tbm: "isch", // perform an image search

@@ -4,7 +4,8 @@ import {
   addConceptAction,
   removeConceptAction,
   addToConceptAction,
-  removeFromConceptAction
+  removeFromConceptAction,
+  loadConceptAction
 } from "../reducers/concepts";
 
 export type ConceptBank = { [conceptName: string]: string[] };
@@ -49,7 +50,7 @@ export const conceptAddCommand = makeCommand(
     if (message in concepts) {
       return `Concept "${message}" already exists!`;
     }
-    store.dispatch(addConceptAction(message));
+    await store.dispatch(addConceptAction(message));
     return `Okay! Added a concept named "${message}".`;
   }
 );
@@ -69,7 +70,7 @@ export const conceptRemoveCommand = makeCommand<HandlerArgs>(
     if (!(message in concepts)) {
       return `Concept "${message}" doesn't exist!`;
     }
-    store.dispatch(removeConceptAction(message));
+    await store.dispatch(removeConceptAction(message));
     return `Okay! Deleted concept "${message}".`;
   }
 );
@@ -92,16 +93,11 @@ export const conceptSetCommand = makeCommand(
     const concepts = await store.get("concepts");
     if (concept in concepts) {
       const count = concepts[concept].length;
-      store.dispatch(removeConceptAction(concept));
       result.push(`Overwrote concept "${concept}" (that had ${count} entries)`);
     } else {
       result.push(`Added new concept "${concept}"`);
     }
-    store.dispatch(addConceptAction(concept));
-
-    for (const c of args) {
-      store.dispatch(addToConceptAction(concept, c));
-    }
+    await store.dispatch(loadConceptAction(concept, args));
 
     result.push(`with ${args.length} new entries.`);
     return result.join(" ");
@@ -159,7 +155,7 @@ const conceptAddToCommand = makeCommand<HandlerArgsWithConcept>(
     if (concepts[concept].includes(message)) {
       return `"${message}" already exists in "${concept}"!`;
     }
-    store.dispatch(addToConceptAction(concept, message));
+    await store.dispatch(addToConceptAction(concept, message));
     return `Okay! Added "${message}" to "${concept}".`;
   }
 );
@@ -182,7 +178,7 @@ const conceptBulkAddToCommand = makeCommand<HandlerArgsWithConcept>(
       if (concepts[concept].includes(c)) {
         results.push(`"${c}" already exists in "${concept}"!`);
       } else {
-        store.dispatch(addToConceptAction(concept, c));
+        await store.dispatch(addToConceptAction(concept, c));
         results.push(`Added "${c}".`);
       }
     }
@@ -206,7 +202,7 @@ const conceptRemoveFromCommand = makeCommand<HandlerArgsWithConcept>(
     if (!concepts[concept].includes(message)) {
       return `"${message}" doesn't exist in "${concept}"!`;
     }
-    store.dispatch(removeFromConceptAction(concept, message));
+    await store.dispatch(removeFromConceptAction(concept, message));
     return `Okay! Removed "${message}" from "${concept}".`;
   }
 );

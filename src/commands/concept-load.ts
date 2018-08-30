@@ -87,7 +87,7 @@ export default makeCommand(
       items = [item];
     }
 
-    store.dispatch(loadConceptAction(concept, items));
+    await store.dispatch(loadConceptAction(concept, items));
     return `Loaded ${length} items from ${url}.`;
   }
 );

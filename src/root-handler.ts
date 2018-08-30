@@ -174,8 +174,13 @@ const handleDirectConcepts = async ({
   return false;
 };
 
-const setSeen = ({ username, message, store, channel }: HandlerArgs): false => {
-  store.dispatch(setSeenAction(username, message, channel));
+const setSeen = async ({
+  username,
+  message,
+  store,
+  channel
+}: HandlerArgs): Promise<false> => {
+  await store.dispatch(setSeenAction(username, message, channel));
   return false;
 };
 
@@ -190,8 +195,7 @@ const bortCommand = makeCommand<HandlerArgs>(
   rootCommand
 );
 
-// FIXME: is 'async' necessary here?
-const messageHandler: Handler<HandlerArgs, string>[] = [
+const messageHandler = [
   async args => (args.isDM ? false : processMessage(setSeen, args)),
   // Handling the direct concepts first should be safe -- it prevents the markov
   // generator fallback of the root command from eating our input.
@@ -203,7 +207,7 @@ const messageHandler: Handler<HandlerArgs, string>[] = [
       ? processMessage(rootCommand, args)
       : processMessage(bortCommand, args),
   // If we didn't match anything, add to our markov chain.
-  ({ message, store }) => {
+  async ({ message, store }) => {
     if (
       message.length > 0 &&
       message
@@ -211,10 +215,10 @@ const messageHandler: Handler<HandlerArgs, string>[] = [
         .split(" ")
         .filter(s => s.length > 0).length > 1
     ) {
-      store.dispatch(addSentenceAction(message));
+      await store.dispatch(addSentenceAction(message));
     }
     return false;
   }
-];
+] as Handler<HandlerArgs, string>[];
 
 export default messageHandler;

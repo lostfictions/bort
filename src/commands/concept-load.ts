@@ -18,6 +18,8 @@ const traverse = (obj: any, path: string[]): any => {
   return null;
 };
 
+const usage = `*load* usage: [url] path=[path] as [concept]`;
+
 export default makeCommand(
   {
     name: "load",
@@ -26,13 +28,9 @@ export default makeCommand(
       "load a concept list from a url, overwriting existing concept if it exists"
   },
   async ({ message, store }) => {
-    if (message.length === 0) {
-      return false;
-    }
-
     const matches = loaderRegex.exec(message);
-    if (!matches) {
-      return `*load* usage: [url] (path=path) as [concept]`;
+    if (message.length === 0 || !matches) {
+      return usage;
     }
 
     const [, rawUrl, rawPath, concept] = matches;
@@ -46,8 +44,7 @@ export default makeCommand(
     }
 
     if (!isURL(url)) {
-      return `Error: '${url}' doesn't appear to be a valid URL.
-      *load* usage: [url] (path=path) as [concept]`;
+      return `Error: '${url}' doesn't appear to be a valid URL.\n${usage}`;
     }
 
     const { data: json } = await axios.get(url, { responseType: "json" });
@@ -88,6 +85,6 @@ export default makeCommand(
     }
 
     await store.dispatch(loadConceptAction(concept, items));
-    return `Loaded ${length} items from ${url}.`;
+    return `Loaded ${items.length} items from ${url}.`;
   }
 );

@@ -12,7 +12,7 @@ import { maybeTraced } from "../components/trace";
 
 const requestAndParse = (term: string, animated: boolean, exact: boolean) =>
   axios
-    .get("http://images.google.com/search", {
+    .get("https://www.google.com/search", {
       params: {
         q: term,
         tbm: "isch", // perform an image search
@@ -22,8 +22,7 @@ const requestAndParse = (term: string, animated: boolean, exact: boolean) =>
       timeout: 5000,
       headers: {
         "User-Agent":
-          "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) " +
-          "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.86 Safari/537.36"
+          "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.67 Safari/537.36"
       }
     })
     .then(res => {

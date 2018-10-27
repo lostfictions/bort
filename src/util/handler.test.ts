@@ -65,7 +65,7 @@ describe("processMessage", () => {
       {
         handleMessage: () =>
           new Promise<false>(res => {
-            setTimeout(res(false));
+            setTimeout(() => res(false));
           })
       },
       ({ message }) => message,
@@ -109,7 +109,7 @@ describe("makeCommand", () => {
       {
         handleMessage: () =>
           new Promise<false>(res => {
-            setTimeout(res(false));
+            setTimeout(() => res(false));
           })
       },
       ({ message }) => message,

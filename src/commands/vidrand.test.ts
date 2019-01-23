@@ -34,7 +34,7 @@ describe("vidrand", () => {
       );
       expect(urls).toContain("https://letterboxd.com/film/the-dungeonmaster/");
 
-      expect(urls.length).toBeGreaterThan(70);
+      expect((urls as string[]).length).toBeGreaterThan(70);
     });
   });
 

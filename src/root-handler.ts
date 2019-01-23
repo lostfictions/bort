@@ -17,6 +17,7 @@ import completeCommand from "./commands/complete";
 import wikihowCommand from "./commands/wikihow";
 import conceptLoadCommand from "./commands/concept-load";
 import shuffleCommand from "./commands/shuffle";
+import vidrandCommand from "./commands/vidrand";
 import {
   conceptAddCommand,
   conceptSetCommand,
@@ -42,6 +43,7 @@ const subCommands = [
   clapifyCommand,
   seenCommand,
   rhymeCommand,
+  vidrandCommand,
   wikihowCommand,
   imageSearchCommand,
   gifSearchCommand,

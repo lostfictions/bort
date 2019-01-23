@@ -1,12 +1,30 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import * as cheerio from "cheerio";
 
 import { makeCommand } from "../util/handler";
 import { randomInArray } from "../util";
 
-export const USAGE = "Usage: `vidrand <letterboxd list url>`";
+export const USAGE = [
+  "Usage:",
+  "`vidrand <letterboxd list url>`",
+  "`vidrand` (with a default list assigned to `!watchlist`)"
+].join("\n");
 
-export async function getFilmUrlsFromLetterboxdList(url: string) {
+const FIVE_MINUTES = 1000 * 60 * 5;
+
+// Hackish non-persistent cache to speed up results
+const resultCache = {} as {
+  [url: string]: { lastRetrieved: number; results: string[] };
+};
+
+export async function getFilmUrlsFromLetterboxdList(
+  url: string
+): Promise<string[] | { errorMessage: string }> {
+  const cachedValue = resultCache[url];
+  if (cachedValue && cachedValue.lastRetrieved > Date.now() - FIVE_MINUTES) {
+    return cachedValue.results;
+  }
+
   let currentPage = 1;
   const allResults = [];
   let pageResults;
@@ -16,7 +34,16 @@ export async function getFilmUrlsFromLetterboxdList(url: string) {
       ? `${url}page/${currentPage}`
       : `${url}/page/${currentPage}`;
 
-    const res = await axios(resolvedUrl);
+    let res: AxiosResponse<any>;
+    try {
+      res = await axios(resolvedUrl);
+    } catch (e) {
+      if (e.response && e.response.status === 404) {
+        return { errorMessage: `Couldn't find a page at '${url}'!` };
+      }
+
+      throw e;
+    }
 
     pageResults = cheerio
       .load(res.data)(".poster")
@@ -29,6 +56,10 @@ export async function getFilmUrlsFromLetterboxdList(url: string) {
     currentPage++;
   } while (pageResults != null && pageResults.length > 0);
 
+  resultCache[url] = {
+    lastRetrieved: Date.now(),
+    results: allResults
+  };
   return allResults;
 }
 
@@ -38,7 +69,9 @@ export default makeCommand(
     description: "get a random video from a letterboxd list"
   },
   async ({ message, store }): Promise<string> => {
-    if (message.length === 0) {
+    let url = message;
+
+    if (url.length === 0) {
       const concepts = await store.get("concepts");
       const watchlists = concepts["!watchlist"];
       if (!watchlists || watchlists.length === 0) {
@@ -48,13 +81,22 @@ export default makeCommand(
         ].join("\n");
       }
 
-      return randomInArray(await getFilmUrlsFromLetterboxdList(watchlists[0]));
+      url = watchlists[0];
+      if (!url.startsWith("https://letterboxd.com/")) {
+        return `The contents of \`!watchlist\` doesn't seem to be an url! ("${url}")`;
+      }
     }
 
-    if (!message.startsWith("https://letterboxd.com/")) {
+    if (!url.startsWith("https://letterboxd.com/")) {
       return USAGE;
     }
 
-    return randomInArray(await getFilmUrlsFromLetterboxdList(message));
+    const result = await getFilmUrlsFromLetterboxdList(url);
+
+    if (Array.isArray(result)) {
+      return randomInArray(result);
+    }
+
+    return `Error getting a random vid: ${result.errorMessage}`;
   }
 );

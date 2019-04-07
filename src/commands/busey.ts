@@ -1,6 +1,10 @@
 import { makeCommand } from "../util/handler";
 import { randomInArray } from "../util";
 import { maybeTraced } from "../components/trace";
+export const USAGE = [
+  "Usage:",
+  "`busey <word or sequence to be buseyfied>`"
+].join("\n");
 
 export default makeCommand(
   {
@@ -9,19 +13,25 @@ export default makeCommand(
     description: "make buseyisms"
   },
   async ({ message: rawMessage, store }) => {
+    if (rawMessage.trim().length === 0) {
+      return USAGE;
+    }
+
     const { message, prefix } = await maybeTraced(rawMessage, store);
 
     const wb = await store.get("wordBank");
 
-    const letters = message
-      .toLowerCase()
-      .split("")
-      .filter(char => /[A-Za-z]/.test(char));
+    const letters = message.toLowerCase().split("");
 
     const acro: string[] = [];
 
     let lastWord: string | null = null;
     for (const l of letters) {
+      if (!/[A-Za-z]/.test(l)) {
+        acro.push(l);
+        continue;
+      }
+
       let candidates: string[] | null = null;
 
       // First, try to find something that follows from our previous word

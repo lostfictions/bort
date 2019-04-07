@@ -23,7 +23,11 @@ interface StoreConfig<T> {
   defaultData: { [key in keyof T]: T[key] };
 }
 
-export class Store<T> {
+export interface IReadableStore<T> {
+  get<K extends keyof T>(key: K): Promise<T[K]>;
+}
+
+export class Store<T> implements IReadableStore<T> {
   readonly db: level.LevelUp;
   readonly reducerTree: { [key in keyof T]: Reducer<T[key]> };
 

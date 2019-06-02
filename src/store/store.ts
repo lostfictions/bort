@@ -1,7 +1,7 @@
-import * as fs from "fs";
-import * as path from "path";
+import fs from "fs";
+import path from "path";
 
-import * as level from "level";
+import level from "level";
 
 import { DATA_DIR } from "../env";
 

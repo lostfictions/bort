@@ -1,5 +1,5 @@
-import * as express from "express";
-import * as path from "path";
+import express from "express";
+import path from "path";
 
 // Open a server we can ping (via uptimerobot.com or similar) for status
 // and serving static files

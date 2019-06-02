@@ -1,4 +1,4 @@
-import * as assert from "assert";
+import assert from "assert";
 
 import { markovReducers, addSentenceAction } from "../reducers/markov";
 import { conceptReducers } from "../reducers/concepts";

@@ -1,6 +1,6 @@
-import * as fs from "fs";
-import * as envalid from "envalid";
-import * as debug from "debug";
+import fs from "fs";
+import envalid from "envalid";
+import debug from "debug";
 const log = debug("bort:env");
 
 const env = envalid.cleanEnv(

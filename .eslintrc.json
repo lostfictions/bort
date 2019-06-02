@@ -4,28 +4,44 @@
     "es6": true,
     "node": true
   },
-  "parser": "typescript-eslint-parser",
-  "plugins": ["typescript"],
-  "extends": ["eslint:recommended", "prettier"],
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
+    "sourceType": "module",
     "ecmaFeatures": {
-      "jsx": true
-    },
-    "sourceType": "module"
+      "modules": true
+    }
   },
+  "plugins": [
+    "@typescript-eslint"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "prettier",
+    "prettier/@typescript-eslint"
+  ],
   "rules": {
     "curly": [
       "warn",
       "multi-line",
       "consistent"
     ],
+    "prefer-const": "warn",
     "no-console": "off",
-    "no-dupe-class-members": "off",
+    "no-dupe-class-members": "error",
     "no-empty": "warn",
+    "no-shadow": "warn",
     "no-undef": "off",
     "no-unused-expressions": "error",
     "no-unused-vars": "off",
-    "prefer-const": "warn",
-    "no-shadow": "warn"
+    "no-var": "warn",
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      {
+        "vars": "all",
+        "args": "all",
+        "ignoreRestSiblings": true,
+        "argsIgnorePattern": "^_"
+      }
+    ]
   }
 }

@@ -1,12 +1,5 @@
-FROM node:10.8
-
+FROM node:12.1
 MAINTAINER s
-
-# RUN wget https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-64bit-static.tar.xz &&\
-#   mkdir ffmpeg-bin &&\
-#   tar -xvf ffmpeg-release-64bit-static.tar.xz -C ffmpeg-bin/ --strip-components=1 --wildcards --no-anchored 'ffmpeg'
-
-# ENV PATH "/ffmpeg-bin:${PATH}"
 
 WORKDIR /code
 
@@ -20,5 +13,5 @@ RUN yarn build
 
 COPY . ./
 ENV NODE_ENV=production
-ENV DEBUG=*
+ENV DEBUG=bort
 ENTRYPOINT yarn start

@@ -3,7 +3,7 @@ import { randomInArray } from "../util";
 
 import { maybeTraced } from "../components/trace";
 
-import * as cmu from "cmu-pronouncing-dictionary";
+import cmu from "cmu-pronouncing-dictionary";
 
 interface DictNode {
   [syllOrWord: string]: DictNode | "!";

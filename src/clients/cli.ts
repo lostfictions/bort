@@ -1,4 +1,4 @@
-import * as readline from "readline";
+import readline from "readline";
 import { processMessage } from "../util/handler";
 
 import { getStore } from "../store/get-store";

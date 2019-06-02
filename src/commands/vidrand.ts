@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios";
-import * as cheerio from "cheerio";
+import cheerio from "cheerio";
 
 import { makeCommand } from "../util/handler";
 import { randomInArray } from "../util";

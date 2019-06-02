@@ -1,4 +1,4 @@
-import * as jsc from "jsverify";
+import jsc from "jsverify";
 
 import { randomByWeight } from "./index";
 

@@ -7,6 +7,7 @@ import { HandlerArgs } from "./handler-args";
 
 import buseyCommand from "./commands/busey";
 import clapifyCommand from "./commands/clapify";
+import chooseCommand from "./commands/choose";
 import seenCommand from "./commands/seen";
 import rhymeCommand from "./commands/rhyme";
 import weatherCommand from "./commands/weather";
@@ -41,6 +42,7 @@ const subCommands = [
   shuffleCommand,
   buseyCommand,
   clapifyCommand,
+  chooseCommand,
   seenCommand,
   rhymeCommand,
   vidrandCommand,

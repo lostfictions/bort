@@ -1,50 +1,12 @@
 import command, { USAGE } from "./busey";
-
-// ////////////////////////////////
-// ////////////////////////////////
-// TODO: extract all this to somewhere more sensible
-import { IReadableStore } from "../store/store";
-
-type TraceableStoreShape = {
-  concepts: { [conceptName: string]: string[] };
-};
-
-type MarkovableStoreShape = {
-  wordBank: { [word: string]: { [followedBy: string]: number } };
-};
-
-const mockStore = {
-  async get(key) {
-    switch (key) {
-      case "concepts":
-        return {
-          xconcept: ["a"]
-        };
-      case "wordBank":
-        return {
-          aa: {
-            bb: 1
-          },
-          bb: {
-            cc: 1
-          },
-          cc: {},
-          c_that_shouldnt_get_picked: {}
-        };
-      default:
-        throw new Error("Unexpected store key");
-    }
-  }
-} as IReadableStore<TraceableStoreShape & MarkovableStoreShape>;
-// ////////////////////////////////
-// ////////////////////////////////
+import { getMockStore } from "../util/get-mock-store-for-test";
 
 describe("busey", () => {
   describe("busey command", () => {
     it("should return usage on empty", async () => {
       const result = await command.handleMessage({
         message: "busey",
-        store: mockStore
+        store: getMockStore()
       } as any);
       expect(result).toBe(USAGE);
     });
@@ -54,7 +16,7 @@ describe("busey", () => {
         [...Array(5)].map(async () => {
           const result = await command.handleMessage({
             message: "busey abc",
-            store: mockStore
+            store: getMockStore()
           } as any);
           expect(result).toBe("Aa Bb Cc");
         })
@@ -64,7 +26,7 @@ describe("busey", () => {
     it("should trace returns and acro based on them", async () => {
       const result = await command.handleMessage({
         message: "busey [xconcept]",
-        store: mockStore
+        store: getMockStore()
       } as any);
       expect(result).toBe("(a)\nAa");
     });
@@ -72,7 +34,7 @@ describe("busey", () => {
     it("should handle punctuation by reinserting it at the correct location", async () => {
       const result = await command.handleMessage({
         message: "busey ab:c",
-        store: mockStore
+        store: getMockStore()
       } as any);
       expect(result).toBe("Aa Bb : Cc");
     });

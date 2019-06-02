@@ -6,7 +6,8 @@
     "strict": true,
     "sourceMap": true,
     "noUnusedLocals": true,
-    "noUnusedParameters": true
+    "noUnusedParameters": true,
+    "esModuleInterop": true
   },
   "include": [
     "./defs/**/*",

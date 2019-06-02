@@ -24,7 +24,7 @@ describe("recents reducers", () => {
     const now = Date.now();
 
     expect(
-      recentsReducers({ bob: now - 60_000 * 2 }, cleanRecentsAction(1))
+      recentsReducers({ bob: now - 60000 * 2 }, cleanRecentsAction(1))
     ).toEqual({});
 
     expect(recentsReducers({ bob: now }, cleanRecentsAction(1))).toEqual({

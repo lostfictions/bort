@@ -13,13 +13,13 @@ type MarkovableStoreShape = {
   wordBank: { [word: string]: { [followedBy: string]: number } };
 };
 
-const mockStore: IReadableStore<TraceableStoreShape & MarkovableStoreShape> = {
+const mockStore = {
   async get(key) {
     switch (key) {
       case "concepts":
         return {
           xconcept: ["a"]
-        } as { [conceptName: string]: string[] };
+        };
       case "wordBank":
         return {
           aa: {
@@ -35,7 +35,7 @@ const mockStore: IReadableStore<TraceableStoreShape & MarkovableStoreShape> = {
         throw new Error("Unexpected store key");
     }
   }
-};
+} as IReadableStore<TraceableStoreShape & MarkovableStoreShape>;
 // ////////////////////////////////
 // ////////////////////////////////
 

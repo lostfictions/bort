@@ -14,14 +14,14 @@ const mockResponses = {
   "3": loadFixture(3)
 };
 
-jest.mock("axios", () => ({
-  default: jest.fn(async (url: string) => {
+jest.mock("axios", () =>
+  jest.fn(async (url: string) => {
     if (url.endsWith("1")) return { data: mockResponses["1"] };
     if (url.endsWith("2")) return { data: mockResponses["2"] };
     if (url.endsWith("3")) return { data: mockResponses["3"] };
     throw new Error(`Unexpected url calling mocked axios: ${url}`);
   })
-}));
+);
 
 describe("vidrand", () => {
   describe("getFilmUrlsFromLetterboxdList", () => {
@@ -51,7 +51,7 @@ describe("vidrand", () => {
         message: "vidrand https://letterboxd.com/someuser/watchlist"
       } as any);
 
-      const axiosMock = jest.requireMock("axios").default;
+      const axiosMock = jest.requireMock("axios");
       expect(axiosMock).toHaveBeenCalled();
 
       expect(typeof result).toBe("string");

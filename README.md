@@ -14,13 +14,18 @@ environment variables are present. possible env vars are:
   in a dev environment, required in production)
 - `PORT`: port number for the bot's server component (defaults to 8080 in a dev
   environment, required in production)
+- `OPEN_WEATHER_MAP_KEY`: an api key for the
+  [OpenWeatherMap](https://openweathermap.org/) api, if you'd like bort to be
+  able to tell you the weather.
 
 _(Slack support is removed as of `4.0.0` -- there were some breaking changes in
 the client API and it didn't seem like bort was running on any Slack teams. if
 there's interest it can be re-added.)_
 
 each service that bort connects to gets its own isolated data store. stores are
-serialized to json in the directory provided as the `DATA_DIR`.
+[leveldb](https://github.com/google/leveldb) databases (via the
+[level](https://github.com/Level/level) package) that are persisted to the
+directory provided as the `DATA_DIR`.
 
 bort uses the [envalid](https://github.com/af/envalid) package which in turn
 wraps [dotenv](https://github.com/motdotla/dotenv), so you can alternately stick
@@ -37,9 +42,9 @@ the "server component" mentioned above currently serves two purposes:
   the free tier of certain SaaSes to prevent the bot from going to sleep.)
 
 eventually the plan is to have a full web-based management interface (that
-optionally authenticates through your Slack or Discord account via OAuth) but
-that's a bit ambitious for a hobby project designed for sharing funny gifs and
-making bad rhymes.
+optionally authenticates through Discord account for authorized members of your
+server) but that's a bit ambitious for a hobby project designed for sharing
+funny gifs and making bad rhymes.
 
 `npm start` will start the bot in production mode. Use `npm run dev` if you want
 to run a local bot that will connect to services but restart on any change, or

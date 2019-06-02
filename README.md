@@ -1,4 +1,6 @@
-a nice bot 4 u.
+bort is a nice bot.
+
+![bort in cyberverse](https://i.imgur.com/fJwZM2T.gif)
 
 dockerized. will spin up ~~Slack and/or~~ Discord clients if the respective
 environment variables are present. possible env vars are:

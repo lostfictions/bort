@@ -32,7 +32,8 @@ const requestAndParse = (term: string, animated: boolean, exact: boolean) =>
       metaLinks.each((_i, el) => {
         if (el.children.length > 0 && "data" in el.children[0]) {
           const metadata = JSON.parse((el.children[0] as any).data);
-          if (metadata.ou) {
+          // x-raw-image = when google sometimes embeds the preview!
+          if (metadata.ou && !metadata.ou.startsWith("x-raw-image")) {
             urls.push(metadata.ou);
           }
           // Elements without metadata.ou are subcategory headings in the results page.

@@ -20,6 +20,8 @@
   "author": "s <https://github.com/lostfictions>",
   "license": "AGPL-3.0",
   "dependencies": {
+    "@sentry/integrations": "^5.4.1",
+    "@sentry/node": "5.4.0",
     "axios": "^0.19.0",
     "cheerio": "^0.22.0",
     "cmu-pronouncing-dictionary": "^1.0.3",

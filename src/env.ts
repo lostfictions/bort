@@ -1,5 +1,7 @@
 import fs from "fs";
 import envalid from "envalid";
+import * as Sentry from "@sentry/node";
+import { CaptureConsole } from "@sentry/integrations";
 import debug from "debug";
 const log = debug("bort:env");
 
@@ -12,6 +14,7 @@ const env = envalid.cleanEnv(
     OPEN_WEATHER_MAP_KEY: envalid.str({ default: "" }),
     HOSTNAME: envalid.str({ devDefault: "localhost" }),
     PORT: envalid.num({ devDefault: 8080 }),
+    SENTRY_DSN: envalid.str({ default: "" }),
     USE_CLI: envalid.bool({
       default: false,
       desc:
@@ -34,6 +37,18 @@ export const {
 if (!fs.existsSync(DATA_DIR)) {
   log(DATA_DIR + " not found! creating.");
   fs.mkdirSync(DATA_DIR);
+}
+
+if (env.SENTRY_DSN.length === 0) {
+  console.warn(
+    `Sentry DSN is invalid! Error reporting to sentry will be disabled.`
+  );
+} else {
+  Sentry.init({
+    dsn: env.SENTRY_DSN,
+    environment: env.isDev ? "dev" : "prod",
+    integrations: [new CaptureConsole()]
+  });
 }
 
 if (OPEN_WEATHER_MAP_KEY.length === 0) {

@@ -61,9 +61,7 @@ subCommands.forEach(c => {
   for (const a of allAliases) {
     if (a in subcommandsByNameOrAlias) {
       console.error(
-        `Command named ${a} already exists in command list! (Canonical name ${
-          subcommandsByNameOrAlias[a].name
-        })`
+        `Command named ${a} already exists in command list! (Canonical name ${subcommandsByNameOrAlias[a].name})`
       );
     } else {
       subcommandsByNameOrAlias[a] = c;

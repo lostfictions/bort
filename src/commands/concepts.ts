@@ -123,9 +123,7 @@ export const conceptListCommand = makeCommand(
     const items = concepts[message];
     if (items.length > 100) {
       return (
-        `"${message}" has ${
-          items.length
-        } items in it! Only showing the first 100.\n` +
+        `"${message}" has ${items.length} items in it! Only showing the first 100.\n` +
         items.slice(0, 100).join(", ")
       );
     }

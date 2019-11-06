@@ -61,5 +61,8 @@
   },
   "engines": {
     "node": ">=12.1.0"
+  },
+  "jest": {
+    "rootDir": "src"
   }
 }

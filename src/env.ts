@@ -39,16 +39,18 @@ if (!fs.existsSync(DATA_DIR)) {
   fs.mkdirSync(DATA_DIR);
 }
 
-if (env.SENTRY_DSN.length === 0) {
-  console.warn(
-    `Sentry DSN is invalid! Error reporting to sentry will be disabled.`
-  );
-} else {
-  Sentry.init({
-    dsn: env.SENTRY_DSN,
-    environment: env.isDev ? "dev" : "prod",
-    integrations: [new CaptureConsole()]
-  });
+if (!env.USE_CLI) {
+  if (env.SENTRY_DSN.length === 0) {
+    console.warn(
+      `Sentry DSN is invalid! Error reporting to sentry will be disabled.`
+    );
+  } else {
+    Sentry.init({
+      dsn: env.SENTRY_DSN,
+      environment: env.isDev ? "dev" : "prod",
+      integrations: [new CaptureConsole()]
+    });
+  }
 }
 
 if (OPEN_WEATHER_MAP_KEY.length === 0) {

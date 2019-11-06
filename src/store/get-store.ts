@@ -20,6 +20,7 @@ export async function getStore(id: string): Promise<BortStore> {
 
   setInterval(() => s.dispatch(cleanRecentsAction()), 60000);
 
+  // eslint-disable-next-line require-atomic-updates
   storeCache[id] = s;
   return s;
 }

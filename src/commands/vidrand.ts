@@ -56,6 +56,7 @@ export async function getFilmUrlsFromLetterboxdList(
     currentPage++;
   } while (pageResults != null && pageResults.length > 0);
 
+  // eslint-disable-next-line require-atomic-updates
   resultCache[url] = {
     lastRetrieved: Date.now(),
     results: allResults

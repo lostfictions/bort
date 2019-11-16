@@ -15,28 +15,28 @@ export const makeCLIBot = (dbName = "_cli-test") => {
 
     console.log(`Loaded store "${dbName}"`);
 
-    rl.on("line", (message: string) =>
-      processMessage(messageHandler, {
-        store,
-        message,
-        username: "cli-user",
-        channel: "cli-channel",
-        isDM: false
-      })
-        .then(response => {
-          console.log(
-            response !== false
-              ? response
-                  .split("\n")
-                  .map(line => `[bort] ${line}`)
-                  .join("\n")
-              : "-"
-          );
-        })
-        .catch(e => {
-          console.error(e);
-        })
-    );
+    for await (const message of rl) {
+      try {
+        const response = await processMessage(messageHandler, {
+          store,
+          message,
+          username: "cli-user",
+          channel: "cli-channel",
+          isDM: false
+        });
+
+        console.log(
+          response !== false
+            ? response
+                .split("\n")
+                .map(line => `[bort] ${line}`)
+                .join("\n")
+            : "-"
+        );
+      } catch (e) {
+        console.error("[ERROR]", e);
+      }
+    }
   })();
 
   return rl;

@@ -22,7 +22,8 @@ const requestAndParse = (term: string, animated: boolean, exact: boolean) =>
       timeout: 5000,
       headers: {
         "User-Agent":
-          "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.67 Safari/537.36"
+          "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 " +
+          "(KHTML, like Gecko) Chrome/70.0.3538.67 Safari/537.36"
       }
     })
     .then(res => {
@@ -42,7 +43,7 @@ const requestAndParse = (term: string, animated: boolean, exact: boolean) =>
       return urls;
     });
 
-export const search = ({
+export async function search({
   term,
   recents,
   dispatch,
@@ -52,32 +53,38 @@ export const search = ({
   recents: { [url: string]: number };
   dispatch: (action: any) => void;
   animated?: boolean;
-}) =>
-  requestAndParse(term, animated, true)
-    .then(res => {
-      if (res.length === 0) {
-        // if no results, try an inexact search
-        return requestAndParse(term, animated, false);
-      }
-      return res;
-    })
-    .then(res => {
-      const unseenResults = [];
-      while (res.length > 0 && unseenResults.length < 5) {
-        const i = res.shift()!;
-        if (!(i in recents)) {
-          unseenResults.push(i);
-        }
-      }
+}) {
+  const res = await requestAndParse(term, animated, true);
+  if (res.length === 0) {
+    // if no results, try an inexact search
+    return requestAndParse(term, animated, false);
+  }
 
-      if (unseenResults.length === 0) {
-        return "nothing :(";
-      }
+  const unseenResults = [];
+  while (res.length > 0 && unseenResults.length < 5) {
+    const i = res.shift()!;
+    if (!(i in recents)) {
+      unseenResults.push(i);
+    }
+  }
 
-      const result = randomInArray(unseenResults);
-      dispatch(addRecentAction(result));
-      return result;
-    });
+  if (unseenResults.length === 0) {
+    return "nothing :(";
+  }
+
+  let result = randomInArray(unseenResults);
+  if (result.endsWith(".gifv")) {
+    // .gifv => .gif
+    const gifvUrlAsGif = result.substring(0, result.length - 1);
+    const gifRes = await axios.head(gifvUrlAsGif);
+    if (gifRes.status >= 200 && gifRes.status < 400) {
+      result = gifvUrlAsGif;
+    }
+  }
+
+  dispatch(addRecentAction(result));
+  return result;
+}
 
 async function doSearch(
   rawMessage: string,

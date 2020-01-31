@@ -31,6 +31,9 @@ export class Store<T> implements IReadableStore<T> {
   readonly db: level.LevelUp;
   readonly reducerTree: { [key in keyof T]: Reducer<T[key]> };
 
+  /**
+   * A Promise we can await on to know when the store is ready to use.
+   */
   initializer: Promise<void> | null = null;
 
   constructor({ dbName, reducerTree, defaultData }: StoreConfig<T>) {
@@ -67,6 +70,7 @@ export class Store<T> implements IReadableStore<T> {
     }
   }
 
+  /** Dispatch a Redux-style action to be handled by our reducer tree. */
   dispatch = async (action: Action): Promise<void> => {
     for (const [key, reducer] of Object.entries<Reducer>(this.reducerTree)) {
       let state: unknown;

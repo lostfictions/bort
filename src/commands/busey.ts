@@ -38,17 +38,13 @@ export default makeCommand(
       if (lastWord) {
         const nexts: { [word: string]: number } | undefined = wb[lastWord];
         if (nexts != null) {
-          candidates = Object.keys(nexts).filter(
-            word => word != null && word.startsWith(l)
-          );
+          candidates = Object.keys(nexts).filter(word => word?.startsWith(l));
         }
       }
 
       // Otherwise, just grab a random word that matches our letter
       if (candidates == null || candidates.length === 0) {
-        candidates = Object.keys(wb).filter(
-          word => word != null && word.startsWith(l)
-        );
+        candidates = Object.keys(wb).filter(word => word?.startsWith(l));
       }
 
       if (candidates != null && candidates.length > 0) {

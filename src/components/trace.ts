@@ -95,7 +95,9 @@ export default function trace({
 
   if (!(resolvedConcept in concepts)) {
     return `{unknown concept "${resolvedConcept}"}`;
-  } else if (concepts[resolvedConcept].length === 0) {
+  }
+
+  if (concepts[resolvedConcept].length === 0) {
     return `{empty concept "${resolvedConcept}"}`;
   }
 
@@ -135,6 +137,7 @@ export async function maybeTraced(message: string, store: BortStore) {
   const traced = tryTrace(message, concepts);
   let prefix = "";
   if (traced) {
+    // eslint-disable-next-line no-param-reassign
     message = traced;
     prefix = `(${traced})\n`;
   }

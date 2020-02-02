@@ -75,11 +75,14 @@ export function makeDiscordBot(discordToken: string) {
         return false;
       }
 
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       message.channel.sendMessage(response);
     } catch (error) {
       console.error(
         `Error in Discord client (${guildList}): '${error.message}'`
       );
+
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       message.channel.sendMessage(`[Something went wrong!] [${error.message}]`);
     }
   }
@@ -93,6 +96,7 @@ export function makeDiscordBot(discordToken: string) {
       `Connected to Discord guilds ${guildList} as ${client.user.username}`
     );
   });
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises
   client.on("message", onMessage);
   client.on("disconnect", (ev: CloseEvent) => {
     console.log("Discord bot disconnected! reason: " + ev.reason);

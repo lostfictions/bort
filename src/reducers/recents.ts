@@ -43,7 +43,7 @@ export const recentsReducers = (
       }
       return nextState;
     }
+    default:
+      return state;
   }
-
-  return state;
 };

@@ -75,6 +75,7 @@ export class Store<T> implements IReadableStore<T> {
     for (const [key, reducer] of Object.entries<Reducer>(this.reducerTree)) {
       let state: unknown;
       try {
+        // eslint-disable-next-line no-await-in-loop
         state = await this.db.get(key);
       } catch (e) {
         console.warn(`Can't get key "${key}" from DB:\n${e}`);
@@ -83,6 +84,7 @@ export class Store<T> implements IReadableStore<T> {
 
       const nextState = reducer(state, action);
       if (nextState !== state) {
+        // eslint-disable-next-line no-await-in-loop
         await this.db.put(key, nextState);
       }
     }

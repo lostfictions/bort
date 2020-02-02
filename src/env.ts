@@ -18,7 +18,8 @@ const env = envalid.cleanEnv(
     USE_CLI: envalid.bool({
       default: false,
       desc:
-        "Start up an interface that reads from stdin and prints to stdout instead of connecting to servers."
+        "Start up an interface that reads from stdin and " +
+        "prints to stdout instead of connecting to servers."
     })
   },
   { strict: true }
@@ -63,7 +64,8 @@ const isValidConfiguration = USE_CLI || DISCORD_TOKEN;
 
 if (!isValidConfiguration) {
   console.warn(
-    `Environment configuration doesn't appear to be valid! Bot will do nothing if you're not running in CLI mode.`
+    `Environment configuration doesn't appear to be valid!`,
+    `Bot will do nothing if you're not running in CLI mode.`
   );
 
   const varsToCheck = ["DISCORD_TOKEN"];

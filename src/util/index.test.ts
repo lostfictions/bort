@@ -13,11 +13,7 @@ function pairsToObj<T>(pairs: [string, T][]): { [k: string]: T } {
 describe("random by weight", () => {
   jsc.property(
     "result is one of inputs",
-    jsc.nearray(
-      jsc.tuple([jsc.string, jsc.number(0, 10)]) as jsc.Arbitrary<
-        [string, number]
-      >
-    ),
+    jsc.nearray(jsc.tuple([jsc.string, jsc.number(0, 10)])),
     arrayOfWeights => {
       const keys = new Set(arrayOfWeights.map(([k]) => k));
       return keys.has(randomByWeight(pairsToObj(arrayOfWeights)));

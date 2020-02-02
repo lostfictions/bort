@@ -41,9 +41,11 @@ export const markovReducers = (
             [nextWord]: (nextState[word][nextWord] || 0) + 1
           };
         }
+        // eslint-disable-next-line no-param-reassign
         state = nextState;
       });
+      return state;
+    default:
+      return state;
   }
-
-  return state;
 };

@@ -10,6 +10,7 @@ export const makeCLIBot = (dbName = "_cli-test") => {
     output: process.stdout
   });
 
+  // eslint-disable-next-line @typescript-eslint/no-floating-promises
   (async () => {
     const store = await getStore(dbName);
 

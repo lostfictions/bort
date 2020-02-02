@@ -18,9 +18,9 @@ export async function getStore(id: string): Promise<BortStore> {
   }
   const s = await makeStore(id);
 
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises
   setInterval(() => s.dispatch(cleanRecentsAction()), 60000);
 
-  // eslint-disable-next-line require-atomic-updates
   storeCache[id] = s;
   return s;
 }

@@ -10,8 +10,8 @@ export function escapeForRegex(expression: string): string {
 
 /** Returns a random number between min (inclusive) and max (exclusive). */
 export function randomInt(max: number): number;
-export function randomInt(min: number, max: number): number;
 export function randomInt(min: number, max?: number): number {
+  /* eslint-disable no-param-reassign */
   if (typeof max === "undefined") {
     max = min;
     min = 0;
@@ -19,6 +19,7 @@ export function randomInt(min: number, max?: number): number {
   if (max < min) {
     [min, max] = [max, min];
   }
+  /* eslint-enable no-param-reassign */
   return Math.floor(Math.random() * (max - min)) + min;
 }
 

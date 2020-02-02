@@ -46,7 +46,7 @@ describe("processMessage", () => {
     ).rejects.toBeDefined());
 
   it("should resolve an array of handler objects and functions to a message", () => {
-    const handlers: Handler<{ message: string }, string>[] = [
+    const handlers: Handler<{ message: string }>[] = [
       { handleMessage: () => false },
       () => new Promise<false>(res => res(false)),
       ({ message }) => message,
@@ -60,7 +60,7 @@ describe("processMessage", () => {
   });
 
   it("should resolve an array of handler objects and functions to false if none matches", () => {
-    const handlers: Handler<{ message: string }, string>[] = [
+    const handlers: Handler<{ message: string }>[] = [
       { handleMessage: () => false },
       {
         handleMessage: () =>
@@ -104,7 +104,7 @@ describe("makeCommand", () => {
     ).resolves.toBe("yo"));
 
   it("should resolve a command with nested handlers to a message", () => {
-    const handlers: Handler<{ message: string }, string>[] = [
+    const handlers: Handler<{ message: string }>[] = [
       { handleMessage: () => false },
       {
         handleMessage: () =>

@@ -17,12 +17,12 @@ export async function processMessage<TData = DefaultData>(
   if (!Array.isArray(handlerOrHandlers)) {
     if (typeof handlerOrHandlers === "function") {
       return handlerOrHandlers(data);
-    } else {
-      return handlerOrHandlers.handleMessage(data);
     }
+    return handlerOrHandlers.handleMessage(data);
   }
 
   for (const handler of handlerOrHandlers) {
+    // eslint-disable-next-line no-await-in-loop
     const res = await processMessage(handler, data);
 
     if (res !== false) {

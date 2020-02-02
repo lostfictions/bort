@@ -34,8 +34,9 @@ export async function getFilmUrlsFromLetterboxdList(
       ? `${url}page/${currentPage}`
       : `${url}/page/${currentPage}`;
 
-    let res: AxiosResponse<any>;
+    let res: AxiosResponse;
     try {
+      // eslint-disable-next-line no-await-in-loop
       res = await axios(resolvedUrl);
     } catch (e) {
       if (e.response && e.response.status === 404) {
@@ -56,7 +57,6 @@ export async function getFilmUrlsFromLetterboxdList(
     currentPage++;
   } while (pageResults != null && pageResults.length > 0);
 
-  // eslint-disable-next-line require-atomic-updates
   resultCache[url] = {
     lastRetrieved: Date.now(),
     results: allResults

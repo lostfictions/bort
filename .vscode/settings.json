@@ -16,8 +16,7 @@
   "files.exclude": {
     "**/.git": true,
     "**/.DS_Store": true,
-    "**/node_modules": true,
-    "**/dist": true,
-    "**/persist": true
+    "dist/": true,
+    "persist/": true
   }
 }

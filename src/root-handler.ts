@@ -155,7 +155,7 @@ const rootCommand = [
 
     return getSentence(wb);
   }
-] as Handler<HandlerArgs, string>[];
+] as Handler<HandlerArgs>[];
 
 const handleDirectConcepts = async ({
   message,
@@ -182,7 +182,7 @@ const setSeen = async ({
   return false;
 };
 
-const bortCommand = makeCommand<HandlerArgs>(
+const bortCommand = makeCommand(
   {
     // isParent: true,
     name: BOT_NAME,
@@ -217,6 +217,6 @@ const messageHandler = [
     }
     return false;
   }
-] as Handler<HandlerArgs, string>[];
+] as Handler<HandlerArgs>[];
 
 export default messageHandler;

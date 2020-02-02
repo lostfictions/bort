@@ -55,7 +55,7 @@ export const conceptAddCommand = makeCommand(
   }
 );
 
-export const conceptRemoveCommand = makeCommand<HandlerArgs>(
+export const conceptRemoveCommand = makeCommand(
   {
     name: "remove",
     aliases: ["delete", "-"],
@@ -176,6 +176,7 @@ const conceptBulkAddToCommand = makeCommand<HandlerArgsWithConcept>(
       if (concepts[concept].includes(c)) {
         results.push(`"${c}" already exists in "${concept}"!`);
       } else {
+        // eslint-disable-next-line no-await-in-loop
         await store.dispatch(addToConceptAction(concept, c));
         results.push(`Added "${c}".`);
       }

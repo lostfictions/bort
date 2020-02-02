@@ -34,7 +34,7 @@ export const seenReducers = (
       const { username, type, ...data } = action;
       return { ...state, [username]: data };
     }
+    default:
+      return state;
   }
-
-  return state;
 };

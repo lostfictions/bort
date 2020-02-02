@@ -53,11 +53,11 @@ export async function search({
   recents: { [url: string]: number };
   dispatch: (action: any) => void;
   animated?: boolean;
-}) {
-  const res = await requestAndParse(term, animated, true);
+}): Promise<string> {
+  let res = await requestAndParse(term, animated, true);
   if (res.length === 0) {
     // if no results, try an inexact search
-    return requestAndParse(term, animated, false);
+    res = await requestAndParse(term, animated, false);
   }
 
   const unseenResults = [];

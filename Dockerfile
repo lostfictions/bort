@@ -1,5 +1,4 @@
-FROM node:12.1
-MAINTAINER s
+FROM node:13
 
 WORKDIR /code
 

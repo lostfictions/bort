@@ -76,14 +76,14 @@ export function makeDiscordBot(discordToken: string) {
       }
 
       // eslint-disable-next-line @typescript-eslint/no-floating-promises
-      message.channel.sendMessage(response);
+      message.channel.send(response);
     } catch (error) {
       console.error(
         `Error in Discord client (${guildList}): '${error.message}'`
       );
 
       // eslint-disable-next-line @typescript-eslint/no-floating-promises
-      message.channel.sendMessage(`[Something went wrong!] [${error.message}]`);
+      message.channel.send(`[Something went wrong!] [${error.message}]`);
     }
   }
 

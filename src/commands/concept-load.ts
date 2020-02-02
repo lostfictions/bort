@@ -1,5 +1,4 @@
 import axios from "axios";
-import { isURL } from "validator";
 
 import { makeCommand } from "../util/handler";
 import { loadConceptAction } from "../reducers/concepts";
@@ -10,6 +9,7 @@ const slackEscapeRegex = /^<(.+)>$/;
 
 const traverse = (obj: any, path: string[]): any => {
   try {
+    // eslint-disable-next-line no-param-reassign
     path.forEach(p => (obj = obj[p]));
     return obj;
   } catch (e) {
@@ -43,7 +43,9 @@ export default makeCommand(
       url = slackFixedUrl[1];
     }
 
-    if (!isURL(url)) {
+    try {
+      new URL(url);
+    } catch {
       return `Error: '${url}' doesn't appear to be a valid URL.\n${usage}`;
     }
 

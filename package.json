@@ -20,20 +20,18 @@
   "author": "s <https://github.com/lostfictions>",
   "license": "AGPL-3.0",
   "dependencies": {
-    "@sentry/integrations": "^5.8.0",
-    "@sentry/node": "5.9.0",
-    "axios": "^0.19.0",
+    "@sentry/integrations": "^5.11.1",
+    "@sentry/node": "5.11.2",
+    "axios": "^0.19.2",
     "cheerio": "^0.22.0",
     "cmu-pronouncing-dictionary": "^1.0.3",
     "common-tags": "^1.8.0",
     "debug": "^4.1.1",
     "discord.js": "^11.5.1",
-    "envalid": "^5.0.0",
-    "express": "^4.17.1",
+    "envalid": "^6.0.1",
     "level": "^5.0.1",
     "moment": "^2.24.0",
-    "source-map-support": "^0.5.16",
-    "validator": "^12.0.0"
+    "source-map-support": "^0.5.16"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",

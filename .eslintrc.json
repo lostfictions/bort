@@ -22,6 +22,7 @@
     "prettier/@typescript-eslint"
   ],
   "reportUnusedDisableDirectives": true,
+  "ignorePatterns": ["*.test.ts.snap"],
   "rules": {
     "array-callback-return": "warn",
     "curly": ["warn", "multi-line", "consistent"],

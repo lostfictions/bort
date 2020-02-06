@@ -5,7 +5,7 @@ import command, { getFilmUrlsFromLetterboxdList, USAGE } from "./vidrand";
 
 const loadFixture = (page: number) =>
   readFileSync(
-    join(__dirname, `../../fixtures/letterboxd-response-${page}.html`)
+    join(__dirname, `../../fixtures/vidrand/letterboxd-response-${page}.html`)
   ).toString();
 
 const mockResponses = {

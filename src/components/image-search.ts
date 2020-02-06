@@ -28,7 +28,7 @@ export async function imageSearch({
 
   if (recents) {
     for (let i = res.length - 1; i >= 0; i--) {
-      if (!(res[i] in recents)) {
+      if (res[i] in recents) {
         res.splice(i, 1);
       }
     }

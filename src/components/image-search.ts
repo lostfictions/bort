@@ -123,9 +123,6 @@ export function metaJsonStrategy($: CheerioStatic): string[] | false {
   return urls;
 }
 
-const PREFIX = "data:function(){return ";
-const SUFFIX = "}});";
-
 export function largestJsonpStrategy($: CheerioStatic): string[] | false {
   const scripts = $("script").toArray();
 
@@ -134,7 +131,7 @@ export function largestJsonpStrategy($: CheerioStatic): string[] | false {
 
   for (const el of scripts) {
     const s = $(el).text();
-    if (s.slice(0, 50).includes(PREFIX)) {
+    if (/^\w*AF_initDataCallback/.test(s)) {
       if (s.length > longest) {
         script = s;
         longest = s.length;
@@ -143,7 +140,10 @@ export function largestJsonpStrategy($: CheerioStatic): string[] | false {
   }
 
   if (script) {
+    const PREFIX = "data:function(){return ";
+    const SUFFIX = "}});";
     const i = script.indexOf(PREFIX);
+
     if (i !== -1) {
       const data = script.substring(
         i + PREFIX.length,

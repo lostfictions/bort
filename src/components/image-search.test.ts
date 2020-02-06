@@ -28,7 +28,7 @@ const fixtures = fixtureFiles.map(f => [
 
 describe("image search", () => {
   describe("parse", () => {
-    it("matches snapshots from the fixtures", () => {
+    it("matches snapshots from fixture data", () => {
       fixtures.forEach(([fixture, fixtureName]) => {
         expect(parse(fixture)).toMatchSnapshot(fixtureName);
       });

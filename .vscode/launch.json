@@ -10,7 +10,7 @@
       "request": "launch",
       "program": "${workspaceRoot}/node_modules/ts-node/dist/bin.js",
       "args": [
-        "--transpileOnly",
+        "--transpile-only",
         "${workspaceRoot}/src/main.ts"
       ],
       "cwd": "${workspaceRoot}",
@@ -25,7 +25,12 @@
       "type": "node",
       "request": "launch",
       "program": "${workspaceRoot}/node_modules/ts-node/dist/bin.js",
-      "args": ["--transpileOnly", "${relativeFile}", "--", "local"],
+      "args": [
+        "--transpile-only",
+        "${relativeFile}",
+        "--",
+        "local"
+      ],
       "cwd": "${workspaceRoot}",
       "protocol": "inspector"
     }

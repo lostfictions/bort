@@ -5,8 +5,8 @@ import { makeCommand } from "../util/handler";
 import { randomInArray } from "../util";
 
 import { maybeTraced } from "../components/trace";
-
-import { search } from "./images";
+import { imageSearch } from "../components/image-search";
+import { addRecentAction } from "../reducers/recents";
 
 function getRandomWikihowImage(): Promise<string> {
   return axios.get("https://www.wikihow.com/Special:Randomizer").then(res => {
@@ -35,9 +35,18 @@ export default makeCommand(
     const dispatch = store.dispatch;
     const recents = await store.get("recents");
 
-    return (
-      prefix +
-      (await search({ term: message + " site:wikihow.com", dispatch, recents }))
-    );
+    let result = await imageSearch({
+      term: message + " site:wikihow.com",
+      recents
+    });
+
+    if (typeof result === "string") {
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      dispatch(addRecentAction(result));
+    } else {
+      result = "nothing :(";
+    }
+
+    return prefix + result;
   }
 );

@@ -123,6 +123,8 @@ export function metaJsonStrategy($: CheerioStatic): string[] | false {
   return urls;
 }
 
+const PREFIX = "data:function(){return ";
+
 export function largestJsonpStrategy($: CheerioStatic): string[] | false {
   const scripts = $("script").toArray();
 
@@ -131,7 +133,7 @@ export function largestJsonpStrategy($: CheerioStatic): string[] | false {
 
   for (const el of scripts) {
     const s = $(el).text();
-    if (/^\w*AF_initDataCallback/.test(s)) {
+    if (s.slice(0, 250).includes(PREFIX)) {
       if (s.length > longest) {
         script = s;
         longest = s.length;
@@ -140,20 +142,9 @@ export function largestJsonpStrategy($: CheerioStatic): string[] | false {
   }
 
   if (script) {
-    const PREFIX = "data:function(){return ";
-    const SUFFIX = "}});";
-    const i = script.indexOf(PREFIX);
-
-    if (i !== -1) {
-      const data = script.substring(
-        i + PREFIX.length,
-        script.length - SUFFIX.length
-      );
-
-      return [
-        ...data.matchAll(/"https?:\/\/[^"]+\.(?:jpe?g|gifv|png)"/g)
-      ].map(res => res[0].substring(1, res[0].length - 1));
-    }
+    return [
+      ...script.matchAll(/"(https?:\/\/[^"]+\.(?:jpe?g|gifv|png))"/g)
+    ].map(res => res[1]);
   }
 
   return false;

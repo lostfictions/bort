@@ -49,7 +49,9 @@ if (!env.USE_CLI) {
     Sentry.init({
       dsn: env.SENTRY_DSN,
       environment: env.isDev ? "dev" : "prod",
-      integrations: [new CaptureConsole()]
+      integrations: [
+        new CaptureConsole({ levels: ["warn", "error", "debug", "assert"] })
+      ]
     });
   }
 }

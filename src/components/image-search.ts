@@ -97,7 +97,7 @@ export function parse(html: string) {
 
   for (const s of strategies) {
     const res = s($);
-    if (res) return res;
+    if (res && res.length > 0) return res;
   }
 
   return [];

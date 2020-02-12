@@ -18,7 +18,7 @@ async function doSearch(
     const concepts = await store.get("concepts");
     if ("noun" in concepts) {
       message = randomInArray(concepts["noun"]);
-      prefix = message;
+      prefix = `(${message})\n`;
     } else {
       return false;
     }

@@ -102,6 +102,7 @@
         "checkCompoundAssignments": true
       }
     ],
+    "@typescript-eslint/switch-exhaustiveness-check": "warn",
     "@typescript-eslint/unbound-method": [
       "warn",
       {

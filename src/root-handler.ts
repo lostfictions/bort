@@ -9,7 +9,7 @@ import buseyCommand from "./commands/busey";
 import clapifyCommand from "./commands/clapify";
 import chooseCommand from "./commands/choose";
 import seenCommand from "./commands/seen";
-import rhymeCommand from "./commands/rhyme";
+// import rhymeCommand from "./commands/rhyme";
 import weatherCommand from "./commands/weather";
 import uptimeCommand from "./commands/uptime";
 import { imageSearchCommand, gifSearchCommand } from "./commands/images";
@@ -44,7 +44,7 @@ const subCommands = [
   clapifyCommand,
   chooseCommand,
   seenCommand,
-  rhymeCommand,
+  // rhymeCommand,
   vidrandCommand,
   wikihowCommand,
   imageSearchCommand,

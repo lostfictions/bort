@@ -1,6 +1,8 @@
-import moment from "moment";
-
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 import { makeCommand } from "../util/handler";
+
+dayjs.extend(relativeTime);
 
 export default makeCommand(
   {
@@ -18,7 +20,7 @@ export default makeCommand(
 
     const { message: lastMessage, time, channel } = seen[username];
 
-    return `${username} was last seen ${moment(
+    return `${username} was last seen ${dayjs(
       time
     ).fromNow()} in #${channel} saying: '${lastMessage}'`;
   }

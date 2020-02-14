@@ -1,33 +1,79 @@
-import {
-  recentsReducers,
-  addRecentAction,
-  cleanRecentsAction
-} from "./recents";
+import { addRecent, cleanRecents, initializeRecents } from "./recents";
+import makeMockDb from "../mock-db";
 
-describe("recents reducers", () => {
-  test("add recent action", () => {
+describe("db recents", () => {
+  test("add recent 1", async () => {
+    const { db, store } = makeMockDb();
+    await initializeRecents(db);
+
     const now = Date.now();
-    expect(recentsReducers({}, addRecentAction("bob", now))).toEqual({
-      bob: now
-    });
-
-    expect(recentsReducers({ bob: 25 }, addRecentAction("bob", now))).toEqual({
+    await addRecent(db, "bob", now);
+    expect(store.recents).toEqual({
       bob: now
     });
   });
 
-  test("clean recents action", () => {
-    expect(recentsReducers({}, cleanRecentsAction(1))).toEqual({});
+  test("add recent 2", async () => {
+    const { db, store } = makeMockDb();
+    await initializeRecents(db);
 
-    expect(recentsReducers({ bob: 25 }, cleanRecentsAction(1))).toEqual({});
+    store.recents = {
+      bob: 25
+    };
+
+    const now = Date.now();
+    await addRecent(db, "bob", now);
+    expect(store.recents).toEqual({
+      bob: now
+    });
+  });
+
+  test("clean recents 1", async () => {
+    const { db, store } = makeMockDb();
+    await initializeRecents(db);
+
+    await cleanRecents(db, 1);
+
+    expect(store.recents).toEqual({});
+  });
+
+  test("clean recents 2", async () => {
+    const { db, store } = makeMockDb();
+    await initializeRecents(db);
+
+    store.recents = {
+      bob: 25
+    };
+
+    await cleanRecents(db, 1);
+
+    expect(store.recents).toEqual({});
+  });
+
+  test("clean recents 3", async () => {
+    const { db, store } = makeMockDb();
+    await initializeRecents(db);
 
     const now = Date.now();
 
-    expect(
-      recentsReducers({ bob: now - 60000 * 2 }, cleanRecentsAction(1))
-    ).toEqual({});
+    store.recents = { bob: now - 60000 * 2 };
 
-    expect(recentsReducers({ bob: now }, cleanRecentsAction(1))).toEqual({
+    await cleanRecents(db, 1);
+
+    expect(store.recents).toEqual({});
+  });
+
+  test("clean recents 4", async () => {
+    const { db, store } = makeMockDb();
+    await initializeRecents(db);
+
+    const now = Date.now();
+
+    store.recents = { bob: now };
+
+    await cleanRecents(db, 1);
+
+    expect(store.recents).toEqual({
       bob: now
     });
   });

@@ -73,7 +73,7 @@ export async function getConcept(db: DB, concept: string): Promise<Concept> {
   return db.get<Concept>(key(concept));
 }
 
-export async function initializeDBWithConcepts(db: DB): Promise<void> {
+export async function initializeConcepts(db: DB): Promise<void> {
   const corpora = JSON.parse(
     fs.readFileSync(path.join(__dirname, "../../../data/corpora.json"), "utf8")
   );

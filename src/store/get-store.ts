@@ -4,7 +4,8 @@ import path from "path";
 import level from "level";
 import debug from "debug";
 
-import { initializeDBWithConcepts } from "./methods/concepts";
+import { initializeConcepts } from "./methods/concepts";
+import { initializeRecents, cleanRecents } from "./methods/recents";
 
 import { DATA_DIR } from "../env";
 
@@ -34,8 +35,11 @@ export async function getStore(id: string): Promise<DB> {
 
   const db = await loadOrInitializeDb(id);
 
-  // // eslint-disable-next-line @typescript-eslint/no-misused-promises
-  setInterval(() => cleanRecentsAction(db), 60000);
+  /* eslint-disable @typescript-eslint/no-misused-promises */
+  const doClean = () =>
+    cleanRecents(db).then(() => setTimeout(doClean, 60_000));
+  setTimeout(doClean, 60_000);
+  /* eslint-enable @typescript-eslint/no-misused-promises */
 
   dbCache[id] = db;
   return db;
@@ -81,8 +85,8 @@ async function loadOrInitializeDb(dbName: string): Promise<DB> {
   const db = level(dbPath, { valueEncoding: "json" });
 
   if (shouldInitialize) {
-    await initializeDBWithConcepts(db);
-
+    await initializeConcepts(db);
+    await initializeRecents(db);
     log("Finished initializing DB.");
   }
 

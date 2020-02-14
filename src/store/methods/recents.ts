@@ -1,49 +1,39 @@
-interface AddRecentAction {
-  type: "ADD_RECENT";
-  item: string;
-  time: number;
+import { DB } from "../get-store";
+
+export interface Recents {
+  [url: string]: number;
 }
 
-interface CleanRecentsAction {
-  type: "CLEAN_RECENTS";
-  olderThan: number;
-}
+const key = "recents";
 
-export const addRecentAction = (
+export async function addRecent(
+  db: DB,
   item: string,
   time = Date.now()
-): AddRecentAction => ({
-  type: "ADD_RECENT",
-  item,
-  time
-});
+): Promise<void> {
+  const recents = await db.get<Recents>(key);
+  recents[item] = time;
+  return db.put<Recents>(key, recents);
+}
 
-export const cleanRecentsAction = (
+export async function cleanRecents(
+  db: DB,
   olderThanMinutes: number = 60
-): CleanRecentsAction => ({
-  type: "CLEAN_RECENTS",
-  olderThan: Date.now() - olderThanMinutes * 60000
-});
+): Promise<void> {
+  const olderThan = Date.now() - olderThanMinutes * 60 * 1000;
 
-type RecentsAction = AddRecentAction | CleanRecentsAction;
+  const recents = await db.get<Recents>(key);
 
-export const recentsReducers = (
-  state: { [username: string]: number } = {},
-  action: RecentsAction
-) => {
-  switch (action.type) {
-    case "ADD_RECENT":
-      return { ...state, [action.item]: action.time };
-    case "CLEAN_RECENTS": {
-      const nextState: { [username: string]: number } = {};
-      for (const [username, lastSeen] of Object.entries(state)) {
-        if ((lastSeen || 0) - action.olderThan > 0) {
-          nextState[username] = lastSeen;
-        }
-      }
-      return nextState;
+  const nextState: Recents = {};
+  for (const [url, lastSeen] of Object.entries(recents)) {
+    if ((lastSeen || 0) - olderThan > 0) {
+      nextState[url] = lastSeen;
     }
-    default:
-      return state;
   }
-};
+
+  return db.put<Recents>(key, nextState);
+}
+
+export function initializeRecents(db: DB): Promise<void> {
+  return db.put<Recents>(key, {});
+}

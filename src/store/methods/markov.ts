@@ -1,46 +1,66 @@
-import { WordBank } from "../components/markov";
+import fs from "fs";
+import path from "path";
+import assert from "assert";
 
-const sentenceSplitter = /(?:\.|\?|\n)/gi;
+import { DB } from "../get-db";
+
+export type MarkovEntry = { [followingOrPrecedingWord: string]: number };
+
+const sentenceSplitter = /[.?\n]/gi;
 const wordNormalizer = (word: string) => word.toLowerCase();
 
-// TODO: we need client-specific filters -- this was for slack!
+// TODO: improve?
 const wordFilter = (word: string) => word.length > 0 && !word.startsWith("<");
 
-export const markovReducers = (
-  state: WordBank = {},
-  action: AddSentenceAction
-) => {
-  switch (action.type) {
-    case "ADD_SENTENCE":
-      action.sentence.split(sentenceSplitter).forEach(line => {
-        const words = line
-          .split(" ")
-          .map(wordNormalizer)
-          .filter(wordFilter);
+const keyForward = (word: string) => `markov:${word}`;
+const keyReverse = (word: string) => `markov-rev:${word}`;
 
-        const nextState = { ...state };
-        for (let i = 0; i < words.length - 1; i++) {
-          const word = words[i];
-          const nextWord = words[i + 1];
+export async function addSentence(db: DB, sentence: string): Promise<void> {
+  const lines = sentence.split(sentenceSplitter);
+  for (const line of lines) {
+    const words = line
+      .split(/\s/gi)
+      .map(wordNormalizer)
+      .filter(wordFilter);
 
-          if (!(word in nextState)) {
-            nextState[word] = {};
-          }
-          nextState[word] = {
-            ...nextState[word],
-            [nextWord]: (nextState[word][nextWord] || 0) + 1
-          };
+    /* eslint-disable no-await-in-loop */
+    for (let i = 0; i < words.length - 1; i++) {
+      const word = words[i];
+      const nextWord = words[i + 1];
+
+      let forwardEntry;
+      let reverseEntry;
+      try {
+        forwardEntry = await db.get<MarkovEntry>(keyForward(word));
+      } catch (e) {
+        if (e.notFound) {
+          forwardEntry = {} as MarkovEntry;
+        } else {
+          throw e;
         }
-        // eslint-disable-next-line no-param-reassign
-        state = nextState;
-      });
-      return state;
-    default:
-      return state;
-  }
-};
+      }
 
-function getInitialWordbank(): WordBank {
+      try {
+        reverseEntry = await db.get<MarkovEntry>(keyReverse(nextWord));
+      } catch (e) {
+        if (e.notFound) {
+          reverseEntry = {} as MarkovEntry;
+        } else {
+          throw e;
+        }
+      }
+
+      forwardEntry[nextWord] = (forwardEntry[nextWord] || 0) + 1;
+      reverseEntry[word] = (reverseEntry[word] || 0) + 1;
+
+      await db.put<MarkovEntry>(keyForward(word), forwardEntry);
+      await db.put<MarkovEntry>(keyReverse(nextWord), reverseEntry);
+    }
+    /* eslint-enable no-await-in-loop */
+  }
+}
+
+export async function initializeMarkov(db: DB): Promise<void> {
   const tarotLines: string[] = JSON.parse(
     fs.readFileSync(path.join(__dirname, "../../data/corpora.json"), "utf8")
   ).tarotLines;
@@ -48,8 +68,8 @@ function getInitialWordbank(): WordBank {
   assert(Array.isArray(tarotLines));
   assert(tarotLines.every(l => typeof l === "string"));
 
-  return tarotLines.reduce(
-    (p, line) => markovReducers(p, addSentenceAction(line)),
-    {} as WordBank
-  );
+  for (const line of tarotLines) {
+    // eslint-disable-next-line no-await-in-loop
+    await addSentence(db, line);
+  }
 }

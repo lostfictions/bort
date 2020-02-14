@@ -1,12 +1,31 @@
-- batch writes resulting from reducer application instead of applying them
-  immediately (which is still async anyway)
+short-term:
 
-- low-hanging optimizations for level: namespace wordbank and only write changed
-  keys, etc.
+// interface StoreShape {
+//   wordBank: { [word: string]: { [followedBy: string]: number } };
 
-- allow normalizing differences between clients
-  - normalized username format (for "seen" command, etc.)
-  - (maybe) service-independent formatting (markdown -> whatever?)
+//   /**
+//    * a cache of recent responses to avoid repetition.
+//    *
+//    * maps from response -> time sent (in ms from epoch)
+//    */
+//   recents: { [uri: string]: number };
+
+//   /**
+//    * maps usernames to a tuple of the last message that user sent
+//    * and the date it was sent (in ms from epoch)
+//    */
+//   seen: { [username: string]: SeenData };
+// }
+
+// interface Store {
+//   getMarkov(word: string): Promise<{ [nextWord: string]: number }>;
+//   getMarkovPrev(word: string): Promise<{ [prevWord: string]: number }>;
+//   getRecents(): Promise<{ [recent: string]: number }>;
+//   getSeen(
+//     user: string
+//   ): Promise<{ time: number; message: string; channel: string }>;
+// }
+
 
 - reminder command
 

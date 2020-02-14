@@ -1,15 +1,5 @@
 import { WordBank } from "../components/markov";
 
-interface AddSentenceAction {
-  type: "ADD_SENTENCE";
-  sentence: string;
-}
-
-export const addSentenceAction = (sentence: string): AddSentenceAction => ({
-  type: "ADD_SENTENCE",
-  sentence
-});
-
 const sentenceSplitter = /(?:\.|\?|\n)/gi;
 const wordNormalizer = (word: string) => word.toLowerCase();
 
@@ -49,3 +39,17 @@ export const markovReducers = (
       return state;
   }
 };
+
+function getInitialWordbank(): WordBank {
+  const tarotLines: string[] = JSON.parse(
+    fs.readFileSync(path.join(__dirname, "../../data/corpora.json"), "utf8")
+  ).tarotLines;
+
+  assert(Array.isArray(tarotLines));
+  assert(tarotLines.every(l => typeof l === "string"));
+
+  return tarotLines.reduce(
+    (p, line) => markovReducers(p, addSentenceAction(line)),
+    {} as WordBank
+  );
+}

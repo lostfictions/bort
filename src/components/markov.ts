@@ -1,7 +1,5 @@
 import { randomInArray, randomByWeight } from "../util";
 
-export type WordBank = { [word: string]: { [followedBy: string]: number } };
-
 //prettier-ignore
 const prepositions = [
   "until", "onto", "of", "into", "out", "except", "across", "by", "between",
@@ -37,6 +35,7 @@ const continueSet = new Set([
   ...conjunctions,
   ...misc
 ]);
+
 const endTest = (output: string[]) =>
   output.length > 3 &&
   !continueSet.has(output[output.length - 1]) &&

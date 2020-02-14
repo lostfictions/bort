@@ -2,7 +2,11 @@ import fs from "fs";
 import path from "path";
 import assert from "assert";
 
+import debug from "debug";
+
 import { DB } from "../get-db";
+
+const log = debug("bort-verbose:markov");
 
 export type MarkovEntry = { [followingOrPrecedingWord: string]: number };
 
@@ -16,6 +20,8 @@ const keyForward = (word: string) => `markov:${word}`;
 const keyReverse = (word: string) => `markov-rev:${word}`;
 
 export async function addSentence(db: DB, sentence: string): Promise<void> {
+  log(`adding sentence: "${sentence}"`);
+
   const lines = sentence.split(sentenceSplitter);
   for (const line of lines) {
     const words = line
@@ -62,7 +68,7 @@ export async function addSentence(db: DB, sentence: string): Promise<void> {
 
 export async function initializeMarkov(db: DB): Promise<void> {
   const tarotLines: string[] = JSON.parse(
-    fs.readFileSync(path.join(__dirname, "../../data/corpora.json"), "utf8")
+    fs.readFileSync(path.join(__dirname, "../../../data/corpora.json"), "utf8")
   ).tarotLines;
 
   assert(Array.isArray(tarotLines));

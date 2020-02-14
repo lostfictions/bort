@@ -11,7 +11,8 @@
     "esModuleInterop": true
   },
   "include": [
-    "./defs/**/*",
-    "./src/**/*"
+    "defs",
+    "src",
+    "scripts"
   ]
 }

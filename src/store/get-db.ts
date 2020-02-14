@@ -64,11 +64,8 @@ function getEnsuredDbPath(dbName: string): string {
 }
 
 async function loadOrInitializeDb(dbName: string): Promise<DB> {
-  if (/[^a-z0-9_-]/i.test(dbName)) {
-    throw new Error(`Invalid db name! Permitted characters: [a-zA-Z0-9_-]`);
-  }
-
-  const dbPath = getEnsuredDbPath(dbName);
+  const sanitizedDbName = dbName.replace(/[^a-z0-9_-]/gi, "_");
+  const dbPath = getEnsuredDbPath(sanitizedDbName);
 
   let shouldInitialize = false;
 

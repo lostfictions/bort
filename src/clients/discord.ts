@@ -6,7 +6,7 @@ import {
 } from "discord.js";
 
 import { replaceDbName } from "../store/store";
-import { getStore } from "../store/get-store";
+import { getDb } from "../store/get-db";
 import messageHandler from "../root-handler";
 import { HandlerArgs } from "../handler-args";
 
@@ -61,7 +61,7 @@ export function makeDiscordBot(discordToken: string) {
         }
       })();
 
-      const store = await getStore(replaceDbName(storeName));
+      const store = await getDb(replaceDbName(storeName));
 
       const response = await processMessage<HandlerArgs>(messageHandler, {
         store,

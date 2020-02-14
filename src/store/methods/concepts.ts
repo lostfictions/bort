@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 import assert from "assert";
 
-import { DB } from "../get-store";
+import { DB } from "../get-db";
 
 export type Concept = { [entry: string]: number };
 

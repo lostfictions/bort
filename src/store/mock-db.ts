@@ -1,4 +1,4 @@
-import { DB } from "./get-store";
+import { DB } from "./get-db";
 
 export default function makeMockDb(): {
   store: { [key: string]: any };

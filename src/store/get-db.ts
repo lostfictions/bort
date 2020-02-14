@@ -24,7 +24,7 @@ const dbCache: { [id: string]: DB } = {};
  * channels to share a store, make sure it has a unique ID!
  * @param id The unique identifier for this store.
  */
-export async function getStore(id: string): Promise<DB> {
+export async function getDb(id: string): Promise<DB> {
   if (id.length < 1) {
     throw new Error("Invalid id for store!");
   }

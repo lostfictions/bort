@@ -1,7 +1,7 @@
 import readline from "readline";
 import { processMessage } from "../util/handler";
 
-import { getStore } from "../store/get-store";
+import { getDb } from "../store/get-db";
 import messageHandler from "../root-handler";
 
 export const makeCLIBot = (dbName = "_cli-test") => {
@@ -12,7 +12,7 @@ export const makeCLIBot = (dbName = "_cli-test") => {
 
   // eslint-disable-next-line @typescript-eslint/no-floating-promises
   (async () => {
-    const store = await getStore(dbName);
+    const store = await getDb(dbName);
 
     console.log(`Loaded store "${dbName}"`);
 

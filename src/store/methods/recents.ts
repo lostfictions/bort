@@ -1,4 +1,4 @@
-import { DB } from "../get-store";
+import { DB } from "../get-db";
 
 export interface Recents {
   [url: string]: number;

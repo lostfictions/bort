@@ -5,6 +5,7 @@ import level from "level";
 import debug from "debug";
 
 import { initializeConcepts } from "./methods/concepts";
+import { initializeSeen } from "./methods/seen";
 import { initializeRecents, cleanRecents } from "./methods/recents";
 
 import { DATA_DIR } from "../env";
@@ -83,6 +84,7 @@ async function loadOrInitializeDb(dbName: string): Promise<DB> {
 
   if (shouldInitialize) {
     await initializeConcepts(db);
+    await initializeSeen(db);
     await initializeRecents(db);
     log("Finished initializing DB.");
   }

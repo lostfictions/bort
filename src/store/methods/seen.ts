@@ -1,40 +1,31 @@
-interface SetSeenAction {
-  type: "SET_SEEN";
-  username: string;
-  time: number;
-  message: string;
-  channel: string;
+import { DB } from "../get-db";
+
+const key = "seen";
+
+interface SeenData {
+  [username: string]: {
+    time: number;
+    message: string;
+    channel: string;
+  };
 }
 
-export const setSeenAction = (
+export async function setSeen(
+  db: DB,
   username: string,
   message: string,
   channel: string,
   time = Date.now()
-): SetSeenAction => ({
-  type: "SET_SEEN",
-  username,
-  time,
-  message,
-  channel
-});
-
-export interface SeenData {
-  time: number;
-  message: string;
-  channel: string;
+): Promise<void> {
+  const seen = await db.get<SeenData>(key);
+  seen[username] = {
+    message,
+    channel,
+    time
+  };
+  return db.put<SeenData>(key, seen);
 }
 
-export const seenReducers = (
-  state: { [username: string]: SeenData } = {},
-  action: SetSeenAction
-) => {
-  switch (action.type) {
-    case "SET_SEEN": {
-      const { username, type, ...data } = action;
-      return { ...state, [username]: data };
-    }
-    default:
-      return state;
-  }
-};
+export async function initializeSeen(db: DB): Promise<void> {
+  return db.put<SeenData>(key, {});
+}

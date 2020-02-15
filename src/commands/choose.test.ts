@@ -1,5 +1,6 @@
 import command from "./choose";
-import { getMockStore } from "../util/get-mock-store-for-test";
+
+import makeMockDb from "../store/mock-db";
 
 describe("choose", () => {
   describe("choose command", () => {
@@ -7,7 +8,7 @@ describe("choose", () => {
       const items = ["a", "b", "c", "d"];
       const result = await command.handleMessage({
         message: `choose ${items.join(",")}`,
-        store: getMockStore()
+        store: makeMockDb().db
       } as any);
       expect(items).toContain(result);
     });
@@ -19,7 +20,7 @@ describe("choose", () => {
         [",", " ,", ", ", " , ", "   ,   "].map(async joiner => {
           const result = await command.handleMessage({
             message: `choose ${items.join(joiner)}`,
-            store: getMockStore()
+            store: makeMockDb().db
           } as any);
           expect(items).toContain(result);
         })

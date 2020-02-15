@@ -1,12 +1,13 @@
 import command, { USAGE } from "./busey";
-import { getMockStore } from "../util/get-mock-store-for-test";
+
+import makeMockDb from "../store/mock-db";
 
 describe("busey", () => {
   describe("busey command", () => {
     it("should return usage on empty", async () => {
       const result = await command.handleMessage({
         message: "busey",
-        store: getMockStore()
+        store: makeMockDb().db
       } as any);
       expect(result).toBe(USAGE);
     });
@@ -16,7 +17,7 @@ describe("busey", () => {
         [...Array(5)].map(async () => {
           const result = await command.handleMessage({
             message: "busey abc",
-            store: getMockStore()
+            store: makeMockDb().db
           } as any);
           expect(result).toBe("Aa Bb Cc");
         })
@@ -26,7 +27,7 @@ describe("busey", () => {
     it("should trace returns and acro based on them", async () => {
       const result = await command.handleMessage({
         message: "busey [xconcept]",
-        store: getMockStore()
+        store: makeMockDb().db
       } as any);
       expect(result).toBe("(a)\nAa");
     });
@@ -34,7 +35,7 @@ describe("busey", () => {
     it("should handle punctuation by reinserting it at the correct location", async () => {
       const result = await command.handleMessage({
         message: "busey ab:c",
-        store: getMockStore()
+        store: makeMockDb().db
       } as any);
       expect(result).toBe("Aa Bb : Cc");
     });

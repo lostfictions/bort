@@ -1,86 +1,129 @@
 import {
-  conceptReducers,
-  addConceptAction,
-  removeConceptAction,
-  loadConceptAction,
-  addToConceptAction,
-  removeFromConceptAction
+  addConcept,
+  removeConcept,
+  addToConcept,
+  removeFromConcept
 } from "./concepts";
 
-describe("concept reducers", () => {
-  test("add concept action", () => {
-    expect(conceptReducers({}, addConceptAction("dogs"))).toEqual({
-      dogs: []
-    });
+import makeMockDb from "../mock-db";
 
-    expect(
-      conceptReducers({ cats: ["tabby"] }, addConceptAction("dogs"))
-    ).toEqual({ cats: ["tabby"], dogs: [] });
-  });
+describe("db concepts", () => {
+  test("add concept 1", async () => {
+    const { db, store } = makeMockDb();
 
-  test("remove concept action", () => {
-    expect(
-      conceptReducers(
-        { dogs: ["shiba", "labrador"] },
-        removeConceptAction("dogs")
-      )
-    ).toEqual({});
+    await addConcept(db, "dogs");
 
-    expect(
-      conceptReducers(
-        { dogs: ["shiba", "labrador"], cats: ["tabby"] },
-        removeConceptAction("cats")
-      )
-    ).toEqual({
-      dogs: ["shiba", "labrador"]
+    expect(store).toEqual({
+      "concept:dogs": {}
     });
   });
 
-  test("load concept action", () => {
-    expect(
-      conceptReducers({}, loadConceptAction("dogs", ["shiba", "lab"]))
-    ).toEqual({
-      dogs: ["shiba", "lab"]
-    });
+  test("add concept 2", async () => {
+    const { db, store } = makeMockDb();
 
-    expect(
-      conceptReducers(
-        { cats: ["tabby"], dogs: ["corgi"] },
-        loadConceptAction("dogs", ["shiba", "lab"])
-      )
-    ).toEqual({ cats: ["tabby"], dogs: ["shiba", "lab"] });
+    store["concept:cats"] = { tabby: 1 };
+
+    await addConcept(db, "dogs");
+
+    expect(store).toEqual({ "concept:cats": { tabby: 1 }, "concept:dogs": {} });
   });
 
-  test("add to concept action", () => {
-    expect(
-      conceptReducers({ dogs: [] }, addToConceptAction("dogs", "shiba"))
-    ).toEqual({
-      dogs: ["shiba"]
-    });
+  test("add concept 3", async () => {
+    const { db, store } = makeMockDb();
 
-    expect(
-      conceptReducers(
-        { cats: ["tabby"], dogs: ["lab"] },
-        addToConceptAction("dogs", "shiba")
-      )
-    ).toEqual({ cats: ["tabby"], dogs: ["lab", "shiba"] });
+    store["concept:cats"] = { tabby: 1 };
+
+    await addConcept(db, "dogs", ["pug", "weiner"]);
+
+    expect(store).toEqual({
+      "concept:cats": { tabby: 1 },
+      "concept:dogs": { pug: 1, weiner: 1 }
+    });
   });
 
-  test("remove from concept action", () => {
-    expect(
-      conceptReducers(
-        { dogs: ["shiba"] },
-        removeFromConceptAction("dogs", "shiba")
-      )
-    ).toEqual({
-      dogs: []
-    });
+  test("add concept should not replace existing", async () => {
+    const { db, store } = makeMockDb();
 
-    expect(
-      conceptReducers(
-        { cats: ["tabby"], dogs: ["shiba", "lab"] },
-        removeFromConceptAction("dogs", "shiba")
-      )
-    ).toEqual({ cats: ["tabby"], dogs: ["lab"] });
+    store["concept:cats"] = { tabby: 1 };
+
+    const res = await addConcept(db, "cats");
+
+    expect(res).toBe(false);
+    expect(store).toEqual({ "concept:cats": { tabby: 1 } });
+  });
+
+  test("remove concept 1", async () => {
+    const { db, store } = makeMockDb();
+
+    store["concept:dogs"] = { shiba: 1, labrador: 1 };
+
+    await removeConcept(db, "dogs");
+
+    expect(store).toEqual({});
+  });
+
+  test("remove concept 2", async () => {
+    const { db, store } = makeMockDb();
+
+    store["concept:dogs"] = { shiba: 1, labrador: 1 };
+    store["concept:cats"] = { tabby: 1 };
+
+    await removeConcept(db, "cats");
+
+    expect(store).toEqual({
+      "concept:dogs": { shiba: 1, labrador: 1 }
+    });
+  });
+
+  test("add to concept 1", async () => {
+    const { db, store } = makeMockDb();
+
+    store["concept:dogs"] = {};
+
+    await addToConcept(db, "dogs", ["shiba"]);
+
+    expect(store).toEqual({
+      "concept:dogs": { shiba: 1 }
+    });
+  });
+
+  test("add to concept 2", async () => {
+    const { db, store } = makeMockDb();
+
+    store["concept:cats"] = { tabby: 1 };
+    store["concept:dogs"] = { lab: 1 };
+
+    await addToConcept(db, "dogs", ["shiba"]);
+
+    expect(store).toEqual({
+      "concept:cats": { tabby: 1 },
+      "concept:dogs": { lab: 1, shiba: 1 }
+    });
+  });
+
+  test("remove from concept 1", async () => {
+    const { db, store } = makeMockDb();
+
+    store["concept:dogs"] = { lab: 1 };
+
+    await removeFromConcept(db, "dogs", ["lab"]);
+
+    expect(store).toEqual({
+      "concept:dogs": {}
+    });
+  });
+
+  test("remove from concept 2", async () => {
+    const { db, store } = makeMockDb();
+
+    store["concept:cats"] = { tabby: 1 };
+    store["concept:dogs"] = { shiba: 1, lab: 1 };
+
+    await removeFromConcept(db, "dogs", ["shiba"]);
+
+    expect(store).toEqual({
+      "concept:cats": { tabby: 1 },
+      "concept:dogs": { lab: 1 }
+    });
   });
 });

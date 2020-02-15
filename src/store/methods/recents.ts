@@ -34,6 +34,10 @@ export async function cleanRecents(
   return db.put<Recents>(key, nextState);
 }
 
+export function getRecents(db: DB): Promise<Recents> {
+  return db.get<Recents>(key);
+}
+
 export function initializeRecents(db: DB): Promise<void> {
   return db.put<Recents>(key, {});
 }

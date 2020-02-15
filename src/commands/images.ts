@@ -1,17 +1,13 @@
 import { makeCommand } from "../util/handler";
 import { randomInArray } from "../util";
 
-import { addRecentAction } from "../reducers/recents";
+import { addRecent, getRecents } from "../store/methods/recents";
 import { maybeTraced } from "../components/trace";
 import { imageSearch } from "../components/image-search";
 
-import { BortStore } from "../store/make-store";
+import { DB } from "../store/get-db";
 
-async function doSearch(
-  rawMessage: string,
-  store: BortStore,
-  animated = false
-) {
+async function doSearch(rawMessage: string, store: DB, animated = false) {
   let message: string;
   let prefix: string;
   if (rawMessage.length === 0) {
@@ -26,8 +22,7 @@ async function doSearch(
     ({ message, prefix } = await maybeTraced(rawMessage, store));
   }
 
-  const recents = await store.get("recents");
-  const dispatch = store.dispatch;
+  const recents = await getRecents(store);
 
   let result = await imageSearch({
     term: message,
@@ -36,8 +31,7 @@ async function doSearch(
   });
 
   if (typeof result === "string") {
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    dispatch(addRecentAction(result));
+    await addRecent(store, result);
   } else {
     result = "nothing :(";
   }

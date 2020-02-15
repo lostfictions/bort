@@ -11,29 +11,34 @@ const key = (concept: string) => `concept:${concept}`;
 export async function addConcept(
   db: DB,
   concept: string,
-  items?: string[]
+  items?: string[],
+  overwrite = false
 ): Promise<boolean> {
   try {
     const existing = await db.get<Concept>(key(concept));
-    if (existing) {
+    if (!existing) {
+      throw new Error(
+        `Key exists, but has falsy value: "${key(concept)}" => "${existing}"`
+      );
+    }
+
+    if (!overwrite) {
       return false;
     }
-    throw new Error(
-      `Key exists, but has falsy value: "${key(concept)}" => "${existing}"`
-    );
   } catch (e) {
-    if (e.notFound) {
-      const c = {} as Concept;
-      if (items) {
-        for (const i of items) {
-          c[i] = 1;
-        }
-      }
-      await db.put<Concept>(key(concept), c);
-      return true;
+    if (!e.notFound) {
+      throw e;
     }
-    throw e;
   }
+
+  const c = {} as Concept;
+  if (items) {
+    for (const i of items) {
+      c[i] = 1;
+    }
+  }
+  await db.put<Concept>(key(concept), c);
+  return true;
 }
 
 export async function removeConcept(db: DB, concept: string): Promise<void> {

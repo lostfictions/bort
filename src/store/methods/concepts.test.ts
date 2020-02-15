@@ -41,7 +41,7 @@ describe("db concepts", () => {
     });
   });
 
-  test("add concept should not replace existing", async () => {
+  test("add concept without overwrite should not replace existing", async () => {
     const { db, store } = makeMockDb();
 
     store["concept:cats"] = { tabby: 1 };
@@ -50,6 +50,28 @@ describe("db concepts", () => {
 
     expect(res).toBe(false);
     expect(store).toEqual({ "concept:cats": { tabby: 1 } });
+  });
+
+  test("add concept with overwrite should replace existing 1", async () => {
+    const { db, store } = makeMockDb();
+
+    store["concept:cats"] = { tabby: 1 };
+
+    const res = await addConcept(db, "cats", undefined, true);
+
+    expect(res).toBe(true);
+    expect(store).toEqual({ "concept:cats": {} });
+  });
+
+  test("add concept with overwrite should replace existing 2", async () => {
+    const { db, store } = makeMockDb();
+
+    store["concept:cats"] = { tabby: 1 };
+
+    const res = await addConcept(db, "cats", ["garfield"], true);
+
+    expect(res).toBe(true);
+    expect(store).toEqual({ "concept:cats": { garfield: 1 } });
   });
 
   test("remove concept 1", async () => {

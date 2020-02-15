@@ -1,7 +1,7 @@
 import axios from "axios";
 
 import { makeCommand } from "../util/handler";
-import { loadConceptAction } from "../reducers/concepts";
+import { addConcept, getConcept } from "../store/methods/concepts";
 
 const loaderRegex = /^([^ ]+) +(?:path[=: ]([\w\d.]+) +)?(?:as|to) +([^\s]+)$/;
 
@@ -86,7 +86,18 @@ export default makeCommand(
       items = [item];
     }
 
-    await store.dispatch(loadConceptAction(concept, items));
-    return `Loaded ${items.length} items from ${url}.`;
+    const result: string[] = [];
+    const maybeConcept = await getConcept(store, message);
+    if (maybeConcept) {
+      const count = Object.keys(maybeConcept).length;
+      result.push(`Overwrote concept "${concept}" (that had ${count} entries)`);
+    } else {
+      result.push(`Added new concept "${concept}"`);
+    }
+
+    await addConcept(store, concept, items, true);
+
+    result.push(`with ${items.length} items from ${url}.`);
+    return result.join(" ");
   }
 );

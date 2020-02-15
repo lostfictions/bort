@@ -1,12 +1,12 @@
 import { makeCommand, adjustArgs } from "../util/handler";
 import { HandlerArgs } from "../handler-args";
 import {
-  addConceptAction,
-  removeConceptAction,
-  addToConceptAction,
-  removeFromConceptAction,
-  loadConceptAction
-} from "../reducers/concepts";
+  addConcept,
+  removeConcept,
+  getConcept,
+  addToConcept,
+  removeFromConcept
+} from "../store/methods/concepts";
 
 export type ConceptBank = { [conceptName: string]: string[] };
 
@@ -46,11 +46,11 @@ export const conceptAddCommand = makeCommand(
       return false;
     }
 
-    const concepts = await store.get("concepts");
-    if (message in concepts) {
+    const maybeConcept = await getConcept(store, message);
+    if (maybeConcept) {
       return `Concept "${message}" already exists!`;
     }
-    await store.dispatch(addConceptAction(message));
+    await addConcept(store, message);
     return `Okay! Added a concept named "${message}".`;
   }
 );
@@ -66,11 +66,12 @@ export const conceptRemoveCommand = makeCommand(
       return false;
     }
 
-    const concepts = await store.get("concepts");
-    if (!(message in concepts)) {
+    const maybeConcept = await getConcept(store, message);
+    if (!maybeConcept) {
       return `Concept "${message}" doesn't exist!`;
     }
-    await store.dispatch(removeConceptAction(message));
+
+    await removeConcept(store, message);
     return `Okay! Deleted concept "${message}".`;
   }
 );
@@ -90,14 +91,15 @@ export const conceptSetCommand = makeCommand(
     const args = remainder.split(",").map(s => s.trim());
     const result: string[] = [];
 
-    const concepts = await store.get("concepts");
-    if (concept in concepts) {
-      const count = concepts[concept].length;
+    const maybeConcept = await getConcept(store, message);
+    if (maybeConcept) {
+      const count = Object.keys(maybeConcept).length;
       result.push(`Overwrote concept "${concept}" (that had ${count} entries)`);
     } else {
       result.push(`Added new concept "${concept}"`);
     }
-    await store.dispatch(loadConceptAction(concept, args));
+
+    await addConcept(store, concept, args, true);
 
     result.push(`with ${args.length} new entries.`);
     return result.join(" ");
@@ -115,12 +117,9 @@ export const conceptListCommand = makeCommand(
       return false;
     }
 
-    const concepts = await store.get("concepts");
-    if (!(message in concepts)) {
-      return `Concept "${message}" doesn't exist!`;
-    }
+    const concepts = await getConcept(store, message);
 
-    const items = concepts[message];
+    const items = Object.keys(concepts);
     if (items.length > 100) {
       return (
         `"${message}" has ${items.length} items in it! Only showing the first 100.\n` +
@@ -149,11 +148,16 @@ const conceptAddToCommand = makeCommand<HandlerArgsWithConcept>(
       return false;
     }
 
-    const concepts = await store.get("concepts");
-    if (concepts[concept].includes(message)) {
+    const maybeConcept = await getConcept(store, message);
+    if (!maybeConcept) {
+      return `Concept "${message}" doesn't exist!`;
+    }
+
+    if (Object.hasOwnProperty.call(maybeConcept, concept)) {
       return `"${message}" already exists in "${concept}"!`;
     }
-    await store.dispatch(addToConceptAction(concept, message));
+
+    await addToConcept(store, concept, [message]);
     return `Okay! Added "${message}" to "${concept}".`;
   }
 );
@@ -170,18 +174,22 @@ const conceptBulkAddToCommand = makeCommand<HandlerArgsWithConcept>(
     }
     const conceptsToAdd = message.split(",").map(s => s.trim());
 
-    const concepts = await store.get("concepts");
-    const results: string[] = [];
-    for (const c of conceptsToAdd) {
-      if (concepts[concept].includes(c)) {
-        results.push(`"${c}" already exists in "${concept}"!`);
-      } else {
-        // eslint-disable-next-line no-await-in-loop
-        await store.dispatch(addToConceptAction(concept, c));
-        results.push(`Added "${c}".`);
-      }
+    const maybeConcept = await getConcept(store, message);
+    if (!maybeConcept) {
+      return `Concept "${message}" doesn't exist!`;
     }
-    return results.join("\n");
+
+    const results = conceptsToAdd
+      .filter(c => Object.hasOwnProperty.call(maybeConcept, c))
+      .map(c => `"${c}" already exists in "${concept}"!`);
+
+    const toAdd = conceptsToAdd.filter(
+      c => !Object.hasOwnProperty.call(maybeConcept, c)
+    );
+
+    await addToConcept(store, concept, toAdd);
+
+    return results.concat(toAdd.map(c => `Added "${c}".`)).join("\n");
   }
 );
 
@@ -196,12 +204,16 @@ const conceptRemoveFromCommand = makeCommand<HandlerArgsWithConcept>(
       return false;
     }
 
-    const concepts = await store.get("concepts");
+    const maybeConcept = await getConcept(store, message);
+    if (!maybeConcept) {
+      return `Concept "${message}" doesn't exist!`;
+    }
 
-    if (!concepts[concept].includes(message)) {
+    if (!Object.hasOwnProperty.call(maybeConcept, concept)) {
       return `"${message}" doesn't exist in "${concept}"!`;
     }
-    await store.dispatch(removeFromConceptAction(concept, message));
+
+    await removeFromConcept(store, concept, [message]);
     return `Okay! Removed "${message}" from "${concept}".`;
   }
 );
@@ -219,10 +231,11 @@ export const conceptMatcher = adjustArgs<HandlerArgs>(
 
     const [concept, command] = normalizeMessageWithLeadingConcept(message);
 
-    const concepts = await store.get("concepts");
-    if (!(concept in concepts)) {
+    const maybeConcept = await getConcept(store, message);
+    if (!maybeConcept) {
       return false;
     }
+
     return { ...args, message: concept + " " + command };
   },
   adjustArgs<HandlerArgsWithConcept, HandlerArgs>(

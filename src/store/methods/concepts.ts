@@ -8,6 +8,8 @@ export type Concept = { [entry: string]: number };
 
 const key = (concept: string) => `concept:${concept}`;
 
+// TODO: concepts are plain objects -- we should sanitize names like toString, etc.
+
 export async function addConcept(
   db: DB,
   concept: string,
@@ -74,8 +76,25 @@ export async function removeFromConcept(
   return true;
 }
 
-export async function getConcept(db: DB, concept: string): Promise<Concept> {
-  return db.get<Concept>(key(concept));
+export async function getConcept(
+  db: DB,
+  concept: string
+): Promise<Concept | false> {
+  try {
+    const existing = await db.get<Concept>(key(concept));
+    if (!existing) {
+      throw new Error(
+        `Key exists, but has falsy value: "${key(concept)}" => "${existing}"`
+      );
+    }
+
+    return existing;
+  } catch (e) {
+    if (!e.notFound) {
+      throw e;
+    }
+    return false;
+  }
 }
 
 export async function initializeConcepts(db: DB): Promise<void> {

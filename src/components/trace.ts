@@ -1,20 +1,25 @@
-import { BortStore } from "../store/make-store";
-import { randomInArray } from "../util";
-import { ConceptBank } from "../commands/concepts";
-
-export const matcher = /\[([^\[\]]+)\]/g; // eslint-disable-line no-useless-escape
+import { randomByWeight } from "../util";
+import { DB } from "../store/get-db";
+import { getConcept } from "../store/methods/concepts";
 
 type Modifier = (token: string, ...args: string[]) => string;
 interface ModifierList {
   [filterName: string]: Modifier;
 }
 interface TraceArgs {
-  concepts: ConceptBank;
+  db: DB;
   concept: string;
   maxCycles?: number;
   seen?: { [seen: string]: number };
   modifierList?: ModifierList;
 }
+
+export const MAX_CYCLES_ERROR = "{error: max cycles exceeded}";
+
+export const unknownConceptError = (c: string) => `{unknown concept "${c}"}`;
+export const emptyConceptError = (c: string) => `{empty concept "${c}"}`;
+
+export const matcher = /\[([^[\]]+)\]/g;
 
 const isVowel = (char: string) => /^[aeiou]$/i.test(char);
 
@@ -78,13 +83,17 @@ export const defaultModifiers: ModifierList = {
 defaultModifiers["an"] = defaultModifiers["a"];
 defaultModifiers["es"] = defaultModifiers["s"];
 
-export default function trace({
-  concepts,
+export async function trace({
+  db,
   concept,
   maxCycles = 10,
   seen = {},
   modifierList = defaultModifiers
-}: TraceArgs): string {
+}: TraceArgs): Promise<string> {
+  if (seen[concept] > maxCycles) {
+    return MAX_CYCLES_ERROR;
+  }
+
   const [resolvedConcept, ...modifierChunks] = concept.split("|");
   const modifiers = modifierChunks
     .map(chunk => {
@@ -93,48 +102,65 @@ export default function trace({
     })
     .filter(resolved => resolved[0]);
 
-  if (!(resolvedConcept in concepts)) {
-    return `{unknown concept "${resolvedConcept}"}`;
+  const concepts = await getConcept(db, resolvedConcept);
+
+  if (!concepts) {
+    return unknownConceptError(resolvedConcept);
   }
 
-  if (concepts[resolvedConcept].length === 0) {
-    return `{empty concept "${resolvedConcept}"}`;
+  if (Object.keys(concepts).length === 0) {
+    return emptyConceptError(resolvedConcept);
   }
 
-  const traceResult = randomInArray(concepts[resolvedConcept]).replace(
-    matcher,
-    (_, nextConcept) => {
-      if (seen[nextConcept] > maxCycles) {
-        return "{error: max cycles exceeded}";
-      }
-      const nextSeen = { ...seen };
-      nextSeen[nextConcept] = nextSeen[nextConcept] + 1 || 1;
-      return trace({
-        concepts,
-        concept: nextConcept,
-        maxCycles,
-        seen: nextSeen
-      });
-    }
-  );
-  return modifiers.reduce((result, m) => m[0](result, ...m[1]), traceResult);
+  let result = randomByWeight(concepts);
+  const matches = [...result.matchAll(matcher)].reverse();
+
+  for (const match of matches) {
+    const [group, nextConcept] = match;
+    const i = match.index!;
+
+    // eslint-disable-next-line no-await-in-loop
+    const traceResult = await trace({
+      db,
+      concept: nextConcept,
+      seen: { ...seen, [nextConcept]: seen[nextConcept] + 1 || 1 },
+      maxCycles,
+      modifierList
+    });
+
+    result =
+      result.substring(0, i) + traceResult + result.substring(i + group.length);
+  }
+
+  return modifiers.reduce((res, m) => m[0](res, ...m[1]), result);
 }
 
-export function tryTrace(
-  message: string,
-  concepts: ConceptBank
-): string | false {
-  if (matcher.test(message)) {
-    return message.replace(matcher, (_, concept) =>
-      trace({ concepts, concept })
-    );
+export async function tryTrace(
+  db: DB,
+  message: string
+): Promise<string | false> {
+  const matches = [...message.matchAll(matcher)].reverse();
+
+  if (matches.length > 0) {
+    let result = message;
+    for (const match of matches) {
+      const [group, concept] = match;
+      const i = match.index!;
+
+      // eslint-disable-next-line no-await-in-loop
+      const traceResult = await trace({ db, concept });
+      result =
+        result.substring(0, i) +
+        traceResult +
+        result.substring(i + group.length);
+    }
+    return result;
   }
   return false;
 }
 
-export async function maybeTraced(message: string, store: BortStore) {
-  const concepts = await store.get("concepts");
-  const traced = tryTrace(message, concepts);
+export async function maybeTraced(db: DB, message: string) {
+  const traced = await tryTrace(db, message);
   let prefix = "";
   if (traced) {
     // eslint-disable-next-line no-param-reassign

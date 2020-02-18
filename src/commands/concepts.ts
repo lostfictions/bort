@@ -8,8 +8,6 @@ import {
   removeFromConcept
 } from "../store/methods/concepts";
 
-export type ConceptBank = { [conceptName: string]: string[] };
-
 type HandlerArgsWithConcept = HandlerArgs & { concept: string };
 
 // Match two groups:

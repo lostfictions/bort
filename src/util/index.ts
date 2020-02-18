@@ -28,13 +28,8 @@ export function randomInArray<T>(arr: T[]): T {
 }
 
 // TODO: handle empty objects, zero weights
-export interface WeightedValues {
-  [value: string]: number;
-}
-export function randomByWeight<T extends WeightedValues, K extends keyof T>(
-  weights: T
-): K {
-  const keys = Object.keys(weights) as K[];
+export function randomByWeight(weights: { [value: string]: number }): string {
+  const keys = Object.keys(weights);
   const sum = Object.values(weights).reduce((p, c) => {
     if (c < 0) throw new Error("Negative weight!");
     return p + c;

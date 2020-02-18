@@ -2,7 +2,8 @@ import {
   addConcept,
   removeConcept,
   addToConcept,
-  removeFromConcept
+  removeFromConcept,
+  getConceptList
 } from "./concepts";
 
 import makeMockDb from "../mock-db";
@@ -147,5 +148,19 @@ describe("db concepts", () => {
       "concept:cats": { tabby: 1 },
       "concept:dogs": { lab: 1 }
     });
+  });
+
+  test("get concept list", async () => {
+    const { db, store } = makeMockDb();
+
+    store["whatever"] = {};
+    store["concept:cats"] = { tabby: 1 };
+    store["another thing"] = {};
+    store["conceptual art"] = {};
+    store["concept:dogs"] = { shiba: 1, lab: 1 };
+
+    const concepts = await getConceptList(db);
+
+    expect(concepts).toEqual(["cats", "dogs"]);
   });
 });

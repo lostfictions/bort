@@ -21,6 +21,16 @@ export default function makeMockDb(): {
       },
       async del(key: string): Promise<void> {
         delete store[key];
+      },
+      createKeyStream(_opts) {
+        return (async function* keyIter() {
+          const keys = Object.keys(store);
+          for (const k of keys) {
+            if (k < _opts?.lt! && k >= _opts?.gte!) {
+              yield k;
+            }
+          }
+        })();
       }
     }
   };

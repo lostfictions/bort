@@ -13,10 +13,24 @@ import { DATA_DIR } from "../env";
 
 const log = debug("bort:store");
 
+interface ReadStreamOptions {
+  gt?: string;
+  gte?: string;
+  lt?: string;
+  lte?: string;
+  reverse?: boolean;
+  limit?: number;
+  keys?: boolean;
+  values?: boolean;
+  keyAsBuffer?: boolean;
+  valueAsBuffer?: boolean;
+}
+
 export type DB = {
   get<T = any>(key: string): Promise<T>;
   put<T = any>(key: string, value: T): Promise<void>;
   del(key: string): Promise<void>;
+  createKeyStream(options?: ReadStreamOptions): AsyncIterable<string>;
 };
 
 const dbCache: { [id: string]: DB } = {};
@@ -81,7 +95,7 @@ async function loadOrInitializeDb(dbName: string): Promise<DB> {
     shouldInitialize = true;
   }
 
-  const db = level(dbPath, { valueEncoding: "json" });
+  const db = level(dbPath, { valueEncoding: "json" }) as DB;
 
   if (shouldInitialize) {
     await initializeConcepts(db);

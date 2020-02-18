@@ -6,7 +6,9 @@ import { DB } from "../get-db";
 
 export type Concept = { [entry: string]: number };
 
-const key = (concept: string) => `concept:${concept}`;
+const KEY_PREFIX = "concept:";
+const KEY_STREAM_TERMINATOR = "concept;";
+const key = (concept: string) => `${KEY_PREFIX}${concept}`;
 
 // TODO: concepts are plain objects -- we should sanitize names like toString, etc.
 
@@ -95,6 +97,15 @@ export async function getConcept(
     }
     return false;
   }
+}
+
+export async function getConceptList(db: DB): Promise<string[]> {
+  const ks = db.createKeyStream({ gte: KEY_PREFIX, lt: KEY_STREAM_TERMINATOR });
+  const keys: string[] = [];
+  for await (const k of ks) {
+    keys.push(k.toString().substr(KEY_PREFIX.length));
+  }
+  return keys;
 }
 
 export async function initializeConcepts(db: DB): Promise<void> {

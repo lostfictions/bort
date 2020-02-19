@@ -5,6 +5,7 @@ import assert from "assert";
 import debug from "debug";
 
 import { DB } from "../get-db";
+import { getWithDefault } from "../db-helpers";
 
 const log = debug("bort-verbose:markov");
 
@@ -16,10 +17,24 @@ const wordNormalizer = (word: string) => word.toLowerCase();
 // TODO: improve?
 const wordFilter = (word: string) => word.length > 0 && !word.startsWith("<");
 
-const keyForward = (word: string) => `markov:${word}`;
-const keyReverse = (word: string) => `markov-rev:${word}`;
+export const DEFAULT_NAMESPACE = "default";
 
-export async function addSentence(db: DB, sentence: string): Promise<void> {
+export const keyTrigramForward = (
+  namespace: string,
+  first: string,
+  second: string
+) => `markov:${namespace}:${first}|${second}`;
+export const keyTrigramReverse = (
+  namespace: string,
+  third: string,
+  second: string
+) => `markov-rev:${namespace}:${third}|${second}`;
+
+export async function addSentence(
+  db: DB,
+  sentence: string,
+  namespace = DEFAULT_NAMESPACE
+): Promise<void> {
   log(`adding sentence: "${sentence}"`);
 
   const lines = sentence.split(sentenceSplitter);
@@ -30,37 +45,20 @@ export async function addSentence(db: DB, sentence: string): Promise<void> {
       .filter(wordFilter);
 
     /* eslint-disable no-await-in-loop */
-    for (let i = 0; i < words.length - 1; i++) {
-      const word = words[i];
-      const nextWord = words[i + 1];
+    for (let i = 0; i < words.length - 2; i++) {
+      const first = words[i];
+      const second = words[i + 1];
+      const third = words[i + 2];
 
-      let forwardEntry;
-      let reverseEntry;
-      try {
-        forwardEntry = await db.get<MarkovEntry>(keyForward(word));
-      } catch (e) {
-        if (e.notFound) {
-          forwardEntry = {} as MarkovEntry;
-        } else {
-          throw e;
-        }
-      }
+      const fwdKey = keyTrigramForward(namespace, first, second);
+      const fwdEntry = await getWithDefault<MarkovEntry>(db, fwdKey, {});
+      fwdEntry[third] = (fwdEntry[third] || 0) + 1;
+      await db.put<MarkovEntry>(fwdKey, fwdEntry);
 
-      try {
-        reverseEntry = await db.get<MarkovEntry>(keyReverse(nextWord));
-      } catch (e) {
-        if (e.notFound) {
-          reverseEntry = {} as MarkovEntry;
-        } else {
-          throw e;
-        }
-      }
-
-      forwardEntry[nextWord] = (forwardEntry[nextWord] || 0) + 1;
-      reverseEntry[word] = (reverseEntry[word] || 0) + 1;
-
-      await db.put<MarkovEntry>(keyForward(word), forwardEntry);
-      await db.put<MarkovEntry>(keyReverse(nextWord), reverseEntry);
+      const revKey = keyTrigramReverse(namespace, third, second);
+      const revEntry = await getWithDefault<MarkovEntry>(db, revKey, {});
+      revEntry[first] = (revEntry[first] || 0) + 1;
+      await db.put<MarkovEntry>(revKey, revEntry);
     }
     /* eslint-enable no-await-in-loop */
   }

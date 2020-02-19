@@ -112,6 +112,32 @@ export async function getRandomSeed(db: DB, ns = DEFAULT_NAMESPACE) {
   };
 }
 
+export async function getFollowingWords(
+  db: DB,
+  first: string,
+  ns = DEFAULT_NAMESPACE
+): Promise<string[]> {
+  const prefix = `${prefixForward(ns)}:${first}`;
+  const gte = prefix + "|";
+  const lt = prefix + "}"; // "}" follows "|" in char code values
+  const rs = db.createKeyStream({ gte, lt });
+  const keys = [];
+  for await (const k of rs) {
+    keys.push(k.substr(gte.length));
+  }
+
+  return keys;
+}
+
+export function getEntry(
+  db: DB,
+  first: string,
+  second: string,
+  ns = DEFAULT_NAMESPACE
+): Promise<MarkovEntry | null> {
+  return getOrNull<MarkovEntry>(db, keyTrigramForward(first, second, ns));
+}
+
 export async function getSentence(
   db: DB,
   ns = DEFAULT_NAMESPACE,
@@ -123,25 +149,17 @@ export async function getSentence(
   let entry: MarkovEntry | null = null;
   if (first) {
     if (second) {
-      entry = await getOrNull(db, keyTrigramForward(first, second, ns));
+      entry = await getEntry(db, first, second, ns);
     }
 
     // if we don't have a second seed word or if it's not in the db, try to grab
     // a key using only the first seed word
     if (!entry) {
-      const prefix = `${prefixForward(ns)}:${first}`;
-      const gte = prefix + "|";
-      const lt = prefix + "}"; // "}" follows "|" in char code values
-      const rs = db.createReadStream<MarkovEntry>({ gte, lt });
-      const entries = [];
-      for await (const e of rs) {
-        entries.push(e);
-      }
-
-      if (entries.length > 0) {
-        const { key, value } = randomInArray(entries);
-        second = key.substr(gte.length);
-        entry = value;
+      const nextWords = await getFollowingWords(db, first, ns);
+      if (nextWords.length > 0) {
+        second = randomInArray(nextWords);
+        entry = await getEntry(db, first, second, ns);
+        assert(entry !== null);
       }
     }
   }
@@ -163,7 +181,7 @@ export async function getSentence(
     first = second!;
     second = next;
     // eslint-disable-next-line no-await-in-loop
-    entry = await getOrNull(db, keyTrigramForward(first, second, ns));
+    entry = await getEntry(db, first, second, ns);
   } while (entry && !endTest(sentence));
 
   return sentence.join(" ");

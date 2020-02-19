@@ -9,7 +9,7 @@ export type Concept = { [entry: string]: number };
 
 const KEY_PREFIX = "concept:";
 const KEY_STREAM_TERMINATOR = "concept;";
-const key = (concept: string) => `${KEY_PREFIX}${concept}`;
+export const key = (concept: string) => `${KEY_PREFIX}${concept}`;
 
 // TODO: concepts are plain objects -- we should sanitize names like toString, etc.
 

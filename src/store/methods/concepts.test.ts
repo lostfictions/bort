@@ -20,9 +20,9 @@ describe("db concepts", () => {
   });
 
   test("add concept 2", async () => {
-    const { db, store } = makeMockDb();
-
-    store["concept:cats"] = { tabby: 1 };
+    const { db, store } = makeMockDb({
+      "concept:cats": { tabby: 1 }
+    });
 
     await addConcept(db, "dogs");
 
@@ -30,9 +30,9 @@ describe("db concepts", () => {
   });
 
   test("add concept 3", async () => {
-    const { db, store } = makeMockDb();
-
-    store["concept:cats"] = { tabby: 1 };
+    const { db, store } = makeMockDb({
+      "concept:cats": { tabby: 1 }
+    });
 
     await addConcept(db, "dogs", ["pug", "weiner"]);
 
@@ -43,9 +43,9 @@ describe("db concepts", () => {
   });
 
   test("add concept without overwrite should not replace existing", async () => {
-    const { db, store } = makeMockDb();
-
-    store["concept:cats"] = { tabby: 1 };
+    const { db, store } = makeMockDb({
+      "concept:cats": { tabby: 1 }
+    });
 
     const res = await addConcept(db, "cats");
 
@@ -54,9 +54,9 @@ describe("db concepts", () => {
   });
 
   test("add concept with overwrite should replace existing 1", async () => {
-    const { db, store } = makeMockDb();
-
-    store["concept:cats"] = { tabby: 1 };
+    const { db, store } = makeMockDb({
+      "concept:cats": { tabby: 1 }
+    });
 
     const res = await addConcept(db, "cats", undefined, true);
 
@@ -65,9 +65,9 @@ describe("db concepts", () => {
   });
 
   test("add concept with overwrite should replace existing 2", async () => {
-    const { db, store } = makeMockDb();
-
-    store["concept:cats"] = { tabby: 1 };
+    const { db, store } = makeMockDb({
+      "concept:cats": { tabby: 1 }
+    });
 
     const res = await addConcept(db, "cats", ["garfield"], true);
 
@@ -76,9 +76,9 @@ describe("db concepts", () => {
   });
 
   test("remove concept 1", async () => {
-    const { db, store } = makeMockDb();
-
-    store["concept:dogs"] = { shiba: 1, labrador: 1 };
+    const { db, store } = makeMockDb({
+      "concept:dogs": { shiba: 1, labrador: 1 }
+    });
 
     await removeConcept(db, "dogs");
 
@@ -86,10 +86,10 @@ describe("db concepts", () => {
   });
 
   test("remove concept 2", async () => {
-    const { db, store } = makeMockDb();
-
-    store["concept:dogs"] = { shiba: 1, labrador: 1 };
-    store["concept:cats"] = { tabby: 1 };
+    const { db, store } = makeMockDb({
+      "concept:dogs": { shiba: 1, labrador: 1 },
+      "concept:cats": { tabby: 1 }
+    });
 
     await removeConcept(db, "cats");
 
@@ -99,9 +99,9 @@ describe("db concepts", () => {
   });
 
   test("add to concept 1", async () => {
-    const { db, store } = makeMockDb();
-
-    store["concept:dogs"] = {};
+    const { db, store } = makeMockDb({
+      "concept:dogs": {}
+    });
 
     await addToConcept(db, "dogs", ["shiba"]);
 
@@ -111,10 +111,10 @@ describe("db concepts", () => {
   });
 
   test("add to concept 2", async () => {
-    const { db, store } = makeMockDb();
-
-    store["concept:cats"] = { tabby: 1 };
-    store["concept:dogs"] = { lab: 1 };
+    const { db, store } = makeMockDb({
+      "concept:cats": { tabby: 1 },
+      "concept:dogs": { lab: 1 }
+    });
 
     await addToConcept(db, "dogs", ["shiba"]);
 
@@ -125,9 +125,9 @@ describe("db concepts", () => {
   });
 
   test("remove from concept 1", async () => {
-    const { db, store } = makeMockDb();
-
-    store["concept:dogs"] = { lab: 1 };
+    const { db, store } = makeMockDb({
+      "concept:dogs": { lab: 1 }
+    });
 
     await removeFromConcept(db, "dogs", ["lab"]);
 
@@ -137,10 +137,10 @@ describe("db concepts", () => {
   });
 
   test("remove from concept 2", async () => {
-    const { db, store } = makeMockDb();
-
-    store["concept:cats"] = { tabby: 1 };
-    store["concept:dogs"] = { shiba: 1, lab: 1 };
+    const { db, store } = makeMockDb({
+      "concept:cats": { tabby: 1 },
+      "concept:dogs": { shiba: 1, lab: 1 }
+    });
 
     await removeFromConcept(db, "dogs", ["shiba"]);
 
@@ -151,13 +151,13 @@ describe("db concepts", () => {
   });
 
   test("get concept list", async () => {
-    const { db, store } = makeMockDb();
-
-    store["whatever"] = {};
-    store["concept:cats"] = { tabby: 1 };
-    store["another thing"] = {};
-    store["conceptual art"] = {};
-    store["concept:dogs"] = { shiba: 1, lab: 1 };
+    const { db } = makeMockDb({
+      whatever: {},
+      "concept:cats": { tabby: 1 },
+      "another thing": {},
+      "conceptual art": {},
+      "concept:dogs": { shiba: 1, lab: 1 }
+    });
 
     const concepts = await getConceptList(db);
 

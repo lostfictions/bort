@@ -24,10 +24,10 @@ describe("db markov", () => {
     });
 
     it("should boost existing entries", async () => {
-      const { db, store } = makeMockDb();
-
-      store[keyTrigramForward("one", "two")] = { three: 2 };
-      store[keyTrigramReverse("three", "two")] = { one: 4 };
+      const { db, store } = makeMockDb({
+        [keyTrigramForward("one", "two")]: { three: 2 },
+        [keyTrigramReverse("three", "two")]: { one: 4 }
+      });
 
       await addSentence(db, "one two three four");
 
@@ -78,10 +78,10 @@ describe("db markov", () => {
 
   describe("random seed", () => {
     it("should return a random seed", async () => {
-      const { db, store } = makeMockDb();
-
-      store[keyTrigramForward("one", "two")] = { three: 2 };
-      store[keyTrigramForward("cat", "dog")] = { cute: 1 };
+      const { db } = makeMockDb({
+        [keyTrigramForward("one", "two")]: { three: 2 },
+        [keyTrigramForward("cat", "dog")]: { cute: 1 }
+      });
 
       const seed = await getRandomSeed(db);
 
@@ -100,10 +100,10 @@ describe("db markov", () => {
 
   describe("get sentence", () => {
     it("should generate a sentence given valid seed words", async () => {
-      const { db, store } = makeMockDb();
-
-      store[keyTrigramForward("one", "two")] = { three: 2 };
-      store[keyTrigramForward("two", "three")] = { four: 1 };
+      const { db } = makeMockDb({
+        [keyTrigramForward("one", "two")]: { three: 2 },
+        [keyTrigramForward("two", "three")]: { four: 1 }
+      });
 
       const sentence = await getSentence(db, DEFAULT_NAMESPACE, "one", "two");
 

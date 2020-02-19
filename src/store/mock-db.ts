@@ -1,11 +1,11 @@
 import { DB } from "./get-db";
 
-export default function makeMockDb(): {
+export default function makeMockDb(
+  store: { [key: string]: any } = {}
+): {
   store: { [key: string]: any };
   db: DB;
 } {
-  const store = {} as { [key: string]: any };
-
   return {
     store,
     db: {

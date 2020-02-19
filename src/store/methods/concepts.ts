@@ -3,6 +3,7 @@ import path from "path";
 import assert from "assert";
 
 import { DB } from "../get-db";
+import { getOrNull } from "../db-helpers";
 
 export type Concept = { [entry: string]: number };
 
@@ -18,22 +19,9 @@ export async function addConcept(
   items?: string[],
   overwrite = false
 ): Promise<boolean> {
-  try {
-    const existing = await db.get<Concept>(key(concept));
-    if (!existing) {
-      throw new Error(
-        `Key exists, but has falsy value: "${key(concept)}" => "${existing}"`
-      );
-    }
+  const existing = await getOrNull<Concept>(db, key(concept));
 
-    if (!overwrite) {
-      return false;
-    }
-  } catch (e) {
-    if (!e.notFound) {
-      throw e;
-    }
-  }
+  if (existing && !overwrite) return false;
 
   const c = {} as Concept;
   if (items) {
@@ -82,28 +70,15 @@ export async function getConcept(
   db: DB,
   concept: string
 ): Promise<Concept | false> {
-  try {
-    const existing = await db.get<Concept>(key(concept));
-    if (!existing) {
-      throw new Error(
-        `Key exists, but has falsy value: "${key(concept)}" => "${existing}"`
-      );
-    }
-
-    return existing;
-  } catch (e) {
-    if (!e.notFound) {
-      throw e;
-    }
-    return false;
-  }
+  const existing = await getOrNull<Concept>(db, key(concept));
+  return existing ?? false;
 }
 
 export async function getConceptList(db: DB): Promise<string[]> {
   const ks = db.createKeyStream({ gte: KEY_PREFIX, lt: KEY_STREAM_TERMINATOR });
   const keys: string[] = [];
   for await (const k of ks) {
-    keys.push(k.toString().substr(KEY_PREFIX.length));
+    keys.push(k.substr(KEY_PREFIX.length));
   }
   return keys;
 }

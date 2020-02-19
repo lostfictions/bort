@@ -31,7 +31,7 @@ export default makeCommand(
       return getRandomWikihowImage();
     }
 
-    const { message, prefix } = await maybeTraced(rawMessage, store);
+    const { message, prefix } = await maybeTraced(store, rawMessage);
 
     const recents = await getRecents(store);
 

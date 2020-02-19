@@ -14,7 +14,7 @@ export default makeCommand(
       return false;
     }
 
-    const { message, prefix } = await maybeTraced(rawMessage, store);
+    const { message, prefix } = await maybeTraced(store, rawMessage);
 
     const res = await axios.get(
       `https://suggestqueries.google.com/complete/search`,

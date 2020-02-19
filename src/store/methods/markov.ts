@@ -78,7 +78,10 @@ export async function addSentence(
   }
 }
 
-export async function initializeMarkov(db: DB): Promise<void> {
+export async function initializeMarkov(
+  db: DB,
+  ns = DEFAULT_NAMESPACE
+): Promise<void> {
   const tarotLines: string[] = JSON.parse(
     fs.readFileSync(path.join(__dirname, "../../../data/corpora.json"), "utf8")
   ).tarotLines;
@@ -88,7 +91,7 @@ export async function initializeMarkov(db: DB): Promise<void> {
 
   for (const line of tarotLines) {
     // eslint-disable-next-line no-await-in-loop
-    await addSentence(db, line);
+    await addSentence(db, line, ns);
   }
 }
 
@@ -100,6 +103,14 @@ export async function getRandomSeed(db: DB, ns = DEFAULT_NAMESPACE) {
   const entries = [];
   for await (const entry of rs) {
     entries.push(entry);
+  }
+
+  if (entries.length === 0) {
+    await initializeMarkov(db, ns);
+    for await (const entry of db.createReadStream<MarkovEntry>({ gte, lt })) {
+      entries.push(entry);
+    }
+    assert(entries.length > 0);
   }
 
   const res = randomInArray(entries);

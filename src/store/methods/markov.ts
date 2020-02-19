@@ -4,36 +4,44 @@ import assert from "assert";
 
 import debug from "debug";
 
+import { randomInArray, randomByWeight } from "../../util";
 import { DB } from "../get-db";
-import { getWithDefault } from "../db-helpers";
+import {
+  getWithDefault,
+  getOrNull,
+  isRestrictedObjectPropertyName
+} from "../db-helpers";
+import { endTest } from "./markov-helpers";
 
 const log = debug("bort-verbose:markov");
 
 export type MarkovEntry = { [followingOrPrecedingWord: string]: number };
 
 const sentenceSplitter = /[.?\n]/gi;
-const wordNormalizer = (word: string) => word.toLowerCase();
+const wordNormalizer = (word: string) => word.toLowerCase().replace(/\|/g, "_");
 
 // TODO: improve?
-const wordFilter = (word: string) => word.length > 0 && !word.startsWith("<");
+const wordFilter = (word: string) =>
+  word.length > 0 &&
+  !word.startsWith("<") && // might be historical now, for slack?
+  !word.startsWith("@") &&
+  !word.startsWith("http") &&
+  !isRestrictedObjectPropertyName(word);
 
 export const DEFAULT_NAMESPACE = "default";
 
-export const keyTrigramForward = (
-  namespace: string,
-  first: string,
-  second: string
-) => `markov:${namespace}:${first}|${second}`;
-export const keyTrigramReverse = (
-  namespace: string,
-  third: string,
-  second: string
-) => `markov-rev:${namespace}:${third}|${second}`;
+export const prefixForward = (ns: string) => `markov:${ns}`;
+export const prefixReverse = (ns: string) => `markov-rev:${ns}`;
+
+export const keyTrigramForward = (ns: string, first: string, second: string) =>
+  `${prefixForward(ns)}:${first}|${second}`;
+export const keyTrigramReverse = (ns: string, third: string, second: string) =>
+  `${prefixReverse(ns)}:${third}|${second}`;
 
 export async function addSentence(
   db: DB,
   sentence: string,
-  namespace = DEFAULT_NAMESPACE
+  ns = DEFAULT_NAMESPACE
 ): Promise<void> {
   log(`adding sentence: "${sentence}"`);
 
@@ -50,12 +58,12 @@ export async function addSentence(
       const second = words[i + 1];
       const third = words[i + 2];
 
-      const fwdKey = keyTrigramForward(namespace, first, second);
+      const fwdKey = keyTrigramForward(ns, first, second);
       const fwdEntry = await getWithDefault<MarkovEntry>(db, fwdKey, {});
       fwdEntry[third] = (fwdEntry[third] || 0) + 1;
       await db.put<MarkovEntry>(fwdKey, fwdEntry);
 
-      const revKey = keyTrigramReverse(namespace, third, second);
+      const revKey = keyTrigramReverse(ns, third, second);
       const revEntry = await getWithDefault<MarkovEntry>(db, revKey, {});
       revEntry[first] = (revEntry[first] || 0) + 1;
       await db.put<MarkovEntry>(revKey, revEntry);
@@ -76,4 +84,81 @@ export async function initializeMarkov(db: DB): Promise<void> {
     // eslint-disable-next-line no-await-in-loop
     await addSentence(db, line);
   }
+}
+
+export async function getRandomSeed(db: DB, ns = DEFAULT_NAMESPACE) {
+  const prefix = prefixForward(ns);
+  const gte = prefix + ":";
+  const lt = prefix + ";";
+  const rs = db.createReadStream<MarkovEntry>({ gte, lt });
+  const entries = [];
+  for await (const entry of rs) {
+    entries.push(entry);
+  }
+
+  const res = randomInArray(entries);
+  const [first, second] = res.key.substring(gte.length).split("|");
+  assert(first && first.length > 0 && second && second.length > 0);
+  return {
+    first,
+    second,
+    entry: res.value
+  };
+}
+
+export async function getSentence(
+  db: DB,
+  ns = DEFAULT_NAMESPACE,
+  seedFirst?: string,
+  seedSecond?: string
+): Promise<string> {
+  let first = seedFirst;
+  let second = seedSecond;
+  let entry: MarkovEntry | null = null;
+  if (first) {
+    if (second) {
+      entry = await getOrNull(db, keyTrigramForward(ns, first, second));
+    }
+
+    // if we don't have a second seed word or if it's not in the db, try to grab
+    // a key using only the first seed word
+    if (!entry) {
+      const prefix = `${prefixForward(ns)}:${first}`;
+      const gte = prefix + "|";
+      const lt = prefix + "}"; // "}" follows "|" in char code values
+      const rs = db.createReadStream<MarkovEntry>({ gte, lt });
+      const entries = [];
+      for await (const e of rs) {
+        entries.push(e);
+      }
+
+      if (entries.length > 0) {
+        const { key, value } = randomInArray(entries);
+        second = key.substr(gte.length);
+        entry = value;
+      }
+    }
+  }
+
+  // if we don't have a first seed word or one or both the above attempts
+  // failed, just get a random starting point
+  if (!entry) {
+    const seed = await getRandomSeed(db, ns);
+    first = seed.first;
+    second = seed.second;
+    entry = seed.entry;
+  }
+
+  const sentence = [first!, second!];
+
+  do {
+    const next = randomByWeight(entry);
+    sentence.push(next);
+    first = second!;
+    second = next;
+    // eslint-disable-next-line no-await-in-loop
+    entry = await getOrNull(db, keyTrigramForward(ns, first, second));
+  } while (entry && !endTest(sentence));
+
+  return sentence.join(" ");
 }

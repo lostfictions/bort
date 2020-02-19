@@ -1,6 +1,6 @@
 import jsc from "jsverify";
 
-import { randomByWeight } from "./index";
+import { randomByWeight, randomInArray } from "./index";
 
 function pairsToObj<T>(pairs: [string, T][]): { [k: string]: T } {
   const res: any = {};
@@ -9,6 +9,12 @@ function pairsToObj<T>(pairs: [string, T][]): { [k: string]: T } {
   }
   return res;
 }
+
+describe("random in array", () => {
+  it("should return undefined on an empty array", () => {
+    expect(randomInArray([])).toBe(undefined);
+  });
+});
 
 describe("random by weight", () => {
   jsc.property(

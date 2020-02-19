@@ -25,3 +25,9 @@ export async function getWithDefault<T>(
     throw e;
   }
 }
+
+const restrictedNameMatcher = /hasOwnProperty|valueOf|constructor|toLocaleString|isPrototypeOf|propertyIsEnumerable|toString/g;
+
+export function isRestrictedObjectPropertyName(propName: string) {
+  return restrictedNameMatcher.test(propName);
+}

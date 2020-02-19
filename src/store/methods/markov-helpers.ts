@@ -1,5 +1,3 @@
-import { randomInArray, randomByWeight } from "../util";
-
 //prettier-ignore
 const prepositions = [
   "until", "onto", "of", "into", "out", "except", "across", "by", "between",
@@ -36,28 +34,7 @@ const continueSet = new Set([
   ...misc
 ]);
 
-const endTest = (output: string[]) =>
+export const endTest = (output: string[]) =>
   output.length > 3 &&
   !continueSet.has(output[output.length - 1]) &&
   Math.random() > 0.8;
-
-export function getSeed(wordBank: WordBank): string {
-  return randomInArray(Object.keys(wordBank));
-}
-
-export function getSentence(
-  wordBank: WordBank,
-  seed = getSeed(wordBank)
-): string {
-  if (!wordBank[seed]) {
-    return "";
-  }
-
-  let word = seed;
-  const sentence = [word];
-  while (word in wordBank && !endTest(sentence)) {
-    word = randomByWeight(wordBank[word]);
-    sentence.push(word);
-  }
-  return sentence.join(" ");
-}

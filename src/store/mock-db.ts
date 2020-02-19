@@ -31,6 +31,16 @@ export default function makeMockDb(): {
             }
           }
         })();
+      },
+      createReadStream(_opts) {
+        return (async function* keyIter() {
+          const entries = Object.entries(store);
+          for (const [key, value] of entries) {
+            if (key < _opts?.lt! && key >= _opts?.gte!) {
+              yield { key, value };
+            }
+          }
+        })();
       }
     }
   };

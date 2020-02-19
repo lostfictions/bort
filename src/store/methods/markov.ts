@@ -33,10 +33,16 @@ export const DEFAULT_NAMESPACE = "default";
 export const prefixForward = (ns: string) => `markov:${ns}`;
 export const prefixReverse = (ns: string) => `markov-rev:${ns}`;
 
-export const keyTrigramForward = (ns: string, first: string, second: string) =>
-  `${prefixForward(ns)}:${first}|${second}`;
-export const keyTrigramReverse = (ns: string, third: string, second: string) =>
-  `${prefixReverse(ns)}:${third}|${second}`;
+export const keyTrigramForward = (
+  first: string,
+  second: string,
+  ns = DEFAULT_NAMESPACE
+) => `${prefixForward(ns)}:${first}|${second}`;
+export const keyTrigramReverse = (
+  third: string,
+  second: string,
+  ns = DEFAULT_NAMESPACE
+) => `${prefixReverse(ns)}:${third}|${second}`;
 
 export async function addSentence(
   db: DB,
@@ -58,12 +64,12 @@ export async function addSentence(
       const second = words[i + 1];
       const third = words[i + 2];
 
-      const fwdKey = keyTrigramForward(ns, first, second);
+      const fwdKey = keyTrigramForward(first, second, ns);
       const fwdEntry = await getWithDefault<MarkovEntry>(db, fwdKey, {});
       fwdEntry[third] = (fwdEntry[third] || 0) + 1;
       await db.put<MarkovEntry>(fwdKey, fwdEntry);
 
-      const revKey = keyTrigramReverse(ns, third, second);
+      const revKey = keyTrigramReverse(third, second, ns);
       const revEntry = await getWithDefault<MarkovEntry>(db, revKey, {});
       revEntry[first] = (revEntry[first] || 0) + 1;
       await db.put<MarkovEntry>(revKey, revEntry);
@@ -117,7 +123,7 @@ export async function getSentence(
   let entry: MarkovEntry | null = null;
   if (first) {
     if (second) {
-      entry = await getOrNull(db, keyTrigramForward(ns, first, second));
+      entry = await getOrNull(db, keyTrigramForward(first, second, ns));
     }
 
     // if we don't have a second seed word or if it's not in the db, try to grab
@@ -157,7 +163,7 @@ export async function getSentence(
     first = second!;
     second = next;
     // eslint-disable-next-line no-await-in-loop
-    entry = await getOrNull(db, keyTrigramForward(ns, first, second));
+    entry = await getOrNull(db, keyTrigramForward(first, second, ns));
   } while (entry && !endTest(sentence));
 
   return sentence.join(" ");

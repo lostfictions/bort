@@ -1,9 +1,10 @@
 import axios from "axios";
 
-import { randomInArray } from "../util";
+import { randomInArray, randomByWeight } from "../util";
 import { makeCommand } from "../util/handler";
 
 import { maybeTraced } from "../components/trace";
+import { getConcept } from "../store/methods/concepts";
 
 interface GifResult {
   page: string;
@@ -25,15 +26,15 @@ export default makeCommand(
     let message: string;
     let prefix: string;
     if (rawMessage.length === 0) {
-      const concepts = await store.get("concepts");
-      if ("noun" in concepts) {
-        message = randomInArray(concepts["noun"]);
-        prefix = message;
+      const nouns = await getConcept(store, "noun");
+      if (nouns) {
+        message = randomByWeight(nouns);
+        prefix = `(${message})\n`;
       } else {
         return false;
       }
     } else {
-      ({ message, prefix } = await maybeTraced(rawMessage, store));
+      ({ message, prefix } = await maybeTraced(store, rawMessage));
     }
 
     return prefix + (await doQuery(message));

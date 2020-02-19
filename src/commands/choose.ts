@@ -10,7 +10,7 @@ export default makeCommand(
   },
   async ({ message: rawMessage, store }) => {
     if (rawMessage.trim().length === 0) return false;
-    const { message, prefix } = await maybeTraced(rawMessage, store);
+    const { message, prefix } = await maybeTraced(store, rawMessage);
     return prefix + randomInArray(message.split(",").map(s => s.trim()));
   }
 );

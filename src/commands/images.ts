@@ -1,25 +1,26 @@
 import { makeCommand } from "../util/handler";
-import { randomInArray } from "../util";
+import { randomByWeight } from "../util";
 
 import { addRecent, getRecents } from "../store/methods/recents";
 import { maybeTraced } from "../components/trace";
 import { imageSearch } from "../components/image-search";
 
 import { DB } from "../store/get-db";
+import { getConcept } from "../store/methods/concepts";
 
 async function doSearch(rawMessage: string, store: DB, animated = false) {
   let message: string;
   let prefix: string;
   if (rawMessage.length === 0) {
-    const concepts = await store.get("concepts");
-    if ("noun" in concepts) {
-      message = randomInArray(concepts["noun"]);
+    const nouns = await getConcept(store, "noun");
+    if (nouns) {
+      message = randomByWeight(nouns);
       prefix = `(${message})\n`;
     } else {
       return false;
     }
   } else {
-    ({ message, prefix } = await maybeTraced(rawMessage, store));
+    ({ message, prefix } = await maybeTraced(store, rawMessage));
   }
 
   const recents = await getRecents(store);

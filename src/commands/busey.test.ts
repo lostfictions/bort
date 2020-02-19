@@ -12,7 +12,8 @@ describe("busey", () => {
     [keyTrigramForward("aa", "bb", channel)]: { cc: 1 },
     [keyTrigramForward("bb", "cc", channel)]: { dd: 1 },
     [keyTrigramForward("cc", "dd", channel)]: { ee: 1 },
-    [keyTrigramForward("c_shouldnt_be_picked", "hi", channel)]: { uhoh: 1 }
+    [keyTrigramForward("c_shouldnt_be_picked", "hi", channel)]: { uhoh: 1 },
+    [keyTrigramForward("dd", "ee", channel)]: { ff: 1 }
   });
 
   describe("busey command", () => {
@@ -57,11 +58,11 @@ describe("busey", () => {
       const { db } = makeMockDb(getStore());
 
       const result = await command.handleMessage({
-        message: "busey ab:c",
+        message: "busey ab:d",
         store: db,
         channel
       } as any);
-      expect(result).toBe("Aa Bb : Cc");
+      expect(result).toBe("Aa Bb : Dd");
     });
   });
 });

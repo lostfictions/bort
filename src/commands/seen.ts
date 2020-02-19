@@ -1,6 +1,7 @@
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { makeCommand } from "../util/handler";
+import { getSeen } from "../store/methods/seen";
 
 dayjs.extend(relativeTime);
 
@@ -10,15 +11,15 @@ export default makeCommand(
     description: "note when the given user was last seen"
   },
   async ({ message, store }) => {
-    const seen = await store.get("seen");
-
     const username = message.trim().toLowerCase();
 
-    if (!(username in seen)) {
+    const seen = await getSeen(store, username);
+
+    if (!seen) {
       return `i haven't seen ${username}!`;
     }
 
-    const { message: lastMessage, time, channel } = seen[username];
+    const { message: lastMessage, time, channel } = seen;
 
     return `${username} was last seen ${dayjs(
       time

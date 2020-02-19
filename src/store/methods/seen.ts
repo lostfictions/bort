@@ -2,12 +2,14 @@ import { DB } from "../get-db";
 
 const key = "seen";
 
+interface SeenEntry {
+  time: number;
+  message: string;
+  channel: string;
+}
+
 interface SeenData {
-  [username: string]: {
-    time: number;
-    message: string;
-    channel: string;
-  };
+  [username: string]: SeenEntry;
 }
 
 export async function setSeen(
@@ -24,6 +26,15 @@ export async function setSeen(
     time
   };
   return db.put<SeenData>(key, seen);
+}
+
+export async function getSeen(
+  db: DB,
+  username: string
+): Promise<SeenEntry | false> {
+  const seen = await db.get<SeenData>(key);
+  const entry = seen[username];
+  return entry ?? false;
 }
 
 export async function initializeSeen(db: DB): Promise<void> {

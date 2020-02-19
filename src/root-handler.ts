@@ -27,11 +27,10 @@ import {
   conceptMatcher
 } from "./commands/concepts";
 
-import { getSentence } from "./components/markov";
-import trace, { tryTrace } from "./components/trace";
-
-import { addSentenceAction } from "./reducers/markov";
-import { setSeenAction } from "./reducers/seen";
+import { getSentence, addSentence } from "./store/methods/markov";
+import { setSeen } from "./store/methods/seen";
+import { tryTrace } from "./components/trace";
+import { getConceptList } from "./store/methods/concepts";
 
 const subCommands = [
   conceptAddCommand,
@@ -113,7 +112,7 @@ const helpCommand = makeCommand(
       }
     }
 
-    const concepts = Object.keys(await store.get("concepts"));
+    const concepts = await getConceptList(store);
 
     return (
       "**Commands:**\n" +
@@ -133,11 +132,10 @@ const rootCommand = [
   conceptMatcher,
   helpCommand,
   // If we match nothing, check if we can trace! if not, just return a markov sentence
-  async ({ message, store }: HandlerArgs): Promise<string> => {
-    const wb = await store.get("wordBank");
+  async ({ message, store, channel }: HandlerArgs): Promise<string> => {
     if (message.length > 0) {
-      const concepts = await store.get("concepts");
-      const res = tryTrace(message, concepts);
+      // if it's traceable, just return the trace result.
+      const res = await tryTrace(store, message);
       if (res !== false) return res;
 
       const words = message
@@ -145,15 +143,19 @@ const rootCommand = [
         .split(" ")
         .filter(w => w.length > 0);
 
+      if (words.length > 1) {
+        return getSentence(
+          store,
+          channel,
+          words[words.length - 2],
+          words[words.length - 1]
+        );
+      }
       if (words.length > 0) {
-        const word = words[words.length - 1];
-        if (word in wb) {
-          return getSentence(wb, word);
-        }
+        return getSentence(store, channel, words[words.length - 1]);
       }
     }
-
-    return getSentence(wb);
+    return getSentence(store, channel);
   }
 ] as Handler<HandlerArgs>[];
 
@@ -164,22 +166,16 @@ const handleDirectConcepts = async ({
   if (!message.startsWith("!")) {
     return false;
   }
-  const concepts = await store.get("concepts");
-  const matchedConcept = concepts[message];
-  if (matchedConcept != null && matchedConcept.length > 0) {
-    return trace({ concepts, concept: message });
-  }
-  return false;
+
+  return tryTrace(store, message);
 };
 
-const setSeen = async ({
-  username,
-  message,
-  store,
-  channel
-}: HandlerArgs): Promise<false> => {
-  await store.dispatch(setSeenAction(username, message, channel));
-  return false;
+const doSetSeen = ({ username, message, store, channel }: HandlerArgs) => {
+  // we don't actually want to wait for this to finish
+  setSeen(store, username, message, channel).catch(e => {
+    throw e;
+  });
+  return false as false;
 };
 
 const bortCommand = makeCommand(
@@ -194,7 +190,7 @@ const bortCommand = makeCommand(
 );
 
 const messageHandler = [
-  async args => (args.isDM ? false : processMessage(setSeen, args)),
+  async args => (args.isDM ? false : processMessage(doSetSeen, args)),
   // Handling the direct concepts first should be safe -- it prevents the markov
   // generator fallback of the root command from eating our input.
   handleDirectConcepts,
@@ -205,15 +201,16 @@ const messageHandler = [
       ? processMessage(rootCommand, args)
       : processMessage(bortCommand, args),
   // If we didn't match anything, add to our markov chain.
-  async ({ message, store }) => {
+  async ({ isDM, message, store, channel }) => {
     if (
+      !isDM &&
       message.length > 0 &&
       message
         .trim()
         .split(" ")
         .filter(s => s.length > 0).length > 1
     ) {
-      await store.dispatch(addSentenceAction(message));
+      await addSentence(store, message, channel);
     }
     return false;
   }

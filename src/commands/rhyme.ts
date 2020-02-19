@@ -56,44 +56,46 @@ export default makeCommand(
     if (rawMessage.length === 0) {
       return false;
     }
-    const { message, prefix } = await maybeTraced(rawMessage, store);
 
-    const words = message.split(" ");
-    if (words.length === 0) {
-      return false;
-    }
+    return "potato";
+    // const { message, prefix } = await maybeTraced(rawMessage, store);
 
-    const wb = await store.get("wordBank");
-    const reply = [];
+    // const words = message.split(" ");
+    // if (words.length === 0) {
+    //   return false;
+    // }
 
-    for (const word of words) {
-      const [before, trimmedWord, after] = trim(word);
+    // const wb = await store.get("wordBank");
+    // const reply = [];
 
-      let rhyme = "";
-      if (trimmedWord.length > 0) {
-        rhyme = getRhymeFor(trimmedWord.toLowerCase());
-      }
+    // for (const word of words) {
+    //   const [before, trimmedWord, after] = trim(word);
 
-      if (rhyme === "*") {
-        const nexts: { [word: string]: number } | undefined =
-          wb[reply[reply.length - 1]];
-        if (nexts != null) {
-          rhyme = randomInArray(Object.keys(nexts));
-        } else {
-          rhyme = randomInArray(Object.keys(wb));
-        }
-      }
+    //   let rhyme = "";
+    //   if (trimmedWord.length > 0) {
+    //     rhyme = getRhymeFor(trimmedWord.toLowerCase());
+    //   }
 
-      reply.push([before, rhyme, after].join(""));
-    }
+    //   if (rhyme === "*") {
+    //     const nexts: { [word: string]: number } | undefined =
+    //       wb[reply[reply.length - 1]];
+    //     if (nexts != null) {
+    //       rhyme = randomInArray(Object.keys(nexts));
+    //     } else {
+    //       rhyme = randomInArray(Object.keys(wb));
+    //     }
+    //   }
 
-    let joined = reply.join(" ");
+    //   reply.push([before, rhyme, after].join(""));
+    // }
 
-    if (joined.length === 0) {
-      joined = "¯\\_(ツ)_/¯";
-    }
+    // let joined = reply.join(" ");
 
-    return prefix + joined;
+    // if (joined.length === 0) {
+    //   joined = "¯\\_(ツ)_/¯";
+    // }
+
+    // return prefix + joined;
   }
 );
 

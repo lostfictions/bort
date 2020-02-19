@@ -3,6 +3,7 @@ import cheerio from "cheerio";
 
 import { makeCommand } from "../util/handler";
 import { randomInArray } from "../util";
+import { getConcept } from "../store/methods/concepts";
 
 export const USAGE = [
   "Usage:",
@@ -73,16 +74,15 @@ export default makeCommand(
     let url = message;
 
     if (url.length === 0) {
-      const concepts = await store.get("concepts");
-      const watchlists = concepts["!watchlist"];
-      if (!watchlists || watchlists.length === 0) {
+      const watchlists = await getConcept(store, "!watchlist");
+      if (!watchlists || Object.keys(watchlists).length === 0) {
         return [
           `No default Letterboxd watchlist defined!`,
           `Set a concept called \`!watchlist\` with an url first.`
         ].join("\n");
       }
 
-      url = watchlists[0];
+      url = Object.keys(watchlists)[0];
       if (!url.startsWith("https://letterboxd.com/")) {
         return `The contents of \`!watchlist\` doesn't seem to be an url! ("${url}")`;
       }

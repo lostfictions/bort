@@ -1,6 +1,7 @@
 import { makeCommand } from "../util/handler";
 
 import { randomInt } from "../util";
+import { getConcept } from "../store/methods/concepts";
 
 export default makeCommand(
   {
@@ -17,12 +18,12 @@ export default makeCommand(
       normalizedMessage = message.slice(1, -1);
     }
 
-    const concepts = await store.get("concepts");
-    if (!(normalizedMessage in concepts)) {
+    const concept = await getConcept(store, normalizedMessage);
+    if (!concept) {
       return `Unknown concept: [${normalizedMessage}]`;
     }
 
-    const bag = concepts[normalizedMessage];
+    const bag = Object.keys(concept);
     const output: string[] = [];
     while (bag.length > 0) {
       output.push(...bag.splice(randomInt(bag.length), 1));

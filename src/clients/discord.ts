@@ -32,8 +32,6 @@ export function makeDiscordBot(discordToken: string) {
 
       const channel = (() => {
         switch (true) {
-          case message.guild != null:
-            return message.guild.name;
           case message.channel.type === "text":
             return (message.channel as TextChannel).name;
           case message.channel.type === "dm":
@@ -56,6 +54,10 @@ export function makeDiscordBot(discordToken: string) {
               (message.channel as DMChannel).recipient.username
             }-${message.channel.id}`;
           default:
+            console.warn(
+              `message received in unknown channel type:`,
+              `[${message.channel.type}] (id: ${message.channel.id})`
+            );
             return `discord-other-${message.channel.id}`;
         }
       })();
@@ -74,15 +76,17 @@ export function makeDiscordBot(discordToken: string) {
         return false;
       }
 
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
-      message.channel.send(response);
+      await message.channel.send(response);
     } catch (error) {
       console.error(
         `Error in Discord client (${guildList}): '${error.message}'`
       );
 
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
-      message.channel.send(`[Something went wrong!] [${error.message}]`);
+      message.channel
+        .send(`[Something went wrong!] [${error.message}]`)
+        .catch(e => {
+          throw e;
+        });
     }
   }
 

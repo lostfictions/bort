@@ -11,16 +11,12 @@ if (!dbName) {
 
 const db = level(path.join(__dirname, "../persist/db", dbName));
 
-db.createReadStream()
-  .on("data", data => {
+(async () => {
+  for await (const data of db.createReadStream()) {
     console.log(data.key, "=", data.value);
-  })
-  .on("error", err => {
-    console.error("[ERROR]", err);
-  })
-  .on("close", () => {
-    console.log("[Stream closed]");
-  })
-  .on("end", () => {
-    console.log("[Stream ended]");
+  }
+})()
+  .then(() => console.log("done."))
+  .catch(e => {
+    throw e;
   });

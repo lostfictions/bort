@@ -5,7 +5,6 @@ import level from "level";
 import debug from "debug";
 
 import { initializeConcepts } from "./methods/concepts";
-import { initializeMarkov } from "./methods/markov";
 import { initializeSeen } from "./methods/seen";
 import { initializeRecents, cleanRecents } from "./methods/recents";
 
@@ -102,7 +101,8 @@ async function loadOrInitializeDb(dbName: string): Promise<DB> {
 
   if (shouldInitialize) {
     await initializeConcepts(db);
-    await initializeMarkov(db);
+    // we lazy-init this instead, per-channel
+    // await initializeMarkov(db);
     await initializeSeen(db);
     await initializeRecents(db);
     log("Finished initializing DB.");

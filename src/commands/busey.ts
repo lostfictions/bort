@@ -72,10 +72,13 @@ export default makeCommand(
                   channel
                 );
 
-                const hasNext = Object.keys(testEntry!).some(word =>
-                  word.startsWith(nextLetter!)
-                );
-                if (hasNext) break;
+                if (testEntry) {
+                  const hasNext = Object.keys(testEntry).some(word =>
+                    word.startsWith(nextLetter!)
+                  );
+
+                  if (hasNext) break;
+                }
               }
             }
 

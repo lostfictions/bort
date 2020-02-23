@@ -64,5 +64,17 @@ describe("busey", () => {
       } as any);
       expect(result).toBe("Aa Bb : Dd");
     });
+
+    it("lookahead only when possible [Sentry error BORT-12]", async () => {
+      const { db } = makeMockDb(getStore());
+
+      const result = await command.handleMessage({
+        message: "busey defi",
+        store: db,
+        channel
+      } as any);
+
+      expect(result).toBe("Dd Ee Ff");
+    });
   });
 });

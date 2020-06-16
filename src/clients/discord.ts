@@ -12,8 +12,9 @@ import messageHandler from "../root-handler";
 import { HandlerArgs } from "../handler-args";
 
 import { processMessage } from "../util/handler";
+import { initializeMarkov } from "../store/methods/markov";
 
-export function getStoreNameForChannel(channel: Channel) {
+export function getStoreNameForChannel(channel: Channel): string {
   if (channel instanceof GuildChannel) {
     return `discord-${channel.guild.name}-${channel.guild.id}`;
   }
@@ -29,6 +30,18 @@ export function getStoreNameForChannel(channel: Channel) {
     `[${channel.type}] (id: ${channel.id})`
   );
   return `discord-other-${channel.id}`;
+}
+
+/**
+ * Get the id we use internally in our DB for the channel (preferring friendly
+ * names over snowflakes). Yes, that does mean if a channel is recreated with
+ * the same name the store will be carried over for now. (Could be a TODO:
+ * delete corresponding DB slice when a channel delete event is emitted)
+ */
+export function getInternalChannelId(channel: Channel): string {
+  if (channel instanceof TextChannel) return channel.name;
+  if (channel instanceof DMChannel) return channel.recipient.username;
+  return `other-${channel.id}`;
 }
 
 export function makeDiscordBot(discordToken: string) {
@@ -50,26 +63,14 @@ export function makeDiscordBot(discordToken: string) {
         return false;
       }
 
-      const channel = (() => {
-        switch (true) {
-          case message.channel.type === "text":
-            return (message.channel as TextChannel).name;
-          case message.channel.type === "dm":
-            return (message.channel as DMChannel).recipient.username;
-          default:
-            return `other-${message.channel.id}`;
-        }
-      })();
-
       const storeName = getStoreNameForChannel(message.channel);
-
       const store = await getDb(storeName);
 
       const response = await processMessage<HandlerArgs>(messageHandler, {
         store,
         message: message.content,
         username: message.author.username,
-        channel,
+        channel: getInternalChannelId(message.channel),
         isDM: message.channel.type === "dm",
       });
 
@@ -104,6 +105,15 @@ export function makeDiscordBot(discordToken: string) {
   client.on("message", onMessage);
   client.on("disconnect", (ev: any) => {
     console.log(`Discord bot disconnected! reason: ${ev.reason}`);
+  });
+
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises
+  client.on("channelCreate", async (channel) => {
+    const storeName = getStoreNameForChannel(channel);
+    const store = await getDb(storeName);
+    const channelId = getInternalChannelId(channel);
+    console.log(`initializing store '${storeName}' for channel ${channelId}`);
+    await initializeMarkov(store, channelId);
   });
 
   return {

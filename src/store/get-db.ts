@@ -101,8 +101,6 @@ async function loadOrInitializeDb(dbName: string): Promise<DB> {
 
   if (shouldInitialize) {
     await initializeConcepts(db);
-    // we lazy-init this instead, per-channel
-    // await initializeMarkov(db);
     await initializeSeen(db);
     await initializeRecents(db);
     log("Finished initializing DB.");

@@ -40,7 +40,7 @@ export async function getFilmUrlsFromLetterboxdList(
       // eslint-disable-next-line no-await-in-loop
       res = await axios(resolvedUrl);
     } catch (e) {
-      if (e.response && e.response.status === 404) {
+      if (e.response?.status === 404) {
         return { errorMessage: `Couldn't find a page at '${url}'!` };
       }
 

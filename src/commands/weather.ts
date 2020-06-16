@@ -59,13 +59,19 @@ export default makeCommand(
       return false;
     }
 
+    const trimmed = message.trim();
+
+    const query = /^[0-9]{5}$/.test(trimmed)
+      ? { zip: trimmed }
+      : { q: trimmed };
+
     let owmRes: AxiosResponse<OWMResponse>;
     try {
       owmRes = await axios.get(
         `https://api.openweathermap.org/data/2.5/weather`,
         {
           params: {
-            q: message,
+            ...query,
             appid: OPEN_WEATHER_MAP_KEY,
           },
           responseType: "json",
@@ -73,7 +79,7 @@ export default makeCommand(
         }
       );
     } catch (e) {
-      if (e.statusCode === 404) {
+      if (e.response?.status === 404) {
         return `dunno where '${message}' is ¯\\_(ツ)_/¯`;
       }
       return `Can't get weather for '${message}'! (Error: ${e})`;

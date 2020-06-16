@@ -59,45 +59,13 @@ export default makeCommand(
       return false;
     }
 
-    let completionRes: AxiosResponse<WUAutocompleteResponse>;
-    try {
-      completionRes = await axios.get(
-        `http://autocomplete.wunderground.com/aq`,
-        {
-          params: {
-            query: message,
-            h: 0,
-          },
-          responseType: "json",
-          timeout: 5000,
-        }
-      );
-    } catch (e) {
-      return `Error getting geocoding results: ${e}`;
-    }
-
-    if (
-      !completionRes.data.RESULTS ||
-      completionRes.data.RESULTS.length === 0
-    ) {
-      return `dunno where '${message}' is ¯\\_(ツ)_/¯`;
-    }
-
-    const { lat, lon, name } = completionRes.data.RESULTS[0];
-    if (!lat || !lon) {
-      throw new Error(
-        `Latitude or longitude missing in query for location '${message}'`
-      );
-    }
-
     let owmRes: AxiosResponse<OWMResponse>;
     try {
       owmRes = await axios.get(
         `https://api.openweathermap.org/data/2.5/weather`,
         {
           params: {
-            lat,
-            lon,
+            q: message,
             appid: OPEN_WEATHER_MAP_KEY,
           },
           responseType: "json",
@@ -111,7 +79,7 @@ export default makeCommand(
       return `Can't get weather for '${message}'! (Error: ${e})`;
     }
 
-    const { sys, weather, main, wind } = owmRes.data;
+    const { sys, weather, main, wind, name } = owmRes.data;
 
     let formattedWind = "";
     if (wind) {
@@ -134,23 +102,6 @@ export default makeCommand(
     `;
   }
 );
-
-interface WUAutocompleteResponse {
-  RESULTS: WULocation[];
-}
-
-interface WULocation {
-  name: string;
-  type: string;
-  c: string;
-  zmw: string;
-  tz: string;
-  tzs: string;
-  l: string;
-  ll: string;
-  lat: string;
-  lon: string;
-}
 
 interface OWMResponse {
   coord: {

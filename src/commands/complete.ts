@@ -27,7 +27,7 @@ export default makeCommand(
 
     if (res.data.length > 0) {
       const data = res.data;
-      if (data[1] && data[1].length && data[1].length > 0) {
+      if (data[1]?.length && data[1].length > 0) {
         // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
         return prefix + data[1].join("\n");
       }

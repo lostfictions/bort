@@ -26,13 +26,13 @@ interface ReadStreamOptions {
 }
 
 export type DB = {
-  get<T = any>(key: string): Promise<T>;
-  put<T = any>(key: string, value: T): Promise<void>;
-  del(key: string): Promise<void>;
-  createKeyStream(options?: ReadStreamOptions): AsyncIterable<string>;
-  createReadStream<T = any>(
+  get: <T = any>(key: string) => Promise<T>;
+  put: <T = any>(key: string, value: T) => Promise<void>;
+  del: (key: string) => Promise<void>;
+  createKeyStream: (options?: ReadStreamOptions) => AsyncIterable<string>;
+  createReadStream: <T = any>(
     options?: ReadStreamOptions
-  ): AsyncIterable<{ key: string; value: T }>;
+  ) => AsyncIterable<{ key: string; value: T }>;
 };
 
 const dbCache: { [id: string]: DB } = {};

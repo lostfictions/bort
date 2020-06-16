@@ -2,7 +2,7 @@ import {
   Client as DiscordClient,
   Message as DiscordMessage,
   TextChannel,
-  DMChannel
+  DMChannel,
 } from "discord.js";
 
 import { getDb } from "../store/get-db";
@@ -69,7 +69,7 @@ export function makeDiscordBot(discordToken: string) {
         message: message.content,
         username: message.author.username,
         channel,
-        isDM: message.channel.type === "dm"
+        isDM: message.channel.type === "dm",
       });
 
       if (response === false) {
@@ -84,7 +84,7 @@ export function makeDiscordBot(discordToken: string) {
 
       message.channel
         .send(`[Something went wrong!] [${error.message}]`)
-        .catch(e => {
+        .catch((e) => {
           throw e;
         });
     }
@@ -93,7 +93,7 @@ export function makeDiscordBot(discordToken: string) {
   client.on("ready", () => {
     guildList = client.guilds
       .array()
-      .map(g => `'${g.name}'`)
+      .map((g) => `'${g.name}'`)
       .join(", ");
     console.log(
       `Connected to Discord guilds ${guildList} as ${client.user.username}`
@@ -101,12 +101,12 @@ export function makeDiscordBot(discordToken: string) {
   });
   // eslint-disable-next-line @typescript-eslint/no-misused-promises
   client.on("message", onMessage);
-  client.on("disconnect", (ev: CloseEvent) => {
-    console.log("Discord bot disconnected! reason: " + ev.reason);
+  client.on("disconnect", (ev: any) => {
+    console.log(`Discord bot disconnected! reason: ${ev.reason}`);
   });
 
   return {
     client,
-    login: client.login.bind(client, discordToken) as () => Promise<string>
+    login: client.login.bind(client, discordToken) as () => Promise<string>,
   };
 }

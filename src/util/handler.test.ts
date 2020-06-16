@@ -29,7 +29,7 @@ describe("processMessage", () => {
       processMessage(
         {
           handleMessage: ({ message }) =>
-            new Promise<string>(res => res(message))
+            new Promise<string>((res) => res(message)),
         },
         { message: "yo" }
       )
@@ -48,11 +48,11 @@ describe("processMessage", () => {
   it("should resolve an array of handler objects and functions to a message", () => {
     const handlers: Handler<{ message: string }>[] = [
       { handleMessage: () => false },
-      () => new Promise<false>(res => res(false)),
+      () => new Promise<false>((res) => res(false)),
       ({ message }) => message,
       () => {
         throw new Error("should not be called");
-      }
+      },
     ];
     return expect(processMessage(handlers, { message: "yo" })).resolves.toBe(
       "yo"
@@ -64,14 +64,14 @@ describe("processMessage", () => {
       { handleMessage: () => false },
       {
         handleMessage: () =>
-          new Promise<false>(res => {
-            setTimeout(() => res(false));
-          })
+          new Promise<false>((res) => {
+            setTimeout(() => res(false), 0);
+          }),
       },
       ({ message }) => message,
       () => {
         throw new Error("should not be called");
-      }
+      },
     ];
     return expect(processMessage(handlers, { message: "yo" })).resolves.toBe(
       "yo"
@@ -88,7 +88,7 @@ describe("makeCommand", () => {
           ({ message }) => message
         ),
         {
-          message: "butt mess"
+          message: "butt mess",
         }
       )
     ).resolves.toBe("mess"));
@@ -98,7 +98,7 @@ describe("makeCommand", () => {
       processMessage(
         makeCommand<{ message: string }>({ name: "butt" }, () => "yo"),
         {
-          message: "butt"
+          message: "butt",
         }
       )
     ).resolves.toBe("yo"));
@@ -108,19 +108,19 @@ describe("makeCommand", () => {
       { handleMessage: () => false },
       {
         handleMessage: () =>
-          new Promise<false>(res => {
-            setTimeout(() => res(false));
-          })
+          new Promise<false>((res) => {
+            setTimeout(() => res(false), 0);
+          }),
       },
       ({ message }) => message,
       () => {
         throw new Error("should not be called");
-      }
+      },
     ];
 
     return expect(
       processMessage(makeCommand({ name: "butt" }, handlers), {
-        message: "butt mess"
+        message: "butt mess",
       })
     ).resolves.toBe("mess");
   });
@@ -133,7 +133,7 @@ describe("makeCommand", () => {
           ({ message }) => message
         ),
         {
-          message: "something butt mess"
+          message: "something butt mess",
         }
       )
     ).resolves.toBe(false));

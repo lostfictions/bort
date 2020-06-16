@@ -1,3 +1,4 @@
+import { URL } from "url";
 import axios from "axios";
 
 import { makeCommand } from "../util/handler";
@@ -10,7 +11,7 @@ const slackEscapeRegex = /^<(.+)>$/;
 const traverse = (obj: any, path: string[]): any => {
   try {
     // eslint-disable-next-line no-param-reassign
-    path.forEach(p => (obj = obj[p]));
+    path.forEach((p) => (obj = obj[p]));
     return obj;
   } catch (e) {
     /* just toss out any failure to traverse and return null. */
@@ -25,7 +26,7 @@ export default makeCommand(
     name: "load",
     aliases: ["json"],
     description:
-      "load a concept list from a url, overwriting existing concept if it exists"
+      "load a concept list from a url, overwriting existing concept if it exists",
   },
   async ({ message, store }) => {
     const matches = loaderRegex.exec(message);
@@ -57,14 +58,14 @@ export default makeCommand(
       if (!itemOrItems) {
         const validKeys = Object.keys(json)
           .slice(0, 5)
-          .map(k => `'${k}'`)
+          .map((k) => `'${k}'`)
           .join(", ");
         throw new Error(
           `Invalid path: '${rawPath}'. Some valid keys: ${validKeys}...`
         );
       }
       if (Array.isArray(itemOrItems)) {
-        items = itemOrItems.map(i => i.toString());
+        items = itemOrItems.map((i) => i.toString());
       } else {
         const item = itemOrItems.toString();
         if (item === "[object Object]") {
@@ -75,7 +76,7 @@ export default makeCommand(
         items = [item];
       }
     } else if (Array.isArray(json)) {
-      items = json.map(i => i.toString());
+      items = json.map((i) => i.toString());
     } else {
       const item = json.toString();
       if (item === "[object Object]") {

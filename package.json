@@ -20,44 +20,52 @@
   "author": "s <https://github.com/lostfictions>",
   "license": "AGPL-3.0",
   "dependencies": {
-    "@sentry/integrations": "^5.12.0",
-    "@sentry/node": "5.12.3",
+    "@sentry/integrations": "^5.17.0",
+    "@sentry/node": "5.17.0",
     "axios": "^0.19.2",
     "cheerio": "^0.22.0",
     "cmu-pronouncing-dictionary": "^1.0.3",
     "common-tags": "^1.8.0",
-    "dayjs": "^1.8.20",
+    "dayjs": "^1.8.28",
     "debug": "^4.1.1",
     "discord.js": "^11.5.1",
-    "envalid": "^6.0.1",
+    "envalid": "^6.0.2",
     "level": "^5.0.1",
-    "source-map-support": "^0.5.16"
+    "source-map-support": "^0.5.19"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",
     "@babel/preset-env": "^7.8.4",
     "@babel/preset-typescript": "^7.8.3",
-    "@types/cheerio": "^0.22.16",
+    "@types/cheerio": "^0.22.18",
     "@types/common-tags": "^1.8.0",
     "@types/debug": "4.1.5",
-    "@types/jest": "^25.1.2",
+    "@types/jest": "^26.0.0",
     "@types/levelup": "^4.3.0",
-    "@types/node": "^13.7.1",
-    "@typescript-eslint/eslint-plugin": "^2.19.2",
-    "@typescript-eslint/parser": "^2.19.2",
-    "eslint": "^6.8.0",
-    "eslint-config-prettier": "^6.10.0",
-    "jest": "^25.1.0",
+    "@types/node": "^14.0.13",
+    "@typescript-eslint/eslint-plugin": "^3.3.0",
+    "@typescript-eslint/parser": "^3.3.0",
+    "eslint": "^7.2.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-node": "^11.1.0",
+    "jest": "^26.0.1",
     "jsverify": "^0.8.4",
     "npm-run-all": "^4.1.5",
-    "prettier": "^1.19.1",
-    "ts-node": "^8.6.2",
-    "typescript": "^3.7.5"
+    "prettier": "^2.0.5",
+    "ts-jest": "^26.1.0",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.5"
   },
   "engines": {
     "node": ">=12.1.0"
   },
   "jest": {
-    "rootDir": "src"
+    "preset": "ts-jest/presets/js-with-ts",
+    "rootDir": "src",
+    "globals": {
+      "ts-jest": {
+        "isolatedModules": true
+      }
+    }
   }
 }

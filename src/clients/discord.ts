@@ -1,7 +1,9 @@
 import {
   Client as DiscordClient,
   Message as DiscordMessage,
+  Channel,
   TextChannel,
+  GuildChannel,
   DMChannel,
 } from "discord.js";
 
@@ -10,6 +12,24 @@ import messageHandler from "../root-handler";
 import { HandlerArgs } from "../handler-args";
 
 import { processMessage } from "../util/handler";
+
+export function getStoreNameForChannel(channel: Channel) {
+  if (channel instanceof GuildChannel) {
+    return `discord-${channel.guild.name}-${channel.guild.id}`;
+  }
+  if (channel instanceof TextChannel) {
+    return `discord-${channel.name}-${channel.id}`;
+  }
+  if (channel instanceof DMChannel) {
+    return `discord-dm-${channel.recipient.username}-${channel.id}`;
+  }
+
+  console.warn(
+    `message received in unknown channel type:`,
+    `[${channel.type}] (id: ${channel.id})`
+  );
+  return `discord-other-${channel.id}`;
+}
 
 export function makeDiscordBot(discordToken: string) {
   const client = new DiscordClient();
@@ -41,26 +61,7 @@ export function makeDiscordBot(discordToken: string) {
         }
       })();
 
-      const storeName = (() => {
-        switch (true) {
-          case message.guild != null:
-            return `discord-${message.guild.name}-${message.guild.id}`;
-          case message.channel.type === "text":
-            return `discord-${(message.channel as TextChannel).name}-${
-              message.channel.id
-            }`;
-          case message.channel.type === "dm":
-            return `discord-dm-${
-              (message.channel as DMChannel).recipient.username
-            }-${message.channel.id}`;
-          default:
-            console.warn(
-              `message received in unknown channel type:`,
-              `[${message.channel.type}] (id: ${message.channel.id})`
-            );
-            return `discord-other-${message.channel.id}`;
-        }
-      })();
+      const storeName = getStoreNameForChannel(message.channel);
 
       const store = await getDb(storeName);
 
@@ -91,12 +92,12 @@ export function makeDiscordBot(discordToken: string) {
   }
 
   client.on("ready", () => {
-    guildList = client.guilds
+    guildList = client.guilds.cache
       .array()
       .map((g) => `'${g.name}'`)
       .join(", ");
     console.log(
-      `Connected to Discord guilds ${guildList} as ${client.user.username}`
+      `Connected to Discord guilds ${guildList} as ${client.user!.username}`
     );
   });
   // eslint-disable-next-line @typescript-eslint/no-misused-promises

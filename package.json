@@ -28,7 +28,7 @@
     "common-tags": "^1.8.0",
     "dayjs": "^1.8.28",
     "debug": "^4.1.1",
-    "discord.js": "^11.5.1",
+    "discord.js": "^12.2.0",
     "envalid": "^6.0.2",
     "level": "^5.0.1",
     "source-map-support": "^0.5.19"

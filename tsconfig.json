@@ -12,6 +12,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "esModuleInterop": true,
+    "skipLibCheck": true, // fuck bad typings my dudes
     "allowJs": true // for ts-jest, who is a needy asshole
   },
   "include": [

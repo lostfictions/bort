@@ -1,4 +1,4 @@
-import fs from "fs";
+import { promises as fs } from "fs";
 import path from "path";
 import assert from "assert";
 
@@ -80,7 +80,10 @@ export async function initializeMarkov(
   ns = DEFAULT_NAMESPACE
 ): Promise<void> {
   const tarotLines: string[] = JSON.parse(
-    fs.readFileSync(path.join(__dirname, "../../../data/corpora.json"), "utf8")
+    await fs.readFile(
+      path.join(__dirname, "../../../data/corpora.json"),
+      "utf8"
+    )
   ).tarotLines;
 
   assert(Array.isArray(tarotLines));

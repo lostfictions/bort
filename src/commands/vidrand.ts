@@ -11,7 +11,7 @@ export const USAGE = [
   "`vidrand` (with a default list assigned to `!watchlist`)",
 ].join("\n");
 
-const FIVE_MINUTES = 1000 * 60 * 5;
+const ONE_DAY = 1000 * 60 * 60 * 24;
 
 // Hackish non-persistent cache to speed up results
 const resultCache = {} as {
@@ -22,7 +22,7 @@ export async function getFilmUrlsFromLetterboxdList(
   url: string
 ): Promise<string[] | { errorMessage: string }> {
   const cachedValue = resultCache[url];
-  if (cachedValue && cachedValue.lastRetrieved > Date.now() - FIVE_MINUTES) {
+  if (cachedValue && cachedValue.lastRetrieved > Date.now() - ONE_DAY) {
     return cachedValue.results;
   }
 

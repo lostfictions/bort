@@ -9,7 +9,7 @@ describe("db recents", () => {
     const now = Date.now();
     await addRecent(db, "bob", now);
     expect(store.recents).toEqual({
-      bob: now
+      bob: now,
     });
   });
 
@@ -18,13 +18,13 @@ describe("db recents", () => {
     await initializeRecents(db);
 
     store.recents = {
-      bob: 25
+      bob: 25,
     };
 
     const now = Date.now();
     await addRecent(db, "bob", now);
     expect(store.recents).toEqual({
-      bob: now
+      bob: now,
     });
   });
 
@@ -42,7 +42,7 @@ describe("db recents", () => {
     await initializeRecents(db);
 
     store.recents = {
-      bob: 25
+      bob: 25,
     };
 
     await cleanRecents(db, 1);
@@ -74,7 +74,7 @@ describe("db recents", () => {
     await cleanRecents(db, 1);
 
     expect(store.recents).toEqual({
-      bob: now
+      bob: now,
     });
   });
 });

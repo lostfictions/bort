@@ -8,7 +8,7 @@ if (USE_CLI) {
   require("source-map-support").install();
   if (DISCORD_TOKEN.length > 0) {
     const discordBot = makeDiscordBot(DISCORD_TOKEN);
-    discordBot.login().catch(e => {
+    discordBot.login().catch((e) => {
       throw e;
     });
   }

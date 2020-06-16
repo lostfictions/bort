@@ -6,7 +6,7 @@ import { getConcept } from "../store/methods/concepts";
 export default makeCommand(
   {
     name: "shuffle",
-    description: "pull things out of a bag until there's none left"
+    description: "pull things out of a bag until there's none left",
   },
   async ({ message, store }): Promise<string> => {
     if (message.length === 0) {

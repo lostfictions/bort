@@ -50,7 +50,7 @@ export default makeCommand(
     name: "rhyme",
     aliases: ["rap"],
     description:
-      "bust a rhyme like you never seen / taco beats gonna make you scream"
+      "bust a rhyme like you never seen / taco beats gonna make you scream",
   },
   async ({ message: rawMessage }): Promise<string | false> => {
     if (rawMessage.length === 0) {

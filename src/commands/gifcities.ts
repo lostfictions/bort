@@ -20,7 +20,7 @@ export default makeCommand(
   {
     name: "gifcities",
     aliases: ["geocities"],
-    description: "geocities classix"
+    description: "geocities classix",
   },
   async ({ message: rawMessage, store }) => {
     let message: string;
@@ -47,11 +47,11 @@ async function doQuery(query: string): Promise<string> {
     {
       params: { q: query, limit: 5 },
       timeout: 5000,
-      responseType: "json"
+      responseType: "json",
     }
   );
 
   return randomInArray(
-    res.data.map(g => "https://web.archive.org/web/" + g.gif)
+    res.data.map((g) => "https://web.archive.org/web/" + g.gif)
   );
 }

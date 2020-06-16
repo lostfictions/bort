@@ -7,7 +7,7 @@ export default makeCommand(
   {
     name: "complete",
     aliases: ["tell me"],
-    description: "we know each other so well we finish each other's sentences"
+    description: "we know each other so well we finish each other's sentences",
   },
   async ({ message: rawMessage, store }) => {
     if (rawMessage.length === 0) {
@@ -21,7 +21,7 @@ export default makeCommand(
       {
         params: { q: message, client: "firefox" },
         timeout: 5000,
-        responseType: "json"
+        responseType: "json",
       }
     );
 

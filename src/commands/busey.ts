@@ -6,14 +6,14 @@ import { DB } from "../store/get-db";
 
 export const USAGE = [
   "Usage:",
-  "`busey <word or sequence to be buseyfied>`"
+  "`busey <word or sequence to be buseyfied>`",
 ].join("\n");
 
 export default makeCommand(
   {
     name: "busey",
     aliases: ["acro", "acronym"],
-    description: "make buseyisms"
+    description: "make buseyisms",
   },
   async ({ message: rawMessage, store, channel }) => {
     if (rawMessage.trim().length === 0) {
@@ -49,7 +49,7 @@ export default makeCommand(
         );
 
         if (entry) {
-          const candidates = Object.keys(entry).filter(word =>
+          const candidates = Object.keys(entry).filter((word) =>
             word.startsWith(letter)
           );
           if (candidates.length > 0) {
@@ -73,7 +73,7 @@ export default makeCommand(
                 );
 
                 if (testEntry) {
-                  const hasNext = Object.keys(testEntry).some(word =>
+                  const hasNext = Object.keys(testEntry).some((word) =>
                     word.startsWith(nextLetter!)
                   );
 
@@ -122,7 +122,7 @@ export default makeCommand(
             [first, second] = preferred.splice(j, 1)[0];
             const entry = await getEntry(store, first, second, channel);
 
-            const hasFollowing = Object.keys(entry!).some(word =>
+            const hasFollowing = Object.keys(entry!).some((word) =>
               word.startsWith(followingLetter!)
             );
             if (hasFollowing) break;
@@ -142,7 +142,7 @@ export default makeCommand(
     if (acro.length > 0) {
       return (
         prefix +
-        acro.map(word => word[0].toUpperCase() + word.slice(1)).join(" ")
+        acro.map((word) => word[0].toUpperCase() + word.slice(1)).join(" ")
       );
     }
     return prefix + "Please Inspect Senseless Sentences";

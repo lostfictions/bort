@@ -23,7 +23,7 @@ export async function setSeen(
   seen[username] = {
     message,
     channel,
-    time
+    time,
   };
   return db.put<SeenData>(key, seen);
 }

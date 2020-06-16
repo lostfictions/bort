@@ -8,7 +8,7 @@ dayjs.extend(relativeTime);
 export default makeCommand(
   {
     name: "seen",
-    description: "note when the given user was last seen"
+    description: "note when the given user was last seen",
   },
   async ({ message, store }) => {
     const username = message.trim().toLowerCase();

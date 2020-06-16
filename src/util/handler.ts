@@ -74,10 +74,10 @@ export function makeCommand<TData extends { message: string } = HandlerArgs>(
 
   const command = {
     handleMessage,
-    name: options.name
+    name: options.name,
   };
 
-  ["usage", "description", "details", "aliases"].forEach(prop => {
+  ["usage", "description", "details", "aliases"].forEach((prop) => {
     if (prop in options) {
       (command as any)[prop] = (options as any)[prop];
     }

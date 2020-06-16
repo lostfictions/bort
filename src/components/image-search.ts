@@ -11,7 +11,7 @@ export async function imageSearch({
   term,
   selectFromTop = 5,
   recents,
-  animated = false
+  animated = false,
 }: {
   term: string;
   selectFromTop?: number;
@@ -68,7 +68,7 @@ export function request({
   term,
   animated,
   exact,
-  transparent
+  transparent,
 }: ImageSearchOptions) {
   const tbs = [transparent && "ic:trans", animated && "itp:animated"]
     .filter(Boolean)
@@ -79,14 +79,14 @@ export function request({
       q: term,
       tbm: "isch",
       nfpr: exact ? 1 : 0,
-      tbs: tbs || undefined
+      tbs: tbs || undefined,
     },
     timeout: 5000,
     headers: {
       "User-Agent":
         "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 " +
-        "(KHTML, like Gecko) Chrome/79.0.3945.79 Safari/537.36"
-    }
+        "(KHTML, like Gecko) Chrome/79.0.3945.79 Safari/537.36",
+    },
   });
 }
 
@@ -143,8 +143,8 @@ export function largestJsonpStrategy($: CheerioStatic): string[] | false {
 
   if (script) {
     return [
-      ...script.matchAll(/"(https?:\/\/[^"]+\.(?:jpe?g|gifv|png))"/g)
-    ].map(res => res[1]);
+      ...script.matchAll(/"(https?:\/\/[^"]+\.(?:jpe?g|gifv|png))"/g),
+    ].map((res) => res[1]);
   }
 
   return false;

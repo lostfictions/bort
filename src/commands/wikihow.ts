@@ -14,8 +14,8 @@ async function getRandomWikihowImage(): Promise<string> {
   const imgs = cheerio
     .load(res.data)("img.whcdn")
     .toArray()
-    .map(img => img.attribs["data-src"])
-    .filter(url => url); // only images with this attribute!
+    .map((img) => img.attribs["data-src"])
+    .filter((url) => url); // only images with this attribute!
 
   return randomInArray(imgs);
 }
@@ -24,7 +24,7 @@ export default makeCommand(
   {
     name: "wikihow",
     aliases: [`how do i`, `how to`, `how`],
-    description: "learn anything"
+    description: "learn anything",
   },
   async ({ message: rawMessage, store }): Promise<string> => {
     if (rawMessage.length === 0) {
@@ -37,7 +37,7 @@ export default makeCommand(
 
     let result = await imageSearch({
       term: message + " site:wikihow.com",
-      recents
+      recents,
     });
 
     if (typeof result === "string") {

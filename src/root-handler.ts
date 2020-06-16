@@ -24,7 +24,7 @@ import {
   conceptSetCommand,
   conceptRemoveCommand,
   conceptListCommand,
-  conceptMatcher
+  conceptMatcher,
 } from "./commands/concepts";
 
 import { getSentence, addSentence } from "./store/methods/markov";
@@ -51,11 +51,11 @@ const subCommands = [
   gifcitiesCommand,
   completeCommand,
   weatherCommand,
-  uptimeCommand
+  uptimeCommand,
 ];
 
 const subcommandsByNameOrAlias: { [name: string]: Command<HandlerArgs> } = {};
-subCommands.forEach(c => {
+subCommands.forEach((c) => {
   const allAliases = [c.name, ...(c.aliases || [])];
   for (const a of allAliases) {
     if (a in subcommandsByNameOrAlias) {
@@ -70,7 +70,7 @@ subCommands.forEach(c => {
 
 const subcommandsMatcher = new RegExp(
   `^\\s*(${Object.keys(subcommandsByNameOrAlias)
-    .map(a => escapeForRegex(a))
+    .map((a) => escapeForRegex(a))
     .join("|")})\\s*$`
 );
 
@@ -78,7 +78,7 @@ const subcommandsMatcher = new RegExp(
 const helpCommand = makeCommand(
   {
     name: "list",
-    aliases: ["help", "usage"]
+    aliases: ["help", "usage"],
   },
   async ({ message, store }) => {
     if (message.trim().length > 0) {
@@ -90,7 +90,7 @@ const helpCommand = makeCommand(
           const reply = [command.name];
           if (command.aliases) {
             reply.push(
-              "Aliases: " + command.aliases.map(a => `*${a}*`).join(", ")
+              "Aliases: " + command.aliases.map((a) => `*${a}*`).join(", ")
             );
           }
           if (command.description) {
@@ -116,7 +116,7 @@ const helpCommand = makeCommand(
 
     return (
       "**Commands:**\n" +
-      subCommands.map(c => `· *${c.name}* - ${c.description}`).join("\n") +
+      subCommands.map((c) => `· *${c.name}* - ${c.description}`).join("\n") +
       "\n" +
       "**Listens:**\n· " +
       concepts.filter((c: string) => c.startsWith("!")).join(", ") +
@@ -141,7 +141,7 @@ const rootCommand = [
       const words = message
         .trim()
         .split(" ")
-        .filter(w => w.length > 0);
+        .filter((w) => w.length > 0);
 
       if (words.length > 1) {
         return getSentence(
@@ -156,12 +156,12 @@ const rootCommand = [
       }
     }
     return getSentence(store, channel);
-  }
+  },
 ] as Handler<HandlerArgs>[];
 
 const handleDirectConcepts = async ({
   message,
-  store
+  store,
 }: HandlerArgs): Promise<string | false> => {
   if (!message.startsWith("!")) {
     return false;
@@ -172,7 +172,7 @@ const handleDirectConcepts = async ({
 
 const doSetSeen = ({ username, message, store, channel }: HandlerArgs) => {
   // we don't actually want to wait for this to finish
-  setSeen(store, username, message, channel).catch(e => {
+  setSeen(store, username, message, channel).catch((e) => {
     throw e;
   });
   return false as false;
@@ -184,19 +184,19 @@ const bortCommand = makeCommand(
     name: BOT_NAME,
     // name: botNames.name,
     // aliases: botNames.aliases,
-    description: `it ${BOT_NAME}`
+    description: `it ${BOT_NAME}`,
   },
   rootCommand
 );
 
 const messageHandler = [
-  async args => (args.isDM ? false : processMessage(doSetSeen, args)),
+  async (args) => (args.isDM ? false : processMessage(doSetSeen, args)),
   // Handling the direct concepts first should be safe -- it prevents the markov
   // generator fallback of the root command from eating our input.
   handleDirectConcepts,
   // If it's a DM, don't require prefixing with the bot name and don't add any
   // input to our wordbank.
-  async args =>
+  async (args) =>
     args.isDM
       ? processMessage(rootCommand, args)
       : processMessage(bortCommand, args),
@@ -208,12 +208,12 @@ const messageHandler = [
       message
         .trim()
         .split(" ")
-        .filter(s => s.length > 0).length > 1
+        .filter((s) => s.length > 0).length > 1
     ) {
       await addSentence(store, message, channel);
     }
     return false;
-  }
+  },
 ] as Handler<HandlerArgs>[];
 
 export default messageHandler;

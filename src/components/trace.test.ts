@@ -3,7 +3,7 @@ import {
   tryTrace,
   emptyConceptError,
   unknownConceptError,
-  MAX_CYCLES_ERROR
+  MAX_CYCLES_ERROR,
 } from "./trace";
 
 import makeMockDb from "../store/mock-db";

@@ -25,7 +25,7 @@ const isVowel = (char: string) => /^[aeiou]$/i.test(char);
 
 // TODO: filter length 0 before passing through to simplify all of these
 export const defaultModifiers: ModifierList = {
-  s: word => {
+  s: (word) => {
     if (word.length < 1) return word;
     switch (word[word.length - 1].toLowerCase()) {
       case "s":
@@ -40,7 +40,7 @@ export const defaultModifiers: ModifierList = {
         return word + "s";
     }
   },
-  a: word => {
+  a: (word) => {
     switch (true) {
       case word.length < 1:
         return word;
@@ -54,7 +54,7 @@ export const defaultModifiers: ModifierList = {
         return "a " + word;
     }
   },
-  ed: word => {
+  ed: (word) => {
     if (word.length < 1) return word;
     switch (word[word.length - 1]) {
       case "e":
@@ -67,17 +67,17 @@ export const defaultModifiers: ModifierList = {
         return word + "ed";
     }
   },
-  ing: word => {
+  ing: (word) => {
     if (word.length < 1) return word;
     if (word[word.length - 1].toLowerCase() === "e") {
       return word.substring(0, word.length - 1) + "ing";
     }
     return word + "ing";
   },
-  upper: word => word.toUpperCase(),
-  cap: word =>
+  upper: (word) => word.toUpperCase(),
+  cap: (word) =>
     word.length > 0 ? word[0].toUpperCase() + word.substring(1) : "",
-  swap: (word, search, replacement) => word.split(search).join(replacement)
+  swap: (word, search, replacement) => word.split(search).join(replacement),
 };
 
 defaultModifiers["an"] = defaultModifiers["a"];
@@ -88,7 +88,7 @@ export async function trace({
   concept,
   maxCycles = 10,
   seen = {},
-  modifierList = defaultModifiers
+  modifierList = defaultModifiers,
 }: TraceArgs): Promise<string> {
   if (seen[concept] > maxCycles) {
     return MAX_CYCLES_ERROR;
@@ -96,11 +96,11 @@ export async function trace({
 
   const [resolvedConcept, ...modifierChunks] = concept.split("|");
   const modifiers = modifierChunks
-    .map(chunk => {
+    .map((chunk) => {
       const [modifierName, ...args] = chunk.split(" ");
       return [modifierList[modifierName], args] as [Modifier, string[]];
     })
-    .filter(resolved => resolved[0]);
+    .filter((resolved) => resolved[0]);
 
   const concepts = await getConcept(db, resolvedConcept);
 
@@ -125,7 +125,7 @@ export async function trace({
       concept: nextConcept,
       seen: { ...seen, [nextConcept]: seen[nextConcept] + 1 || 1 },
       maxCycles,
-      modifierList
+      modifierList,
     });
 
     result =
@@ -169,6 +169,6 @@ export async function maybeTraced(db: DB, message: string) {
   }
   return {
     message,
-    prefix
+    prefix,
   };
 }

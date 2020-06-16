@@ -19,8 +19,8 @@ const env = envalid.cleanEnv(
       default: false,
       desc:
         "Start up an interface that reads from stdin and " +
-        "prints to stdout instead of connecting to servers."
-    })
+        "prints to stdout instead of connecting to servers.",
+    }),
   },
   { strict: true }
 );
@@ -32,7 +32,7 @@ export const {
   OPEN_WEATHER_MAP_KEY,
   HOSTNAME,
   PORT,
-  USE_CLI
+  USE_CLI,
 } = env;
 
 if (!fs.existsSync(DATA_DIR)) {
@@ -50,8 +50,8 @@ if (!env.USE_CLI) {
       dsn: env.SENTRY_DSN,
       environment: env.isDev ? "dev" : "prod",
       integrations: [
-        new CaptureConsole({ levels: ["warn", "error", "debug", "assert"] })
-      ]
+        new CaptureConsole({ levels: ["warn", "error", "debug", "assert"] }),
+      ],
     });
   }
 }
@@ -72,7 +72,7 @@ if (!isValidConfiguration) {
 
   const varsToCheck = ["DISCORD_TOKEN"];
   const configInfo = varsToCheck
-    .map(key => `${key}: ${(env as any)[key] ? "OK" : "NONE"}`)
+    .map((key) => `${key}: ${(env as any)[key] ? "OK" : "NONE"}`)
     .join("\n");
   console.warn(configInfo);
 }

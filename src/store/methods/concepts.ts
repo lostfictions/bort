@@ -95,8 +95,8 @@ export async function initializeConcepts(db: DB): Promise<void> {
     "noun",
     "digit",
     "consonant",
-    "vowel"
-  ].forEach(i => {
+    "vowel",
+  ].forEach((i) => {
     assert(Array.isArray(corpora[i]));
     corpora[i].every((c: any) => typeof c === "string");
   });

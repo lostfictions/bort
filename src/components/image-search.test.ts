@@ -6,9 +6,9 @@ import { parse } from "./image-search";
 const fixturePath = join(__dirname, `../../fixtures/image-search`);
 const fixtureFiles = readdirSync(fixturePath);
 
-const fixtures = fixtureFiles.map(f => [
+const fixtures = fixtureFiles.map((f) => [
   readFileSync(join(fixturePath, f), "utf8"),
-  f
+  f,
 ]);
 
 // const mockResponses = {

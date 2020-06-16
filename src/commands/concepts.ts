@@ -5,7 +5,7 @@ import {
   removeConcept,
   getConcept,
   addToConcept,
-  removeFromConcept
+  removeFromConcept,
 } from "../store/methods/concepts";
 
 type HandlerArgsWithConcept = HandlerArgs & { concept: string };
@@ -37,7 +37,7 @@ export const conceptAddCommand = makeCommand(
   {
     name: "add",
     aliases: ["+"],
-    description: "add a new concept"
+    description: "add a new concept",
   },
   async ({ message, store }) => {
     if (message.length === 0) {
@@ -57,7 +57,7 @@ export const conceptRemoveCommand = makeCommand(
   {
     name: "remove",
     aliases: ["delete", "-"],
-    description: "delete an existing concept"
+    description: "delete an existing concept",
   },
   async ({ message, store }) => {
     if (message.length === 0) {
@@ -78,7 +78,7 @@ export const conceptSetCommand = makeCommand(
   {
     name: "set",
     description:
-      "set the contents of a concept, overwriting the existing concept if it exists"
+      "set the contents of a concept, overwriting the existing concept if it exists",
   },
   async ({ message, store }) => {
     if (message.length === 0) {
@@ -86,7 +86,7 @@ export const conceptSetCommand = makeCommand(
     }
 
     const [concept, remainder] = normalizeMessageWithLeadingConcept(message);
-    const args = remainder.split(",").map(s => s.trim());
+    const args = remainder.split(",").map((s) => s.trim());
     const result: string[] = [];
 
     const maybeConcept = await getConcept(store, message);
@@ -108,7 +108,7 @@ export const conceptListCommand = makeCommand(
   {
     name: "list",
     aliases: ["get"],
-    description: "list everything in a concept"
+    description: "list everything in a concept",
   },
   async ({ message, store }) => {
     if (message.length === 0) {
@@ -139,7 +139,7 @@ const conceptAddToCommand = makeCommand<HandlerArgsWithConcept>(
   {
     name: "add",
     aliases: ["+"],
-    description: "add to a concept"
+    description: "add to a concept",
   },
   async ({ message, store, concept }) => {
     if (message.length === 0) {
@@ -164,13 +164,13 @@ const conceptBulkAddToCommand = makeCommand<HandlerArgsWithConcept>(
   {
     name: "bulkadd",
     aliases: ["++"],
-    description: "add a comma-separated list of things to a concept"
+    description: "add a comma-separated list of things to a concept",
   },
   async ({ message, store, concept }) => {
     if (message.length === 0) {
       return false;
     }
-    const conceptsToAdd = message.split(",").map(s => s.trim());
+    const conceptsToAdd = message.split(",").map((s) => s.trim());
 
     const maybeConcept = await getConcept(store, message);
     if (!maybeConcept) {
@@ -178,16 +178,16 @@ const conceptBulkAddToCommand = makeCommand<HandlerArgsWithConcept>(
     }
 
     const results = conceptsToAdd
-      .filter(c => Object.hasOwnProperty.call(maybeConcept, c))
-      .map(c => `"${c}" already exists in "${concept}"!`);
+      .filter((c) => Object.hasOwnProperty.call(maybeConcept, c))
+      .map((c) => `"${c}" already exists in "${concept}"!`);
 
     const toAdd = conceptsToAdd.filter(
-      c => !Object.hasOwnProperty.call(maybeConcept, c)
+      (c) => !Object.hasOwnProperty.call(maybeConcept, c)
     );
 
     await addToConcept(store, concept, toAdd);
 
-    return results.concat(toAdd.map(c => `Added "${c}".`)).join("\n");
+    return results.concat(toAdd.map((c) => `Added "${c}".`)).join("\n");
   }
 );
 
@@ -195,7 +195,7 @@ const conceptRemoveFromCommand = makeCommand<HandlerArgsWithConcept>(
   {
     name: "remove",
     aliases: ["delete", "-"],
-    description: "remove from a concept"
+    description: "remove from a concept",
   },
   async ({ message, store, concept }) => {
     if (message.length === 0) {
@@ -221,7 +221,7 @@ const conceptRemoveFromCommand = makeCommand<HandlerArgsWithConcept>(
 // and removes it from the message, and then redirects to one of the
 // commands above.
 export const conceptMatcher = adjustArgs<HandlerArgs>(
-  async args => {
+  async (args) => {
     const { message, store } = args;
     if (message.length === 0) {
       return false;
@@ -237,7 +237,7 @@ export const conceptMatcher = adjustArgs<HandlerArgs>(
     return { ...args, message: concept + " " + command };
   },
   adjustArgs<HandlerArgsWithConcept, HandlerArgs>(
-    args => {
+    (args) => {
       const split = args.message.split(" ");
       const concept = split[0];
       const adjustedMessage = split.slice(1).join(" ");

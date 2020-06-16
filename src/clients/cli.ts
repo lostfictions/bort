@@ -7,7 +7,7 @@ import messageHandler from "../root-handler";
 export const makeCLIBot = (dbName = "_cli-test") => {
   const rl = readline.createInterface({
     input: process.stdin,
-    output: process.stdout
+    output: process.stdout,
   });
 
   // eslint-disable-next-line @typescript-eslint/no-floating-promises
@@ -23,14 +23,14 @@ export const makeCLIBot = (dbName = "_cli-test") => {
           message,
           username: "cli-user",
           channel: "cli-channel",
-          isDM: false
+          isDM: false,
         });
 
         console.log(
           response !== false
             ? response
                 .split("\n")
-                .map(line => `[bort] ${line}`)
+                .map((line) => `[bort] ${line}`)
                 .join("\n")
             : "-"
         );

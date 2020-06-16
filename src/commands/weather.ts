@@ -52,7 +52,7 @@ function meteorologicalAngleToDirection(deg: number): string {
 export default makeCommand(
   {
     name: "weather",
-    description: "rain or shine"
+    description: "rain or shine",
   },
   async ({ message }) => {
     if (message.length === 0) {
@@ -66,10 +66,10 @@ export default makeCommand(
         {
           params: {
             query: message,
-            h: 0
+            h: 0,
           },
           responseType: "json",
-          timeout: 5000
+          timeout: 5000,
         }
       );
     } catch (e) {
@@ -98,10 +98,10 @@ export default makeCommand(
           params: {
             lat,
             lon,
-            appid: OPEN_WEATHER_MAP_KEY
+            appid: OPEN_WEATHER_MAP_KEY,
           },
           responseType: "json",
-          timeout: 5000
+          timeout: 5000,
         }
       );
     } catch (e) {

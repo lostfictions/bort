@@ -14,8 +14,8 @@ describe("db seen", () => {
       bob: {
         message: "yo",
         channel: "#trends",
-        time: now
-      }
+        time: now,
+      },
     });
   });
 
@@ -27,13 +27,13 @@ describe("db seen", () => {
       bob: {
         message: "i was thinking about that delicious apple",
         channel: "#heart",
-        time: 45
+        time: 45,
       },
       alice: {
         message: "sup",
         channel: "#money",
-        time: 25
-      }
+        time: 25,
+      },
     };
 
     const now = Date.now();
@@ -44,13 +44,13 @@ describe("db seen", () => {
       bob: {
         message: "yo",
         channel: "#trends",
-        time: now
+        time: now,
       },
       alice: {
         message: "sup",
         channel: "#money",
-        time: 25
-      }
+        time: 25,
+      },
     });
   });
 });

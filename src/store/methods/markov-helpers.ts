@@ -31,7 +31,7 @@ const continueSet = new Set([
   ...prepositions,
   ...determiners,
   ...conjunctions,
-  ...misc
+  ...misc,
 ]);
 
 export const endTest = (output: string[]) =>

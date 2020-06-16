@@ -11,7 +11,7 @@ const loadFixture = (page: number) =>
 const mockResponses = {
   "1": loadFixture(1),
   "2": loadFixture(2),
-  "3": loadFixture(3)
+  "3": loadFixture(3),
 };
 
 jest.mock("axios", () =>
@@ -41,14 +41,14 @@ describe("vidrand", () => {
   describe("vidrand command", () => {
     it("should return usage on invalid input", async () => {
       const result = await command.handleMessage({
-        message: "vidrand whatever"
+        message: "vidrand whatever",
       } as any);
       expect(result).toBe(USAGE);
     });
 
     it("should call through to getFilmUrls when letterboxd url is passed", async () => {
       const result = await command.handleMessage({
-        message: "vidrand https://letterboxd.com/someuser/watchlist"
+        message: "vidrand https://letterboxd.com/someuser/watchlist",
       } as any);
 
       const axiosMock = jest.requireMock("axios");

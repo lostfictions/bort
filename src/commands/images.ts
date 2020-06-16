@@ -28,7 +28,7 @@ async function doSearch(rawMessage: string, store: DB, animated = false) {
   let result = await imageSearch({
     term: message,
     recents,
-    animated
+    animated,
   });
 
   if (typeof result === "string") {
@@ -52,9 +52,9 @@ export const imageSearchCommand = makeCommand(
       `show me an`,
       `show me a`,
       `show me`,
-      `show`
+      `show`,
     ],
-    description: "i will show you"
+    description: "i will show you",
   },
   async ({ message, store }) => doSearch(message, store)
 );
@@ -63,7 +63,7 @@ export const gifSearchCommand = makeCommand(
   {
     name: "gifsearch",
     aliases: ["gif me the", "gif me an", "gif me a", "gif me", "gif"],
-    description: "moving pictures"
+    description: "moving pictures",
   },
   async ({ message, store }) => doSearch(message, store, true)
 );

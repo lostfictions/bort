@@ -8,7 +8,7 @@ describe("choose", () => {
       const items = ["a", "b", "c", "d"];
       const result = await command.handleMessage({
         message: `choose ${items.join(",")}`,
-        store: makeMockDb().db
+        store: makeMockDb().db,
       } as any);
       expect(items).toContain(result);
     });
@@ -17,10 +17,10 @@ describe("choose", () => {
       const items = ["a", "b", "c", "d"];
 
       return Promise.all(
-        [",", " ,", ", ", " , ", "   ,   "].map(async joiner => {
+        [",", " ,", ", ", " , ", "   ,   "].map(async (joiner) => {
           const result = await command.handleMessage({
             message: `choose ${items.join(joiner)}`,
-            store: makeMockDb().db
+            store: makeMockDb().db,
           } as any);
           expect(items).toContain(result);
         })

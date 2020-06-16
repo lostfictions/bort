@@ -13,7 +13,7 @@ describe("busey", () => {
     [keyTrigramForward("bb", "cc", channel)]: { dd: 1 },
     [keyTrigramForward("cc", "dd", channel)]: { ee: 1 },
     [keyTrigramForward("c_shouldnt_be_picked", "hi", channel)]: { uhoh: 1 },
-    [keyTrigramForward("dd", "ee", channel)]: { ff: 1 }
+    [keyTrigramForward("dd", "ee", channel)]: { ff: 1 },
   });
 
   describe("busey command", () => {
@@ -23,7 +23,7 @@ describe("busey", () => {
       const result = await command.handleMessage({
         message: "busey",
         store: db,
-        channel
+        channel,
       } as any);
       expect(result).toBe(USAGE);
     });
@@ -36,7 +36,7 @@ describe("busey", () => {
           const result = await command.handleMessage({
             message: "busey abc",
             store: db,
-            channel
+            channel,
           } as any);
           expect(result).toBe("Aa Bb Cc");
         })
@@ -49,7 +49,7 @@ describe("busey", () => {
       const result = await command.handleMessage({
         message: "busey [xconcept]",
         store: db,
-        channel
+        channel,
       } as any);
       expect(result).toBe("(a)\nAa");
     });
@@ -60,7 +60,7 @@ describe("busey", () => {
       const result = await command.handleMessage({
         message: "busey ab:d",
         store: db,
-        channel
+        channel,
       } as any);
       expect(result).toBe("Aa Bb : Dd");
     });
@@ -71,7 +71,7 @@ describe("busey", () => {
       const result = await command.handleMessage({
         message: "busey defi",
         store: db,
-        channel
+        channel,
       } as any);
 
       expect(result).toBe("Dd Ee Ff");

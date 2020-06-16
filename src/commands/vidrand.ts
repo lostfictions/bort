@@ -8,7 +8,7 @@ import { getConcept } from "../store/methods/concepts";
 export const USAGE = [
   "Usage:",
   "`vidrand <letterboxd list url>`",
-  "`vidrand` (with a default list assigned to `!watchlist`)"
+  "`vidrand` (with a default list assigned to `!watchlist`)",
 ].join("\n");
 
 const FIVE_MINUTES = 1000 * 60 * 5;
@@ -50,9 +50,9 @@ export async function getFilmUrlsFromLetterboxdList(
     pageResults = cheerio
       .load(res.data)(".poster")
       .toArray()
-      .map(div => div.attribs["data-film-slug"])
-      .filter(slug => slug)
-      .map(u => `https://letterboxd.com${u}`);
+      .map((div) => div.attribs["data-film-slug"])
+      .filter((slug) => slug)
+      .map((u) => `https://letterboxd.com${u}`);
 
     allResults.push(...pageResults);
     currentPage++;
@@ -60,7 +60,7 @@ export async function getFilmUrlsFromLetterboxdList(
 
   resultCache[url] = {
     lastRetrieved: Date.now(),
-    results: allResults
+    results: allResults,
   };
   return allResults;
 }
@@ -68,7 +68,7 @@ export async function getFilmUrlsFromLetterboxdList(
 export default makeCommand(
   {
     name: "vidrand",
-    description: "get a random video from a letterboxd list"
+    description: "get a random video from a letterboxd list",
   },
   async ({ message, store }): Promise<string> => {
     let url = message;
@@ -78,7 +78,7 @@ export default makeCommand(
       if (!watchlists || Object.keys(watchlists).length === 0) {
         return [
           `No default Letterboxd watchlist defined!`,
-          `Set a concept called \`!watchlist\` with an url first.`
+          `Set a concept called \`!watchlist\` with an url first.`,
         ].join("\n");
       }
 

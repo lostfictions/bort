@@ -9,7 +9,7 @@ import { DB } from "../get-db";
 import {
   getWithDefault,
   getOrNull,
-  isRestrictedObjectPropertyName
+  isRestrictedObjectPropertyName,
 } from "../db-helpers";
 import { endTest } from "./markov-helpers";
 
@@ -53,10 +53,7 @@ export async function addSentence(
 
   const lines = sentence.split(sentenceSplitter);
   for (const line of lines) {
-    const words = line
-      .split(/\s/gi)
-      .map(wordNormalizer)
-      .filter(wordFilter);
+    const words = line.split(/\s/gi).map(wordNormalizer).filter(wordFilter);
 
     /* eslint-disable no-await-in-loop */
     for (let i = 0; i < words.length - 2; i++) {
@@ -87,7 +84,7 @@ export async function initializeMarkov(
   ).tarotLines;
 
   assert(Array.isArray(tarotLines));
-  assert(tarotLines.every(l => typeof l === "string"));
+  assert(tarotLines.every((l) => typeof l === "string"));
 
   for (const line of tarotLines) {
     // eslint-disable-next-line no-await-in-loop
@@ -119,7 +116,7 @@ export async function getRandomSeed(db: DB, ns = DEFAULT_NAMESPACE) {
   return {
     first,
     second,
-    entry: res.value
+    entry: res.value,
   };
 }
 

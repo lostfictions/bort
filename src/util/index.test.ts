@@ -20,7 +20,7 @@ describe("random by weight", () => {
   jsc.property(
     "result is one of inputs",
     jsc.nearray(jsc.tuple([jsc.string, jsc.number(0, 10)])),
-    arrayOfWeights => {
+    (arrayOfWeights) => {
       const keys = new Set(arrayOfWeights.map(([k]) => k));
       return keys.has(randomByWeight(pairsToObj(arrayOfWeights)));
     }
@@ -30,7 +30,7 @@ describe("random by weight", () => {
     expect(() =>
       randomByWeight({
         dog: 1,
-        cat: 1000
+        cat: 1000,
       })
     ).not.toThrow();
   });
@@ -40,13 +40,13 @@ describe("random by weight", () => {
       randomByWeight({
         dog: 0.1,
         cat: 1,
-        flower: 0.25
+        flower: 0.25,
       })
     ).not.toThrow();
 
     expect(() =>
       randomByWeight({
-        dog: 0.1
+        dog: 0.1,
       })
     ).not.toThrow();
 
@@ -54,7 +54,7 @@ describe("random by weight", () => {
       randomByWeight({
         dog: 0.1,
         cat: 0,
-        flower: 0.25
+        flower: 0.25,
       })
     ).not.toThrow();
   });
@@ -64,7 +64,7 @@ describe("random by weight", () => {
       randomByWeight({
         cat: 1,
         dog: 0,
-        flower: 0
+        flower: 0,
       })
     ).toEqual("cat");
 
@@ -72,7 +72,7 @@ describe("random by weight", () => {
       randomByWeight({
         dog: 0,
         flower: 0,
-        cat: 1
+        cat: 1,
       })
     ).toEqual("cat");
 
@@ -80,7 +80,7 @@ describe("random by weight", () => {
       randomByWeight({
         dog: 0,
         cat: 1,
-        flower: 0
+        flower: 0,
       })
     ).toEqual("cat");
 
@@ -88,14 +88,14 @@ describe("random by weight", () => {
       randomByWeight({
         dog: 0,
         cat: 0.1,
-        flower: 0
+        flower: 0,
       })
     ).toEqual("cat");
 
     expect(
       randomByWeight({
         cat: 0.001,
-        dog: 0
+        dog: 0,
       })
     ).toEqual("cat");
   });

@@ -9,7 +9,7 @@ dayjs.extend(relativeTime);
 export default makeCommand(
   {
     name: "uptime",
-    description: "info about me"
+    description: "info about me",
   },
   () => {
     const uptime = dayjs

@@ -93,7 +93,7 @@ export function request({
 export function parse(html: string) {
   const $ = cheerio.load(html);
 
-  const strategies = [metaJsonStrategy, largestJsonpStrategy];
+  const strategies = [allJsonpStrategy];
 
   for (const s of strategies) {
     const res = s($);
@@ -103,48 +103,20 @@ export function parse(html: string) {
   return [];
 }
 
-export function metaJsonStrategy($: CheerioStatic): string[] | false {
-  const metaLinks = $(".rg_meta");
+const PREFIX = "AF_initDataCallback";
 
-  if (metaLinks.length === 0) return false;
+export function allJsonpStrategy($: CheerioStatic): string[] | false {
+  const scripts = $("script")
+    .toArray()
+    .map((el) => $(el).text())
+    .filter((t) => t.startsWith(PREFIX));
 
-  const urls: string[] = [];
-  metaLinks.each((_i, el) => {
-    if (el.children.length > 0 && "data" in el.children[0]) {
-      const metadata = JSON.parse((el.children[0] as any).data);
-      // x-raw-image = when google sometimes embeds the preview!
-      if (metadata.ou && !metadata.ou.startsWith("x-raw-image")) {
-        urls.push(metadata.ou);
-      }
-      // Elements without metadata.ou are subcategory headings in the results page.
-    }
-  });
-
-  return urls;
-}
-
-const PREFIX = "data:function(){return ";
-
-export function largestJsonpStrategy($: CheerioStatic): string[] | false {
-  const scripts = $("script").toArray();
-
-  let script: string | null = null;
-  let longest = Number.NEGATIVE_INFINITY;
-
-  for (const el of scripts) {
-    const s = $(el).text();
-    if (s.slice(0, 250).includes(PREFIX)) {
-      if (s.length > longest) {
-        script = s;
-        longest = s.length;
-      }
-    }
-  }
-
-  if (script) {
-    return [
-      ...script.matchAll(/"(https?:\/\/[^"]+\.(?:jpe?g|gifv|png))"/g),
-    ].map((res) => res[1]);
+  if (scripts.length > 0) {
+    return scripts
+      .flatMap((script) => [
+        ...script.matchAll(/"(https?:\/\/[^"]+\.(?:jpe?g|gifv?|png))"/g),
+      ])
+      .map((res) => res[1]);
   }
 
   return false;

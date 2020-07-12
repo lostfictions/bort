@@ -28,8 +28,7 @@ describe("processMessage", () => {
     expect(
       processMessage(
         {
-          handleMessage: ({ message }) =>
-            new Promise<string>((res) => res(message)),
+          handleMessage: ({ message }) => Promise.resolve(message),
         },
         { message: "yo" }
       )
@@ -48,7 +47,7 @@ describe("processMessage", () => {
   it("should resolve an array of handler objects and functions to a message", () => {
     const handlers: Handler<{ message: string }>[] = [
       { handleMessage: () => false },
-      () => new Promise<false>((res) => res(false)),
+      () => Promise.resolve(false),
       ({ message }) => message,
       () => {
         throw new Error("should not be called");

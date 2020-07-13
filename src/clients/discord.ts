@@ -44,6 +44,14 @@ export function getInternalChannelId(channel: Channel): string {
   return `other-${channel.id}`;
 }
 
+const initializeChannel = async (channel: Channel) => {
+  const storeName = getStoreNameForChannel(channel);
+  const store = await getDb(storeName);
+  const channelId = getInternalChannelId(channel);
+  console.log(`initializing store '${storeName}' for channel ${channelId}`);
+  await initializeMarkov(store, channelId);
+};
+
 export function makeDiscordBot(discordToken: string) {
   const client = new DiscordClient();
 
@@ -101,20 +109,31 @@ export function makeDiscordBot(discordToken: string) {
       `Connected to Discord guilds ${guildList} as ${client.user!.username}`
     );
   });
-  // eslint-disable-next-line @typescript-eslint/no-misused-promises
-  client.on("message", onMessage);
+
   client.on("disconnect", (ev: any) => {
     console.log(`Discord bot disconnected! reason: ${ev.reason}`);
   });
 
-  // eslint-disable-next-line @typescript-eslint/no-misused-promises
-  client.on("channelCreate", async (channel) => {
-    const storeName = getStoreNameForChannel(channel);
-    const store = await getDb(storeName);
-    const channelId = getInternalChannelId(channel);
-    console.log(`initializing store '${storeName}' for channel ${channelId}`);
-    await initializeMarkov(store, channelId);
+  /* eslint-disable @typescript-eslint/no-misused-promises */
+  client.on("message", onMessage);
+
+  client.on("channelCreate", initializeChannel);
+
+  // when added to a new server:
+  client.on("guildCreate", async (guild) => {
+    console.log(`Added to guild: "${guild.name}". Initializing channels...`);
+    for (const channel of guild.channels.cache.values()) {
+      // eslint-disable-next-line no-await-in-loop
+      await initializeChannel(channel);
+    }
+    console.log(`Done initializing channels for guild ${guild.name}`);
   });
+  /* eslint-enable @typescript-eslint/no-misused-promises */
+
+  // TODO: channel delete, channel rename, removed from guild
+
+  // TODO: flag channels as initialized and wait for flag in channels before
+  // responding?
 
   return {
     client,

@@ -10,15 +10,19 @@ describe("db timers", () => {
 
     const payload1 = {
       message: "do laundry",
-      time: inFive,
+      triggerTime: inFive,
+      setTime: Date.now(),
       user: "bob",
       creator: "bob",
+      channel: "main",
     };
     const payload2 = {
       message: "do dishes",
-      time: inFive,
+      triggerTime: inFive,
+      setTime: Date.now(),
       user: "frob",
       creator: "frob",
+      channel: "main",
     };
 
     const id1 = await addTimer(db, payload1);
@@ -38,9 +42,11 @@ describe("db timers", () => {
 
     const payload = {
       message: "do laundry",
-      time: inFive,
+      triggerTime: inFive,
+      setTime: Date.now(),
       user: "bob",
       creator: "bob",
+      channel: "main",
     };
 
     const id = await addTimer(db, payload);

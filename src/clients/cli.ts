@@ -24,6 +24,7 @@ export const makeCLIBot = (dbName = "_cli-test") => {
           username: "cli-user",
           channel: "cli-channel",
           isDM: false,
+          sendMessage: async (m) => console.log(m),
         });
 
         console.log(

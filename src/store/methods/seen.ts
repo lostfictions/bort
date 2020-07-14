@@ -37,6 +37,14 @@ export async function getSeen(
   return entry ?? false;
 }
 
-export async function initializeSeen(db: DB): Promise<void> {
-  return db.put<SeenData>(key, {});
+export async function initializeSeen(db: DB) {
+  try {
+    const seen = await db.get<SeenData>(key);
+    if (typeof seen !== "object") {
+      throw new Error(`Unexpected store shape for seen (key "${key}")`);
+    }
+  } catch (e) {
+    console.warn(e, "... Initializing...");
+    await db.put<SeenData>(key, {});
+  }
 }

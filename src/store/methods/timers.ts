@@ -1,14 +1,38 @@
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+
 import { DB } from "../get-db";
+
+dayjs.extend(relativeTime);
+
+// https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setTimeout#Maximum_delay_value
+const MAX_DELAY = 2_147_483_647;
+
+export const getTimerMessage = ({
+  setTime,
+  message,
+  user,
+  creator,
+}: TimerPayload) => {
+  const author = user === creator ? "you" : creator;
+  return `${user}, ${author} asked me to tell you ${dayjs(
+    setTime
+  ).fromNow()}: ${message}`;
+};
 
 export interface TimerPayload {
   /** Time at or after which the timer should fire. */
-  time: number;
+  triggerTime: number;
+  /** Time at which the timer was set. */
+  setTime: number;
   /** The message attached to the timer. */
   message: string;
-  /** The user to mention when the timer fires. */
+  /** The user id to mention when the timer fires. */
   user: string;
-  /** The user who created the timer. */
+  /** The id of the user who created the timer. */
   creator: string;
+  /** The id of the channel in which to post the message. */
+  channel: string;
 }
 
 export interface Timers {
@@ -27,10 +51,14 @@ export async function addTimer(db: DB, payload: TimerPayload): Promise<string> {
   return db.put<Timers>(key, t).then(() => t.lastId.toString());
 }
 
-export async function removeTimer(db: DB, id: string): Promise<void> {
+export async function removeTimer(db: DB, id: string): Promise<boolean> {
   const t = await db.get<Timers>(key);
-  delete t.timers[id];
-  return db.put<Timers>(key, t);
+  if (id in t.timers) {
+    delete t.timers[id];
+    await db.put<Timers>(key, t);
+    return true;
+  }
+  return false;
 }
 
 export async function removeAllTimers(db: DB): Promise<void> {
@@ -41,10 +69,6 @@ export async function removeAllTimers(db: DB): Promise<void> {
 
 export function getTimers(db: DB): Promise<Timers> {
   return db.get<Timers>(key);
-}
-
-export function initializeTimers(db: DB): Promise<void> {
-  return db.put<Timers>(key, { lastId: 0, timers: {} });
 }
 
 export async function activateTimer(
@@ -58,15 +82,32 @@ export async function activateTimer(
     throw new Error(`Can't get timer with id ${id}!`);
   }
 
-  const fireAction = () => {
-    action(payload);
+  const fireAction = async () => {
+    // might seem redundant to get it again, but we need to check if it's been
+    // deleted.
+    const _t = await db.get<Timers>(key);
+    const _payload = _t.timers[id];
+    if (!_payload) {
+      console.warn(
+        `Trying to activate timer with id ${id}, but it doesn't exist. It may have been deleted.`
+      );
+      return;
+    }
+    action(_payload);
     return removeTimer(db, id);
   };
 
-  const fireTime = Date.now() - payload.time;
+  const fireTime = payload.triggerTime - Date.now();
 
   if (fireTime <= 0) {
     await fireAction();
+    return null;
+  }
+
+  if (fireTime >= MAX_DELAY) {
+    console.log(
+      `Timer with id ${id} is far in the future; not scheduling it for now.`
+    );
     return null;
   }
 
@@ -87,4 +128,21 @@ export async function activateAllTimers(
   return results.filter<NodeJS.Timeout>(
     (res): res is NodeJS.Timeout => res !== null
   );
+}
+
+export async function initializeTimers(db: DB) {
+  try {
+    const timers = await db.get<Timers>(key);
+    if (
+      typeof timers !== "object" ||
+      !("lastId" in timers) ||
+      !("timers" in timers) ||
+      typeof timers.timers !== "object"
+    ) {
+      throw new Error(`Unexpected store shape for timers (key "${key}")`);
+    }
+  } catch (e) {
+    console.warn(e, "... Initializing...");
+    await db.put<Timers>(key, { lastId: 0, timers: {} });
+  }
 }

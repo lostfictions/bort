@@ -7,6 +7,7 @@ import debug from "debug";
 import { initializeConcepts } from "./methods/concepts";
 import { initializeSeen } from "./methods/seen";
 import { initializeRecents, cleanRecents } from "./methods/recents";
+import { initializeTimers } from "./methods/timers";
 
 import { DATA_DIR } from "../env";
 
@@ -99,10 +100,14 @@ async function loadOrInitializeDb(dbName: string): Promise<DB> {
 
   const db = level(dbPath, { valueEncoding: "json" }) as DB;
 
+  // check store shape and (re)initialize if necessary
+  await initializeTimers(db);
+  await initializeSeen(db);
+  await initializeRecents(db);
+
+  // no store shape, just add data if needed
   if (shouldInitialize) {
     await initializeConcepts(db);
-    await initializeSeen(db);
-    await initializeRecents(db);
     log("Finished initializing DB.");
   }
 

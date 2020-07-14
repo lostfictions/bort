@@ -1,4 +1,8 @@
-import { DB } from "./store/get-db";
+import type { DB } from "./store/get-db";
+import type {
+  Message as DiscordMessage,
+  Client as DiscordClient,
+} from "discord.js";
 
 export interface HandlerArgs {
   message: string;
@@ -6,4 +10,6 @@ export interface HandlerArgs {
   channel: string;
   store: DB;
   isDM: boolean;
+  sendMessage: (message: string) => Promise<void>;
+  discordMeta?: { message: DiscordMessage; client: DiscordClient };
 }

@@ -13,7 +13,9 @@ import seenCommand from "./commands/seen";
 import weatherCommand from "./commands/weather";
 import uptimeCommand from "./commands/uptime";
 import { imageSearchCommand, gifSearchCommand } from "./commands/images";
-import gifcitiesCommand from "./commands/gifcities";
+import timerCommand from "./commands/timers";
+// gifcities is down, i guess :(
+// import gifcitiesCommand from "./commands/gifcities";
 import completeCommand from "./commands/complete";
 import wikihowCommand from "./commands/wikihow";
 import conceptLoadCommand from "./commands/concept-load";
@@ -48,7 +50,8 @@ const subCommands = [
   wikihowCommand,
   imageSearchCommand,
   gifSearchCommand,
-  gifcitiesCommand,
+  timerCommand,
+  // gifcitiesCommand,
   completeCommand,
   weatherCommand,
   uptimeCommand,

@@ -5,6 +5,7 @@ import {
   TextChannel,
   GuildChannel,
   DMChannel,
+  Guild,
 } from "discord.js";
 
 import { getDb } from "../store/get-db";
@@ -13,10 +14,14 @@ import { HandlerArgs } from "../handler-args";
 
 import { processMessage } from "../util/handler";
 import { initializeMarkov } from "../store/methods/markov";
+import { activateAllTimers, getTimerMessage } from "../store/methods/timers";
+
+export const getStoreNameForGuild = (guild: Guild) =>
+  `discord-${guild.name}-${guild.id}`;
 
 export function getStoreNameForChannel(channel: Channel): string {
   if (channel instanceof GuildChannel) {
-    return `discord-${channel.guild.name}-${channel.guild.id}`;
+    return getStoreNameForGuild(channel.guild);
   }
   if (channel instanceof TextChannel) {
     return `discord-${channel.name}-${channel.id}`;
@@ -80,6 +85,12 @@ export function makeDiscordBot(discordToken: string) {
         username: message.author.username,
         channel: getInternalChannelId(message.channel),
         isDM: message.channel.type === "dm",
+        sendMessage: async (m) => {
+          await message.channel.send(m).catch((e) => {
+            throw e;
+          });
+        },
+        discordMeta: { message, client },
       });
 
       if (response === false) {
@@ -100,21 +111,68 @@ export function makeDiscordBot(discordToken: string) {
     }
   }
 
-  client.on("ready", () => {
-    guildList = client.guilds.cache
-      .array()
-      .map((g) => `'${g.name}'`)
-      .join(", ");
-    console.log(
-      `Connected to Discord guilds ${guildList} as ${client.user!.username}`
-    );
-  });
-
   client.on("disconnect", (ev: any) => {
     console.log(`Discord bot disconnected! reason: ${ev.reason}`);
   });
 
   /* eslint-disable @typescript-eslint/no-misused-promises */
+  client.on("ready", async () => {
+    const guilds = client.guilds.cache.array();
+
+    guildList = guilds.map((g) => `'${g.name}'`).join(", ");
+
+    console.log(
+      `Connected to Discord guilds ${guildList} as ${client.user!.username}`
+    );
+
+    let timeouts: NodeJS.Timeout[] = [];
+
+    const checkAndReinitializeTimeouts = async () => {
+      for (const timeout of timeouts) {
+        clearTimeout(timeout);
+      }
+
+      timeouts = [];
+
+      /* eslint-disable no-await-in-loop */
+      for (const guild of guilds) {
+        const storeName = getStoreNameForGuild(guild);
+        const store = await getDb(storeName);
+        const guildTimeouts = await activateAllTimers(store, (payload) => {
+          const channel = guild.channels.resolve(payload.channel);
+          if (!channel) {
+            console.error(
+              `[${guild.name}] trying to fire reminder but can't resolve channel id [${payload.channel}]`
+            );
+            return;
+          }
+          if (!(channel instanceof TextChannel)) {
+            console.error(
+              `[${guild.name}] trying to fire reminder but channel isn't text: [${channel.name}]`
+            );
+            return;
+          }
+
+          channel.send(getTimerMessage(payload)).catch((e) => {
+            throw e;
+          });
+        });
+        timeouts.push(...guildTimeouts);
+      }
+      /* eslint-enable no-await-in-loop */
+    };
+
+    // because timeouts more than ~24 days into the future will overflow
+    // setTimeout, let's just reinit them once per day.
+    checkAndReinitializeTimeouts()
+      .then(() => {
+        setTimeout(checkAndReinitializeTimeouts, 1000 * 60 * 60 * 24);
+      })
+      .catch((e) => {
+        throw e;
+      });
+  });
+
   client.on("message", onMessage);
 
   client.on("channelCreate", initializeChannel);

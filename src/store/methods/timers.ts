@@ -130,7 +130,7 @@ export async function activateAllTimers(
   );
 }
 
-export async function initializeTimers(db: DB) {
+export async function shouldInitializeTimers(db: DB): Promise<boolean> {
   try {
     const timers = await db.get<Timers>(key);
     if (
@@ -139,10 +139,14 @@ export async function initializeTimers(db: DB) {
       !("timers" in timers) ||
       typeof timers.timers !== "object"
     ) {
-      throw new Error(`Unexpected store shape for timers (key "${key}")`);
+      return true;
     }
   } catch (e) {
-    console.warn(e, "... Initializing...");
-    await db.put<Timers>(key, { lastId: 0, timers: {} });
+    if (e.notFound) return true;
   }
+  return false;
+}
+
+export async function initializeTimers(db: DB) {
+  await db.put<Timers>(key, { lastId: 0, timers: {} });
 }

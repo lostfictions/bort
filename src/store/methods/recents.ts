@@ -38,14 +38,18 @@ export function getRecents(db: DB): Promise<Recents> {
   return db.get<Recents>(key);
 }
 
-export async function initializeRecents(db: DB) {
+export async function shouldInitializeRecents(db: DB): Promise<boolean> {
   try {
     const recents = await db.get<Recents>(key);
     if (typeof recents !== "object") {
-      throw new Error(`Unexpected store shape for seen (key "${key}")`);
+      return true;
     }
   } catch (e) {
-    console.warn(e, "... Initializing...");
-    await db.put<Recents>(key, {});
+    if (e.notFound) return true;
   }
+  return false;
+}
+
+export async function initializeRecents(db: DB) {
+  await db.put<Recents>(key, {});
 }

@@ -31,8 +31,8 @@ import {
 
 import { getSentence, addSentence } from "./store/methods/markov";
 import { setSeen } from "./store/methods/seen";
-import { tryTrace } from "./components/trace";
-import { getConceptList } from "./store/methods/concepts";
+import { tryTrace, trace } from "./components/trace";
+import { getConceptList, getConcept } from "./store/methods/concepts";
 
 const subCommands = [
   conceptAddCommand,
@@ -166,11 +166,16 @@ const handleDirectConcepts = async ({
   message,
   store,
 }: HandlerArgs): Promise<string | false> => {
-  if (!message.startsWith("!")) {
+  const trimmed = message.trim();
+  if (!trimmed.startsWith("!") || trimmed.split(/\s+/)[0] !== trimmed) {
     return false;
   }
 
-  return tryTrace(store, message);
+  if (await getConcept(store, trimmed)) {
+    return trace({ db: store, concept: trimmed });
+  }
+
+  return false;
 };
 
 const doSetSeen = ({ username, message, store, channel }: HandlerArgs) => {

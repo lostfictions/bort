@@ -1,7 +1,7 @@
 import axios from "axios";
 import cheerio from "cheerio";
 
-import { randomInArray } from "../util";
+import { randomInt } from "../util";
 
 /**
  * Perform an image search, optionally filter recently-seen images, and select a
@@ -24,32 +24,42 @@ export async function imageSearch({
     res = await requestAndParse({ term, animated });
   }
 
-  res = res.slice(0, selectFromTop);
+  let cursor = 0;
+  let sliced: string[] = [];
 
-  if (recents) {
-    for (let i = res.length - 1; i >= 0; i--) {
-      if (res[i] in recents) {
-        res.splice(i, 1);
+  while (sliced.length === 0 && cursor < res.length) {
+    sliced = res.slice(cursor, cursor + selectFromTop);
+
+    if (recents) {
+      for (let i = sliced.length - 1; i >= 0; i--) {
+        if (sliced[i] in recents) {
+          sliced.splice(i, 1);
+        }
       }
     }
+
+    cursor += selectFromTop;
   }
 
-  if (res.length === 0) {
-    return false;
-  }
+  while (sliced.length > 0) {
+    let [result] = sliced.splice(randomInt(sliced.length), 1);
 
-  let result = randomInArray(res);
+    // rewrite .gifv => .gif
+    if (result.endsWith(".gifv")) {
+      result = result.substring(0, result.length - 1);
+    }
 
-  // rewrite .gifv => .gif
-  if (result.endsWith(".gifv")) {
-    const gifvUrlAsGif = result.substring(0, result.length - 1);
-    const gifRes = await axios.head(gifvUrlAsGif);
-    if (gifRes.status >= 200 && gifRes.status < 400) {
-      result = gifvUrlAsGif;
+    // test that it actually exists
+    try {
+      // eslint-disable-next-line no-await-in-loop
+      await axios.head(result);
+      return result;
+    } catch {
+      // don't care, just try another result
     }
   }
 
-  return result;
+  return false;
 }
 
 export interface ImageSearchOptions {
@@ -116,7 +126,13 @@ export function allJsonpStrategy($: CheerioStatic): string[] | false {
       .flatMap((script) => [
         ...script.matchAll(/"(https?:\/\/[^"]+\.(?:jpe?g|gifv?|png))"/g),
       ])
-      .map((res) => res[1]);
+      .map((res) =>
+        // google image search results sometimes contain code points encoded as
+        // eg. \u003d, so replace them with their actual values
+        res[1].replace(/\\u([a-fA-F0-9]{4})/gi, (_, g) =>
+          String.fromCodePoint(parseInt(g, 16))
+        )
+      );
   }
 
   return false;

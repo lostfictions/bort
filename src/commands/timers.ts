@@ -60,7 +60,10 @@ export default makeCommand(
       for (const h of heuristics) {
         const tweaked = h();
         if (tweaked) {
-          const res = parseTime(tweaked, undefined, { forwardDate: true });
+          const res = parseTime(tweaked, undefined, { forwardDate: true })
+            // 'now' doesn't make sense as a time to parse for reminders.
+            .filter((parsed) => parsed.text !== "now");
+
           if (res.length > 0) return [tweaked, res] as const;
         }
       }
@@ -82,7 +85,7 @@ export default makeCommand(
     if (!maybeResult) {
       return [
         "i didn't understand when you want the timer to go off :(",
-        "you can try prefixing your message with 'in 30 minutes' or even '30m'.",
+        "try mentioning a time your message, like 'in 30 minutes' (or even just '30m').",
         "(i need a unit to work with though! 'in 15' is too confusing for me.)",
       ].join("\n");
     }

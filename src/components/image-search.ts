@@ -115,7 +115,7 @@ export function parse(html: string) {
 
 const PREFIX = "AF_initDataCallback";
 
-export function allJsonpStrategy($: CheerioStatic): string[] | false {
+export function allJsonpStrategy($: cheerio.Root): string[] | false {
   const scripts = $("script")
     .toArray()
     .map((el) => $(el).text())

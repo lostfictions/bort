@@ -86,9 +86,15 @@ export function makeDiscordBot(discordToken: string) {
         channel: getInternalChannelId(message.channel),
         isDM: message.channel.type === "dm",
         sendMessage: async (m) => {
-          await message.channel.send(m).catch((e) => {
-            throw e;
-          });
+          if (!message.channel.deleted) {
+            await message.channel.send(m).catch((e) => {
+              throw e;
+            });
+          } else {
+            console.warn(
+              `Trying to send message [${m}] in channel with id ${message.channel.id}, but it's been deleted`
+            );
+          }
         },
         discordMeta: { message, client },
       });

@@ -88,7 +88,7 @@ export async function activateTimer(
     const _t = await db.get<Timers>(key);
     const _payload = _t.timers[id];
     if (!_payload) {
-      console.warn(
+      console.log(
         `Trying to activate timer with id ${id}, but it doesn't exist. It may have been deleted.`
       );
       return;

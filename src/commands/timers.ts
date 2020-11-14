@@ -1,6 +1,7 @@
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import { parse as parseTime } from "chrono-node";
+import { casual } from "chrono-node";
+import ExtractTimezoneAbbrRefiner from "chrono-node/dist/common/refiners/ExtractTimezoneAbbrRefiner";
 
 import { makeCommand } from "../util/handler";
 import {
@@ -11,6 +12,15 @@ import {
 } from "../store/methods/timers";
 
 dayjs.extend(relativeTime);
+
+// remove timezone abbreviation parsing
+const chrono = casual.clone();
+const timezoneAbbr = chrono.refiners.findIndex(
+  (r) => r instanceof ExtractTimezoneAbbrRefiner
+);
+if (timezoneAbbr !== -1) {
+  chrono.refiners.splice(timezoneAbbr, 1);
+}
 
 export default makeCommand(
   {
@@ -60,7 +70,8 @@ export default makeCommand(
       for (const h of heuristics) {
         const tweaked = h();
         if (tweaked) {
-          const res = parseTime(tweaked, undefined, { forwardDate: true })
+          const res = chrono
+            .parse(tweaked, undefined, { forwardDate: true })
             // 'now' doesn't make sense as a time to parse for reminders.
             .filter((parsed) => parsed.text !== "now");
 

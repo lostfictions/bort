@@ -178,12 +178,25 @@ const handleDirectConcepts = async ({
   return false;
 };
 
-const doSetSeen = ({ username, message, store, channel }: HandlerArgs) => {
+const doSetSeen = ({
+  username,
+  message,
+  store,
+  channel,
+  discordMeta,
+}: HandlerArgs): false => {
+  let usernameOrId = username;
+  if (discordMeta) {
+    usernameOrId = discordMeta.message.author.id;
+  }
+
   // we don't actually want to wait for this to finish
-  setSeen(store, username, message, channel).catch((e) => {
+  setSeen(store, usernameOrId, message, channel).catch((e) => {
     throw e;
   });
-  return false as false;
+
+  // this is always a side effect, never a handler that stops the chain
+  return false;
 };
 
 const bortCommand = makeCommand(

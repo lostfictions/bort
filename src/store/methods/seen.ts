@@ -2,7 +2,7 @@ import { DB } from "../get-db";
 
 const key = "seen";
 
-interface SeenEntry {
+export interface SeenEntry {
   time: number;
   message: string;
   channel: string;

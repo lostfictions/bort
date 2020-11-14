@@ -11,11 +11,17 @@ export default makeCommand(
     name: "uptime",
     description: "info about me",
   },
-  () => {
+  ({ discordMeta }) => {
     const uptime = dayjs
       .unix(Date.now() / 1000 - process.uptime())
       .fromNow(true);
 
-    return `hi its me <@${BOT_NAME}> i have been here for **${uptime}** via \`${hostname()}\``;
+    let botName = BOT_NAME;
+
+    if (discordMeta) {
+      botName = `<@${discordMeta.client.user!.id}>`;
+    }
+
+    return `hi its me ${botName} i have been here for **${uptime}** via \`${hostname()}\``;
   }
 );

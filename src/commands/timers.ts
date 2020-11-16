@@ -103,12 +103,23 @@ export default makeCommand(
 
     const [tweaked, [result]] = maybeResult;
 
-    const finalMessage =
+    const time = result.date().valueOf();
+    const now = Date.now();
+    const humanizedTime = dayjs(time).fromNow();
+
+    let finalMessage =
       tweaked.slice(0, result.index) +
       tweaked.slice(result.index + result.text.length);
 
-    const time = result.date().valueOf();
-    const now = Date.now();
+    finalMessage = finalMessage.trim();
+
+    if (finalMessage.length === 0) {
+      return [
+        `i understood you wanted to set a reminder _${humanizedTime}_,`,
+        `but i didn't see any reminder text!`,
+        `add some kind of message, even if it's just 'hello.'`,
+      ].join(" ");
+    }
 
     const timerId = await addTimer(store, {
       channel: discordMeta ? discordMeta.message.channel.id : channel,
@@ -125,8 +136,8 @@ export default makeCommand(
       });
     });
 
-    return `okay, i'll tell ${target === author ? "you" : target} ${dayjs(
-      time
-    ).fromNow()}: ${finalMessage} (timer id: ${timerId})`;
+    return `okay, i'll tell ${
+      target === author ? "you" : target
+    } ${humanizedTime}: ${finalMessage} (timer id: ${timerId})`;
   }
 );

@@ -12,6 +12,10 @@ import {
   cleanRecents,
 } from "./methods/recents";
 import { initializeTimers, shouldInitializeTimers } from "./methods/timers";
+import {
+  initializeEmojiCount,
+  shouldInitializeEmojiCount,
+} from "./methods/emoji-count";
 
 import { DATA_DIR } from "../env";
 
@@ -111,6 +115,10 @@ async function loadOrInitializeDb(dbName: string): Promise<DB> {
   if (await shouldInitializeSeen(db)) {
     log(`Initializing seen for '${dbPath}'`);
     await initializeSeen(db);
+  }
+  if (await shouldInitializeEmojiCount(db)) {
+    log(`Initializing emoji count for '${dbPath}'`);
+    await initializeEmojiCount(db);
   }
   if (await shouldInitializeRecents(db)) {
     log(`Initializing recents for '${dbPath}'`);

@@ -6,6 +6,7 @@ import {
   GuildChannel,
   DMChannel,
   Guild,
+  GuildEmoji,
 } from "discord.js";
 
 import { getDb } from "../store/get-db";
@@ -15,6 +16,10 @@ import { HandlerArgs } from "../handler-args";
 import { processMessage } from "../util/handler";
 import { initializeMarkov } from "../store/methods/markov";
 import { activateAllTimers, getTimerMessage } from "../store/methods/timers";
+import {
+  decrementReactionEmojiCount,
+  incrementReactionEmojiCount,
+} from "../store/methods/emoji-count";
 
 export const getStoreNameForGuild = (guild: Guild) =>
   `discord-${guild.name}-${guild.id}`;
@@ -180,6 +185,29 @@ export function makeDiscordBot(discordToken: string) {
   });
 
   client.on("message", onMessage);
+
+  client.on("messageReactionAdd", async ({ message, emoji }) => {
+    if (message.author.bot) return false;
+    if (message.channel instanceof DMChannel) return false;
+
+    const storeName = getStoreNameForChannel(message.channel);
+    const store = await getDb(storeName);
+
+    if (emoji instanceof GuildEmoji) {
+      await incrementReactionEmojiCount(store, emoji.id);
+    }
+  });
+  client.on("messageReactionRemove", async ({ message, emoji }) => {
+    if (message.author.bot) return false;
+    if (message.channel instanceof DMChannel) return false;
+
+    const storeName = getStoreNameForChannel(message.channel);
+    const store = await getDb(storeName);
+
+    if (emoji instanceof GuildEmoji) {
+      await decrementReactionEmojiCount(store, emoji.id);
+    }
+  });
 
   client.on("channelCreate", initializeChannel);
 

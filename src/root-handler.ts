@@ -8,6 +8,7 @@ import { HandlerArgs } from "./handler-args";
 import buseyCommand from "./commands/busey";
 import clapifyCommand from "./commands/clapify";
 import chooseCommand from "./commands/choose";
+import emojiListCommand from "./commands/emoji-list";
 import seenCommand from "./commands/seen";
 // import rhymeCommand from "./commands/rhyme";
 import weatherCommand from "./commands/weather";
@@ -32,6 +33,7 @@ import {
 import { getSentence, addSentence } from "./store/methods/markov";
 import { setSeen } from "./store/methods/seen";
 import { tryTrace, trace } from "./components/trace";
+import { recordEmojiCountInMessage } from "./components/reactions";
 import { getConceptList, getConcept } from "./store/methods/concepts";
 
 const subCommands = [
@@ -44,6 +46,7 @@ const subCommands = [
   buseyCommand,
   clapifyCommand,
   chooseCommand,
+  emojiListCommand,
   seenCommand,
   // rhymeCommand,
   vidrandCommand,
@@ -211,6 +214,7 @@ const bortCommand = makeCommand(
 );
 
 const messageHandler = [
+  recordEmojiCountInMessage,
   async (args) => (args.isDM ? false : processMessage(doSetSeen, args)),
   // Handling the direct concepts first should be safe -- it prevents the markov
   // generator fallback of the root command from eating our input.

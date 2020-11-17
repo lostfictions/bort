@@ -186,8 +186,16 @@ export function makeDiscordBot(discordToken: string) {
 
   client.on("message", onMessage);
 
-  client.on("messageReactionAdd", async ({ message, emoji }) => {
-    if (message.author.bot) return false;
+  // allow deleting message with ❌
+  client.on("messageReactionAdd", async ({ message, emoji }, user) => {
+    if (message.author === client.user && emoji.name === "❌") {
+      await message.delete({ reason: `Delete requested by user ${user.tag}` });
+    }
+  });
+
+  // count message reactions
+  client.on("messageReactionAdd", async ({ message, emoji }, user) => {
+    if (user.bot) return false;
     if (message.channel instanceof DMChannel) return false;
 
     const storeName = getStoreNameForChannel(message.channel);
@@ -197,8 +205,8 @@ export function makeDiscordBot(discordToken: string) {
       await incrementReactionEmojiCount(store, emoji.id);
     }
   });
-  client.on("messageReactionRemove", async ({ message, emoji }) => {
-    if (message.author.bot) return false;
+  client.on("messageReactionRemove", async ({ message, emoji }, user) => {
+    if (user.bot) return false;
     if (message.channel instanceof DMChannel) return false;
 
     const storeName = getStoreNameForChannel(message.channel);

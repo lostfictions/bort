@@ -1,8 +1,3 @@
-
-** delete messages via reac
-
-conversation -- reactions, replying yes/no
-
 =====
 
 - soundboard (audio concepts!?)
@@ -11,6 +6,9 @@ conversation -- reactions, replying yes/no
 
 =====
 
+conversation -- reactions, replying yes/no
+
+=====
 
 concepts:
   -- bort set ==> should give message about replacement
@@ -27,10 +25,6 @@ time parsing:
 
 
 improve help text
-
-
-
-emoji usage report
 
 
 

@@ -1,35 +1,40 @@
-short-term:
 
-// interface StoreShape {
-//   wordBank: { [word: string]: { [followedBy: string]: number } };
+** delete messages via reac
 
-//   /**
-//    * a cache of recent responses to avoid repetition.
-//    *
-//    * maps from response -> time sent (in ms from epoch)
-//    */
-//   recents: { [uri: string]: number };
+conversation -- reactions, replying yes/no
 
-//   /**
-//    * maps usernames to a tuple of the last message that user sent
-//    * and the date it was sent (in ms from epoch)
-//    */
-//   seen: { [username: string]: SeenData };
-// }
+=====
 
-// interface Store {
-//   getMarkov(word: string): Promise<{ [nextWord: string]: number }>;
-//   getMarkovPrev(word: string): Promise<{ [prevWord: string]: number }>;
-//   getRecents(): Promise<{ [recent: string]: number }>;
-//   getSeen(
-//     user: string
-//   ): Promise<{ time: number; message: string; channel: string }>;
-// }
+- soundboard (audio concepts!?)
+
+- reinstate radio command for discord
+
+=====
 
 
-- reminder command
+concepts:
+  -- bort set ==> should give message about replacement
+  -- bort [concept] +/-/++ not working
 
-----------------------------------------------------
+shuffle should take plain list in addition to concepts
+
+
+list timers
+
+
+time parsing:
+  -- times of day ("board games night in two weeks")
+
+
+improve help text
+
+
+
+emoji usage report
+
+
+
+-----
 
 - cleanup messages? (eg. confirmations will disappear after 10 seconds; poor
   man's emulation of slack bot messages only visible to the user who invoked the
@@ -42,6 +47,4 @@ short-term:
 - dynamically import command list; make configurable via env vars
 - allow commands to be automatically disabled if eg. api keys are missing
 
-- document commands usage
-
-- reinstate radio command for discord
+----

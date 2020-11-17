@@ -37,7 +37,7 @@ export default makeCommand(
     for (const e of sortedEmoji) {
       const ident = discordMeta.message.guild.emojis.resolveIdentifier(e.id);
       rows.push(
-        `<${ident}>\`|${e.chatCount
+        `<:${ident}>\`|${e.chatCount
           .toString()
           .padStart(digits)}|${e.reactionCount
           .toString()

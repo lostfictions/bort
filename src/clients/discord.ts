@@ -146,7 +146,7 @@ export function makeDiscordBot(discordToken: string) {
       timeouts = [];
 
       /* eslint-disable no-await-in-loop */
-      for (const guild of guilds) {
+      for (const guild of client.guilds.cache.array()) {
         const storeName = getStoreNameForGuild(guild);
         const store = await getDb(storeName);
         const guildTimeouts = await activateAllTimers(store, (payload) => {
@@ -198,10 +198,9 @@ export function makeDiscordBot(discordToken: string) {
     if (user.bot) return false;
     if (message.channel instanceof DMChannel) return false;
 
-    const storeName = getStoreNameForChannel(message.channel);
-    const store = await getDb(storeName);
-
     if (emoji instanceof GuildEmoji) {
+      const storeName = getStoreNameForChannel(message.channel);
+      const store = await getDb(storeName);
       await incrementReactionEmojiCount(store, emoji.id);
     }
   });
@@ -209,10 +208,9 @@ export function makeDiscordBot(discordToken: string) {
     if (user.bot) return false;
     if (message.channel instanceof DMChannel) return false;
 
-    const storeName = getStoreNameForChannel(message.channel);
-    const store = await getDb(storeName);
-
     if (emoji instanceof GuildEmoji) {
+      const storeName = getStoreNameForChannel(message.channel);
+      const store = await getDb(storeName);
       await decrementReactionEmojiCount(store, emoji.id);
     }
   });

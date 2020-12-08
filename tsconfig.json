@@ -9,15 +9,24 @@
     "strict": true,
     "allowUnreachableCode": false,
     "sourceMap": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
     "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": false,
+    "resolveJsonModule": true,
     "skipLibCheck": true, // fuck bad typings my dudes
-    "allowJs": true // for ts-jest, who is a needy asshole
+    "allowJs": true, // for ts-jest, who is a needy asshole
+    // the following are required by next:
+    "jsx": "preserve",
+    "moduleResolution": "node",
+    "isolatedModules": true
   },
   "include": [
     "defs",
     "src",
-    "scripts"
+    "scripts",
+    "next.config.js"
+  ],
+  "exclude": [
+    "node_modules"
   ]
 }

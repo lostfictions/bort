@@ -24,7 +24,7 @@ function normalizeMessageWithLeadingConcept(message: string): [string, string] {
 
   // We try matching against the "matcher" regex above, then
   // normalize the results.
-  let matches = message.match(matcher);
+  let matches: string[] | null = message.match(matcher);
   if (!matches) {
     const split = message.split(" ");
     matches = ["", split[0], split.slice(1).join(" ")];

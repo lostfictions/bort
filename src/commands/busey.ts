@@ -9,6 +9,25 @@ export const USAGE = [
   "`busey <word or sequence to be buseyfied>`",
 ].join("\n");
 
+// also temp
+declare global {
+  interface RegExp {
+    hasIndices: boolean;
+  }
+
+  interface RegExpMatchArray {
+    indices?: [number, number][];
+  }
+}
+
+// temp: parser doesn't understand d flag
+// eslint-disable-next-line no-empty-character-class
+const abbreviationMatcher = /\b(?:[A-Z]\.?){2,}(?=\s|$)/dg;
+
+if (!abbreviationMatcher.hasIndices) {
+  throw new Error("feature required: regex d flag support");
+}
+
 export default makeCommand(
   {
     name: "busey",
@@ -22,132 +41,158 @@ export default makeCommand(
 
     const { message, prefix } = await maybeTraced(store, rawMessage);
 
-    const letters = message.toLowerCase().split("");
+    const matches = [...message.matchAll(abbreviationMatcher)];
 
-    const acro: string[] = [];
+    if (matches.length > 0) {
+      let m = message;
+      for (const match of matches.reverse()) {
+        const [start, end] = match.indices![0];
 
-    // could actually be a proper search instead of this janky iterative thing
-    // but we only have so much time and patience (computationally and in life)
-    for (let i = 0; i < letters.length; i++) {
-      /* eslint-disable no-await-in-loop */
-      const letter = letters[i];
-      // just reinsert punctuation and whatever else and move on
-      if (!/[A-Za-z]/.test(letter)) {
-        acro.push(letter);
-        continue;
-      }
-
-      // let candidates: string[] | null = null;
-
-      // First, try to find something that follows from our previous words
-      if (acro.length >= 2) {
-        const entry: MarkovEntry | null = await getEntry(
+        // eslint-disable-next-line no-await-in-loop
+        const maybeReplaced = await busey(
+          match[0].replaceAll(".", ""),
           store,
-          acro[acro.length - 2],
-          acro[acro.length - 1],
           channel
         );
 
-        if (entry) {
-          const candidates = Object.keys(entry).filter((word) =>
-            word.startsWith(letter)
-          );
-          if (candidates.length > 0) {
-            let result = randomInArray(candidates);
-
-            // if there's another (valid) letter after that, we can go one step
-            // further and look ahead for it as well.
-            let nextLetter = letters[i + 1] as string | undefined;
-            if (nextLetter != null && !/[A-Za-z]/.test(nextLetter)) {
-              nextLetter = undefined;
-            }
-            if (nextLetter) {
-              while (candidates.length > 0) {
-                const j = Math.floor(Math.random() * candidates.length);
-                result = candidates.splice(j, 1)[0];
-                const testEntry = await getEntry(
-                  store,
-                  acro[acro.length - 1],
-                  result,
-                  channel
-                );
-
-                if (testEntry) {
-                  const hasNext = Object.keys(testEntry).some((word) =>
-                    word.startsWith(nextLetter!)
-                  );
-
-                  if (hasNext) break;
-                }
-              }
-            }
-
-            acro.push(result);
-            continue;
-          }
-        }
+        m = `${m.substring(0, start)}${maybeReplaced || match[0]}${m.substring(
+          end
+        )}`;
       }
 
-      // Otherwise, grab a random word that matches our letter
-      let preferredNextLetter = letters[i + 1] as string | undefined;
-      if (
-        preferredNextLetter != null &&
-        !/[A-Za-z]/.test(preferredNextLetter)
-      ) {
-        preferredNextLetter = undefined;
-      }
-
-      const { preferred, others } = await getSeedStartingWith(
-        store,
-        channel,
-        letter,
-        preferredNextLetter
-      );
-
-      // if we have preferred matches (where both the current and lookahead
-      // letter are found) use those.
-      if (preferred.length > 0) {
-        let [first, second] = randomInArray(preferred);
-
-        // if there's another (valid) letter after that, we can go one step
-        // further and look ahead for it as well.
-        let followingLetter = letters[i + 2] as string | undefined;
-        if (followingLetter != null && !/[A-Za-z]/.test(followingLetter)) {
-          followingLetter = undefined;
-        }
-
-        if (followingLetter) {
-          while (preferred.length > 0) {
-            const j = Math.floor(Math.random() * preferred.length);
-            [first, second] = preferred.splice(j, 1)[0];
-            const entry = await getEntry(store, first, second, channel);
-
-            const hasFollowing = Object.keys(entry!).some((word) =>
-              word.startsWith(followingLetter!)
-            );
-            if (hasFollowing) break;
-          }
-        }
-        acro.push(first);
-        acro.push(second);
-        i += 1;
-      } else if (others.length > 0) {
-        const [word] = randomInArray(others);
-        acro.push(word);
-      }
-      /* eslint-enable no-await-in-loop */
+      return prefix + m;
     }
 
-    // Capitalize each word and join them into a string.
-    if (acro.length > 0) {
-      return (
-        prefix +
-        acro.map((word) => word[0].toUpperCase() + word.slice(1)).join(" ")
-      );
-    }
-    return prefix + "Please Inspect Senseless Sentences";
+    const maybeReplaced = await busey(message, store, channel);
+    return prefix + (maybeReplaced || "Please Inspect Senseless Sentences");
   }
 );
+
+async function busey(
+  phrase: string,
+  store: DB,
+  channel: string
+): Promise<string | false> {
+  const letters = phrase.toLowerCase().split("");
+
+  const acro: string[] = [];
+
+  // could actually be a proper search instead of this janky iterative thing
+  // but we only have so much time and patience (computationally and in life)
+  for (let i = 0; i < letters.length; i++) {
+    /* eslint-disable no-await-in-loop */
+    const letter = letters[i];
+    // just reinsert punctuation and whatever else and move on
+    if (!/[A-Za-z]/.test(letter)) {
+      acro.push(letter);
+      continue;
+    }
+
+    // let candidates: string[] | null = null;
+
+    // First, try to find something that follows from our previous words
+    if (acro.length >= 2) {
+      const entry: MarkovEntry | null = await getEntry(
+        store,
+        acro[acro.length - 2],
+        acro[acro.length - 1],
+        channel
+      );
+
+      if (entry) {
+        const candidates = Object.keys(entry).filter((word) =>
+          word.startsWith(letter)
+        );
+        if (candidates.length > 0) {
+          let result = randomInArray(candidates);
+
+          // if there's another (valid) letter after that, we can go one step
+          // further and look ahead for it as well.
+          let nextLetter = letters[i + 1] as string | undefined;
+          if (nextLetter != null && !/[A-Za-z]/.test(nextLetter)) {
+            nextLetter = undefined;
+          }
+          if (nextLetter) {
+            while (candidates.length > 0) {
+              const j = Math.floor(Math.random() * candidates.length);
+              result = candidates.splice(j, 1)[0];
+              const testEntry = await getEntry(
+                store,
+                acro[acro.length - 1],
+                result,
+                channel
+              );
+
+              if (testEntry) {
+                const hasNext = Object.keys(testEntry).some((word) =>
+                  word.startsWith(nextLetter!)
+                );
+
+                if (hasNext) break;
+              }
+            }
+          }
+
+          acro.push(result);
+          continue;
+        }
+      }
+    }
+
+    // Otherwise, grab a random word that matches our letter
+    let preferredNextLetter = letters[i + 1] as string | undefined;
+    if (preferredNextLetter != null && !/[A-Za-z]/.test(preferredNextLetter)) {
+      preferredNextLetter = undefined;
+    }
+
+    const { preferred, others } = await getSeedStartingWith(
+      store,
+      channel,
+      letter,
+      preferredNextLetter
+    );
+
+    // if we have preferred matches (where both the current and lookahead
+    // letter are found) use those.
+    if (preferred.length > 0) {
+      let [first, second] = randomInArray(preferred);
+
+      // if there's another (valid) letter after that, we can go one step
+      // further and look ahead for it as well.
+      let followingLetter = letters[i + 2] as string | undefined;
+      if (followingLetter != null && !/[A-Za-z]/.test(followingLetter)) {
+        followingLetter = undefined;
+      }
+
+      if (followingLetter) {
+        while (preferred.length > 0) {
+          const j = Math.floor(Math.random() * preferred.length);
+          [first, second] = preferred.splice(j, 1)[0];
+          const entry = await getEntry(store, first, second, channel);
+
+          const hasFollowing = Object.keys(entry!).some((word) =>
+            word.startsWith(followingLetter!)
+          );
+          if (hasFollowing) break;
+        }
+      }
+      acro.push(first);
+      acro.push(second);
+      i += 1;
+    } else if (others.length > 0) {
+      const [word] = randomInArray(others);
+      acro.push(word);
+    }
+    /* eslint-enable no-await-in-loop */
+  }
+
+  // Capitalize each word and join them into a string.
+  if (acro.length > 0) {
+    return acro.map((word) => word[0].toUpperCase() + word.slice(1)).join(" ");
+  }
+
+  return false;
+}
 
 export async function getSeedStartingWith(
   db: DB,

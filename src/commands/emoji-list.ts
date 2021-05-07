@@ -1,3 +1,5 @@
+import dayjs from "dayjs";
+
 import { makeCommand } from "../util/handler";
 import { getEmojiCount } from "../store/methods/emoji-count";
 
@@ -33,14 +35,20 @@ export default makeCommand(
     //   .reduce((max, e) => Math.max(e.total, max), Number.MIN_VALUE)
     //   .toString().length;
 
-    const rows = [
-      "__     **emoji usage report**     __",
-      "`   msgs   reaccs    total `",
-    ];
+    const rows = ["**EMOJI USAGE REPORT**", "`   msgs   reaccs    total `"];
 
     for (const e of sortedEmoji) {
       const emoji = discordMeta.message.guild.emojis.resolve(e.id);
       if (emoji && !emoji.deleted) {
+        let maybeAge = "";
+        if (
+          !dayjs(emoji.createdTimestamp).isBefore(dayjs().subtract(6, "month"))
+        ) {
+          maybeAge = `   _(${dayjs(emoji.createdTimestamp).fromNow(
+            true
+          )} old)_`;
+        }
+
         rows.push(
           `\`${e.chatCount
             .toString()
@@ -48,7 +56,7 @@ export default makeCommand(
             .toString()
             .padStart(digits)}  ${e.total.toString().padStart(digits)} \` <:${
             emoji.identifier
-          }>`
+          }>${maybeAge}`
         );
       }
     }

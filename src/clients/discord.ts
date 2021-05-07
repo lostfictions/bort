@@ -8,7 +8,7 @@ import {
   Guild,
   GuildEmoji,
 } from "discord.js";
-import Sentry from "@sentry/node";
+import * as Sentry from "@sentry/node";
 
 import { getDb } from "../store/get-db";
 import messageHandler from "../root-handler";

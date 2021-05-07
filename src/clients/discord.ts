@@ -118,25 +118,25 @@ export function makeDiscordBot(discordToken: string) {
       );
 
       // TEMP
-      const concepts = {} as Record<string, unknown>;
-      try {
-        const storeName = getStoreNameForChannel(message.channel);
-        const db = await getDb(storeName);
-        const KEY_PREFIX = "concept:";
-        const KEY_STREAM_TERMINATOR = "concept;";
-        const rs = db.createReadStream({
-          gte: KEY_PREFIX,
-          lt: KEY_STREAM_TERMINATOR,
-        });
-        for await (const { key, value } of rs) {
-          concepts[key] = value;
-        }
-      } catch (e) {
-        concepts["__ERROR"] = e;
-      }
+      // const concepts = {} as Record<string, unknown>;
+      // try {
+      //   const storeName = getStoreNameForChannel(message.channel);
+      //   const db = await getDb(storeName);
+      //   const KEY_PREFIX = "concept:";
+      //   const KEY_STREAM_TERMINATOR = "concept;";
+      //   const rs = db.createReadStream({
+      //     gte: KEY_PREFIX,
+      //     lt: KEY_STREAM_TERMINATOR,
+      //   });
+      //   for await (const { key, value } of rs) {
+      //     concepts[key] = value;
+      //   }
+      // } catch (e) {
+      //   concepts["__ERROR"] = e;
+      // }
 
       Sentry.captureException(error, {
-        contexts: { message: message.toJSON() as any, concepts },
+        contexts: { message: message.toJSON() as any },
       });
 
       message.channel

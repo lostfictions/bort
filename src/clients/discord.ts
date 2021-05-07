@@ -8,6 +8,7 @@ import {
   Guild,
   GuildEmoji,
 } from "discord.js";
+import Sentry from "@sentry/node";
 
 import { getDb } from "../store/get-db";
 import messageHandler from "../root-handler";
@@ -111,8 +112,32 @@ export function makeDiscordBot(discordToken: string) {
       await message.channel.send(response);
     } catch (error) {
       console.error(
-        `Error in Discord client (${guildList}): '${error.message}'`
+        `Error in Discord client replying to message ${message.id}`,
+        `("${message.content}") in guild ${message.guild?.name}:`,
+        `'${error.message}'`
       );
+
+      // TEMP
+      const concepts = {} as Record<string, unknown>;
+      try {
+        const storeName = getStoreNameForChannel(message.channel);
+        const db = await getDb(storeName);
+        const KEY_PREFIX = "concept:";
+        const KEY_STREAM_TERMINATOR = "concept;";
+        const rs = db.createReadStream({
+          gte: KEY_PREFIX,
+          lt: KEY_STREAM_TERMINATOR,
+        });
+        for await (const { key, value } of rs) {
+          concepts[key] = value;
+        }
+      } catch (e) {
+        concepts["__ERROR"] = e;
+      }
+
+      Sentry.captureException(error, {
+        contexts: { message: message.toJSON() as any, concepts },
+      });
 
       message.channel
         .send(`[Something went wrong!] [${error.message}]`)

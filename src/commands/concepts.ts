@@ -146,7 +146,7 @@ const conceptAddToCommand = makeCommand<HandlerArgsWithConcept>(
       return false;
     }
 
-    const maybeConcept = await getConcept(store, message);
+    const maybeConcept = await getConcept(store, concept);
     if (!maybeConcept) {
       return `Concept "${message}" doesn't exist!`;
     }
@@ -172,7 +172,7 @@ const conceptBulkAddToCommand = makeCommand<HandlerArgsWithConcept>(
     }
     const conceptsToAdd = message.split(",").map((s) => s.trim());
 
-    const maybeConcept = await getConcept(store, message);
+    const maybeConcept = await getConcept(store, concept);
     if (!maybeConcept) {
       return `Concept "${message}" doesn't exist!`;
     }
@@ -202,12 +202,12 @@ const conceptRemoveFromCommand = makeCommand<HandlerArgsWithConcept>(
       return false;
     }
 
-    const maybeConcept = await getConcept(store, message);
+    const maybeConcept = await getConcept(store, concept);
     if (!maybeConcept) {
       return `Concept "${message}" doesn't exist!`;
     }
 
-    if (!Object.hasOwnProperty.call(maybeConcept, concept)) {
+    if (!Object.hasOwnProperty.call(maybeConcept, message)) {
       return `"${message}" doesn't exist in "${concept}"!`;
     }
 
@@ -220,7 +220,7 @@ const conceptRemoveFromCommand = makeCommand<HandlerArgsWithConcept>(
 // adjusts the arguments to include the normalized concept in question
 // and removes it from the message, and then redirects to one of the
 // commands above.
-export const conceptMatcher = adjustArgs<HandlerArgs>(
+export const conceptMatcher = adjustArgs<HandlerArgsWithConcept, HandlerArgs>(
   async (args) => {
     const { message, store } = args;
     if (message.length === 0) {
@@ -229,20 +229,12 @@ export const conceptMatcher = adjustArgs<HandlerArgs>(
 
     const [concept, command] = normalizeMessageWithLeadingConcept(message);
 
-    const maybeConcept = await getConcept(store, message);
+    const maybeConcept = await getConcept(store, concept);
     if (!maybeConcept) {
       return false;
     }
 
-    return { ...args, message: concept + " " + command };
+    return { ...args, message: command, concept };
   },
-  adjustArgs<HandlerArgsWithConcept, HandlerArgs>(
-    (args) => {
-      const split = args.message.split(" ");
-      const concept = split[0];
-      const adjustedMessage = split.slice(1).join(" ");
-      return { ...args, message: adjustedMessage, concept };
-    },
-    [conceptAddToCommand, conceptBulkAddToCommand, conceptRemoveFromCommand]
-  )
+  [conceptAddToCommand, conceptBulkAddToCommand, conceptRemoveFromCommand]
 );

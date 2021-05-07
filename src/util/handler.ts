@@ -63,7 +63,7 @@ export function makeCommand<TData extends { message: string } = HandlerArgs>(
   );
 
   const handleMessage = async (data: TData) => {
-    const matchResult = data.message.match(aliasRegex);
+    const matchResult = data.message?.match(aliasRegex);
     if (matchResult) {
       const message = matchResult[1];
       const commandData: TData = { ...(data as any), message };

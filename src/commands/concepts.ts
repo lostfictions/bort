@@ -30,7 +30,7 @@ function normalizeMessageWithLeadingConcept(message: string): [string, string] {
     matches = ["", split[0], split.slice(1).join(" ")];
   }
 
-  return [matches[1], matches[2]];
+  return [matches[1], matches[2] || ""];
 }
 
 export const conceptAddCommand = makeCommand(

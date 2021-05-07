@@ -28,21 +28,24 @@ export default makeCommand(
       return "nothing to show! use some custom emoji in chat or reactions.";
     }
 
-    const digits = sortedEmoji
-      .reduce((max, e) => Math.max(e.total, max), Number.MIN_VALUE)
-      .toString().length;
+    const digits = 15;
+    // const digits = sortedEmoji
+    //   .reduce((max, e) => Math.max(e.total, max), Number.MIN_VALUE)
+    //   .toString().length;
 
-    const rows = ["emoji | message uses | reaction uses | total"];
+    const rows = ["emoji `|  message uses | reaction uses |          total`"];
 
     for (const e of sortedEmoji) {
-      const ident = discordMeta.message.guild.emojis.resolveIdentifier(e.id);
-      rows.push(
-        `<:${ident}>\`|${e.chatCount
-          .toString()
-          .padStart(digits)}|${e.reactionCount
-          .toString()
-          .padStart(digits)}|${e.total.toString().padStart(digits)}\``
-      );
+      const emoji = discordMeta.message.guild.emojis.resolve(e.id);
+      if (emoji && !emoji.deleted) {
+        rows.push(
+          ` <:${emoji.identifier}>  \`|${e.chatCount
+            .toString()
+            .padStart(digits)}|${e.reactionCount
+            .toString()
+            .padStart(digits)}|${e.total.toString().padStart(digits)}\``
+        );
+      }
     }
 
     return rows.join("\n");

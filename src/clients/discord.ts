@@ -93,7 +93,7 @@ export function makeDiscordBot(discordToken: string) {
         isDM: message.channel.type === "dm",
         sendMessage: async (m) => {
           if (!message.channel.deleted) {
-            await message.channel.send(m).catch((e) => {
+            await message.channel.send(m, { split: true }).catch((e) => {
               throw e;
             });
           } else {
@@ -109,7 +109,7 @@ export function makeDiscordBot(discordToken: string) {
         return false;
       }
 
-      await message.channel.send(response);
+      await message.channel.send(response, { split: true });
     } catch (error) {
       console.error(
         `Error in Discord client replying to message ${message.id}`,
@@ -140,7 +140,9 @@ export function makeDiscordBot(discordToken: string) {
       });
 
       message.channel
-        .send(`[Something went wrong!] [${error.message}]`)
+        .send(
+          `[Something went wrong!] [${String(error.message).slice(0, 1800)}]`
+        )
         .catch((e) => {
           throw e;
         });
@@ -189,7 +191,7 @@ export function makeDiscordBot(discordToken: string) {
             return;
           }
 
-          channel.send(getTimerMessage(payload)).catch((e) => {
+          channel.send(getTimerMessage(payload), { split: true }).catch((e) => {
             throw e;
           });
         });

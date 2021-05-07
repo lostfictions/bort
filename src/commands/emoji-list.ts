@@ -28,12 +28,12 @@ export default makeCommand(
       return "nothing to show! use some custom emoji in chat or reactions.";
     }
 
-    const digits = 15;
+    const digits = 12;
     // const digits = sortedEmoji
     //   .reduce((max, e) => Math.max(e.total, max), Number.MIN_VALUE)
     //   .toString().length;
 
-    const rows = ["emoji `|   msg uses | reacc uses | total uses`"];
+    const rows = ["emoji`|   msg uses | reacc uses | total uses `"];
 
     for (const e of sortedEmoji) {
       const emoji = discordMeta.message.guild.emojis.resolve(e.id);

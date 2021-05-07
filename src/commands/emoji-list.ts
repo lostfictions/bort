@@ -33,13 +33,13 @@ export default makeCommand(
     //   .reduce((max, e) => Math.max(e.total, max), Number.MIN_VALUE)
     //   .toString().length;
 
-    const rows = ["emoji `|  message uses | reaction uses |          total`"];
+    const rows = ["emoji `|   msg uses | reacc uses | total uses`"];
 
     for (const e of sortedEmoji) {
       const emoji = discordMeta.message.guild.emojis.resolve(e.id);
       if (emoji && !emoji.deleted) {
         rows.push(
-          ` <:${emoji.identifier}>  \`|${e.chatCount
+          `<:${emoji.identifier}>  \` |${e.chatCount
             .toString()
             .padStart(digits)}|${e.reactionCount
             .toString()

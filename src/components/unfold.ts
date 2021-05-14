@@ -79,20 +79,16 @@ export async function unfold({
           throw new Error(`no og:description for twitter url ${url}`);
         }
 
-        // extract t.co urls. there should be at most one.
+        // extract t.co urls.
         const nestedUrls = [...text.matchAll(baseUrlMatcher)];
-        if (nestedUrls.length > 1) {
-          console.warn(
-            `unexpected multiple urls in tweet description for ${url}:\n${text}`
-          );
-        }
 
         if (nestedUrls.length === 0) {
           continue;
         }
 
+        // only resolve the last url, in keeping with twitter's styling (may want to change?)
         const resolvedUrl = await axios
-          .head(nestedUrls[0][0])
+          .head(nestedUrls[nestedUrls.length - 1][0])
           .then((rr) => rr.request.res.responseUrl as string);
 
         if (ytdlAvailable && twitterVideoUrlMatcher.test(resolvedUrl)) {

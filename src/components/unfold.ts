@@ -37,7 +37,7 @@ const cache = new LRU<string, string>({
   length: (n) => n.length,
 });
 
-const urlMatcher = /https:\/\/(?:twitter\.com|t\.co)\/[a-zA-Z0-9]/i;
+const urlMatcher = /https:\/\/(?:twitter\.com|t\.co)\/[a-zA-Z0-9-_/?=&]+/gi;
 
 export async function unfold({
   message,
@@ -49,22 +49,7 @@ export async function unfold({
   const enabled = await getUnfoldEnabled(store);
   if (!enabled) return false;
 
-  console.log(discordMeta.message.embeds);
-  console.log("url matches for message?", urlMatcher.test(message));
-  console.log(
-    "url matches for embed?",
-    discordMeta.message.embeds.some((e) => {
-      const matches = urlMatcher.test(e.url!);
-      if (!matches) {
-        console.log("embed does not match:", e.url);
-      }
-      return matches;
-    })
-  );
-
-  const twitterUrls = discordMeta.message.embeds
-    .filter((e) => urlMatcher.test(e.url!))
-    .map((e) => e.url!);
+  const twitterUrls = [...message.matchAll(urlMatcher)].map((res) => res[0]);
 
   for (const url of twitterUrls) {
     try {

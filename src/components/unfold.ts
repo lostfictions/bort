@@ -39,8 +39,8 @@ const cachedUnfoldResults = new LRU<string, string | false>({
 });
 
 const baseUrlMatcher = /https:\/\/(?:twitter\.com|t\.co)\/[a-zA-Z0-9-_/?=&]+/gi;
-// gifs have "photo" instead of "video" as the url component. afaict regular photos will not have an embedded t.co url
-const twitterVideoUrlMatcher = /https:\/\/twitter\.com\/[a-zA-Z0-9-_]+\/status\/\d+\/(?:video|photo)\//i;
+const twitterVideoUrlMatcher = /https:\/\/twitter\.com\/[a-zA-Z0-9-_]+\/status\/\d+\/video\//i;
+const twitterGifOrImageUrlMatcher = /https:\/\/twitter\.com\/[a-zA-Z0-9-_]+\/status\/\d+\/photo\//i;
 const youtubeVideoUrlMatcher = /https:\/\/www\.youtube\.com\/[a-zA-Z0-9-_/?=&]/i;
 const twitterQTUrlMatcher = /https:\/\/twitter\.com\/[a-zA-Z0-9-_]+\/status\/\d+/i;
 
@@ -72,9 +72,9 @@ export async function unfold({
             Connection: "close",
           },
         });
-        const text = cheerio
-          .load(res.data)('meta[property="og:description"]')
-          .attr("content");
+        const $ = cheerio.load(res.data);
+
+        const text = $('meta[property="og:description"]').attr("content");
 
         if (!text) {
           throw new Error(`no og:description for twitter url ${url}`);
@@ -92,28 +92,31 @@ export async function unfold({
           .head(nestedUrls[nestedUrls.length - 1][0])
           .then((rr) => rr.request.res.responseUrl as string);
 
-        if (ytdlAvailable && twitterVideoUrlMatcher.test(resolvedUrl)) {
-          const execRes = (await Promise.race([
-            // uhhh this is passing user input to the command line i guess
-            // but hey cursory testing doesn't show any shell injection so wtv
-            execa("ytdl", ["--socket-timeout", "10", "-g", resolvedUrl]),
-            new Promise((_, rej) => {
-              setTimeout(
-                () => rej(new Error("Maximum timeout exceeded!")),
-                1000 * 10
-              );
-            }),
-          ])) as execa.ExecaReturnValue;
-
-          if (!execRes.stdout || execRes.stdout.length === 0) {
-            throw new Error("unexpected empty stdout");
+        if (twitterVideoUrlMatcher.test(resolvedUrl)) {
+          if (ytdlAvailable) {
+            const videoUrl = await getVideoUrl(resolvedUrl);
+            cachedReply = `_(embedded twitter video for_ \`${url}\`_)_\n${videoUrl}`;
+          } else {
+            cachedReply = false;
           }
+        } else if (twitterGifOrImageUrlMatcher.test(resolvedUrl)) {
+          // images will have the og:image tag set to the image url and
+          // og:image:user_generated set to 'true'. gifs seemingly won't. not
+          // sure of a better heuristic rn
+          const isImage =
+            $('meta[property="og:image:user_generated"]').attr("content") ===
+            "true";
 
-          cachedReply = `_(embedded twitter video for_ \`${url}\`_)_\n${execRes.stdout}`;
-        } else if (youtubeVideoUrlMatcher.test(resolvedUrl)) {
-          cachedReply = `_(embedded youtube video for_ \`${url}\`_)_\n${resolvedUrl}`;
+          if (ytdlAvailable && !isImage) {
+            const videoUrl = await getVideoUrl(resolvedUrl);
+            cachedReply = `_(embedded twitter gif for_ \`${url}\`_)_\n${videoUrl}`;
+          } else {
+            cachedReply = false;
+          }
         } else if (twitterQTUrlMatcher.test(resolvedUrl)) {
           cachedReply = `_(embedded quote tweet for_ \`${url}\`_)_\n${resolvedUrl}`;
+        } else if (youtubeVideoUrlMatcher.test(resolvedUrl)) {
+          cachedReply = `_(embedded youtube video for_ \`${url}\`_)_\n${resolvedUrl}`;
         } else {
           cachedReply = false;
         }
@@ -132,4 +135,20 @@ export async function unfold({
   /* eslint-enable no-await-in-loop */
 
   return false;
+}
+
+async function getVideoUrl(sourceUrl: string) {
+  const execRes = (await Promise.race([
+    // uhhh this is passing user input to the command line i guess
+    // but hey cursory testing doesn't show any shell injection so wtv
+    execa("ytdl", ["--socket-timeout", "10", "-g", sourceUrl]),
+    new Promise((_, rej) => {
+      setTimeout(() => rej(new Error("Maximum timeout exceeded!")), 1000 * 10);
+    }),
+  ])) as execa.ExecaReturnValue;
+
+  if (!execRes.stdout || execRes.stdout.length === 0) {
+    throw new Error("unexpected empty stdout");
+  }
+  return execRes.stdout;
 }

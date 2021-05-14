@@ -29,6 +29,7 @@ import {
   conceptListCommand,
   conceptMatcher,
 } from "./commands/concepts";
+import unfoldCommand from "./commands/unfold";
 
 import { getSentence, addSentence } from "./store/methods/markov";
 import { setSeen } from "./store/methods/seen";
@@ -60,6 +61,7 @@ const subCommands = [
   completeCommand,
   weatherCommand,
   uptimeCommand,
+  unfoldCommand,
 ];
 
 const subcommandsByNameOrAlias: { [name: string]: Command<HandlerArgs> } = {};

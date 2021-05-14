@@ -39,7 +39,8 @@ const cachedUnfoldResults = new LRU<string, string | false>({
 });
 
 const baseUrlMatcher = /https:\/\/(?:twitter\.com|t\.co)\/[a-zA-Z0-9-_/?=&]+/gi;
-const twitterVideoUrlMatcher = /https:\/\/twitter\.com\/[a-zA-Z0-9-_]+\/status\/\d+\/video+/i;
+// gifs have "photo" instead of "video" as the url component. afaict regular photos will not have an embedded t.co url
+const twitterVideoUrlMatcher = /https:\/\/twitter\.com\/[a-zA-Z0-9-_]+\/status\/\d+\/(?:video|photo)\//i;
 const youtubeVideoUrlMatcher = /https:\/\/www\.youtube\.com\/[a-zA-Z0-9-_/?=&]/i;
 const twitterQTUrlMatcher = /https:\/\/twitter\.com\/[a-zA-Z0-9-_]+\/status\/\d+/i;
 

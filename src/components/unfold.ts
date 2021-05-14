@@ -112,11 +112,11 @@ export async function unfold({
             throw new Error("unexpected empty stdout");
           }
 
-          cachedReply = `_(embedded twitter video for_ \`${url}\`_)_ ${execRes.stdout}`;
+          cachedReply = `_(embedded twitter video for_ \`${url}\`_)_\n${execRes.stdout}`;
         } else if (youtubeVideoUrlMatcher.test(resolvedUrl)) {
-          cachedReply = `_(embedded youtube video for_ \`${url}\`_)_ ${resolvedUrl}`;
+          cachedReply = `_(embedded youtube video for_ \`${url}\`_)_\n${resolvedUrl}`;
         } else if (twitterQTUrlMatcher.test(resolvedUrl)) {
-          cachedReply = `_(embedded quote tweet for_ \`${url}\`_)_ ${resolvedUrl}`;
+          cachedReply = `_(embedded quote tweet for_ \`${url}\`_)_\n${resolvedUrl}`;
         } else {
           cachedReply = false;
         }

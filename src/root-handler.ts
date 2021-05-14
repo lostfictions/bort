@@ -57,7 +57,6 @@ const subCommands = [
   imageSearchCommand,
   gifSearchCommand,
   timerCommand,
-  // gifcitiesCommand,
   completeCommand,
   weatherCommand,
   uptimeCommand,

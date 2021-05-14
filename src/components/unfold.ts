@@ -1,4 +1,5 @@
 import execa from "execa";
+import LRU from "lru-cache";
 
 import { getUnfoldEnabled } from "../store/methods/unfold";
 import quoteForShell from "../util/shq";
@@ -32,7 +33,12 @@ try {
   }
 }
 
-const urlMatcher = /https:\/\/twitter\.com\/\b/gi;
+const cache = new LRU<string, string>({
+  max: 10_000,
+  length: (n) => n.length,
+});
+
+const urlMatcher = /https:\/\/(?:twitter\.com|t\.co)\/[a-zA-Z0-9]+/gi;
 
 export async function unfold({
   message,
@@ -48,41 +54,55 @@ export async function unfold({
   console.log("url matches for message?", urlMatcher.test(message));
   console.log(
     "url matches for embed?",
-    discordMeta.message.embeds.some((e) => urlMatcher.test(e.url!))
+    discordMeta.message.embeds.some((e) => {
+      const matches = urlMatcher.test(e.url!);
+      if (!matches) {
+        console.log("embed does not match:", e.url);
+      }
+      return matches;
+    })
   );
 
   const twitterUrls = discordMeta.message.embeds
     .filter((e) => urlMatcher.test(e.url!))
     .map((e) => e.url!);
-  const videoUrls = await Promise.all(
-    twitterUrls.map((u) =>
-      execa("ytdl", ["-g", quoteForShell(u)]).catch((e) => ({ error: e }))
-    )
-  );
 
-  // exit code 1 might simply be the lack of video in a tweet
-  console.info(
-    "ytdl errors while unfolding:\n",
-    videoUrls
-      .filter((e) => "error" in e && e.error.exitCode === 1)
-      .map((e) => (e as execa.ExecaError).stderr)
-      .join("\n---\n")
-  );
+  for (const url of twitterUrls) {
+    try {
+      let cached = cache.get(url);
+      if (!cached) {
+        // only want concurrency of 1
+        // eslint-disable-next-line no-await-in-loop
+        const res = (await Promise.race([
+          execa("ytdl", ["--socket-timeout", "10", "-g", quoteForShell(url)]),
+          new Promise((_, rej) => {
+            setTimeout(
+              () => rej(new Error("Maximum timeout exceeded!")),
+              1000 * 10
+            );
+          }),
+        ])) as execa.ExecaReturnValue;
 
-  console.error(
-    "Errors while unfolding:\n",
-    videoUrls
-      .filter((e) => "error" in e && e.error.exitCode !== 1)
-      .join("\n\n---\n\n")
-  );
+        if (!res.stdout || res.stdout.length === 0) {
+          throw new Error("unexpected empty stdout");
+        }
 
-  const result = videoUrls
-    .filter((res) => !("error" in res))
-    .map((res) => (res as execa.ExecaReturnValue).stdout)
-    .join("\n");
+        cached = res.stdout;
+        cache.set(url, cached);
+      }
 
-  if (result.trim().length > 0) {
-    await discordMeta.message.channel.send(result);
+      discordMeta.message.channel.send(cached).catch((e) => {
+        throw e;
+      });
+    } catch (e) {
+      // exit code 1 might simply be the lack of video in a tweet
+      // FIXME: examine output for better filtering of when to log
+      if ("exitCode" in e && e.exitCode === 1 && e.stderr) {
+        console.info("ytdl error while unfolding:\n", e.stderr);
+      } else {
+        console.error("Errors while unfolding:\n", e);
+      }
+    }
   }
 
   return false;

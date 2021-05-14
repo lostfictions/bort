@@ -7,10 +7,10 @@ import { getUnfoldEnabled } from "../store/methods/unfold";
 
 import type { HandlerArgs } from "../handler-args";
 
-let available = false;
+let ytdlAvailable = false;
 try {
   execa.sync("which", ["ytdl"]);
-  available = true;
+  ytdlAvailable = true;
 } catch (e) {
   if (
     "exitCode" in e &&
@@ -21,33 +21,33 @@ try {
   ) {
     console.warn(
       [
-        `ytdl command not available, disabling unfold functionality.`,
+        `ytdl command not available, disabling twitter video unfold functionality.`,
         `('${e.command}' returned exit code 0, no stderr output)`,
       ].join(" ")
     );
   } else {
     console.error(
-      "ytdl command not available, disabling unfold functionality. details:",
-      "\n",
+      "ytdl command not available, disabling twitter video unfold functionality.",
+      "details:\n",
       e
     );
   }
 }
 
-const cache = new LRU<string, string | false>({
+const cachedUnfoldResults = new LRU<string, string | false>({
   max: 5_000,
 });
 
 const baseUrlMatcher = /https:\/\/(?:twitter\.com|t\.co)\/[a-zA-Z0-9-_/?=&]+/gi;
 const twitterVideoUrlMatcher = /https:\/\/twitter\.com\/[a-zA-Z0-9-_]+\/status\/\d+\/video+/i;
 const youtubeVideoUrlMatcher = /https:\/\/www\.youtube\.com\/[a-zA-Z0-9-_/?=&]/i;
+const twitterQTUrlMatcher = /https:\/\/twitter\.com\/[a-zA-Z0-9-_]+\/status\/\d+/i;
 
 export async function unfold({
   message,
   discordMeta,
   store,
 }: HandlerArgs): Promise<false> {
-  if (!available) return false;
   if (!discordMeta) return false;
   const enabled = await getUnfoldEnabled(store);
   if (!enabled) return false;
@@ -59,8 +59,8 @@ export async function unfold({
   /* eslint-disable no-await-in-loop */
   for (const url of twitterUrls) {
     try {
-      let cached = cache.get(url);
-      if (cached == null) {
+      let cachedReply = cachedUnfoldResults.get(url);
+      if (cachedReply == null) {
         const res = await axios.get(url, {
           responseType: "text",
           // https://stackoverflow.com/a/64164115
@@ -95,7 +95,7 @@ export async function unfold({
           .head(nestedUrls[0][0])
           .then((rr) => rr.request.res.responseUrl as string);
 
-        if (twitterVideoUrlMatcher.test(resolvedUrl)) {
+        if (ytdlAvailable && twitterVideoUrlMatcher.test(resolvedUrl)) {
           const execRes = (await Promise.race([
             // uhhh this is passing user input to the command line i guess
             // but hey cursory testing doesn't show any shell injection so wtv
@@ -112,17 +112,19 @@ export async function unfold({
             throw new Error("unexpected empty stdout");
           }
 
-          cached = execRes.stdout;
+          cachedReply = `_(embedded twitter video for_ \`${url}\`_)_ ${execRes.stdout}`;
         } else if (youtubeVideoUrlMatcher.test(resolvedUrl)) {
-          cached = resolvedUrl;
+          cachedReply = `_(embedded youtube video for_ \`${url}\`_)_ ${resolvedUrl}`;
+        } else if (twitterQTUrlMatcher.test(resolvedUrl)) {
+          cachedReply = `_(embedded quote tweet for_ \`${url}\`_)_ ${resolvedUrl}`;
         } else {
-          cached = false;
+          cachedReply = false;
         }
-        cache.set(url, cached);
+        cachedUnfoldResults.set(url, cachedReply);
       }
 
-      if (cached) {
-        discordMeta.message.channel.send(cached).catch((e) => {
+      if (cachedReply) {
+        discordMeta.message.channel.send(cachedReply).catch((e) => {
           throw e;
         });
       }

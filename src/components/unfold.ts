@@ -1,4 +1,6 @@
 import execa from "execa";
+import axios from "axios";
+import cheerio from "cheerio";
 import LRU from "lru-cache";
 
 import { getUnfoldEnabled } from "../store/methods/unfold";
@@ -32,12 +34,13 @@ try {
   }
 }
 
-const cache = new LRU<string, string>({
-  max: 10_000,
-  length: (n) => n.length,
+const cache = new LRU<string, string | false>({
+  max: 5_000,
 });
 
-const urlMatcher = /https:\/\/(?:twitter\.com|t\.co)\/[a-zA-Z0-9-_/?=&]+/gi;
+const baseUrlMatcher = /https:\/\/(?:twitter\.com|t\.co)\/[a-zA-Z0-9-_/?=&]+/gi;
+const twitterVideoUrlMatcher = /https:\/\/twitter\.com\/[a-zA-Z0-9-_]+\/status\/\d+\/video+/i;
+const youtubeVideoUrlMatcher = /https:\/\/www\.youtube\.com\/[a-zA-Z0-9-_/?=&]/i;
 
 export async function unfold({
   message,
@@ -49,47 +52,85 @@ export async function unfold({
   const enabled = await getUnfoldEnabled(store);
   if (!enabled) return false;
 
-  const twitterUrls = [...message.matchAll(urlMatcher)].map((res) => res[0]);
+  const twitterUrls = [...message.matchAll(baseUrlMatcher)].map(
+    (res) => res[0]
+  );
 
+  /* eslint-disable no-await-in-loop */
   for (const url of twitterUrls) {
     try {
       let cached = cache.get(url);
-      if (!cached) {
-        // only want concurrency of 1
-        // eslint-disable-next-line no-await-in-loop
-        const res = (await Promise.race([
-          // uhhh this is passing user input to the command line i guess
-          // but hey cursory testing doesn't show any shell injection so wtv
-          execa("ytdl", ["--socket-timeout", "10", "-g", url]),
-          new Promise((_, rej) => {
-            setTimeout(
-              () => rej(new Error("Maximum timeout exceeded!")),
-              1000 * 10
-            );
-          }),
-        ])) as execa.ExecaReturnValue;
+      if (cached == null) {
+        const res = await axios.get(url, {
+          responseType: "text",
+          // https://stackoverflow.com/a/64164115
+          headers: {
+            "User-Agent":
+              "facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)",
+            Range: "bytes=0-524288",
+            Connection: "close",
+          },
+        });
+        const text = cheerio
+          .load(res.data)('meta[property="og:description"]')
+          .attr("content");
 
-        if (!res.stdout || res.stdout.length === 0) {
-          throw new Error("unexpected empty stdout");
+        if (!text) {
+          throw new Error(`no og:description for twitter url ${url}`);
         }
 
-        cached = res.stdout;
+        // extract t.co urls. there should be at most one.
+        const nestedUrls = [...text.matchAll(baseUrlMatcher)];
+        if (nestedUrls.length > 1) {
+          console.warn(
+            `unexpected multiple urls in tweet description for ${url}:\n${text}`
+          );
+        }
+
+        if (nestedUrls.length === 0) {
+          continue;
+        }
+
+        const resolvedUrl = await axios
+          .head(nestedUrls[0][0])
+          .then((rr) => rr.request.res.responseUrl as string);
+
+        if (twitterVideoUrlMatcher.test(resolvedUrl)) {
+          const execRes = (await Promise.race([
+            // uhhh this is passing user input to the command line i guess
+            // but hey cursory testing doesn't show any shell injection so wtv
+            execa("ytdl", ["--socket-timeout", "10", "-g", resolvedUrl]),
+            new Promise((_, rej) => {
+              setTimeout(
+                () => rej(new Error("Maximum timeout exceeded!")),
+                1000 * 10
+              );
+            }),
+          ])) as execa.ExecaReturnValue;
+
+          if (!execRes.stdout || execRes.stdout.length === 0) {
+            throw new Error("unexpected empty stdout");
+          }
+
+          cached = execRes.stdout;
+        } else if (youtubeVideoUrlMatcher.test(resolvedUrl)) {
+          cached = resolvedUrl;
+        } else {
+          cached = false;
+        }
         cache.set(url, cached);
       }
 
-      discordMeta.message.channel.send(cached).catch((e) => {
-        throw e;
-      });
-    } catch (e) {
-      // exit code 1 might simply be the lack of video in a tweet
-      // FIXME: examine output for better filtering of when to log
-      if ("exitCode" in e && e.exitCode === 1 && e.stderr) {
-        console.info("ytdl error while unfolding:\n", e.stderr);
-      } else {
-        console.error("Errors while unfolding:\n", e);
+      if (cached) {
+        discordMeta.message.channel.send(cached).catch((e) => {
+          throw e;
+        });
       }
+    } catch (e) {
+      console.error("Error while unfolding:\n", e);
     }
   }
+  /* eslint-enable no-await-in-loop */
 
   return false;
 }

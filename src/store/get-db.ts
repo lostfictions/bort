@@ -6,6 +6,7 @@ import debug from "debug";
 
 import { initializeConcepts } from "./methods/concepts";
 import { initializeSeen, shouldInitializeSeen } from "./methods/seen";
+import { initializeUnfold, shouldInitializeUnfold } from "./methods/unfold";
 import {
   initializeRecents,
   shouldInitializeRecents,
@@ -115,6 +116,10 @@ async function loadOrInitializeDb(dbName: string): Promise<DB> {
   if (await shouldInitializeSeen(db)) {
     log(`Initializing seen for '${dbPath}'`);
     await initializeSeen(db);
+  }
+  if (await shouldInitializeUnfold(db)) {
+    log(`Initializing unfold for '${dbPath}'`);
+    await initializeUnfold(db);
   }
   if (await shouldInitializeEmojiCount(db)) {
     log(`Initializing emoji count for '${dbPath}'`);

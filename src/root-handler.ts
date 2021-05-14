@@ -32,9 +32,11 @@ import {
 
 import { getSentence, addSentence } from "./store/methods/markov";
 import { setSeen } from "./store/methods/seen";
+import { getConceptList, getConcept } from "./store/methods/concepts";
+
+import { unfold } from "./components/unfold";
 import { tryTrace, trace } from "./components/trace";
 import { recordEmojiCountInMessage } from "./components/reactions";
-import { getConceptList, getConcept } from "./store/methods/concepts";
 
 const subCommands = [
   conceptAddCommand,
@@ -215,6 +217,7 @@ const bortCommand = makeCommand(
 
 const messageHandler = [
   recordEmojiCountInMessage,
+  unfold,
   async (args) => (args.isDM ? false : processMessage(doSetSeen, args)),
   // Handling the direct concepts first should be safe -- it prevents the markov
   // generator fallback of the root command from eating our input.

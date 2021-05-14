@@ -2,7 +2,10 @@ import { makeCommand } from "../util/handler";
 
 import { setUnfoldEnabled, getUnfoldEnabled } from "../store/methods/unfold";
 
-const USAGE = "unfold [enable|disable|on|off|true|false]";
+const USAGE = "unfold [enable|disable|on|off]";
+
+const truthy = /(enabled?|on|true|1)/i;
+const falsy = /(disabled?|off|false|0)/i;
 
 export default makeCommand(
   {
@@ -17,11 +20,11 @@ export default makeCommand(
     }
 
     const trimmed = message.trim();
-    if (trimmed === "enabled" || trimmed === "on" || trimmed === "true") {
+    if (truthy.test(trimmed)) {
       await setUnfoldEnabled(store, true);
       return `unfolding is now **enabled**.`;
     }
-    if (trimmed === "disabled" || trimmed === "off" || trimmed === "false") {
+    if (falsy.test(trimmed)) {
       await setUnfoldEnabled(store, false);
       return `unfolding is now **disabled**.`;
     }

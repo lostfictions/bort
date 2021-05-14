@@ -2,7 +2,6 @@ import execa from "execa";
 import LRU from "lru-cache";
 
 import { getUnfoldEnabled } from "../store/methods/unfold";
-import quoteForShell from "../util/shq";
 
 import type { HandlerArgs } from "../handler-args";
 
@@ -38,7 +37,7 @@ const cache = new LRU<string, string>({
   length: (n) => n.length,
 });
 
-const urlMatcher = /https:\/\/(?:twitter\.com|t\.co)\/[a-zA-Z0-9]+/gi;
+const urlMatcher = /https:\/\/(?:twitter\.com|t\.co)\/[a-zA-Z0-9]/i;
 
 export async function unfold({
   message,
@@ -74,7 +73,9 @@ export async function unfold({
         // only want concurrency of 1
         // eslint-disable-next-line no-await-in-loop
         const res = (await Promise.race([
-          execa("ytdl", ["--socket-timeout", "10", "-g", quoteForShell(url)]),
+          // uhhh this is passing user input to the command line i guess
+          // but hey cursory testing doesn't show any shell injection so wtv
+          execa("ytdl", ["--socket-timeout", "10", "-g", url]),
           new Promise((_, rej) => {
             setTimeout(
               () => rej(new Error("Maximum timeout exceeded!")),

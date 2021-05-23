@@ -1,48 +1,25 @@
-import execa from "execa";
 import axios from "axios";
 import cheerio from "cheerio";
 import LRU from "lru-cache";
 
 import { getUnfoldEnabled } from "../store/methods/unfold";
+import { getVideoUrl, getYtdlAvailable } from "../util/get-video-url";
 
 import type { HandlerArgs } from "../handler-args";
-
-let ytdlAvailable = false;
-try {
-  execa.sync("which", ["ytdl"]);
-  ytdlAvailable = true;
-} catch (e) {
-  if (
-    "exitCode" in e &&
-    e.exitCode === 1 &&
-    e.stderr != null &&
-    e.stderr.length === 0 &&
-    e.command
-  ) {
-    console.warn(
-      [
-        `ytdl command not available, disabling twitter video unfold functionality.`,
-        `('${e.command}' returned exit code 0, no stderr output)`,
-      ].join(" ")
-    );
-  } else {
-    console.error(
-      "ytdl command not available, disabling twitter video unfold functionality.",
-      "details:\n",
-      e
-    );
-  }
-}
 
 const cachedUnfoldResults = new LRU<string, string | false>({
   max: 5_000,
 });
 
 const baseUrlMatcher = /https:\/\/(?:twitter\.com|t\.co)\/[a-zA-Z0-9-_/?=&]+/gi;
-const twitterVideoUrlMatcher = /https:\/\/twitter\.com\/[a-zA-Z0-9-_]+\/status\/\d+\/video\//i;
-const twitterGifOrImageUrlMatcher = /https:\/\/twitter\.com\/[a-zA-Z0-9-_]+\/status\/\d+\/photo\//i;
-const youtubeVideoUrlMatcher = /https:\/\/www\.youtube\.com\/[a-zA-Z0-9-_/?=&]/i;
-const twitterQTUrlMatcher = /https:\/\/twitter\.com\/[a-zA-Z0-9-_]+\/status\/\d+/i;
+const twitterVideoUrlMatcher =
+  /https:\/\/twitter\.com\/[a-zA-Z0-9-_]+\/status\/\d+\/video\//i;
+const twitterGifOrImageUrlMatcher =
+  /https:\/\/twitter\.com\/[a-zA-Z0-9-_]+\/status\/\d+\/photo\//i;
+const youtubeVideoUrlMatcher =
+  /https:\/\/www\.youtube\.com\/[a-zA-Z0-9-_/?=&]/i;
+const twitterQTUrlMatcher =
+  /https:\/\/twitter\.com\/[a-zA-Z0-9-_]+\/status\/\d+/i;
 
 export async function unfold({
   message,
@@ -92,6 +69,8 @@ export async function unfold({
           .head(nestedUrls[nestedUrls.length - 1][0])
           .then((rr) => rr.request.res.responseUrl as string);
 
+        const ytdlAvailable = getYtdlAvailable();
+
         if (twitterVideoUrlMatcher.test(resolvedUrl)) {
           if (ytdlAvailable) {
             const videoUrl = await getVideoUrl(resolvedUrl);
@@ -103,14 +82,15 @@ export async function unfold({
           // images will have the og:image tag set to the image url and
           // og:image:user_generated set to 'true'. gifs seemingly won't. not
           // sure of a better heuristic rn
-          const isImage =
+          const isStillImage =
             $('meta[property="og:image:user_generated"]').attr("content") ===
             "true";
 
-          if (ytdlAvailable && !isImage) {
+          if (ytdlAvailable && !isStillImage) {
             const videoUrl = await getVideoUrl(resolvedUrl);
             cachedReply = `_(embedded twitter gif for_ \`${url}\`_)_\n${videoUrl}`;
           } else {
+            // discord itself handles still images
             cachedReply = false;
           }
         } else if (twitterQTUrlMatcher.test(resolvedUrl)) {
@@ -135,20 +115,4 @@ export async function unfold({
   /* eslint-enable no-await-in-loop */
 
   return false;
-}
-
-async function getVideoUrl(sourceUrl: string) {
-  const execRes = (await Promise.race([
-    // uhhh this is passing user input to the command line i guess
-    // but hey cursory testing doesn't show any shell injection so wtv
-    execa("ytdl", ["--socket-timeout", "10", "-g", sourceUrl]),
-    new Promise((_, rej) => {
-      setTimeout(() => rej(new Error("Maximum timeout exceeded!")), 1000 * 10);
-    }),
-  ])) as execa.ExecaReturnValue;
-
-  if (!execRes.stdout || execRes.stdout.length === 0) {
-    throw new Error("unexpected empty stdout");
-  }
-  return execRes.stdout;
 }

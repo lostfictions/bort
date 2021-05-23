@@ -50,9 +50,7 @@ export default makeCommand(
         }
 
         rows.push(
-          `\`${e.chatCount
-            .toString()
-            .padStart(digits)}  ${e.reactionCount
+          `\`${e.chatCount.toString().padStart(digits)}  ${e.reactionCount
             .toString()
             .padStart(digits)}  ${e.total.toString().padStart(digits)} \` <:${
             emoji.identifier

@@ -1,43 +1,52 @@
+import { URL } from "url";
 import execa from "execa";
 
-let ytdlAvailable = false;
+let ytdlCommand: string | null = null;
+const errors = [];
 try {
   execa.sync("which", ["ytdl"]);
-  ytdlAvailable = true;
+  ytdlCommand = "ytdl";
 } catch (e) {
-  if (
-    "exitCode" in e &&
-    e.exitCode === 1 &&
-    e.stderr != null &&
-    e.stderr.length === 0 &&
-    e.command
-  ) {
-    console.warn(
-      [
-        `ytdl command not available, disabling twitter video unfold functionality.`,
-        `('${e.command}' returned exit code 0, no stderr output)`,
-      ].join(" ")
-    );
-  } else {
-    console.error(
-      "ytdl command not available, disabling twitter video unfold functionality.",
-      "details:\n",
-      e
-    );
+  errors.push(e);
+}
+
+if (!ytdlCommand) {
+  try {
+    execa.sync("which", ["youtube-dl"]);
+    ytdlCommand = "youtube-dl";
+  } catch (e) {
+    errors.push(e);
   }
 }
 
+if (!ytdlCommand) {
+  console.warn(
+    "ytdl command not available, disabling twitter video unfold functionality.",
+    "details:\n",
+    errors.join("\n\n")
+  );
+}
+
 export function getYtdlAvailable() {
-  return ytdlAvailable;
+  return ytdlCommand !== null;
 }
 
 export async function getVideoUrl(sourceUrl: string) {
-  if (!ytdlAvailable) throw new Error("ytdl not available!");
+  if (!ytdlCommand) throw new Error("ytdl not available!");
+
+  try {
+    const url = new URL(sourceUrl);
+    if (!url.protocol.startsWith("http")) {
+      throw new Error(`invalid protocol for video url: "${sourceUrl}"`);
+    }
+  } catch (e) {
+    throw new Error(`invalid video url: ${sourceUrl}`);
+  }
 
   const execRes = (await Promise.race([
     // uhhh this is passing user input to the command line i guess
-    // but hey cursory testing doesn't show any shell injection so wtv
-    execa("ytdl", ["--socket-timeout", "10", "-g", sourceUrl]),
+    // but hey if it's a valid whatwg url i'm sure it's fine
+    execa(ytdlCommand, ["--socket-timeout", "10", "-g", sourceUrl]),
     new Promise((_, rej) => {
       setTimeout(() => rej(new Error("Maximum timeout exceeded!")), 1000 * 10);
     }),

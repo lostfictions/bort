@@ -1,9 +1,15 @@
-import axios from "axios";
-import cheerio from "cheerio";
 import LRU from "lru-cache";
 
 import { getUnfoldEnabled } from "../store/methods/unfold";
 import { getVideoUrl, getYtdlAvailable } from "../util/get-video-url";
+import {
+  baseUrlMatcher,
+  resolveShortlinksInTweet,
+  twitterGifOrImageUrlMatcher,
+  twitterQTUrlMatcher,
+  twitterVideoUrlMatcher,
+  youtubeVideoUrlMatcher,
+} from "../util/resolve-twitter-urls";
 
 import type { HandlerArgs } from "../handler-args";
 
@@ -11,24 +17,23 @@ const cachedUnfoldResults = new LRU<string, string | false>({
   max: 5_000,
 });
 
-const baseUrlMatcher = /https:\/\/(?:twitter\.com|t\.co)\/[a-zA-Z0-9-_/?=&]+/gi;
-const twitterVideoUrlMatcher =
-  /https:\/\/twitter\.com\/[a-zA-Z0-9-_]+\/status\/\d+\/video\//i;
-const twitterGifOrImageUrlMatcher =
-  /https:\/\/twitter\.com\/[a-zA-Z0-9-_]+\/status\/\d+\/photo\//i;
-const youtubeVideoUrlMatcher =
-  /https:\/\/www\.youtube\.com\/[a-zA-Z0-9-_/?=&]/i;
-const twitterQTUrlMatcher =
-  /https:\/\/twitter\.com\/[a-zA-Z0-9-_]+\/status\/\d+/i;
+export async function unfold(handlerArgs: HandlerArgs): Promise<false> {
+  // unfolding should never block actual command resolution
+  extractAndUnfoldTwitterUrls(handlerArgs).catch((e) => {
+    throw e;
+  });
+  return false;
+}
 
-export async function unfold({
+async function extractAndUnfoldTwitterUrls({
   message,
-  discordMeta,
+  sendMessage,
   store,
-}: HandlerArgs): Promise<false> {
-  if (!discordMeta) return false;
+}: HandlerArgs): Promise<void> {
   const enabled = await getUnfoldEnabled(store);
-  if (!enabled) return false;
+  if (!enabled) return;
+
+  const ytdlAvailable = getYtdlAvailable();
 
   const twitterUrls = [...message.matchAll(baseUrlMatcher)].map(
     (res) => res[0]
@@ -39,37 +44,13 @@ export async function unfold({
     try {
       let cachedReply = cachedUnfoldResults.get(url);
       if (cachedReply == null) {
-        const res = await axios.get(url, {
-          responseType: "text",
-          // https://stackoverflow.com/a/64164115
-          headers: {
-            "User-Agent":
-              "facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)",
-            Range: "bytes=0-524288",
-            Connection: "close",
-          },
-        });
-        const $ = cheerio.load(res.data);
-
-        const text = $('meta[property="og:description"]').attr("content");
-
-        if (!text) {
-          throw new Error(`no og:description for twitter url ${url}`);
-        }
-
-        // extract t.co urls.
-        const nestedUrls = [...text.matchAll(baseUrlMatcher)];
-
-        if (nestedUrls.length === 0) {
+        const res = await resolveShortlinksInTweet(url);
+        if (!res) {
+          cachedUnfoldResults.set(url, false);
           continue;
         }
 
-        // only resolve the last url, in keeping with twitter's styling (may want to change?)
-        const resolvedUrl = await axios
-          .head(nestedUrls[nestedUrls.length - 1][0])
-          .then((rr) => rr.request.res.responseUrl as string);
-
-        const ytdlAvailable = getYtdlAvailable();
+        const { resolvedUrl, hasStillImage } = res;
 
         if (twitterVideoUrlMatcher.test(resolvedUrl)) {
           if (ytdlAvailable) {
@@ -79,14 +60,7 @@ export async function unfold({
             cachedReply = false;
           }
         } else if (twitterGifOrImageUrlMatcher.test(resolvedUrl)) {
-          // images will have the og:image tag set to the image url and
-          // og:image:user_generated set to 'true'. gifs seemingly won't. not
-          // sure of a better heuristic rn
-          const isStillImage =
-            $('meta[property="og:image:user_generated"]').attr("content") ===
-            "true";
-
-          if (ytdlAvailable && !isStillImage) {
+          if (ytdlAvailable && !hasStillImage) {
             const videoUrl = await getVideoUrl(resolvedUrl);
             cachedReply = `_(embedded twitter gif for_ \`${url}\`_)_\n${videoUrl}`;
           } else {
@@ -104,15 +78,11 @@ export async function unfold({
       }
 
       if (cachedReply) {
-        discordMeta.message.channel.send(cachedReply).catch((e) => {
-          throw e;
-        });
+        await sendMessage(cachedReply);
       }
     } catch (e) {
       console.error("Error while unfolding:\n", e);
     }
   }
   /* eslint-enable no-await-in-loop */
-
-  return false;
 }

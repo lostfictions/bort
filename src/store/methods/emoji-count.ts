@@ -61,8 +61,9 @@ export async function shouldInitializeEmojiCount(db: DB): Promise<boolean> {
     if (typeof emoji !== "object") {
       return true;
     }
-  } catch (e) {
+  } catch (e: any) {
     if (e.notFound) return true;
+    throw e;
   }
   return false;
 }

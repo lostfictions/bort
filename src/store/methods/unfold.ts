@@ -26,8 +26,9 @@ export async function shouldInitializeUnfold(db: DB): Promise<boolean> {
     if (typeof unfold !== "object") {
       return true;
     }
-  } catch (e) {
+  } catch (e: any) {
     if (e.notFound) return true;
+    throw e;
   }
   return false;
 }

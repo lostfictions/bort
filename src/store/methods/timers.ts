@@ -141,8 +141,9 @@ export async function shouldInitializeTimers(db: DB): Promise<boolean> {
     ) {
       return true;
     }
-  } catch (e) {
+  } catch (e: any) {
     if (e.notFound) return true;
+    throw e;
   }
   return false;
 }

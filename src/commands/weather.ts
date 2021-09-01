@@ -78,7 +78,7 @@ export default makeCommand(
           timeout: 5000,
         }
       );
-    } catch (e) {
+    } catch (e: any) {
       if (e.response?.status === 404) {
         return `dunno where '${message}' is ¯\\_(ツ)_/¯`;
       }

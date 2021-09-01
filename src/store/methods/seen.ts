@@ -43,8 +43,9 @@ export async function shouldInitializeSeen(db: DB): Promise<boolean> {
     if (typeof seen !== "object") {
       return true;
     }
-  } catch (e) {
+  } catch (e: any) {
     if (e.notFound) return true;
+    throw e;
   }
   return false;
 }

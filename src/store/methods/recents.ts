@@ -44,8 +44,9 @@ export async function shouldInitializeRecents(db: DB): Promise<boolean> {
     if (typeof recents !== "object") {
       return true;
     }
-  } catch (e) {
+  } catch (e: any) {
     if (e.notFound) return true;
+    throw e;
   }
   return false;
 }

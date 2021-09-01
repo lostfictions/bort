@@ -7,6 +7,7 @@ import {
   DMChannel,
   Guild,
   GuildEmoji,
+  DiscordAPIError,
 } from "discord.js";
 import * as Sentry from "@sentry/node";
 
@@ -111,10 +112,13 @@ export function makeDiscordBot(discordToken: string) {
 
       await message.channel.send(response, { split: true });
     } catch (error) {
+      const err =
+        error instanceof DiscordAPIError ? error.message : String(error);
+
       console.error(
         `Error in Discord client replying to message ${message.id}`,
         `("${message.content}") in guild ${message.guild?.name}:`,
-        `'${error.message}'`
+        `'${err}'`
       );
 
       Sentry.captureException(error, {
@@ -122,9 +126,7 @@ export function makeDiscordBot(discordToken: string) {
       });
 
       message.channel
-        .send(
-          `[Something went wrong!] [${String(error.message).slice(0, 1800)}]`
-        )
+        .send(`[Something went wrong!] [${err.slice(0, 1800)}]`)
         .catch((e) => {
           throw e;
         });

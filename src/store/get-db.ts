@@ -64,8 +64,10 @@ export async function getDb(id: string): Promise<DB> {
   const db = await loadOrInitializeDb(id);
 
   /* eslint-disable @typescript-eslint/no-misused-promises */
-  const doClean = () =>
-    cleanRecents(db).then(() => setTimeout(doClean, 60_000));
+  const doClean = (): Promise<void> =>
+    cleanRecents(db).then(() => {
+      setTimeout(doClean, 60_000);
+    });
   setTimeout(doClean, 60_000);
   /* eslint-enable @typescript-eslint/no-misused-promises */
 

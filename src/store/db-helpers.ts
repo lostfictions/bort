@@ -3,7 +3,7 @@ import { DB } from "./get-db";
 export async function getOrNull<T>(db: DB, key: string): Promise<T | null> {
   try {
     return await db.get<T>(key);
-  } catch (e) {
+  } catch (e: any) {
     if (e.notFound) {
       return null;
     }
@@ -18,7 +18,7 @@ export async function getWithDefault<T>(
 ): Promise<T> {
   try {
     return await db.get<T>(key);
-  } catch (e) {
+  } catch (e: any) {
     if (e.notFound) {
       return defaultValue;
     }

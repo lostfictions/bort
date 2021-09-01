@@ -123,15 +123,15 @@ const helpCommand = makeCommand(
 
     const concepts = await getConceptList(store);
 
+    const listens = concepts.filter((c: string) => c.startsWith("!"));
+    const others = concepts.filter((c: string) => !c.startsWith("!"));
+
     return (
       "**Commands:**\n" +
       subCommands.map((c) => `· *${c.name}* - ${c.description}`).join("\n") +
       "\n" +
-      "**Listens:**\n· " +
-      concepts.filter((c: string) => c.startsWith("!")).join(", ") +
-      "\n" +
-      "**Concepts:**\n· " +
-      concepts.filter((c: string) => !c.startsWith("!")).join(", ")
+      (listens.length > 0 ? `**Listens:**\n· ${listens.join(", ")}\n` : "") +
+      (others.length > 0 ? `**Concepts:**\n· ${others.join(", ")}` : "")
     );
   }
 );

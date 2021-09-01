@@ -1,8 +1,8 @@
 import axios from "axios";
 import cheerio from "cheerio";
 
-export const baseUrlMatcher =
-  /https:\/\/(?:twitter\.com|t\.co)\/[a-zA-Z0-9-_/?=&]+/gi;
+export const baseTwitterUrlMatcher =
+  /https:\/\/(?:(?:m\.)?twitter\.com|t\.co)\/[a-zA-Z0-9-_/?=&]+/gi;
 export const twitterVideoUrlMatcher =
   /https:\/\/twitter\.com\/[a-zA-Z0-9-_]+\/status\/\d+\/video\//i;
 export const twitterGifOrImageUrlMatcher =
@@ -38,7 +38,7 @@ export async function resolveShortlinksInTweet(url: string): Promise<
   }
 
   // extract t.co urls.
-  const nestedUrls = [...text.matchAll(baseUrlMatcher)];
+  const nestedUrls = [...text.matchAll(baseTwitterUrlMatcher)];
 
   if (nestedUrls.length === 0) {
     return false;

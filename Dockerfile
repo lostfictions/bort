@@ -9,9 +9,10 @@ COPY tsconfig.json ./
 RUN yarn build && yarn install --frozen-lockfile --production
 
 FROM node:16.8.0-alpine
+WORKDIR /code
 ENV PYTHONUNBUFFERED=1
 RUN apk add --no-cache python3 && ln -sf python3 /usr/bin/python
-RUN wget https://yt-dl.org/downloads/latest/youtube-dl -O /usr/local/bin/ytdl \
+RUN wget https://github.com/ytdl-org/youtube-dl/releases/download/2021.06.06/youtube-dl -O /usr/local/bin/ytdl \
   && chmod a+rx /usr/local/bin/ytdl
 COPY data ./data
 COPY --from=0 /code/node_modules ./node_modules

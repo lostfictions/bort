@@ -44,26 +44,26 @@ const fixtures: (
     intermediate: "",
     result: false,
   },
-  {
-    type: "tiktok",
-    url: "https://www.tiktok.com/@kotidiotnomer1/video/6969774073001954562",
-    result: "http://unfold.local/ok_4",
-  },
-  {
-    type: "tiktok",
-    url: "https://www.tiktok.com/@morty_morty_the_cat/video/6933501171256675586?source=h5_m&_r=1",
-    result: "http://unfold.local/ok_5",
-  },
-  {
-    type: "tiktok",
-    url: "https://m.tiktok.com/v/6999998598305942790.html?_d=secCgYIASAHKAESPgo81MsGOGJdwjBOqJQ0%2BibqgfQgpaHRKtJrhKY%2FxwhovqxD8P3BszESTnQroEkFEpp2PzMXid7N99KAPZqiGgA%3D&checksum=940585254b6e071c9b5e0453a29634c9c503f2dca2fe9b370b170e972d1ec36b&language=en&preview_pb=0&sec_user_id=MS4wLjABAAAAbhlTeKPO0yL_it9lWi7KKHY3Mqz3mc1riTnX9-KKLCLCV5QF8O1lLe-jOwir_hLW&share_app_id=1233&share_item_id=6999998598305942790&share_link_id=a6a0a10d-b708-42b9-87c7-ab195985c608&source=h5_m&timestamp=1630038988&u_code=deg4gblce2bl8h&user_id=6874717862625838086&utm_campaign=client_share&utm_medium=android&utm_source=copy",
-    result: "http://unfold.local/ok_6",
-  },
-  {
-    type: "tiktok",
-    url: "https://www.tiktok.com/",
-    result: false,
-  },
+  // {
+  //   type: "tiktok",
+  //   url: "https://www.tiktok.com/@kotidiotnomer1/video/6969774073001954562",
+  //   result: "http://unfold.local/ok_4",
+  // },
+  // {
+  //   type: "tiktok",
+  //   url: "https://www.tiktok.com/@morty_morty_the_cat/video/6933501171256675586?source=h5_m&_r=1",
+  //   result: "http://unfold.local/ok_5",
+  // },
+  // {
+  //   type: "tiktok",
+  //   url: "https://m.tiktok.com/v/6999998598305942790.html?_d=secCgYIASAHKAESPgo81MsGOGJdwjBOqJQ0%2BibqgfQgpaHRKtJrhKY%2FxwhovqxD8P3BszESTnQroEkFEpp2PzMXid7N99KAPZqiGgA%3D&checksum=940585254b6e071c9b5e0453a29634c9c503f2dca2fe9b370b170e972d1ec36b&language=en&preview_pb=0&sec_user_id=MS4wLjABAAAAbhlTeKPO0yL_it9lWi7KKHY3Mqz3mc1riTnX9-KKLCLCV5QF8O1lLe-jOwir_hLW&share_app_id=1233&share_item_id=6999998598305942790&share_link_id=a6a0a10d-b708-42b9-87c7-ab195985c608&source=h5_m&timestamp=1630038988&u_code=deg4gblce2bl8h&user_id=6874717862625838086&utm_campaign=client_share&utm_medium=android&utm_source=copy",
+  //   result: "http://unfold.local/ok_6",
+  // },
+  // {
+  //   type: "tiktok",
+  //   url: "https://www.tiktok.com/",
+  //   result: false,
+  // },
 ];
 
 jest.mock("../util/get-video-url", () => ({

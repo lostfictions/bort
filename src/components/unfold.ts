@@ -25,9 +25,9 @@ export async function unfold(handlerArgs: HandlerArgs): Promise<false> {
   extractAndUnfoldTwitterUrls(handlerArgs).catch((e) => {
     throw e;
   });
-  unfoldTiktokVideos(handlerArgs).catch((e) => {
-    throw e;
-  });
+  // unfoldTiktokVideos(handlerArgs).catch((e) => {
+  //   throw e;
+  // });
   return false;
 }
 
@@ -89,36 +89,36 @@ async function extractAndUnfoldTwitterUrls({
   /* eslint-enable no-await-in-loop */
 }
 
-export const tiktokVideoUrlMatcher =
-  /https:\/\/(?:www\.tiktok\.com\/@[a-zA-Z0-9-_]+\/video\/\d+|m\.tiktok\.com\/v\/\d+\.html)/gi;
+// const tiktokVideoUrlMatcher =
+//   /https:\/\/(?:www\.tiktok\.com\/@[a-zA-Z0-9-_]+\/video\/\d+|m\.tiktok\.com\/v\/\d+\.html)/gi;
 
-async function unfoldTiktokVideos({
-  message,
-  sendMessage,
-}: HandlerArgs): Promise<void> {
-  const ytdlAvailable = getYtdlAvailable();
-  if (!ytdlAvailable) return;
+// async function unfoldTiktokVideos({
+//   message,
+//   sendMessage,
+// }: HandlerArgs): Promise<void> {
+//   const ytdlAvailable = getYtdlAvailable();
+//   if (!ytdlAvailable) return;
 
-  const tiktokUrls = [...message.matchAll(tiktokVideoUrlMatcher)].map(
-    (res) => res[0]
-  );
+//   const tiktokUrls = [...message.matchAll(tiktokVideoUrlMatcher)].map(
+//     (res) => res[0]
+//   );
 
-  /* eslint-disable no-await-in-loop */
-  for (const url of tiktokUrls) {
-    try {
-      let cachedReply = cachedUnfoldResults.get(url);
-      if (cachedReply == null) {
-        const videoUrl = await getVideoUrl(url);
-        cachedReply = `_(embedded video for_ \`${url}\`_)_\n${videoUrl}`;
-        cachedUnfoldResults.set(url, cachedReply);
-      }
+//   /* eslint-disable no-await-in-loop */
+//   for (const url of tiktokUrls) {
+//     try {
+//       let cachedReply = cachedUnfoldResults.get(url);
+//       if (cachedReply == null) {
+//         const videoUrl = await getVideoUrl(url);
+//         cachedReply = `_(embedded video for_ \`${url}\`_)_\n${videoUrl}`;
+//         cachedUnfoldResults.set(url, cachedReply);
+//       }
 
-      if (cachedReply) {
-        await sendMessage(cachedReply);
-      }
-    } catch (e) {
-      console.error("Error while unfolding:\n", e);
-    }
-  }
-  /* eslint-enable no-await-in-loop */
-}
+//       if (cachedReply) {
+//         await sendMessage(cachedReply);
+//       }
+//     } catch (e) {
+//       console.error("Error while unfolding:\n", e);
+//     }
+//   }
+//   /* eslint-enable no-await-in-loop */
+// }

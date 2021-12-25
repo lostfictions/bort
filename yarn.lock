@@ -1187,7 +1187,7 @@
     semver "^7.3.5"
     tsutils "^3.21.0"
 
-"@typescript-eslint/experimental-utils@5.8.0":
+"@typescript-eslint/experimental-utils@5.8.0", "@typescript-eslint/experimental-utils@^5.0.0":
   version "5.8.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/experimental-utils/-/experimental-utils-5.8.0.tgz#0916ffe98d34b3c95e3652efa0cace61a7b25728"
   integrity sha512-KN5FvNH71bhZ8fKtL+lhW7bjm7cxs1nt+hrDZWIqb6ViCffQcWyLunGrgvISgkRojIDcXIsH+xlFfI4RCDA0xA==
@@ -2268,19 +2268,20 @@ escodegen@^2.0.0:
   optionalDependencies:
     source-map "~0.6.1"
 
-eslint-config-lostfictions@^3.0.0-beta.4:
-  version "3.0.0-beta.4"
-  resolved "https://registry.yarnpkg.com/eslint-config-lostfictions/-/eslint-config-lostfictions-3.0.0-beta.4.tgz#ede9960526d8ab07705a50796b1d81a30ee2bfc4"
-  integrity sha512-LlZdN3DX8cbbnerbR6jKP7BbIU+7+4gBga4uTX6YgNE6mqsJoAqf1Xm8ixOVyDk1Xy/APkFGOAlrsKZzyOwS4A==
+eslint-config-lostfictions@^3.0.0-beta.6:
+  version "3.0.0-beta.6"
+  resolved "https://registry.yarnpkg.com/eslint-config-lostfictions/-/eslint-config-lostfictions-3.0.0-beta.6.tgz#3d8fa4380bc3b42cdb48415d0684a8721d047f83"
+  integrity sha512-9NjgL8QLRLwFB0gfrqlti1F/sQ++caTi4TAkDZz7kXlImVbP5BMXIqrP0DT2+H6c6tJcr/XHfAtcddscv69N9w==
   dependencies:
     "@rushstack/eslint-patch" "^1.1.0"
     "@typescript-eslint/eslint-plugin" "5.8.0"
     "@typescript-eslint/parser" "^5.8.0"
     eslint-config-prettier "^8.3.0"
     eslint-import-resolver-typescript "^2.5.0"
+    eslint-plugin-deprecation "^1.3.2"
     eslint-plugin-import "^2.25.3"
     eslint-plugin-node "^11.1.0"
-    eslint-plugin-react "^7.27.1"
+    eslint-plugin-react "^7.28.0"
     eslint-plugin-react-hooks "^4.3.0"
 
 eslint-config-prettier@^8.3.0:
@@ -2315,6 +2316,15 @@ eslint-module-utils@^2.7.1:
     debug "^3.2.7"
     find-up "^2.1.0"
     pkg-dir "^2.0.0"
+
+eslint-plugin-deprecation@^1.3.2:
+  version "1.3.2"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-deprecation/-/eslint-plugin-deprecation-1.3.2.tgz#a8125d28c56158cdfa1a685197e6be8ed86f189e"
+  integrity sha512-z93wbx9w7H/E3ogPw6AZMkkNJ6m51fTZRNZPNQqxQLmx+KKt7aLkMU9wN67s71i+VVHN4tLOZ3zT3QLbnlC0Mg==
+  dependencies:
+    "@typescript-eslint/experimental-utils" "^5.0.0"
+    tslib "^2.3.1"
+    tsutils "^3.21.0"
 
 eslint-plugin-es@^3.0.0:
   version "3.0.1"
@@ -2360,7 +2370,7 @@ eslint-plugin-react-hooks@^4.3.0:
   resolved "https://registry.yarnpkg.com/eslint-plugin-react-hooks/-/eslint-plugin-react-hooks-4.3.0.tgz#318dbf312e06fab1c835a4abef00121751ac1172"
   integrity sha512-XslZy0LnMn+84NEG9jSGR6eGqaZB3133L8xewQo3fQagbQuGt7a63gf+P1NGKZavEYEC3UXaWEAA/AqDkuN6xA==
 
-eslint-plugin-react@^7.27.1:
+eslint-plugin-react@^7.28.0:
   version "7.28.0"
   resolved "https://registry.yarnpkg.com/eslint-plugin-react/-/eslint-plugin-react-7.28.0.tgz#8f3ff450677571a659ce76efc6d80b6a525adbdf"
   integrity sha512-IOlFIRHzWfEQQKcAD4iyYDndHwTQiCMcJVJjxempf203jnNLUnW34AXLrV33+nEXoifJE2ZEGmcjKPL8957eSw==
@@ -5318,6 +5328,11 @@ tslib@^1.9.3:
   version "1.10.0"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.10.0.tgz#c3c19f95973fb0a62973fb09d90d961ee43e5c8a"
   integrity sha512-qOebF53frne81cf0S9B41ByenJ3/IuH8yJKngAX35CmiZySA0khhkovshKK+jGCaMnVomla7gVlIcc3EvKPbTQ==
+
+tslib@^2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.3.1.tgz#e8a335add5ceae51aa261d32a490158ef042ef01"
+  integrity sha512-77EbyPPpMz+FRFRuAFlWMtmgUWGe9UOG2Z25NqCwiIjRhOf5iKGuzSe5P2w1laq+FkRy4p+PCuVkJSGkzTEKVw==
 
 tsutils@^3.21.0:
   version "3.21.0"

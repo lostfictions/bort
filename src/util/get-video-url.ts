@@ -46,7 +46,14 @@ export async function getVideoUrl(sourceUrl: string) {
   const execRes = (await Promise.race([
     // uhhh this is passing user input to the command line i guess
     // but hey if it's a valid whatwg url i'm sure it's fine
-    execa(ytdlCommand, ["--socket-timeout", "10", "-g", sourceUrl]),
+    execa(ytdlCommand, [
+      // even if we're just getting the url, ytdl complains if we don't set this
+      "--restrict-filenames",
+      "--socket-timeout",
+      "10",
+      "-g",
+      sourceUrl,
+    ]),
     new Promise((_, rej) => {
       setTimeout(() => rej(new Error("Maximum timeout exceeded!")), 1000 * 10);
     }),

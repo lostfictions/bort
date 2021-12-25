@@ -65,7 +65,7 @@ const subCommands = [
 
 const subcommandsByNameOrAlias: { [name: string]: Command<HandlerArgs> } = {};
 subCommands.forEach((c) => {
-  const allAliases = [c.name, ...(c.aliases || [])];
+  const allAliases = [c.name, ...(c.aliases ?? [])];
   for (const a of allAliases) {
     if (a in subcommandsByNameOrAlias) {
       console.error(

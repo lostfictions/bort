@@ -20,8 +20,6 @@ declare global {
   }
 }
 
-// temp: parser doesn't understand d flag
-// eslint-disable-next-line no-empty-character-class
 const abbreviationMatcher = /\b(?:[A-Z]\.?){2,}(?=\s|$)/dg;
 
 if (!abbreviationMatcher.hasIndices) {

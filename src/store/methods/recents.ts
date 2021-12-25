@@ -18,7 +18,7 @@ export async function addRecent(
 
 export async function cleanRecents(
   db: DB,
-  olderThanMinutes: number = 60
+  olderThanMinutes = 60
 ): Promise<void> {
   const olderThan = Date.now() - olderThanMinutes * 60 * 1000;
 

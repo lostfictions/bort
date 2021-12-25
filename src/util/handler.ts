@@ -53,7 +53,7 @@ export function makeCommand<TData extends { message: string } = HandlerArgs>(
   options: CommandOptions,
   handlerOrHandlers: HandlerOrHandlers<TData>
 ): Command<TData> {
-  const escapedAliases = [options.name, ...(options.aliases || [])]
+  const escapedAliases = [options.name, ...(options.aliases ?? [])]
     .map(escapeForRegex)
     .join("|");
 

@@ -11,8 +11,7 @@
     "allowUnreachableCode": false,
     "sourceMap": true,
     "esModuleInterop": true,
-    "skipLibCheck": true,
-    "allowJs": true // for ts-jest, who is a needy asshole
+    "skipLibCheck": true
   },
   "include": [
     "defs",

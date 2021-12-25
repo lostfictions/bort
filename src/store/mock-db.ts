@@ -9,7 +9,7 @@ export default function makeMockDb(store: { [key: string]: any } = {}): {
     db: {
       async get<T = any>(key: string): Promise<T> {
         if (!(key in store)) {
-          // eslint-disable-next-line no-throw-literal, @typescript-eslint/no-throw-literal
+          // eslint-disable-next-line @typescript-eslint/no-throw-literal
           throw { notFound: true };
         }
         return store[key];
@@ -21,20 +21,24 @@ export default function makeMockDb(store: { [key: string]: any } = {}): {
         delete store[key];
       },
       createKeyStream(_opts) {
+        const lt = _opts?.lt;
+        const gte = _opts?.gte;
         return (async function* keyIter() {
           const keys = Object.keys(store);
           for (const k of keys) {
-            if (k < _opts?.lt! && k >= _opts?.gte!) {
+            if (lt != null && gte != null && k < lt && k >= gte) {
               yield k;
             }
           }
         })();
       },
       createReadStream(_opts) {
+        const lt = _opts?.lt;
+        const gte = _opts?.gte;
         return (async function* keyIter() {
           const entries = Object.entries(store);
           for (const [key, value] of entries) {
-            if (key < _opts?.lt! && key >= _opts?.gte!) {
+            if (lt != null && gte != null && key < lt && key >= gte) {
               yield { key, value };
             }
           }

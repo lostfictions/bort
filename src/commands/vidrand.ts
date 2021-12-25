@@ -28,7 +28,7 @@ export async function getFilmUrlsFromLetterboxdList(
 
   let currentPage = 1;
   const allResults = [];
-  let pageResults;
+  let pageResults: string[];
 
   do {
     const resolvedUrl = url.endsWith("/")

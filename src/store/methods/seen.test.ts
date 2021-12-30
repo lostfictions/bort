@@ -2,7 +2,7 @@ import makeMockDb from "../mock-db";
 import { setSeen, initializeSeen } from "./seen";
 
 describe("db seen", () => {
-  test("set seen action 1", async () => {
+  it("sets seen via action 1", async () => {
     const { db, store } = makeMockDb();
     await initializeSeen(db);
 
@@ -19,7 +19,7 @@ describe("db seen", () => {
     });
   });
 
-  test("set seen action 2", async () => {
+  it("sets seen via action 2", async () => {
     const { db, store } = makeMockDb();
     await initializeSeen(db);
 

@@ -113,6 +113,8 @@ describe("unfold", () => {
   });
 
   it("should unfold urls with embedded media", async () => {
+    expect.hasAssertions();
+
     for (const fixture of fixtures) {
       const { db: store } = makeMockDb({
         unfold: { enabled: true },
@@ -136,16 +138,14 @@ describe("unfold", () => {
       // urls asynchronously
       await setImmediate(null);
 
-      try {
-        if (fixture.result) {
-          expect(sendMessage).toHaveBeenCalledTimes(1);
-          expect(reply).toMatch(fixture.result);
-        } else {
-          expect(sendMessage).not.toHaveBeenCalled();
-        }
-      } catch (e) {
-        throw new Error(`Failed on fixture ${fixture.url}:\n\n${e}`);
+      /* eslint-disable jest/no-conditional-expect */
+      if (fixture.result) {
+        expect(sendMessage).toHaveBeenCalledTimes(1);
+        expect(reply).toMatch(fixture.result);
+      } else {
+        expect(sendMessage).not.toHaveBeenCalled();
       }
+      /* eslint-enable jest/no-conditional-expect */
     }
   });
 });

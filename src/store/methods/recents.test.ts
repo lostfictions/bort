@@ -2,7 +2,7 @@ import { addRecent, cleanRecents, initializeRecents } from "./recents";
 import makeMockDb from "../mock-db";
 
 describe("db recents", () => {
-  test("add recent 1", async () => {
+  it("adds a recent 1", async () => {
     const { db, store } = makeMockDb();
     await initializeRecents(db);
 
@@ -13,7 +13,7 @@ describe("db recents", () => {
     });
   });
 
-  test("add recent 2", async () => {
+  it("adds a recent 2", async () => {
     const { db, store } = makeMockDb();
     await initializeRecents(db);
 
@@ -28,7 +28,7 @@ describe("db recents", () => {
     });
   });
 
-  test("clean recents 1", async () => {
+  it("cleans recents 1", async () => {
     const { db, store } = makeMockDb();
     await initializeRecents(db);
 
@@ -37,7 +37,7 @@ describe("db recents", () => {
     expect(store.recents).toEqual({});
   });
 
-  test("clean recents 2", async () => {
+  it("cleans recents 2", async () => {
     const { db, store } = makeMockDb();
     await initializeRecents(db);
 
@@ -50,7 +50,7 @@ describe("db recents", () => {
     expect(store.recents).toEqual({});
   });
 
-  test("clean recents 3", async () => {
+  it("cleans recents 3", async () => {
     const { db, store } = makeMockDb();
     await initializeRecents(db);
 
@@ -63,7 +63,7 @@ describe("db recents", () => {
     expect(store.recents).toEqual({});
   });
 
-  test("clean recents 4", async () => {
+  it("cleans recents 4", async () => {
     const { db, store } = makeMockDb();
     await initializeRecents(db);
 

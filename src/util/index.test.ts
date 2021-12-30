@@ -12,7 +12,7 @@ function pairsToObj<T>(pairs: [string, T][]): { [k: string]: T } {
 
 describe("random in array", () => {
   it("should return undefined on an empty array", () => {
-    expect(randomInArray([])).toBe(undefined);
+    expect(randomInArray([])).toBeUndefined();
   });
 });
 
@@ -26,7 +26,7 @@ describe("random by weight", () => {
     }
   );
 
-  test("with integer weights", () => {
+  it("doesn't throw given integer weights", () => {
     expect(() =>
       randomByWeight({
         dog: 1,
@@ -35,7 +35,7 @@ describe("random by weight", () => {
     ).not.toThrow();
   });
 
-  test("with float weights", () => {
+  it("doesn't throw given float weights", () => {
     expect(() =>
       randomByWeight({
         dog: 0.1,
@@ -59,14 +59,14 @@ describe("random by weight", () => {
     ).not.toThrow();
   });
 
-  test("with zero weights", () => {
+  it("gives expected results given zero weights", () => {
     expect(
       randomByWeight({
         cat: 1,
         dog: 0,
         flower: 0,
       })
-    ).toEqual("cat");
+    ).toBe("cat");
 
     expect(
       randomByWeight({
@@ -74,7 +74,7 @@ describe("random by weight", () => {
         flower: 0,
         cat: 1,
       })
-    ).toEqual("cat");
+    ).toBe("cat");
 
     expect(
       randomByWeight({
@@ -82,7 +82,7 @@ describe("random by weight", () => {
         cat: 1,
         flower: 0,
       })
-    ).toEqual("cat");
+    ).toBe("cat");
 
     expect(
       randomByWeight({
@@ -90,13 +90,13 @@ describe("random by weight", () => {
         cat: 0.1,
         flower: 0,
       })
-    ).toEqual("cat");
+    ).toBe("cat");
 
     expect(
       randomByWeight({
         cat: 0.001,
         dog: 0,
       })
-    ).toEqual("cat");
+    ).toBe("cat");
   });
 });

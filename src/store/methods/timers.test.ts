@@ -2,7 +2,7 @@ import { addTimer, removeTimer, initializeTimers } from "./timers";
 import makeMockDb from "../mock-db";
 
 describe("db timers", () => {
-  test("add timer", async () => {
+  it("adds a timer", async () => {
     const { db, store } = makeMockDb();
     await initializeTimers(db);
 
@@ -34,7 +34,7 @@ describe("db timers", () => {
     });
   });
 
-  test("remove timer", async () => {
+  it("removes a timer", async () => {
     const { db, store } = makeMockDb();
     await initializeTimers(db);
 

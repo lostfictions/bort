@@ -24,8 +24,8 @@ describe("timers", () => {
         isDM: false,
       })) as string;
 
-      expect(typeof result === "string");
-      expect(result.startsWith("okay"));
+      expect(typeof result).toBe("string");
+      expect(result.startsWith("okay")).toBe(true);
       expect(result).toContain("now you're");
       expect(result).toContain("tell you in 10 minutes");
     });
@@ -45,8 +45,8 @@ describe("timers", () => {
         isDM: false,
       })) as string;
 
-      expect(typeof result === "string");
-      expect(result.startsWith("okay"));
+      expect(typeof result).toBe("string");
+      expect(result.startsWith("okay")).toBe(true);
       expect(result).toContain("tell you in 10 minutes");
     });
   });

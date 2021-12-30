@@ -109,7 +109,7 @@ describe("db markov", () => {
 
       // note that this depends on the stop test to continue imposing a minimum
       // length, otherwise this might get flaky
-      expect(sentence).toEqual("one two three four");
+      expect(sentence).toBe("one two three four");
     });
   });
 });

@@ -9,7 +9,7 @@ import {
 import makeMockDb from "../mock-db";
 
 describe("db concepts", () => {
-  test("add concept 1", async () => {
+  it("adds a concept 1", async () => {
     const { db, store } = makeMockDb();
 
     await addConcept(db, "dogs");
@@ -19,7 +19,7 @@ describe("db concepts", () => {
     });
   });
 
-  test("add concept 2", async () => {
+  it("adds a concept 2", async () => {
     const { db, store } = makeMockDb({
       "concept:cats": { tabby: 1 },
     });
@@ -29,7 +29,7 @@ describe("db concepts", () => {
     expect(store).toEqual({ "concept:cats": { tabby: 1 }, "concept:dogs": {} });
   });
 
-  test("add concept 3", async () => {
+  it("adds a concept 3", async () => {
     const { db, store } = makeMockDb({
       "concept:cats": { tabby: 1 },
     });
@@ -42,7 +42,7 @@ describe("db concepts", () => {
     });
   });
 
-  test("add concept without overwrite should not replace existing", async () => {
+  it("preserves existing values when adding a concept without overwrite", async () => {
     const { db, store } = makeMockDb({
       "concept:cats": { tabby: 1 },
     });
@@ -53,7 +53,7 @@ describe("db concepts", () => {
     expect(store).toEqual({ "concept:cats": { tabby: 1 } });
   });
 
-  test("add concept with overwrite should replace existing 1", async () => {
+  it("replaces existing values when adding a concept with overwrite 1", async () => {
     const { db, store } = makeMockDb({
       "concept:cats": { tabby: 1 },
     });
@@ -64,7 +64,7 @@ describe("db concepts", () => {
     expect(store).toEqual({ "concept:cats": {} });
   });
 
-  test("add concept with overwrite should replace existing 2", async () => {
+  it("replaces existing values when adding a concept with overwrite 2", async () => {
     const { db, store } = makeMockDb({
       "concept:cats": { tabby: 1 },
     });
@@ -75,7 +75,7 @@ describe("db concepts", () => {
     expect(store).toEqual({ "concept:cats": { garfield: 1 } });
   });
 
-  test("remove concept 1", async () => {
+  it("removes a concept 1", async () => {
     const { db, store } = makeMockDb({
       "concept:dogs": { shiba: 1, labrador: 1 },
     });
@@ -85,7 +85,7 @@ describe("db concepts", () => {
     expect(store).toEqual({});
   });
 
-  test("remove concept 2", async () => {
+  it("removes a concept 2", async () => {
     const { db, store } = makeMockDb({
       "concept:dogs": { shiba: 1, labrador: 1 },
       "concept:cats": { tabby: 1 },
@@ -98,7 +98,7 @@ describe("db concepts", () => {
     });
   });
 
-  test("add to concept 1", async () => {
+  it("adds to a concept 1", async () => {
     const { db, store } = makeMockDb({
       "concept:dogs": {},
     });
@@ -110,7 +110,7 @@ describe("db concepts", () => {
     });
   });
 
-  test("add to concept 2", async () => {
+  it("adds to a concept 2", async () => {
     const { db, store } = makeMockDb({
       "concept:cats": { tabby: 1 },
       "concept:dogs": { lab: 1 },
@@ -124,7 +124,7 @@ describe("db concepts", () => {
     });
   });
 
-  test("remove from concept 1", async () => {
+  it("removes from a concept 1", async () => {
     const { db, store } = makeMockDb({
       "concept:dogs": { lab: 1 },
     });
@@ -136,7 +136,7 @@ describe("db concepts", () => {
     });
   });
 
-  test("remove from concept 2", async () => {
+  it("removes from a concept 2", async () => {
     const { db, store } = makeMockDb({
       "concept:cats": { tabby: 1 },
       "concept:dogs": { shiba: 1, lab: 1 },
@@ -150,7 +150,7 @@ describe("db concepts", () => {
     });
   });
 
-  test("get concept list", async () => {
+  it("gets a concept list", async () => {
     const { db } = makeMockDb({
       whatever: {},
       "concept:cats": { tabby: 1 },

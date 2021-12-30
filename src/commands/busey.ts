@@ -53,9 +53,7 @@ export default makeCommand(
           channel
         );
 
-        m = `${m.substring(0, start)}${maybeReplaced || match[0]}${m.substring(
-          end
-        )}`;
+        m = `${m.slice(0, start)}${maybeReplaced || match[0]}${m.slice(end)}`;
       }
 
       return prefix + m;
@@ -92,8 +90,8 @@ async function busey(
     if (acro.length >= 2) {
       const entry: MarkovEntry | null = await getEntry(
         store,
-        acro[acro.length - 2],
-        acro[acro.length - 1],
+        acro.at(-2)!,
+        acro.at(-1)!,
         channel
       );
 
@@ -116,7 +114,7 @@ async function busey(
               result = candidates.splice(j, 1)[0];
               const testEntry = await getEntry(
                 store,
-                acro[acro.length - 1],
+                acro.at(-1)!,
                 result,
                 channel
               );
@@ -200,14 +198,14 @@ export async function getSeedStartingWith(
 ) {
   const prefix = `${prefixForward(channel)}:`;
   const gte = `${prefix}${letter}`;
-  const lt = `${prefix}${String.fromCharCode(letter.charCodeAt(0) + 1)}`;
+  const lt = `${prefix}${String.fromCodePoint(letter.codePointAt(0)! + 1)}`;
 
   const rs = db.createKeyStream({ gte, lt });
 
   const preferred: [string, string][] = [];
   const others: [string, string][] = [];
   for await (const k of rs) {
-    const [w1, w2] = k.substr(prefix.length).split("|");
+    const [w1, w2] = k.slice(prefix.length).split("|");
     if (preferredFollowingLetter && w2.startsWith(preferredFollowingLetter)) {
       preferred.push([w1, w2]);
     } else {

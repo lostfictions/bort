@@ -35,20 +35,22 @@ export const {
   USE_CLI,
 } = env;
 
+const { isDev, SENTRY_DSN } = env;
+
 if (!fs.existsSync(DATA_DIR)) {
   log(DATA_DIR + " not found! creating.");
   fs.mkdirSync(DATA_DIR);
 }
 
-if (!env.USE_CLI) {
-  if (env.SENTRY_DSN.length === 0) {
+if (!USE_CLI) {
+  if (SENTRY_DSN.length === 0) {
     console.warn(
       `Sentry DSN is invalid! Error reporting to sentry will be disabled.`
     );
   } else {
     Sentry.init({
-      dsn: env.SENTRY_DSN,
-      environment: env.isDev ? "dev" : "prod",
+      dsn: SENTRY_DSN,
+      environment: isDev ? "dev" : "prod",
       integrations: [
         new CaptureConsole({ levels: ["warn", "error", "debug", "assert"] }),
       ],

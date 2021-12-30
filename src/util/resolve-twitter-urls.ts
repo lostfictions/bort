@@ -47,7 +47,7 @@ export async function resolveShortlinksInTweet(url: string): Promise<
   // only resolve the last url, in keeping with twitter's styling
   // (TODO: no actually, resolve all the urls plz)
   const resolvedUrl = await axios
-    .head(nestedUrls[nestedUrls.length - 1][0])
+    .head(nestedUrls.at(-1)![0])
     .then((rr) => rr.request.res.responseUrl as string);
 
   // we want to use ytdl to unfold embedded twitter gifs, whereas discord is

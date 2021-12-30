@@ -11,7 +11,7 @@ const slackEscapeRegex = /^<(.+)>$/;
 const traverse = (obj: any, path: string[]): any => {
   try {
     // eslint-disable-next-line no-param-reassign
-    path.forEach((p) => (obj = obj[p]));
+    for (const p of path) obj = obj[p];
     return obj;
   } catch (e) {
     /* just toss out any failure to traverse and return null. */

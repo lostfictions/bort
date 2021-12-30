@@ -26,23 +26,21 @@ const isVowel = (char: string) => /^[aeiou]$/i.test(char);
 // TODO: filter length 0 before passing through to simplify all of these
 export const defaultModifiers: ModifierList = {
   s: (word) => {
-    if (word.length < 1) return word;
-    switch (word[word.length - 1].toLowerCase()) {
+    if (word.length === 0) return word;
+    switch (word.at(-1)!.toLowerCase()) {
       case "s":
       case "h":
       case "x":
         return word + "es";
       case "y":
-        return !isVowel(word[word.length - 2])
-          ? word.substring(0, word.length - 1) + "ies"
-          : word + "s";
+        return !isVowel(word.at(-2)!) ? word.slice(0, -1) + "ies" : word + "s";
       default:
         return word + "s";
     }
   },
   a: (word) => {
     switch (true) {
-      case word.length < 1:
+      case word.length === 0:
         return word;
       case word[0].toLowerCase() === "u" &&
         word.length > 2 &&
@@ -55,28 +53,27 @@ export const defaultModifiers: ModifierList = {
     }
   },
   ed: (word) => {
-    if (word.length < 1) return word;
-    switch (word[word.length - 1]) {
+    if (word.length === 0) return word;
+    switch (word.at(-1)!) {
       case "e":
         return word + "d";
       case "y":
-        return word.length > 1 && !isVowel(word[word.length - 2])
-          ? word.substring(0, word.length - 1) + "ied"
+        return word.length > 1 && !isVowel(word.at(-2)!)
+          ? word.slice(0, -1) + "ied"
           : word + "d";
       default:
         return word + "ed";
     }
   },
   ing: (word) => {
-    if (word.length < 1) return word;
-    if (word[word.length - 1].toLowerCase() === "e") {
-      return word.substring(0, word.length - 1) + "ing";
+    if (word.length === 0) return word;
+    if (word.at(-1)!.toLowerCase() === "e") {
+      return word.slice(0, -1) + "ing";
     }
     return word + "ing";
   },
   upper: (word) => word.toUpperCase(),
-  cap: (word) =>
-    word.length > 0 ? word[0].toUpperCase() + word.substring(1) : "",
+  cap: (word) => (word.length > 0 ? word[0].toUpperCase() + word.slice(1) : ""),
   swap: (word, search, replacement) => word.split(search).join(replacement),
 };
 
@@ -128,8 +125,7 @@ export async function trace({
       modifierList,
     });
 
-    result =
-      result.substring(0, i) + traceResult + result.substring(i + group.length);
+    result = result.slice(0, i) + traceResult + result.slice(i + group.length);
   }
 
   return modifiers.reduce((res, m) => m[0](res, ...m[1]), result);
@@ -150,9 +146,7 @@ export async function tryTrace(
       // eslint-disable-next-line no-await-in-loop
       const traceResult = await trace({ db, concept });
       result =
-        result.substring(0, i) +
-        traceResult +
-        result.substring(i + group.length);
+        result.slice(0, i) + traceResult + result.slice(i + group.length);
     }
     return result;
   }

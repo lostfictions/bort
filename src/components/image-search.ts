@@ -46,7 +46,7 @@ export async function imageSearch({
 
     // rewrite .gifv => .gif
     if (result.endsWith(".gifv")) {
-      result = result.substring(0, result.length - 1);
+      result = result.slice(0, -1);
     }
 
     // test that it actually exists

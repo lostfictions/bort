@@ -35,6 +35,4 @@ const continueSet = new Set([
 ]);
 
 export const endTest = (output: string[]) =>
-  output.length > 3 &&
-  !continueSet.has(output[output.length - 1]) &&
-  Math.random() > 0.8;
+  output.length > 3 && !continueSet.has(output.at(-1)!) && Math.random() > 0.8;

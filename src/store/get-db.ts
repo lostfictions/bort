@@ -53,7 +53,7 @@ const dbCache: { [id: string]: DB } = {};
  * @param id The unique identifier for this store.
  */
 export async function getDb(id: string): Promise<DB> {
-  if (id.length < 1) {
+  if (id.length === 0) {
     throw new Error("Invalid id for store!");
   }
 

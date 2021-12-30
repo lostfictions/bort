@@ -64,7 +64,7 @@ const subCommands = [
 ];
 
 const subcommandsByNameOrAlias: { [name: string]: Command<HandlerArgs> } = {};
-subCommands.forEach((c) => {
+for (const c of subCommands) {
   const allAliases = [c.name, ...(c.aliases ?? [])];
   for (const a of allAliases) {
     if (a in subcommandsByNameOrAlias) {
@@ -75,7 +75,7 @@ subCommands.forEach((c) => {
       subcommandsByNameOrAlias[a] = c;
     }
   }
-});
+}
 
 const subcommandsMatcher = new RegExp(
   `^\\s*(${Object.keys(subcommandsByNameOrAlias)
@@ -153,15 +153,10 @@ const rootCommand = [
         .filter((w) => w.length > 0);
 
       if (words.length > 1) {
-        return getSentence(
-          store,
-          channel,
-          words[words.length - 2],
-          words[words.length - 1]
-        );
+        return getSentence(store, channel, words.at(-2), words.at(-1));
       }
       if (words.length > 0) {
-        return getSentence(store, channel, words[words.length - 1]);
+        return getSentence(store, channel, words.at(-1));
       }
     }
     return getSentence(store, channel);

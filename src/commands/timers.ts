@@ -66,21 +66,6 @@ export default makeCommand(
       }
     }
 
-    const tryHeuristics = (heuristics: (() => string | false)[]) => {
-      for (const h of heuristics) {
-        const tweaked = h();
-        if (tweaked) {
-          const res = chrono
-            .parse(tweaked, undefined, { forwardDate: true })
-            // 'now' doesn't make sense as a time to parse for reminders.
-            .filter((parsed) => parsed.text !== "now");
-
-          if (res.length > 0) return [tweaked, res] as const;
-        }
-      }
-      return false;
-    };
-
     const maybeResult = tryHeuristics([
       () => message,
       // chrono won't recognize "5 minutes" but will recognize "in 5 minutes",
@@ -141,3 +126,18 @@ export default makeCommand(
     } ${humanizedTime}: ${finalMessage} (timer id: ${timerId})`;
   }
 );
+
+function tryHeuristics(heuristics: (() => string | false)[]) {
+  for (const heuristic of heuristics) {
+    const tweaked = heuristic();
+    if (tweaked) {
+      const res = chrono
+        .parse(tweaked, undefined, { forwardDate: true })
+        // 'now' doesn't make sense as a time to parse for reminders.
+        .filter((parsed) => parsed.text !== "now");
+
+      if (res.length > 0) return [tweaked, res] as const;
+    }
+  }
+  return false;
+}

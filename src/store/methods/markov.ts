@@ -114,7 +114,7 @@ export async function getRandomSeed(db: DB, ns = DEFAULT_NAMESPACE) {
   }
 
   const res = randomInArray(entries);
-  const [first, second] = res.key.substring(gte.length).split("|");
+  const [first, second] = res.key.slice(gte.length).split("|");
   assert(first && first.length > 0 && second && second.length > 0);
   return {
     first,
@@ -134,7 +134,7 @@ export async function getFollowingWords(
   const rs = db.createKeyStream({ gte, lt });
   const keys = [];
   for await (const k of rs) {
-    keys.push(k.substr(gte.length));
+    keys.push(k.slice(gte.length));
   }
 
   return keys;

@@ -78,7 +78,7 @@ export async function getConceptList(db: DB): Promise<string[]> {
   const ks = db.createKeyStream({ gte: KEY_PREFIX, lt: KEY_STREAM_TERMINATOR });
   const keys: string[] = [];
   for await (const k of ks) {
-    keys.push(k.substr(KEY_PREFIX.length));
+    keys.push(k.slice(KEY_PREFIX.length));
   }
   return keys;
 }
@@ -88,7 +88,7 @@ export async function initializeConcepts(db: DB): Promise<void> {
     fs.readFileSync(path.join(__dirname, "../../../data/corpora.json"), "utf8")
   );
 
-  [
+  for (const i of [
     "punc",
     "interjection",
     "adj",
@@ -96,10 +96,10 @@ export async function initializeConcepts(db: DB): Promise<void> {
     "digit",
     "consonant",
     "vowel",
-  ].forEach((i) => {
+  ]) {
     assert(Array.isArray(corpora[i]));
     corpora[i].every((c: any) => typeof c === "string");
-  });
+  }
 
   assert(
     Array.isArray(corpora.verb) &&

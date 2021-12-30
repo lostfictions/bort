@@ -14,9 +14,10 @@ const fixtures = fixtureFiles.map((f) => [
 describe("image search", () => {
   describe("parse", () => {
     it("matches snapshots from fixture data", () => {
-      fixtures.forEach(([fixture, fixtureName]) => {
+      expect.hasAssertions();
+      for (const [fixture, fixtureName] of fixtures) {
         expect(parse(fixture)).toMatchSnapshot(fixtureName);
-      });
+      }
     });
   });
 });

@@ -31,11 +31,11 @@ export const defaultModifiers: ModifierList = {
       case "s":
       case "h":
       case "x":
-        return word + "es";
+        return `${word}es`;
       case "y":
-        return !isVowel(word.at(-2)!) ? word.slice(0, -1) + "ies" : word + "s";
+        return !isVowel(word.at(-2)!) ? `${word.slice(0, -1)}ies` : `${word}s`;
       default:
-        return word + "s";
+        return `${word}s`;
     }
   },
   a: (word) => {
@@ -45,32 +45,32 @@ export const defaultModifiers: ModifierList = {
       case word[0].toLowerCase() === "u" &&
         word.length > 2 &&
         word[2].toLowerCase() === "i":
-        return "a " + word;
+        return `a ${word}`;
       case isVowel(word[0]):
-        return "an " + word;
+        return `an ${word}`;
       default:
-        return "a " + word;
+        return `a ${word}`;
     }
   },
   ed: (word) => {
     if (word.length === 0) return word;
     switch (word.at(-1)!) {
       case "e":
-        return word + "d";
+        return `${word}d`;
       case "y":
         return word.length > 1 && !isVowel(word.at(-2)!)
-          ? word.slice(0, -1) + "ied"
-          : word + "d";
+          ? `${word.slice(0, -1)}ied`
+          : `${word}d`;
       default:
-        return word + "ed";
+        return `${word}ed`;
     }
   },
   ing: (word) => {
     if (word.length === 0) return word;
     if (word.at(-1)!.toLowerCase() === "e") {
-      return word.slice(0, -1) + "ing";
+      return `${word.slice(0, -1)}ing`;
     }
-    return word + "ing";
+    return `${word}ing`;
   },
   upper: (word) => word.toUpperCase(),
   cap: (word) => (word.length > 0 ? word[0].toUpperCase() + word.slice(1) : ""),

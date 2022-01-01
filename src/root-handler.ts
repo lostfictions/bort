@@ -99,7 +99,7 @@ const helpCommand = makeCommand(
           const reply = [command.name];
           if (command.aliases) {
             reply.push(
-              "Aliases: " + command.aliases.map((a) => `*${a}*`).join(", ")
+              `Aliases: ${command.aliases.map((a) => `*${a}*`).join(", ")}`
             );
           }
           if (command.description) {
@@ -126,13 +126,14 @@ const helpCommand = makeCommand(
     const listens = concepts.filter((c: string) => c.startsWith("!"));
     const others = concepts.filter((c: string) => !c.startsWith("!"));
 
-    return (
-      "**Commands:**\n" +
-      subCommands.map((c) => `· *${c.name}* - ${c.description}`).join("\n") +
-      "\n" +
-      (listens.length > 0 ? `**Listens:**\n· ${listens.join(", ")}\n` : "") +
-      (others.length > 0 ? `**Concepts:**\n· ${others.join(", ")}` : "")
-    );
+    return [
+      "**Commands:**",
+      subCommands.map((c) => `· *${c.name}* - ${c.description}`).join("\n"),
+      listens.length > 0 ? `**Listens:**\n· ${listens.join(", ")}` : "",
+      others.length > 0 ? `**Concepts:**\n· ${others.join(", ")}` : "",
+    ]
+      .filter((str) => str)
+      .join("\n");
   }
 );
 

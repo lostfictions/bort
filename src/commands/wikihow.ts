@@ -36,7 +36,7 @@ export default makeCommand(
     const recents = await getRecents(store);
 
     let result = await imageSearch({
-      term: message + " site:wikihow.com",
+      term: `${message} site:wikihow.com`,
       recents,
     });
 

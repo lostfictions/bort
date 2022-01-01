@@ -94,8 +94,8 @@ export async function initializeMarkov(
 
 export async function getRandomSeed(db: DB, ns = DEFAULT_NAMESPACE) {
   const prefix = prefixForward(ns);
-  const gte = prefix + ":";
-  const lt = prefix + ";";
+  const gte = `${prefix}:`;
+  const lt = `${prefix};`;
   const rs = db.createReadStream<MarkovEntry>({ gte, lt });
   const entries = [];
   for await (const entry of rs) {
@@ -126,8 +126,8 @@ export async function getFollowingWords(
   ns = DEFAULT_NAMESPACE
 ): Promise<string[]> {
   const prefix = `${prefixForward(ns)}:${first}`;
-  const gte = prefix + "|";
-  const lt = prefix + "}"; // "}" follows "|" in char code values
+  const gte = `${prefix}|`;
+  const lt = `${prefix}}`; // "}" follows "|" in char code values
   const rs = db.createKeyStream({ gte, lt });
   const keys = [];
   for await (const k of rs) {

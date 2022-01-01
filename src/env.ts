@@ -38,7 +38,7 @@ export const {
 const { isDev, SENTRY_DSN } = env;
 
 if (!fs.existsSync(DATA_DIR)) {
-  log(DATA_DIR + " not found! creating.");
+  log(`${DATA_DIR} not found! creating.`);
   fs.mkdirSync(DATA_DIR);
 }
 

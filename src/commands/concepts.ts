@@ -119,14 +119,13 @@ export const conceptListCommand = makeCommand(
 
     const items = Object.keys(concepts);
     if (items.length > 100) {
-      return (
-        `"${message}" has ${items.length} items in it! Only showing the first 100.\n` +
-        items.slice(0, 100).join(", ")
-      );
+      return [
+        `"${message}" has ${items.length} items in it! Only showing the first 100.`,
+        items.slice(0, 100).join(", "),
+      ].join("\n");
     }
-    return (
-      `*${message}:*\n` + (items.length > 0 ? items.join(", ") : "_Empty._")
-    );
+    const itemList = items.length > 0 ? items.join(", ") : "_Empty._";
+    return `*${message}:*\n${itemList}`;
   }
 );
 

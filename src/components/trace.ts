@@ -116,7 +116,6 @@ export async function trace({
     const [group, nextConcept] = match;
     const i = match.index!;
 
-    // eslint-disable-next-line no-await-in-loop
     const traceResult = await trace({
       db,
       concept: nextConcept,
@@ -143,7 +142,6 @@ export async function tryTrace(
       const [group, concept] = match;
       const i = match.index!;
 
-      // eslint-disable-next-line no-await-in-loop
       const traceResult = await trace({ db, concept });
       result =
         result.slice(0, i) + traceResult + result.slice(i + group.length);

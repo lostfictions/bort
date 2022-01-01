@@ -55,7 +55,6 @@ export async function addSentence(
   for (const line of lines) {
     const words = line.split(/\s/gi).map(wordNormalizer).filter(wordFilter);
 
-    /* eslint-disable no-await-in-loop */
     for (let i = 0; i < words.length - 2; i++) {
       const first = words[i];
       const second = words[i + 1];
@@ -71,7 +70,6 @@ export async function addSentence(
       revEntry[first] = (revEntry[first] || 0) + 1;
       await db.put<MarkovEntry>(revKey, revEntry);
     }
-    /* eslint-enable no-await-in-loop */
   }
 }
 
@@ -90,7 +88,6 @@ export async function initializeMarkov(
   assert(tarotLines.every((l) => typeof l === "string"));
 
   for (const line of tarotLines) {
-    // eslint-disable-next-line no-await-in-loop
     await addSentence(db, line, ns);
   }
 }
@@ -191,7 +188,7 @@ export async function getSentence(
     sentence.push(next);
     first = second!;
     second = next;
-    // eslint-disable-next-line no-await-in-loop
+
     entry = await getEntry(db, first, second, ns);
   } while (entry && !endTest(sentence));
 

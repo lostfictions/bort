@@ -156,7 +156,6 @@ export function makeDiscordBot(discordToken: string) {
 
       timeouts = [];
 
-      /* eslint-disable no-await-in-loop */
       for (const guild of client.guilds.cache.array()) {
         const storeName = getStoreNameForGuild(guild);
         const store = await getDb(storeName);
@@ -181,7 +180,6 @@ export function makeDiscordBot(discordToken: string) {
         });
         timeouts.push(...guildTimeouts);
       }
-      /* eslint-enable no-await-in-loop */
     };
 
     // because timeouts more than ~24 days into the future will overflow
@@ -232,7 +230,6 @@ export function makeDiscordBot(discordToken: string) {
   client.on("guildCreate", async (guild) => {
     console.log(`Added to guild: "${guild.name}". Initializing channels...`);
     for (const channel of guild.channels.cache.values()) {
-      // eslint-disable-next-line no-await-in-loop
       await initializeChannel(channel);
     }
     console.log(`Done initializing channels for guild ${guild.name}`);

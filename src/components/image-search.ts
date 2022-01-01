@@ -51,7 +51,6 @@ export async function imageSearch({
 
     // test that it actually exists
     try {
-      // eslint-disable-next-line no-await-in-loop
       await axios.head(result);
       return result;
     } catch {

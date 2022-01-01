@@ -22,7 +22,6 @@ export async function processMessage<TData = DefaultData>(
   }
 
   for (const handler of handlerOrHandlers) {
-    // eslint-disable-next-line no-await-in-loop
     const res = await processMessage(handler, data);
 
     if (res !== false) {

@@ -46,7 +46,6 @@ export default makeCommand(
       for (const match of matches.reverse()) {
         const [start, end] = match.indices![0];
 
-        // eslint-disable-next-line no-await-in-loop
         const maybeReplaced = await busey(
           match[0].replaceAll(".", ""),
           store,
@@ -76,7 +75,6 @@ async function busey(
   // could actually be a proper search instead of this janky iterative thing
   // but we only have so much time and patience (computationally and in life)
   for (let i = 0; i < letters.length; i++) {
-    /* eslint-disable no-await-in-loop */
     const letter = letters[i];
     // just reinsert punctuation and whatever else and move on
     if (!/[A-Za-z]/.test(letter)) {
@@ -179,7 +177,6 @@ async function busey(
       const [word] = randomInArray(others);
       acro.push(word);
     }
-    /* eslint-enable no-await-in-loop */
   }
 
   // Capitalize each word and join them into a string.

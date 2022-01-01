@@ -45,6 +45,7 @@ export default makeCommand(
     }
 
     try {
+      // eslint-disable-next-line no-new
       new URL(url);
     } catch {
       return `Error: '${url}' doesn't appear to be a valid URL.\n${usage}`;

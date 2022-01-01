@@ -1,4 +1,3 @@
-/* eslint-disable no-await-in-loop */
 import { setImmediate } from "timers/promises";
 
 import { unfold } from "./unfold";

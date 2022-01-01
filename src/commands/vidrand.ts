@@ -37,7 +37,6 @@ export async function getFilmUrlsFromLetterboxdList(
 
     let res: AxiosResponse;
     try {
-      // eslint-disable-next-line no-await-in-loop
       res = await axios(resolvedUrl);
     } catch (e: any) {
       if (e.response?.status === 404) {

@@ -15,7 +15,6 @@ export async function recordEmojiCountInMessage({
 
   if (emojis.length > 0) {
     for (const match of emojis) {
-      // eslint-disable-next-line no-await-in-loop
       await incrementChatEmojiCount(store, match[2]);
     }
   }

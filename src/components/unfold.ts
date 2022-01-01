@@ -41,7 +41,6 @@ async function extractAndUnfoldTwitterUrls({
     (res) => res[0]
   );
 
-  /* eslint-disable no-await-in-loop */
   for (const url of twitterUrls) {
     try {
       let cachedReply = cachedUnfoldResults.get(url);
@@ -86,7 +85,6 @@ async function extractAndUnfoldTwitterUrls({
       console.error("Error while unfolding:\n", e);
     }
   }
-  /* eslint-enable no-await-in-loop */
 }
 
 // const tiktokVideoUrlMatcher =
@@ -103,7 +101,6 @@ async function extractAndUnfoldTwitterUrls({
 //     (res) => res[0]
 //   );
 
-//   /* eslint-disable no-await-in-loop */
 //   for (const url of tiktokUrls) {
 //     try {
 //       let cachedReply = cachedUnfoldResults.get(url);
@@ -120,5 +117,4 @@ async function extractAndUnfoldTwitterUrls({
 //       console.error("Error while unfolding:\n", e);
 //     }
 //   }
-//   /* eslint-enable no-await-in-loop */
 // }

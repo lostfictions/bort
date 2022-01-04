@@ -4,6 +4,7 @@
   "version": "2.0.0",
   "tasks": [
     {
+      "label": "typescript project-wide errors",
       "type": "typescript",
       "tsconfig": "tsconfig.json",
       "option": "watch",
@@ -14,6 +15,14 @@
         "kind": "test",
         "isDefault": true
       }
+    },
+    {
+      "label": "eslint project-wide errors",
+      "type": "npm",
+      "script": "test:eslint",
+      "problemMatcher": [
+        "$eslint-stylish"
+      ],
     }
   ]
 }

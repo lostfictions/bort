@@ -45,7 +45,7 @@ export type DB = {
   ) => AsyncIterable<{ key: string; value: T }>;
 };
 
-const dbCache: { [id: string]: DB } = {};
+const dbCache = new Map<string, DB>();
 
 /**
  * Get or create a store for a given ID. If you don't want different services or
@@ -57,8 +57,10 @@ export async function getDb(id: string): Promise<DB> {
     throw new Error("Invalid id for store!");
   }
 
-  if (id in dbCache) {
-    return dbCache[id];
+  const maybeDb = dbCache.get(id);
+
+  if (maybeDb) {
+    return maybeDb;
   }
 
   const db = await loadOrInitializeDb(id);
@@ -71,7 +73,7 @@ export async function getDb(id: string): Promise<DB> {
   setTimeout(doClean, 60_000);
   /* eslint-enable @typescript-eslint/no-misused-promises */
 
-  dbCache[id] = db;
+  dbCache.set(id, db);
   return db;
 }
 

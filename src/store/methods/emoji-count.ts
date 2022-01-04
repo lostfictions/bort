@@ -15,6 +15,8 @@ export async function incrementChatEmojiCount(
 ): Promise<void> {
   const emoji = await db.get<EmojiCountData>(key);
 
+  // TODO [-level] replace `in` operator
+  // eslint-disable-next-line no-restricted-syntax
   if (!(id in emoji)) {
     emoji[id] = { chatCount: 0, reactionCount: 0 };
   }
@@ -29,6 +31,8 @@ export async function incrementReactionEmojiCount(
 ): Promise<void> {
   const emoji = await db.get<EmojiCountData>(key);
 
+  // TODO [-level] replace `in` operator
+  // eslint-disable-next-line no-restricted-syntax
   if (!(id in emoji)) {
     emoji[id] = { chatCount: 0, reactionCount: 0 };
   }
@@ -43,6 +47,8 @@ export async function decrementReactionEmojiCount(
 ): Promise<void> {
   const emoji = await db.get<EmojiCountData>(key);
 
+  // TODO [-level] replace `in` operator
+  // eslint-disable-next-line no-restricted-syntax
   if (!(id in emoji)) {
     emoji[id] = { chatCount: 0, reactionCount: 0 };
   }

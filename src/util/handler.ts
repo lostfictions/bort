@@ -77,6 +77,9 @@ export function makeCommand<TData extends { message: string } = HandlerArgs>(
   };
 
   for (const prop of ["usage", "description", "details", "aliases"]) {
+    /* eslint-disable-next-line no-restricted-syntax --
+     * safe with known object and array of unproblematic literals
+     */
     if (prop in options) {
       (command as any)[prop] = (options as any)[prop];
     }

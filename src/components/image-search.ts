@@ -32,6 +32,8 @@ export async function imageSearch({
 
     if (recents) {
       for (let i = sliced.length - 1; i >= 0; i--) {
+        // TODO [-level] replace `in` operator
+        // eslint-disable-next-line no-restricted-syntax
         if (sliced[i] in recents) {
           sliced.splice(i, 1);
         }

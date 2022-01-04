@@ -53,6 +53,8 @@ export async function addTimer(db: DB, payload: TimerPayload): Promise<string> {
 
 export async function removeTimer(db: DB, id: string): Promise<boolean> {
   const t = await db.get<Timers>(key);
+  // TODO [-level] replace `in` operator
+  // eslint-disable-next-line no-restricted-syntax
   if (id in t.timers) {
     delete t.timers[id];
     await db.put<Timers>(key, t);

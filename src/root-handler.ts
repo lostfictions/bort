@@ -63,22 +63,24 @@ const subCommands = [
   unfoldCommand,
 ];
 
-const subcommandsByNameOrAlias: { [name: string]: Command<HandlerArgs> } = {};
+const subcommandsByNameOrAlias = new Map<string, Command<HandlerArgs>>();
+
 for (const c of subCommands) {
   const allAliases = [c.name, ...(c.aliases ?? [])];
   for (const a of allAliases) {
-    if (a in subcommandsByNameOrAlias) {
+    const maybeCommand = subcommandsByNameOrAlias.get(a);
+    if (maybeCommand) {
       console.error(
-        `Command named ${a} already exists in command list! (Canonical name ${subcommandsByNameOrAlias[a].name})`
+        `Command named ${a} already exists in command list! (Canonical name ${maybeCommand.name})`
       );
     } else {
-      subcommandsByNameOrAlias[a] = c;
+      subcommandsByNameOrAlias.set(a, c);
     }
   }
 }
 
 const subcommandsMatcher = new RegExp(
-  `^\\s*(${Object.keys(subcommandsByNameOrAlias)
+  `^\\s*(${[...subcommandsByNameOrAlias.keys()]
     .map((a) => escapeForRegex(a))
     .join("|")})\\s*$`
 );
@@ -93,7 +95,7 @@ const helpCommand = makeCommand(
     if (message.trim().length > 0) {
       const match = message.match(subcommandsMatcher);
       if (match) {
-        const command = subcommandsByNameOrAlias[match[1]];
+        const command = subcommandsByNameOrAlias.get(match[1]);
 
         if (command) {
           const reply = [command.name];

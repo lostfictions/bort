@@ -8,6 +8,8 @@ export default function makeMockDb(store: { [key: string]: any } = {}): {
     store,
     db: {
       async get<T = any>(key: string): Promise<T> {
+        // TODO [-level] replace `in` operator
+        // eslint-disable-next-line no-restricted-syntax
         if (!(key in store)) {
           // eslint-disable-next-line @typescript-eslint/no-throw-literal
           throw { notFound: true };

@@ -44,6 +44,8 @@ export async function addToConcept(
 ): Promise<void> {
   const c = await db.get<Concept>(key(concept));
   for (const i of items) {
+    // TODO [-level] replace `in` operator
+    // eslint-disable-next-line no-restricted-syntax
     if (!(i in c)) {
       c[i] = 1;
     }

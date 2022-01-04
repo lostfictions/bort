@@ -77,17 +77,17 @@ export async function initializeMarkov(
   db: DB,
   ns = DEFAULT_NAMESPACE
 ): Promise<void> {
-  const tarotLines: string[] = JSON.parse(
+  const { tarotLines } = JSON.parse(
     await fs.readFile(
       path.join(__dirname, "../../../data/corpora.json"),
       "utf8"
     )
-  ).tarotLines;
+  );
 
   assert(Array.isArray(tarotLines));
   assert(tarotLines.every((l) => typeof l === "string"));
 
-  for (const line of tarotLines) {
+  for (const line of tarotLines as string[]) {
     await addSentence(db, line, ns);
   }
 }

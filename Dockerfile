@@ -20,5 +20,6 @@ COPY data ./data
 COPY --from=build /code/node_modules ./node_modules
 COPY --from=build /code/dist ./dist
 ENV NODE_ENV=production
+ENV NODE_OPTIONS='--enable-source-maps'
 ENV DEBUG=bort
 ENTRYPOINT ["node", "dist/main.js"]

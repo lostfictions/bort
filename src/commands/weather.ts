@@ -59,6 +59,10 @@ export default makeCommand(
       return false;
     }
 
+    if (!OPEN_WEATHER_MAP_KEY) {
+      return `can't tell da weather... i wasn't passed an openweathermap key on launch :(`;
+    }
+
     const trimmed = message.trim();
 
     const query = /^[0-9]{5}$/.test(trimmed)

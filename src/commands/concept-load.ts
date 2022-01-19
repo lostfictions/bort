@@ -1,5 +1,6 @@
 import { URL } from "url";
 import axios from "axios";
+import { stripIndent, oneLine } from "common-tags";
 
 import { makeCommand } from "../util/handler";
 import { addConcept, getConcept } from "../store/methods/concepts";
@@ -19,14 +20,41 @@ const traverse = (obj: any, path: string[]): any => {
   return null;
 };
 
-const usage = `*load* usage: [url] path=[path] as [concept]`;
+const usage = stripIndent`
+  ${oneLine`
+    \`load\` is a command that allows you to pull in a concept from a file on
+    the internet. the file can be in **json** or **plaintext** (with each
+    concept on its own line). you need to specify which concept the loaded
+    concepts should be stored under with \`as <conceptname>\`.
+  `}
+
+  **plaintext example:**
+
+  > bort load \`https://coolhorse.horse/quotes.txt\` as \`horse\`
+
+  ${oneLine`
+    for json, you must specify the **path** to the array of concepts you want --
+    the series of keys under which the array is nested. if your json looks like
+    this:
+  `}
+
+  \`\`\`json
+  { "cool": { "dudes": ["alfonso", "garfunkel"] }  }
+  \`\`\`
+
+  the path would be \`cool.dudes\`.
+
+  **json example:**
+
+  > bort load \`https://coolhorse.horse/quotes.json\` path=\`horseQuotes\` as \`horse\`
+`;
 
 export default makeCommand(
   {
     name: "load",
     aliases: ["json"],
     description:
-      "load a concept list from a url, overwriting existing concept if it exists",
+      "load a concept list from a url, overwriting the existing concept if it exists",
   },
   async ({ message, store }) => {
     const matches = loaderRegex.exec(message);
@@ -36,7 +64,7 @@ export default makeCommand(
 
     const [, rawUrl, rawPath, concept] = matches;
 
-    const path = rawPath.split(".");
+    const path = rawPath?.split(".");
 
     let url = rawUrl;
     const slackFixedUrl = slackEscapeRegex.exec(rawUrl);
@@ -51,13 +79,20 @@ export default makeCommand(
       return `Error: '${url}' doesn't appear to be a valid URL.\n${usage}`;
     }
 
-    const { data: json } = await axios.get(url, { responseType: "json" });
+    // responseType: json attempts to convert to json, but falls back to string if not.
+    const { data: maybeJson } = await axios.get(url, { responseType: "json" });
 
+    const result: string[] = [];
     let items: string[];
-    if (path) {
-      const itemOrItems = traverse(json, path);
+    if (typeof maybeJson === "string") {
+      result.push(
+        "Response type appears to be plaintext. Splitting to newlines."
+      );
+      items = maybeJson.split("\n").map((l) => l.trim());
+    } else if (path) {
+      const itemOrItems = traverse(maybeJson, path);
       if (!itemOrItems) {
-        const validKeys = Object.keys(json)
+        const validKeys = Object.keys(maybeJson)
           .slice(0, 5)
           .map((k) => `'${k}'`)
           .join(", ");
@@ -71,24 +106,21 @@ export default makeCommand(
         const item = itemOrItems.toString();
         if (item === "[object Object]") {
           throw new Error(
-            `Requested item does not appear to be a primitive or array! Aborting.`
+            `The item at "${path}" does not appear to be a primitive or array!`
           );
         }
         items = [item];
       }
-    } else if (Array.isArray(json)) {
-      items = json.map((i) => i.toString());
+    } else if (Array.isArray(maybeJson)) {
+      result.push("Response type appears to be a JSON array.");
+      items = maybeJson.map((i) => i.toString());
     } else {
-      const item = json.toString();
-      if (item === "[object Object]") {
-        throw new Error(
-          `Requested item does not appear to be a primitive or array! Aborting.`
-        );
-      }
-      items = [item];
+      throw new Error(oneLine`
+        The file at this URL seems to be JSON, but it's not an array.
+        (Did you forget to specify a \`path\` for the load command?)
+      `);
     }
 
-    const result: string[] = [];
     const maybeConcept = await getConcept(store, message);
     if (maybeConcept) {
       const count = Object.keys(maybeConcept).length;

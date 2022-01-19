@@ -22,9 +22,9 @@ const traverse = (obj: any, path: string[]): any => {
 
 const usage = stripIndent`
   ${oneLine`
-    \`load\` is a command that allows you to pull in a concept from a file on
-    the internet. the file can be in **plaintext** (with each concept on its own
-    line) or in **json**. you need to specify which concept the loaded
+    \`load\` is a command that allows you to pull in a concept list from a file
+    on the internet. the file can be in **plaintext** (with each concept on its
+    own line) or in **json**. you need to specify which concept the loaded
     concepts should be stored under with \`as <conceptname>\`.
   `}
 
@@ -33,11 +33,11 @@ const usage = stripIndent`
 
   ${oneLine`
     for json, you must specify the **path** to the array of concepts you want --
-    the series of keys under which the array is nested. if your json looks like
-    this:
+    the series of keys under which the array is nested. each key in the path
+    should be joined by spaces: \`a.b.c\`. so if your json looks like this:
   `}
   \`\`\`json
-  { "cool": { "dudes": ["alfonso", "garfunkel"] }  }
+  { "cool": { "dudes": ["alfonso", "garfunkel"] } }
   \`\`\`
   the path would be \`cool.dudes\`.
 

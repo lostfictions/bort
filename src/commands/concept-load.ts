@@ -23,30 +23,26 @@ const traverse = (obj: any, path: string[]): any => {
 const usage = stripIndent`
   ${oneLine`
     \`load\` is a command that allows you to pull in a concept from a file on
-    the internet. the file can be in **json** or **plaintext** (with each
-    concept on its own line). you need to specify which concept the loaded
+    the internet. the file can be in **plaintext** (with each concept on its own
+    line) or in **json**. you need to specify which concept the loaded
     concepts should be stored under with \`as <conceptname>\`.
   `}
 
-  **plaintext example:**
-
-  > bort load \`https://coolhorse.horse/quotes.txt\` as \`horse\`
+  **here's a plaintext example:**
+  \`bort load https://coolhorse.horse/quotes.txt as horse\`
 
   ${oneLine`
     for json, you must specify the **path** to the array of concepts you want --
     the series of keys under which the array is nested. if your json looks like
     this:
   `}
-
   \`\`\`json
   { "cool": { "dudes": ["alfonso", "garfunkel"] }  }
   \`\`\`
-
   the path would be \`cool.dudes\`.
 
-  **json example:**
-
-  > bort load \`https://coolhorse.horse/quotes.json\` path=\`horseQuotes\` as \`horse\`
+  **here's a json example:**
+  \`bort load https://coolhorse.horse/quotes.json path=horseQuotes as horse\`
 `;
 
 export default makeCommand(

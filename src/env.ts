@@ -1,7 +1,9 @@
+/* eslint-disable node/no-process-env */
+
 import fs from "fs";
 
 import { parseEnv, port, z } from "znv";
-import * as Sentry from "@sentry/node";
+import { init as initSentry } from "@sentry/node";
 import { CaptureConsole } from "@sentry/integrations";
 import debug from "debug";
 import { oneLine } from "common-tags";
@@ -67,7 +69,7 @@ if (!USE_CLI) {
       `Sentry DSN is invalid! Error reporting to sentry will be disabled.`
     );
   } else {
-    Sentry.init({
+    initSentry({
       dsn: SENTRY_DSN,
       environment: isDev ? "dev" : "prod",
       integrations: [

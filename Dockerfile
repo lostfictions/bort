@@ -1,24 +1,25 @@
-FROM node:16.9.1 AS build
-WORKDIR /code
+FROM node:16.13.2 AS build
+WORKDIR /app
+ENV YARN_CACHE_FOLDER=/root/.yarn
 COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile
+RUN --mount=type=cache,target=/root/.yarn yarn install --frozen-lockfile
 COPY src ./src
-COPY defs ./defs
 COPY tsconfig.json ./
 # we re-run `yarn install --production` to strip the unneeded devDeps from
 # node_modules after the build is done.
-RUN yarn build && yarn install --frozen-lockfile --production
+RUN --mount=type=cache,target=/root/.yarn yarn build && yarn install --frozen-lockfile --production --offline
 
-FROM node:16.9.1
-WORKDIR /code
-ENV PYTHONUNBUFFERED=1
+FROM node:16.13.2
+WORKDIR /app
 RUN wget -q \
-  https://github.com/ytdl-org/youtube-dl/releases/download/2021.06.06/youtube-dl \
+  https://github.com/ytdl-org/youtube-dl/releases/download/2021.12.17/youtube-dl \
   -O /usr/local/bin/ytdl \
   && chmod a+rx /usr/local/bin/ytdl
 COPY data ./data
-COPY --from=build /code/node_modules ./node_modules
-COPY --from=build /code/dist ./dist
+COPY --from=build /app/node_modules ./node_modules
+COPY --from=build /app/dist ./dist
+# ensure python output is output immediately to logs
+ENV PYTHONUNBUFFERED=1
 ENV NODE_ENV=production
 ENV NODE_OPTIONS='--enable-source-maps'
 ENV DEBUG=bort

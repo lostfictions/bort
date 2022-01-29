@@ -1,8 +1,7 @@
 /* eslint-disable node/no-process-env */
 
 import fs from "fs";
-
-import { parseEnv, port, z } from "znv";
+import { parseEnv, z } from "znv";
 import { init as initSentry } from "@sentry/node";
 import { CaptureConsole } from "@sentry/integrations";
 import debug from "debug";
@@ -21,13 +20,17 @@ export const {
   DATA_DIR,
   DISCORD_TOKEN,
   OPEN_WEATHER_MAP_KEY,
-  HOSTNAME,
-  PORT,
   SENTRY_DSN,
   USE_CLI,
 } = parseEnv(process.env, {
-  BOT_NAME: { schema: z.string().nonempty(), defaults: { _: "bort" } },
-  DATA_DIR: { schema: z.string().nonempty(), defaults: { _: "persist" } },
+  BOT_NAME: z.string().nonempty().default("bort"),
+  DATA_DIR: {
+    schema: z.string().nonempty(),
+    defaults: {
+      production: undefined,
+      _: "persist",
+    },
+  },
   DISCORD_TOKEN: {
     schema: z.string(),
     defaults: {
@@ -36,14 +39,6 @@ export const {
     },
   },
   OPEN_WEATHER_MAP_KEY: z.string().optional(),
-  HOSTNAME: {
-    schema: z.string(),
-    defaults: { development: "localhost" },
-  },
-  PORT: {
-    schema: port(),
-    defaults: { development: 8080 },
-  },
   SENTRY_DSN: { schema: z.string().nonempty().optional() },
   USE_CLI: {
     schema: z.boolean().default(false),

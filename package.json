@@ -13,7 +13,7 @@
     "build": "rm -rf dist/ && tsc",
     "test": "run-p -cl test:*",
     "test:ts": "tsc --noEmit",
-    "test:eslint": "eslint --color 'src/**/*'",
+    "test:eslint": "eslint --color --max-warnings=0 'src/**/*'",
     "test:jest": "jest --colors",
     "test:prettier": "prettier 'src/**/*' -l",
     "prettier": "prettier 'src/**/*' --write",

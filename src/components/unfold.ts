@@ -1,7 +1,7 @@
 import LRU from "lru-cache";
 
 import { getUnfoldEnabled } from "../store/methods/unfold";
-import { getVideoUrl, getYtdlAvailable } from "../util/get-video-url";
+import { getVideoUrl } from "../util/get-video-url";
 import {
   baseTwitterUrlMatcher,
   resolveShortlinksInTweet,
@@ -10,8 +10,11 @@ import {
   twitterVideoUrlMatcher,
   youtubeVideoUrlMatcher,
 } from "../util/resolve-twitter-urls";
+import { YTDL_COMMAND } from "../env";
 
 import type { HandlerArgs } from "../handler-args";
+
+const ytdlAvailable = YTDL_COMMAND != null;
 
 const cachedUnfoldResults = new LRU<string, string | false>({
   max: 5_000,
@@ -35,8 +38,6 @@ async function extractAndUnfoldTwitterUrls({
   message,
   sendMessage,
 }: HandlerArgs): Promise<void> {
-  const ytdlAvailable = getYtdlAvailable();
-
   const twitterUrls = [...message.matchAll(baseTwitterUrlMatcher)].map(
     (res) => res[0]
   );

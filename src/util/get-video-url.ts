@@ -1,38 +1,10 @@
 import { URL } from "url";
 import execa from "execa";
 
-let ytdlCommand: string | null = null;
-const errors = [];
-try {
-  execa.sync("which", ["ytdl"]);
-  ytdlCommand = "ytdl";
-} catch (e) {
-  errors.push(e);
-}
-
-if (!ytdlCommand) {
-  try {
-    execa.sync("which", ["youtube-dl"]);
-    ytdlCommand = "youtube-dl";
-  } catch (e) {
-    errors.push(e);
-  }
-}
-
-if (!ytdlCommand) {
-  console.warn(
-    "ytdl command not available, disabling twitter video unfold functionality.",
-    "details:\n",
-    errors.join("\n\n")
-  );
-}
-
-export function getYtdlAvailable() {
-  return ytdlCommand !== null;
-}
+import { YTDL_COMMAND } from "../env";
 
 export async function getVideoUrl(sourceUrl: string) {
-  if (!ytdlCommand) throw new Error("ytdl not available!");
+  if (!YTDL_COMMAND) throw new Error("ytdl not available!");
 
   try {
     const url = new URL(sourceUrl);
@@ -46,7 +18,7 @@ export async function getVideoUrl(sourceUrl: string) {
   const execRes = (await Promise.race([
     // uhhh this is passing user input to the command line i guess
     // but hey if it's a valid whatwg url i'm sure it's fine
-    execa(ytdlCommand, [
+    execa(YTDL_COMMAND, [
       // even if we're just getting the url, ytdl complains if we don't set this
       "--restrict-filenames",
       "--socket-timeout",

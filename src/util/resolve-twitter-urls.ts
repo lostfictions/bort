@@ -1,5 +1,8 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import cheerio from "cheerio";
+
+const SCRAPER_UA =
+  "facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)";
 
 export const baseTwitterUrlMatcher =
   /https:\/\/(?:(?:m\.)?twitter\.com|t\.co)\/[a-zA-Z0-9-_/?=&]+/gi;
@@ -23,8 +26,7 @@ export async function resolveShortlinksInTweet(url: string): Promise<
     responseType: "text",
     // https://stackoverflow.com/a/64164115
     headers: {
-      "User-Agent":
-        "facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)",
+      "User-Agent": SCRAPER_UA,
       Range: "bytes=0-524288",
       Connection: "close",
     },
@@ -44,29 +46,43 @@ export async function resolveShortlinksInTweet(url: string): Promise<
     return false;
   }
 
-  // only resolve the last url, in keeping with twitter's styling
-  // (TODO: no actually, resolve all the urls plz)
-  const resolvedUrl = await axios
-    .head(nestedUrls.at(-1)![0])
-    .then((rr) => rr.request.res.responseUrl as string);
+  try {
+    // only resolve the last url, in keeping with twitter's styling
+    // (TODO: no actually, resolve all the urls plz)
+    const resolvedUrl = await axios
+      .head(nestedUrls.at(-1)![0], {
+        headers: { "User-Agent": SCRAPER_UA },
+        maxRedirects: 1,
+      })
+      .then((rr) => rr.request.res.responseUrl as string);
 
-  // we want to use ytdl to unfold embedded twitter gifs, whereas discord is
-  // smart enough to include twitter still images in the tweet embed. however,
-  // still images and gifs aren't distinguishable by url: they're both in the
-  // format https://twitter.com/<user>/status/<id>/photo/...
+    // we want to use ytdl to unfold embedded twitter gifs, whereas discord is
+    // smart enough to include twitter still images in the tweet embed. however,
+    // still images and gifs aren't distinguishable by url: they're both in the
+    // format https://twitter.com/<user>/status/<id>/photo/...
 
-  // the only way i've found to tell the difference is: images will have the
-  // og:image tag set to the image url and og:image:user_generated set to
-  // 'true'. gifs seemingly won't.
+    // the only way i've found to tell the difference is: images will have the
+    // og:image tag set to the image url and og:image:user_generated set to
+    // 'true'. gifs seemingly won't.
 
-  // since tweets currently at most have one gif or video OR one or more images
-  // -- you can't mix and match stills and gifs -- if the og attribute is
-  // present and true, we know it's not a gif.
-  const hasStillImage =
-    $('meta[property="og:image:user_generated"]').attr("content") === "true";
+    // since tweets currently at most have one gif or video OR one or more images
+    // -- you can't mix and match stills and gifs -- if the og attribute is
+    // present and true, we know it's not a gif.
+    const hasStillImage =
+      $('meta[property="og:image:user_generated"]').attr("content") === "true";
 
-  return {
-    resolvedUrl,
-    hasStillImage,
-  };
+    return {
+      resolvedUrl,
+      hasStillImage,
+    };
+  } catch (e) {
+    if (e instanceof AxiosError) {
+      console.error(
+        `Error resolving Twitter URL: ${nestedUrls.at(-1)![0]}: ${
+          e.message
+        } [code ${e.code}]`
+      );
+    }
+    throw e;
+  }
 }

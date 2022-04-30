@@ -1,1 +1,1 @@
-declare module 'cmu-pronouncing-dictionary'
+declare module "cmu-pronouncing-dictionary";

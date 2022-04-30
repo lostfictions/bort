@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/method-signature-style */
+
 declare module "level" {
   import { LevelUp } from "levelup";
 

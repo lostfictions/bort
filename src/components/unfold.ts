@@ -3,8 +3,8 @@ import LRU from "lru-cache";
 import { getUnfoldEnabled } from "../store/methods/unfold";
 import { getVideoUrl } from "../util/get-video-url";
 import {
-  baseTwitterUrlMatcher,
   resolveShortlinksInTweet,
+  baseTwitterUrlMatcher,
   twitterGifOrImageUrlMatcher,
   twitterQTUrlMatcher,
   twitterVideoUrlMatcher,

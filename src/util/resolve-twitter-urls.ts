@@ -52,22 +52,40 @@ export async function resolveShortlinksInTweet(url: string): Promise<
         .head(matchUrl, {
           headers: { "User-Agent": SCRAPER_UA },
           // for some reason twitter has started 302-ing multiple times for
-          // internal URLs, causing a redirect chain -- one that ends in a 404. we
-          // can hack around this by capping at one redirect. a more robust (or at
-          // least less blunt) solution might be to use axios's `beforeRedirect`
-          // instead, but this seems to fix the problem for now.
-          maxRedirects: 1,
+          // internal URLs, causing a redirect chain -- one that ends in a 404.
+          // we use axios's `beforeRedirect` to try to abort in circumstances
+          // where this is happening.
+          //
+          // maxRedirects: 21 should be the default, but let's set it explicitly
+          // anyway. if it's 0, apparently beforeRedirect isn't called.
+          maxRedirects: 21,
+          beforeRedirect: (_options, { headers }) => {
+            if (twitterVideoUrlMatcher.test(headers.location)) {
+              // according to the axios docs, it seems the only way we can break
+              // a redirect is to throw...
+              // eslint-disable-next-line @typescript-eslint/no-throw-literal
+              throw {
+                __resolvedUrl: headers.location,
+              };
+            }
+          },
         })
         .then((rr) => rr.request.res.responseUrl as string)
     )
   );
 
-  const errors = resolvedUrlsOrErrors
-    .map((result) => {
-      if (result.status === "rejected") return result.reason;
-      return false;
-    })
-    .filter((mapped) => mapped);
+  const resolvedUrls: string[] = [];
+  const errors: any[] = [];
+
+  for (const result of resolvedUrlsOrErrors) {
+    if (result.status === "fulfilled") {
+      resolvedUrls.push(result.value);
+    } else if (result.reason.__resolvedUrl) {
+      resolvedUrls.push(result.reason.__resolvedUrl);
+    } else {
+      errors.push(result.reason);
+    }
+  }
 
   if (errors.length > 0) {
     throw new Error(
@@ -95,9 +113,7 @@ export async function resolveShortlinksInTweet(url: string): Promise<
     $('meta[property="og:image:user_generated"]').attr("content") === "true";
 
   return {
-    resolvedUrls: resolvedUrlsOrErrors.map(
-      (result) => (result as PromiseFulfilledResult<string>).value
-    ),
+    resolvedUrls,
     hasStillImage,
   };
 }

@@ -52,30 +52,50 @@ async function extractAndUnfoldTwitterUrls({
           continue;
         }
 
-        const { resolvedUrl, hasStillImage } = res;
+        const { resolvedUrls, hasStillImage } = res;
 
-        if (twitterVideoUrlMatcher.test(resolvedUrl)) {
-          if (ytdlAvailable) {
-            const videoUrl = await getVideoUrl(resolvedUrl);
-            cachedReply = `_(embedded twitter video for_ \`${url}\`_)_\n${videoUrl}`;
+        const replyParts: string[] = [];
+        for (const resolvedUrl of resolvedUrls) {
+          if (twitterVideoUrlMatcher.test(resolvedUrl)) {
+            if (ytdlAvailable) {
+              const videoUrl = await getVideoUrl(resolvedUrl);
+              replyParts.push(
+                `_(embedded twitter video for_ \`${url}\`_)_\n${videoUrl}`
+              );
+            } else {
+              replyParts.push(
+                `_(embedded twitter video exists for_ \`${url}\`_, but can't be resolved!)_`
+              );
+            }
+          } else if (twitterGifOrImageUrlMatcher.test(resolvedUrl)) {
+            if (!hasStillImage) {
+              if (ytdlAvailable) {
+                const videoUrl = await getVideoUrl(resolvedUrl);
+                replyParts.push(
+                  `_(embedded twitter gif for_ \`${url}\`_)_\n${videoUrl}`
+                );
+              } else {
+                replyParts.push(
+                  `_(embedded twitter gif exists for_ \`${url}\`_, but can't be resolved!)_`
+                );
+              }
+            }
+            // if there's one or more still images, discord handles it.
+          } else if (twitterQTUrlMatcher.test(resolvedUrl)) {
+            replyParts.push(
+              `_(embedded quote tweet for_ \`${url}\`_)_\n${resolvedUrl}`
+            );
+          } else if (youtubeVideoUrlMatcher.test(resolvedUrl)) {
+            replyParts.push(
+              `_(embedded youtube video for_ \`${url}\`_)_\n${resolvedUrl}`
+            );
           } else {
-            cachedReply = false;
+            replyParts.push(
+              `_(embedded external link for_ \`${url}\`_)_\n${resolvedUrl}`
+            );
           }
-        } else if (twitterGifOrImageUrlMatcher.test(resolvedUrl)) {
-          if (ytdlAvailable && !hasStillImage) {
-            const videoUrl = await getVideoUrl(resolvedUrl);
-            cachedReply = `_(embedded twitter gif for_ \`${url}\`_)_\n${videoUrl}`;
-          } else {
-            // discord itself handles still images
-            cachedReply = false;
-          }
-        } else if (twitterQTUrlMatcher.test(resolvedUrl)) {
-          cachedReply = `_(embedded quote tweet for_ \`${url}\`_)_\n${resolvedUrl}`;
-        } else if (youtubeVideoUrlMatcher.test(resolvedUrl)) {
-          cachedReply = `_(embedded youtube video for_ \`${url}\`_)_\n${resolvedUrl}`;
-        } else {
-          cachedReply = false;
         }
+        cachedReply = replyParts.join("\n");
         cachedUnfoldResults.set(url, cachedReply);
       }
 

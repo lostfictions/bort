@@ -1,4 +1,4 @@
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import cheerio from "cheerio";
 
 const SCRAPER_UA =
@@ -17,7 +17,7 @@ export const twitterQTUrlMatcher =
 
 export async function resolveShortlinksInTweet(url: string): Promise<
   | {
-      resolvedUrl: string;
+      resolvedUrls: string[];
       hasStillImage: boolean;
     }
   | false
@@ -40,54 +40,64 @@ export async function resolveShortlinksInTweet(url: string): Promise<
   }
 
   // extract t.co urls.
-  const nestedUrls = [...text.matchAll(baseTwitterUrlMatcher)];
+  const nestedUrlMatches = [...text.matchAll(baseTwitterUrlMatcher)];
 
-  if (nestedUrls.length === 0) {
+  if (nestedUrlMatches.length === 0) {
     return false;
   }
 
-  try {
-    // only resolve the last url, in keeping with twitter's styling
-    // (TODO: no actually, resolve all the urls plz)
-    const resolvedUrl = await axios
-      .head(nestedUrls.at(-1)![0], {
-        headers: { "User-Agent": SCRAPER_UA },
-        // for some reason twitter has started 302-ing multiple times for
-        // internal URLs, causing a redirect chain -- one that ends in a 404. we
-        // can hack around this by capping at one redirect. a more robust (or at
-        // least less blunt) solution might be to use axios's `beforeRedirect`
-        // instead, but this seems to fix the problem for now.
-        maxRedirects: 1,
-      })
-      .then((rr) => rr.request.res.responseUrl as string);
+  const resolvedUrlsOrErrors = await Promise.allSettled(
+    nestedUrlMatches.map(([matchUrl]) =>
+      axios
+        .head(matchUrl, {
+          headers: { "User-Agent": SCRAPER_UA },
+          // for some reason twitter has started 302-ing multiple times for
+          // internal URLs, causing a redirect chain -- one that ends in a 404. we
+          // can hack around this by capping at one redirect. a more robust (or at
+          // least less blunt) solution might be to use axios's `beforeRedirect`
+          // instead, but this seems to fix the problem for now.
+          maxRedirects: 1,
+        })
+        .then((rr) => rr.request.res.responseUrl as string)
+    )
+  );
 
-    // we want to use ytdl to unfold embedded twitter gifs, whereas discord is
-    // smart enough to include twitter still images in the tweet embed. however,
-    // still images and gifs aren't distinguishable by url: they're both in the
-    // format https://twitter.com/<user>/status/<id>/photo/...
+  const errors = resolvedUrlsOrErrors
+    .map((result) => {
+      if (result.status === "rejected") return result.reason;
+      return false;
+    })
+    .filter((mapped) => mapped);
 
-    // the only way i've found to tell the difference is: images will have the
-    // og:image tag set to the image url and og:image:user_generated set to
-    // 'true'. gifs seemingly won't.
-
-    // since tweets currently at most have one gif or video OR one or more images
-    // -- you can't mix and match stills and gifs -- if the og attribute is
-    // present and true, we know it's not a gif.
-    const hasStillImage =
-      $('meta[property="og:image:user_generated"]').attr("content") === "true";
-
-    return {
-      resolvedUrl,
-      hasStillImage,
-    };
-  } catch (e) {
-    if (e instanceof AxiosError) {
-      console.error(
-        `Error resolving Twitter URL: ${nestedUrls.at(-1)![0]}: ${
-          e.message
-        } [code ${e.code}]`
-      );
-    }
-    throw e;
+  if (errors.length > 0) {
+    throw new Error(
+      `${errors.length} error${
+        errors.length > 1 ? "s" : ""
+      } encountered while resolving t.co urls:\n\n${errors
+        .map((e) => e.toString())
+        .join("\n\n")}`
+    );
   }
+
+  // we want to use ytdl to unfold embedded twitter gifs, whereas discord is
+  // smart enough to include twitter still images in the tweet embed. however,
+  // still images and gifs aren't distinguishable by url: they're both in the
+  // format https://twitter.com/<user>/status/<id>/photo/...
+
+  // the only way i've found to tell the difference is: images will have the
+  // og:image tag set to the image url and og:image:user_generated set to
+  // 'true'. gifs seemingly won't.
+
+  // since tweets currently at most have one gif or video OR one or more images
+  // -- you can't mix and match stills and gifs -- if the og attribute is
+  // present and true, we know it's not a gif.
+  const hasStillImage =
+    $('meta[property="og:image:user_generated"]').attr("content") === "true";
+
+  return {
+    resolvedUrls: resolvedUrlsOrErrors.map(
+      (result) => (result as PromiseFulfilledResult<string>).value
+    ),
+    hasStillImage,
+  };
 }

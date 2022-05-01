@@ -1,4 +1,7 @@
-FROM node:16.15.0 AS build
+# HACK: dunno why the vps says https://registry-1.docker.io/v2/ has an expired
+# x509 cert, but let's use this for now
+
+FROM registry.hub.docker.com/library/node:16.15.0 AS build
 WORKDIR /app
 ENV YARN_CACHE_FOLDER=/root/.yarn
 COPY package.json yarn.lock ./
@@ -9,7 +12,7 @@ COPY tsconfig.json ./
 # node_modules after the build is done.
 RUN --mount=type=cache,target=/root/.yarn yarn build && yarn install --frozen-lockfile --production --offline
 
-FROM node:16.15.0
+FROM registry.hub.docker.com/library/node:16.15.0
 WORKDIR /app
 RUN wget -q \
   https://github.com/yt-dlp/yt-dlp/releases/download/2022.01.21/yt-dlp \

@@ -5,7 +5,7 @@ const SCRAPER_UA =
   "facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)";
 
 export const baseTwitterUrlMatcher =
-  /https:\/\/(?:(?:m\.)?twitter\.com|t\.co)\/[a-zA-Z0-9-_/?=&]+/gi;
+  /https:\/\/(?:(?:m\.|mobile\.)?twitter\.com|t\.co)\/[a-zA-Z0-9-_/?=&]+/gi;
 export const twitterVideoUrlMatcher =
   /https:\/\/twitter\.com\/[a-zA-Z0-9-_]+\/status\/\d+\/video\//i;
 export const twitterGifOrImageUrlMatcher =
@@ -52,6 +52,11 @@ export async function resolveShortlinksInTweet(url: string): Promise<
     const resolvedUrl = await axios
       .head(nestedUrls.at(-1)![0], {
         headers: { "User-Agent": SCRAPER_UA },
+        // for some reason twitter has started 302-ing multiple times for
+        // internal URLs, causing a redirect chain -- one that ends in a 404. we
+        // can hack around this by capping at one redirect. a more robust (or at
+        // least less blunt) solution might be to use axios's `beforeRedirect`
+        // instead, but this seems to fix the problem for now.
         maxRedirects: 1,
       })
       .then((rr) => rr.request.res.responseUrl as string);

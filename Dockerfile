@@ -12,7 +12,7 @@ RUN --mount=type=cache,target=/root/.yarn yarn build && yarn install --frozen-lo
 FROM node:16.15.0
 WORKDIR /app
 RUN wget -q \
-  https://github.com/yt-dlp/yt-dlp/releases/download/2022.01.21/yt-dlp \
+  https://github.com/yt-dlp/yt-dlp/releases/download/2022.05.18/yt-dlp \
   -O /usr/local/bin/ytdl \
   && chmod a+rx /usr/local/bin/ytdl
 COPY data ./data

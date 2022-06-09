@@ -4,7 +4,7 @@ import execa from "execa";
 import { YTDL_COMMAND } from "../env";
 
 export async function getVideoUrl(sourceUrl: string) {
-  if (!YTDL_COMMAND) throw new Error("ytdl not available!");
+  if (!YTDL_COMMAND) throw new Error("ytdl/yt-dlp not available!");
 
   try {
     const url = new URL(sourceUrl);

@@ -1,3 +1,5 @@
+import { URL } from "url";
+
 import axios from "axios";
 import cheerio from "cheerio";
 
@@ -31,6 +33,7 @@ export async function resolveShortlinksInTweet(url: string): Promise<
       Connection: "close",
     },
   });
+
   const $ = cheerio.load(res.data);
 
   const text = $('meta[property="og:description"]').attr("content");
@@ -112,8 +115,18 @@ export async function resolveShortlinksInTweet(url: string): Promise<
   const hasStillImage =
     $('meta[property="og:image:user_generated"]').attr("content") === "true";
 
+  // twitter will now sometimes resolve t.co urls in tweets with images as...
+  // the tweet url itself. (oddly the photos on twitter proper still permalink
+  // to the `/photo/1` routes.) people might also share twitter urls with query
+  // params like `?s=20&t=Gwd5Sb3JURbT_xr7p3bZ4g` (afaik just tracker stuff?
+  // maybe selects which replies you see by default?) so we have to strip those
+  // to compare to the resolved t.co url.
+  const urlWithoutQuery = new URL(url);
+  urlWithoutQuery.search = "";
+  const canonicalTweetUrl = urlWithoutQuery.toString();
+
   return {
-    resolvedUrls,
+    resolvedUrls: resolvedUrls.filter((u) => u !== canonicalTweetUrl),
     hasStillImage,
   };
 }

@@ -17,13 +17,14 @@ export const youtubeVideoUrlMatcher =
 export const twitterQTUrlMatcher =
   /https:\/\/twitter\.com\/[a-zA-Z0-9-_]+\/status\/\d+/i;
 
-export async function resolveShortlinksInTweet(url: string): Promise<
-  | {
-      resolvedUrls: string[];
-      hasStillImage: boolean;
-    }
-  | false
-> {
+export interface ResolveResult {
+  resolvedUrls: string[];
+  hasStillImage: boolean;
+}
+
+export async function resolveShortlinksInTweet(
+  url: string
+): Promise<ResolveResult | false> {
   const res = await axios.get(url, {
     responseType: "text",
     // https://stackoverflow.com/a/64164115

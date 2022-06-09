@@ -10,9 +10,10 @@ import execa from "execa";
 
 const log = debug("bort:env");
 
-const isDev = process.env["NODE_ENV"] !== "production";
+const isDevEnv = process.env["NODE_ENV"] !== "production";
+const isTestEnv = process.env["NODE_ENV"] === "test";
 
-if (isDev) {
+if (isDevEnv) {
   require("dotenv").config();
 }
 
@@ -63,7 +64,7 @@ if (!fs.existsSync(DATA_DIR)) {
   fs.mkdirSync(DATA_DIR);
 }
 
-if (!USE_CLI) {
+if (!USE_CLI && !isTestEnv) {
   if (!OPEN_WEATHER_MAP_KEY) {
     console.warn(
       `Open Weather Map key appears invalid! Weather command may not work.`
@@ -77,7 +78,7 @@ if (!USE_CLI) {
   } else {
     initSentry({
       dsn: SENTRY_DSN,
-      environment: isDev ? "dev" : "prod",
+      environment: isDevEnv ? "dev" : "prod",
       integrations: [
         new CaptureConsole({ levels: ["warn", "error", "debug", "assert"] }),
       ],
@@ -85,7 +86,7 @@ if (!USE_CLI) {
   }
 }
 
-const isValidConfiguration = USE_CLI || DISCORD_TOKEN;
+const isValidConfiguration = USE_CLI || isTestEnv || DISCORD_TOKEN;
 
 if (!isValidConfiguration) {
   console.warn(oneLine`

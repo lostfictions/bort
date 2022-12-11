@@ -27,7 +27,7 @@ export default makeCommand(
     description: "learn anything",
   },
   async ({ message: rawMessage, store }): Promise<string> => {
-    if (rawMessage.length === 0) {
+    if (rawMessage.trim().length === 0) {
       return getRandomWikihowImage();
     }
 

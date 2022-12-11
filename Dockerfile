@@ -1,4 +1,4 @@
-FROM node:18.3.0 AS build
+FROM node:18.12.1 AS build
 WORKDIR /app
 ENV YARN_CACHE_FOLDER=/root/.yarn
 COPY package.json yarn.lock ./
@@ -9,7 +9,7 @@ COPY tsconfig.json ./
 # node_modules after the build is done.
 RUN --mount=type=cache,target=/root/.yarn yarn build && yarn install --frozen-lockfile --production --offline
 
-FROM node:18.3.0
+FROM node:18.12.1
 WORKDIR /app
 RUN wget -q \
   https://github.com/yt-dlp/yt-dlp/releases/download/2022.05.18/yt-dlp \

@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`image search parse matches snapshots from fixture data: 01-puppies.html 1`] = `
-Array [
+[
   "https://d17fnq9dkz9hgj.cloudfront.net/uploads/2020/04/shelter-dog-cropped-1-632x329.jpg",
   "https://dogtime.com/assets/uploads/2018/10/puppies-cover-1280x720.jpg",
   "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg",

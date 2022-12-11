@@ -25,9 +25,9 @@ export const {
   SENTRY_DSN,
   USE_CLI,
 } = parseEnv(process.env, {
-  BOT_NAME: z.string().nonempty().default("bort"),
+  BOT_NAME: z.string().min(1).default("bort"),
   DATA_DIR: {
-    schema: z.string().nonempty(),
+    schema: z.string().min(1),
     defaults: {
       production: undefined,
       _: "persist",
@@ -41,7 +41,7 @@ export const {
     },
   },
   OPEN_WEATHER_MAP_KEY: z.string().optional(),
-  SENTRY_DSN: { schema: z.string().nonempty().optional() },
+  SENTRY_DSN: { schema: z.string().min(1).optional() },
   USE_CLI: {
     schema: z.boolean().default(false),
     description:

@@ -27,12 +27,6 @@ each service that bort connects to gets its own isolated data store. stores are
 [level](https://github.com/Level/level) package) that are persisted to the
 directory provided as the `DATA_DIR`.
 
-bort uses the [envalid](https://github.com/af/envalid) package which in turn
-wraps [dotenv](https://github.com/motdotla/dotenv), so you can alternately stick
-any of the above environment variables in a file named `.env` in the project
-root. (it's gitignored, so there's no risk of accidentally committing private
-API tokens you put in there.)
-
 the "server component" mentioned above currently serves two purposes:
 
 - it serves static files, like the bot's profile image (which must be hosted for

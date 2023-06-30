@@ -6,7 +6,6 @@ import { init as initSentry } from "@sentry/node";
 import { CaptureConsole } from "@sentry/integrations";
 import debug from "debug";
 import { oneLine } from "common-tags";
-import execa from "execa";
 
 const log = debug("bort:env");
 
@@ -48,16 +47,6 @@ export const {
       "Start up an interface that reads from stdin and prints to stdout instead of connecting to servers.",
   },
 });
-
-export const YTDL_COMMAND = ["yt-dlp", "youtube-dl", "ytdl"].find(
-  (e) => execa.sync("which", [e], { reject: false }).exitCode === 0
-);
-
-if (!YTDL_COMMAND) {
-  console.warn(
-    "ytdl command not found! video extraction functionality will be unavailable."
-  );
-}
 
 if (!fs.existsSync(DATA_DIR)) {
   log(`${DATA_DIR} not found! creating.`);

@@ -6,7 +6,10 @@ import debug from "debug";
 
 import { initializeConcepts } from "./methods/concepts";
 import { initializeSeen, shouldInitializeSeen } from "./methods/seen";
-import { initializeUnfold, shouldInitializeUnfold } from "./methods/unfold";
+import {
+  initializeRedirectTwitter,
+  shouldInitializeRedirectTwitter,
+} from "./methods/redirect-twitter";
 import {
   initializeRecents,
   shouldInitializeRecents,
@@ -121,9 +124,9 @@ async function loadOrInitializeDb(dbName: string): Promise<DB> {
     log(`Initializing seen for '${dbPath}'`);
     await initializeSeen(db);
   }
-  if (await shouldInitializeUnfold(db)) {
-    log(`Initializing unfold for '${dbPath}'`);
-    await initializeUnfold(db);
+  if (await shouldInitializeRedirectTwitter(db)) {
+    log(`Initializing redirect twitter for '${dbPath}'`);
+    await initializeRedirectTwitter(db);
   }
   if (await shouldInitializeEmojiCount(db)) {
     log(`Initializing emoji count for '${dbPath}'`);

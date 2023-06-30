@@ -1,6 +1,9 @@
 import { makeCommand } from "../util/handler";
 
-import { setUnfoldEnabled, getUnfoldEnabled } from "../store/methods/unfold";
+import {
+  setRedirectTwitterEnabled,
+  getRedirectTwitterEnabled,
+} from "../store/methods/redirect-twitter";
 
 const USAGE = "unfold [enable|disable|on|off]";
 
@@ -9,23 +12,26 @@ const falsy = /(disabled?|off|false|0)/i;
 
 export default makeCommand(
   {
-    name: "unfold",
-    description: "toggle unfolding videos in tweets",
+    name: "redirect",
+    description:
+      "toggle posting embeddable version when unembeddable twitter links are seen",
     usage: USAGE,
   },
   async ({ message, store }): Promise<string> => {
     if (message.length === 0) {
-      const enabled = await getUnfoldEnabled(store);
-      return `unfolding is currently **${enabled ? "enabled" : "disabled"}**.`;
+      const enabled = await getRedirectTwitterEnabled(store);
+      return `twitter redirecting is currently **${
+        enabled ? "enabled" : "disabled"
+      }**.`;
     }
 
     const trimmed = message.trim();
     if (truthy.test(trimmed)) {
-      await setUnfoldEnabled(store, true);
+      await setRedirectTwitterEnabled(store, true);
       return `unfolding is now **enabled**.`;
     }
     if (falsy.test(trimmed)) {
-      await setUnfoldEnabled(store, false);
+      await setRedirectTwitterEnabled(store, false);
       return `unfolding is now **disabled**.`;
     }
 

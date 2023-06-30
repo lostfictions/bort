@@ -29,13 +29,13 @@ import {
   conceptListCommand,
   conceptMatcher,
 } from "./commands/concepts";
-import unfoldCommand from "./commands/unfold";
+import unfoldCommand from "./commands/redirect";
 
 import { getSentence, addSentence } from "./store/methods/markov";
 import { setSeen } from "./store/methods/seen";
 import { getConceptList, getConcept } from "./store/methods/concepts";
 
-import { unfold } from "./components/unfold";
+import { postRedirectedTwitterUrls } from "./components/post-redirected-twitter-urls";
 import { tryTrace, trace } from "./components/trace";
 import { recordEmojiCountInMessage } from "./components/reactions";
 
@@ -216,7 +216,7 @@ const bortCommand = makeCommand(
 
 const messageHandler = [
   recordEmojiCountInMessage,
-  unfold,
+  postRedirectedTwitterUrls,
   async (args) => (args.isDM ? false : processMessage(doSetSeen, args)),
   // Handling the direct concepts first should be safe -- it prevents the markov
   // generator fallback of the root command from eating our input.

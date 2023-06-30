@@ -11,10 +11,6 @@ RUN --mount=type=cache,target=/root/.yarn yarn build && yarn install --frozen-lo
 
 FROM node:18.12.1
 WORKDIR /app
-RUN wget -q \
-  https://github.com/yt-dlp/yt-dlp/releases/download/2022.05.18/yt-dlp \
-  -O /usr/local/bin/ytdl \
-  && chmod a+rx /usr/local/bin/ytdl
 COPY data ./data
 COPY --from=build /app/node_modules ./node_modules
 COPY --from=build /app/dist ./dist

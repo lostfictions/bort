@@ -29,7 +29,7 @@ import {
   conceptListCommand,
   conceptMatcher,
 } from "./commands/concepts";
-import unfoldCommand from "./commands/redirect";
+import redirectCommand from "./commands/redirect";
 
 import { getSentence, addSentence } from "./store/methods/markov";
 import { setSeen } from "./store/methods/seen";
@@ -60,7 +60,7 @@ const subCommands = [
   completeCommand,
   weatherCommand,
   uptimeCommand,
-  unfoldCommand,
+  redirectCommand,
 ];
 
 const subcommandsByNameOrAlias = new Map<string, Command<HandlerArgs>>();

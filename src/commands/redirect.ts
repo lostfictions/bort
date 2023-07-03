@@ -5,7 +5,7 @@ import {
   getRedirectTwitterEnabled,
 } from "../store/methods/redirect-twitter";
 
-const USAGE = "unfold [enable|disable|on|off]";
+const USAGE = "redirect [enable|disable|on|off]";
 
 const truthy = /(enabled?|on|true|1)/i;
 const falsy = /(disabled?|off|false|0)/i;
@@ -28,11 +28,11 @@ export default makeCommand(
     const trimmed = message.trim();
     if (truthy.test(trimmed)) {
       await setRedirectTwitterEnabled(store, true);
-      return `unfolding is now **enabled**.`;
+      return `twitter redirecting is now **enabled**.`;
     }
     if (falsy.test(trimmed)) {
       await setRedirectTwitterEnabled(store, false);
-      return `unfolding is now **disabled**.`;
+      return `twitter redirecting is now **disabled**.`;
     }
 
     return `unknown argument '${message}'.\n\nusage: ${USAGE}`;

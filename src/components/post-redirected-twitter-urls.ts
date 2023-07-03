@@ -11,7 +11,7 @@ export async function postRedirectedTwitterUrls(
   const enabled = await getRedirectTwitterEnabled(handlerArgs.store);
   if (!enabled) return false;
 
-  // unfolding should never block actual command resolution
+  // redirecting should never block actual command resolution
   matchAndPostUrls(handlerArgs).catch((e) => {
     throw e;
   });

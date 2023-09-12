@@ -50,8 +50,7 @@ export async function getFilmUrlsFromLetterboxdList(
       .load(res.data)(".poster")
       .toArray()
       .map((div) => div.attribs["data-film-slug"])
-      .filter((slug) => slug)
-      .map((u) => `https://letterboxd.com/${u}`);
+      .filter((slug) => slug);
 
     allResults.push(...pageResults);
     currentPage++;
@@ -94,7 +93,7 @@ export default makeCommand(
     const result = await getFilmUrlsFromLetterboxdList(url);
 
     if (Array.isArray(result)) {
-      return randomInArray(result);
+      return `https://letterboxd.com/film/${randomInArray(result)}`;
     }
 
     return `Error getting a random vid: ${result.errorMessage}`;

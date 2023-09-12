@@ -51,7 +51,7 @@ export async function getFilmUrlsFromLetterboxdList(
       .toArray()
       .map((div) => div.attribs["data-film-slug"])
       .filter((slug) => slug)
-      .map((u) => `https://letterboxd.com${u}`);
+      .map((u) => `https://letterboxd.com/${u}`);
 
     allResults.push(...pageResults);
     currentPage++;

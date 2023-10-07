@@ -1,7 +1,7 @@
 import { getRedirectTwitterEnabled } from "../store/methods/redirect-twitter";
 
 const baseTwitterUrlMatcher =
-  /https:\/\/(?:m\.|mobile\.)?twitter\.com\/(?<path>[a-zA-Z0-9-_/?=&]+)/gi;
+  /https:\/\/(?:m\.|mobile\.)?(?:x|twitter)\.com\/(?<path>[a-zA-Z0-9-_/?=&]+)/gi;
 
 import type { HandlerArgs } from "../handler-args";
 

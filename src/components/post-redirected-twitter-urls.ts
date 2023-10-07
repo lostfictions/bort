@@ -28,7 +28,7 @@ async function matchAndPostUrls({
   if (urlMatches.length > 0) {
     await sendMessage(
       urlMatches
-        .map((m) => `https://vxtwitter.com/${m.groups!["path"]}`)
+        .map((m) => `https://fxtwitter.com/${m.groups!["path"]}`)
         .join("\n")
     );
   }

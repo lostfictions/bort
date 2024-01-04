@@ -1,7 +1,6 @@
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { casual } from "chrono-node";
-import ExtractTimezoneAbbrRefiner from "chrono-node/dist/common/refiners/ExtractTimezoneAbbrRefiner";
 
 import { makeCommand } from "../util/handler";
 import {
@@ -13,14 +12,15 @@ import {
 
 dayjs.extend(relativeTime);
 
-// remove timezone abbreviation parsing
 const chrono = casual.clone();
-const timezoneAbbr = chrono.refiners.findIndex(
-  (r) => r instanceof ExtractTimezoneAbbrRefiner
-);
-if (timezoneAbbr !== -1) {
-  chrono.refiners.splice(timezoneAbbr, 1);
-}
+// formerly we removed the timezone abbreviation parser to work around
+// https://github.com/wanasit/chrono/issues/360. this appears to no longer be
+// necessary; i've kept the test in timers.test.ts in case regressions recur.
+
+// const refinersWithoutAbbrParsing = chrono.refiners.filter(
+//   (r) => r.constructor.name !== "ExtractTimezoneAbbrRefiner"
+// );
+// chrono.refiners = refinersWithoutAbbrParsing;
 
 export default makeCommand(
   {
@@ -68,9 +68,7 @@ export default makeCommand(
 
     const maybeResult = tryHeuristics([
       () => message,
-      // chrono won't recognize "5 minutes" but will recognize "in 5 minutes",
-      // so try that first
-      () => `in ${message}`,
+      // FIXME: may no longer be necessary after updating chrono-node version
       () => {
         const match = message.match(/^(?:in\s+)?(\d+)\s{0,1}m\b/i);
         if (!match) return false;

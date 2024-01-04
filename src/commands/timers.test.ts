@@ -31,7 +31,7 @@ describe("timers", () => {
     });
 
     // https://github.com/wanasit/chrono/issues/360
-    it("should workaround issue wanasit/chrono#360", async () => {
+    it("should not be affected by issue wanasit/chrono#360", async () => {
       const store = {} as any;
       const { db } = makeMockDb(store);
       await initializeTimers(db);

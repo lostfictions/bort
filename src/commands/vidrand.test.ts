@@ -28,11 +28,10 @@ describe("vidrand", () => {
     it("should parse the response and return valid results", async () => {
       const urls = await getFilmUrlsFromLetterboxdList("whatever");
 
-      // results from both pages!
-      expect(urls).toContain(
-        "https://letterboxd.com/film/the-snake-girl-and-the-silver-haired-witch/"
-      );
-      expect(urls).toContain("https://letterboxd.com/film/the-dungeonmaster/");
+      // results from both pages! (the last page is empty)
+      expect(urls).toContain("the-age-of-consent");
+      expect(urls).toContain("boesman-and-lena");
+      expect(urls).toContain("ouch");
 
       expect((urls as string[]).length).toBeGreaterThan(70);
     });

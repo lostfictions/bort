@@ -30,8 +30,8 @@ async function matchAndPostUrls({
       urlMatches
         .map(
           (m) =>
-            `https://fxtwitter.com/${m.groups!["path"]}` +
-            `(<https://nitter.net/${m.groups!["path"]}>)`
+            `https://fxtwitter.com/${m.groups!["path"]} ` +
+            `(see threads/replies: <https://nitter.net/${m.groups!["path"]}>)`
         )
         .join("\n")
     );

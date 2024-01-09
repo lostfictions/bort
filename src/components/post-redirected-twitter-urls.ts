@@ -28,12 +28,13 @@ async function matchAndPostUrls({
   if (urlMatches.length > 0) {
     await sendMessage(
       urlMatches
-        .map(
-          (m) =>
-            `https://fxtwitter.com/${m.groups!["path"]} ` +
-            `(see threads/replies: <https://nitter.net/${m.groups!["path"]}>)`
+        .map((m) =>
+          [
+            `<https://nitter.net/${m.groups!["path"]}>`,
+            `https://fxtwitter.com/${m.groups!["path"]}`,
+          ].join("\n")
         )
-        .join("\n")
+        .join("\n\n")
     );
   }
 }

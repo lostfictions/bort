@@ -30,7 +30,7 @@ async function matchAndPostUrls({
       urlMatches
         .map((m) =>
           [
-            `<https://nitter.net/${m.groups!["path"]}>`,
+            `<https://twiiit.com/${m.groups!["path"]}>`,
             `https://fxtwitter.com/${m.groups!["path"]}`,
           ].join("\n")
         )

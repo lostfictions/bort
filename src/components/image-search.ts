@@ -130,9 +130,9 @@ export function allJsonpStrategy($: cheerio.Root): string[] | false {
       .map((res) =>
         // google image search results sometimes contain code points encoded as
         // eg. \u003d, so replace them with their actual values
-        res[1].replace(/\\u([a-fA-F0-9]{4})/gi, (_, g) =>
-          String.fromCodePoint(parseInt(g, 16))
-        )
+        res[1].replaceAll(/\\u([a-fA-F0-9]{4})/gi, (_, g) =>
+          String.fromCodePoint(parseInt(g, 16)),
+        ),
       );
   }
 

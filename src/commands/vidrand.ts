@@ -19,7 +19,7 @@ const resultCache = {} as {
 };
 
 export async function getFilmUrlsFromLetterboxdList(
-  url: string
+  url: string,
 ): Promise<string[] | { errorMessage: string }> {
   const cachedValue = resultCache[url];
   if (cachedValue && cachedValue.lastRetrieved > Date.now() - ONE_DAY) {
@@ -97,5 +97,5 @@ export default makeCommand(
     }
 
     return `Error getting a random vid: ${result.errorMessage}`;
-  }
+  },
 );

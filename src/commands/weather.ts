@@ -80,7 +80,7 @@ export default makeCommand(
           },
           responseType: "json",
           timeout: 5000,
-        }
+        },
       );
     } catch (e: any) {
       if (e.response?.status === 404) {
@@ -94,7 +94,7 @@ export default makeCommand(
     let formattedWind = "";
     if (wind) {
       formattedWind = `wind: ${Math.round(
-        msToKmH(wind.speed)
+        msToKmH(wind.speed),
       )}km/h (${Math.round(msTompH(wind.speed))}mph)`;
       if (wind.deg) {
         formattedWind += ` ${meteorologicalAngleToDirection(wind.deg)}`;
@@ -105,12 +105,12 @@ export default makeCommand(
       ${name}, ${sys.country}
       ${weather[0].description}
       ${Math.round(kelvinToC(main.temp))}°C (${Math.round(
-      kelvinToF(main.temp)
-    )}°F)
+        kelvinToF(main.temp),
+      )}°F)
       ${main.humidity}% humidity
       ${formattedWind}
     `;
-  }
+  },
 );
 
 interface OWMResponse {

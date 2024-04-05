@@ -44,7 +44,7 @@ export type DB = {
   del: (key: string) => Promise<void>;
   createKeyStream: (options?: ReadStreamOptions) => AsyncIterable<string>;
   createReadStream: <T = any>(
-    options?: ReadStreamOptions
+    options?: ReadStreamOptions,
   ) => AsyncIterable<{ key: string; value: T }>;
 };
 
@@ -91,7 +91,7 @@ function getEnsuredDbPath(dbName: string): string {
     fs.mkdirSync(DB_BASE_PATH);
   } else if (!fs.statSync(DB_BASE_PATH).isDirectory()) {
     throw new Error(
-      `DB base path exists at "${DB_BASE_PATH}", but is not a directory!`
+      `DB base path exists at "${DB_BASE_PATH}", but is not a directory!`,
     );
   }
 
@@ -99,7 +99,7 @@ function getEnsuredDbPath(dbName: string): string {
 }
 
 async function loadOrInitializeDb(dbName: string): Promise<DB> {
-  const sanitizedDbName = dbName.replace(/[^a-z0-9_-]/gi, "_");
+  const sanitizedDbName = dbName.replaceAll(/[^a-z0-9_-]/gi, "_");
   const dbPath = getEnsuredDbPath(sanitizedDbName);
 
   let shouldInitialize = false;

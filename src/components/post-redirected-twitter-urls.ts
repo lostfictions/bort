@@ -6,7 +6,7 @@ const baseTwitterUrlMatcher =
 import type { HandlerArgs } from "../handler-args";
 
 export async function postRedirectedTwitterUrls(
-  handlerArgs: HandlerArgs
+  handlerArgs: HandlerArgs,
 ): Promise<false> {
   const enabled = await getRedirectTwitterEnabled(handlerArgs.store);
   if (!enabled) return false;
@@ -29,7 +29,7 @@ async function matchAndPostUrls({
     await sendMessage(
       urlMatches
         .map((m) => `https://fxtwitter.com/${m.groups!["path"]}`)
-        .join("\n\n")
+        .join("\n\n"),
     );
   }
 }

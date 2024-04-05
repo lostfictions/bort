@@ -122,7 +122,7 @@ export default makeCommand(
     return `okay, i'll tell ${
       target === author ? "you" : target
     } ${humanizedTime}: ${finalMessage} (timer id: ${timerId})`;
-  }
+  },
 );
 
 function tryHeuristics(heuristics: (() => string | false)[]) {

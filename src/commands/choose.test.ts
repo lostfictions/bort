@@ -23,7 +23,7 @@ describe("choose", () => {
             store: makeMockDb().db,
           } as any)) as string;
           expect(items).toContain(result);
-        })
+        }),
       );
     });
   });

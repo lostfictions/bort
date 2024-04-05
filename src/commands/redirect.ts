@@ -36,5 +36,5 @@ export default makeCommand(
     }
 
     return `unknown argument '${message}'.\n\nusage: ${USAGE}`;
-  }
+  },
 );

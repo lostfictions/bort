@@ -82,7 +82,7 @@ export default makeCommand(
     let items: string[];
     if (typeof maybeJson === "string") {
       result.push(
-        "Response type appears to be plaintext. Splitting to newlines."
+        "Response type appears to be plaintext. Splitting to newlines.",
       );
       items = maybeJson.split("\n").map((l) => l.trim());
     } else if (path) {
@@ -93,7 +93,7 @@ export default makeCommand(
           .map((k) => `'${k}'`)
           .join(", ");
         throw new Error(
-          `Invalid path: '${rawPath}'. Some valid keys: ${validKeys}...`
+          `Invalid path: '${rawPath}'. Some valid keys: ${validKeys}...`,
         );
       }
       if (Array.isArray(itemOrItems)) {
@@ -102,7 +102,7 @@ export default makeCommand(
         const item = itemOrItems.toString();
         if (item === "[object Object]") {
           throw new Error(
-            `The item at "${path}" does not appear to be a primitive or array!`
+            `The item at "${path.join("/")}" does not appear to be a primitive or array!`,
           );
         }
         items = [item];
@@ -129,5 +129,5 @@ export default makeCommand(
 
     result.push(`with ${items.length} items from ${url}.`);
     return result.join(" ");
-  }
+  },
 );

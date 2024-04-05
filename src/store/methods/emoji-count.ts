@@ -11,7 +11,7 @@ type EmojiCountData = Record<string, EmojiCountEntry>;
 
 export async function incrementChatEmojiCount(
   db: DB,
-  id: string
+  id: string,
 ): Promise<void> {
   const emoji = await db.get<EmojiCountData>(key);
 
@@ -27,7 +27,7 @@ export async function incrementChatEmojiCount(
 
 export async function incrementReactionEmojiCount(
   db: DB,
-  id: string
+  id: string,
 ): Promise<void> {
   const emoji = await db.get<EmojiCountData>(key);
 
@@ -43,7 +43,7 @@ export async function incrementReactionEmojiCount(
 
 export async function decrementReactionEmojiCount(
   db: DB,
-  id: string
+  id: string,
 ): Promise<void> {
   const emoji = await db.get<EmojiCountData>(key);
 

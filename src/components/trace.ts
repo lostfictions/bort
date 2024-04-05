@@ -114,7 +114,7 @@ export async function trace({
 
   for (const match of matches) {
     const [group, nextConcept] = match;
-    const i = match.index!;
+    const i = match.index;
 
     const traceResult = await trace({
       db,
@@ -132,7 +132,7 @@ export async function trace({
 
 export async function tryTrace(
   db: DB,
-  message: string
+  message: string,
 ): Promise<string | false> {
   const matches = [...message.matchAll(matcher)].reverse();
 
@@ -140,7 +140,7 @@ export async function tryTrace(
     let result = message;
     for (const match of matches) {
       const [group, concept] = match;
-      const i = match.index!;
+      const i = match.index;
 
       const traceResult = await trace({ db, concept });
       result =

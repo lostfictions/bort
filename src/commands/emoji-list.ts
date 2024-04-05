@@ -45,7 +45,7 @@ export default makeCommand(
           !dayjs(emoji.createdTimestamp).isBefore(dayjs().subtract(6, "month"))
         ) {
           maybeAge = `   _(${dayjs(emoji.createdTimestamp).fromNow(
-            true
+            true,
           )} old)_`;
         }
 
@@ -54,11 +54,11 @@ export default makeCommand(
             .toString()
             .padStart(digits)}  ${e.total.toString().padStart(digits)} \` <:${
             emoji.identifier
-          }>${maybeAge}`
+          }>${maybeAge}`,
         );
       }
     }
 
     return rows.join("\n");
-  }
+  },
 );

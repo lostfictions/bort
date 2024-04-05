@@ -50,7 +50,7 @@ export const conceptAddCommand = makeCommand(
     }
     await addConcept(store, message);
     return `Okay! Added a concept named "${message}".`;
-  }
+  },
 );
 
 export const conceptRemoveCommand = makeCommand(
@@ -71,7 +71,7 @@ export const conceptRemoveCommand = makeCommand(
 
     await removeConcept(store, message);
     return `Okay! Deleted concept "${message}".`;
-  }
+  },
 );
 
 export const conceptSetCommand = makeCommand(
@@ -101,7 +101,7 @@ export const conceptSetCommand = makeCommand(
 
     result.push(`with ${args.length} new entries.`);
     return result.join(" ");
-  }
+  },
 );
 
 export const conceptListCommand = makeCommand(
@@ -126,7 +126,7 @@ export const conceptListCommand = makeCommand(
     }
     const itemList = items.length > 0 ? items.join(", ") : "_Empty._";
     return `*${message}:*\n${itemList}`;
-  }
+  },
 );
 
 // We could probably come up with a better naming scheme, but:
@@ -156,7 +156,7 @@ const conceptAddToCommand = makeCommand<HandlerArgsWithConcept>(
 
     await addToConcept(store, concept, [message]);
     return `Okay! Added "${message}" to "${concept}".`;
-  }
+  },
 );
 
 const conceptBulkAddToCommand = makeCommand<HandlerArgsWithConcept>(
@@ -181,13 +181,13 @@ const conceptBulkAddToCommand = makeCommand<HandlerArgsWithConcept>(
       .map((c) => `"${c}" already exists in "${concept}"!`);
 
     const toAdd = conceptsToAdd.filter(
-      (c) => !Object.hasOwnProperty.call(maybeConcept, c)
+      (c) => !Object.hasOwnProperty.call(maybeConcept, c),
     );
 
     await addToConcept(store, concept, toAdd);
 
     return results.concat(toAdd.map((c) => `Added "${c}".`)).join("\n");
-  }
+  },
 );
 
 const conceptRemoveFromCommand = makeCommand<HandlerArgsWithConcept>(
@@ -212,7 +212,7 @@ const conceptRemoveFromCommand = makeCommand<HandlerArgsWithConcept>(
 
     await removeFromConcept(store, concept, [message]);
     return `Okay! Removed "${message}" from "${concept}".`;
-  }
+  },
 );
 
 // The conceptMatcher matches commands that start with a concept,
@@ -235,5 +235,5 @@ export const conceptMatcher = adjustArgs<HandlerArgsWithConcept, HandlerArgs>(
 
     return { ...args, message: command, concept };
   },
-  [conceptAddToCommand, conceptBulkAddToCommand, conceptRemoveFromCommand]
+  [conceptAddToCommand, conceptBulkAddToCommand, conceptRemoveFromCommand],
 );

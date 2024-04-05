@@ -9,17 +9,6 @@ export const USAGE = [
   "`busey <word or sequence to be buseyfied>`",
 ].join("\n");
 
-// also temp
-declare global {
-  interface RegExp {
-    hasIndices: boolean;
-  }
-
-  interface RegExpMatchArray {
-    indices?: [number, number][];
-  }
-}
-
 const abbreviationMatcher = /\b(?:[A-Z]\.?){2,}(?=\s|$)/dg;
 
 if (!abbreviationMatcher.hasIndices) {
@@ -49,7 +38,7 @@ export default makeCommand(
         const maybeReplaced = await busey(
           match[0].replaceAll(".", ""),
           store,
-          channel
+          channel,
         );
 
         m = `${m.slice(0, start)}${maybeReplaced || match[0]}${m.slice(end)}`;
@@ -60,13 +49,13 @@ export default makeCommand(
 
     const maybeReplaced = await busey(message, store, channel);
     return prefix + (maybeReplaced || "Please Inspect Senseless Sentences");
-  }
+  },
 );
 
 async function busey(
   phrase: string,
   store: DB,
-  channel: string
+  channel: string,
 ): Promise<string | false> {
   const letters = phrase.toLowerCase().split("");
 
@@ -90,12 +79,12 @@ async function busey(
         store,
         acro.at(-2)!,
         acro.at(-1)!,
-        channel
+        channel,
       );
 
       if (entry) {
         const candidates = Object.keys(entry).filter((word) =>
-          word.startsWith(letter)
+          word.startsWith(letter),
         );
         if (candidates.length > 0) {
           let result = randomInArray(candidates);
@@ -114,12 +103,12 @@ async function busey(
                 store,
                 acro.at(-1)!,
                 result,
-                channel
+                channel,
               );
 
               if (testEntry) {
                 const hasNext = Object.keys(testEntry).some((word) =>
-                  word.startsWith(nextLetter!)
+                  word.startsWith(nextLetter),
                 );
 
                 if (hasNext) break;
@@ -143,7 +132,7 @@ async function busey(
       store,
       channel,
       letter,
-      preferredNextLetter
+      preferredNextLetter,
     );
 
     // if we have preferred matches (where both the current and lookahead
@@ -165,7 +154,7 @@ async function busey(
           const entry = await getEntry(store, first, second, channel);
 
           const hasFollowing = Object.keys(entry!).some((word) =>
-            word.startsWith(followingLetter!)
+            word.startsWith(followingLetter),
           );
           if (hasFollowing) break;
         }
@@ -191,7 +180,7 @@ export async function getSeedStartingWith(
   db: DB,
   channel: string,
   letter: string,
-  preferredFollowingLetter?: string
+  preferredFollowingLetter?: string,
 ) {
   const prefix = `${prefixForward(channel)}:`;
   const gte = `${prefix}${letter}`;

@@ -9,7 +9,7 @@ const key = "recents";
 export async function addRecent(
   db: DB,
   item: string,
-  time = Date.now()
+  time = Date.now(),
 ): Promise<void> {
   const recents = await db.get<Recents>(key);
   recents[item] = time;
@@ -18,7 +18,7 @@ export async function addRecent(
 
 export async function cleanRecents(
   db: DB,
-  olderThanMinutes = 60
+  olderThanMinutes = 60,
 ): Promise<void> {
   const olderThan = Date.now() - olderThanMinutes * 60 * 1000;
 

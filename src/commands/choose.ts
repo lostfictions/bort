@@ -12,5 +12,5 @@ export default makeCommand(
     if (rawMessage.trim().length === 0) return false;
     const { message, prefix } = await maybeTraced(store, rawMessage);
     return prefix + randomInArray(message.split(",").map((s) => s.trim()));
-  }
+  },
 );

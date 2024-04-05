@@ -36,7 +36,7 @@ export default makeCommand(
     const { message: lastMessage, time, channel } = seen;
 
     return `${usernameOrId} was last seen ${dayjs(
-      time
+      time,
     ).fromNow()} in #${channel} saying: '${lastMessage}'`;
-  }
+  },
 );

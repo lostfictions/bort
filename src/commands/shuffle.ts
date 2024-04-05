@@ -30,5 +30,5 @@ export default makeCommand(
     }
 
     return output.join(", ");
-  }
+  },
 );

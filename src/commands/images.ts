@@ -56,7 +56,7 @@ export const imageSearchCommand = makeCommand(
     ],
     description: "i will show you",
   },
-  async ({ message, store }) => doSearch(message, store)
+  async ({ message, store }) => doSearch(message, store),
 );
 
 export const gifSearchCommand = makeCommand(
@@ -65,5 +65,5 @@ export const gifSearchCommand = makeCommand(
     aliases: ["gif me the", "gif me an", "gif me a", "gif me", "gif"],
     description: "moving pictures",
   },
-  async ({ message, store }) => doSearch(message, store, true)
+  async ({ message, store }) => doSearch(message, store, true),
 );

@@ -18,7 +18,8 @@ const log = debug("bort-verbose:markov");
 export type MarkovEntry = { [followingOrPrecedingWord: string]: number };
 
 const sentenceSplitter = /[.?\n]/gi;
-const wordNormalizer = (word: string) => word.toLowerCase().replace(/\|/g, "_");
+const wordNormalizer = (word: string) =>
+  word.toLowerCase().replaceAll("|", "_");
 
 // TODO: improve?
 const wordFilter = (word: string) =>
@@ -36,18 +37,18 @@ export const prefixReverse = (ns: string) => `markov-rev:${ns}`;
 export const keyTrigramForward = (
   first: string,
   second: string,
-  ns = DEFAULT_NAMESPACE
+  ns = DEFAULT_NAMESPACE,
 ) => `${prefixForward(ns)}:${first}|${second}`;
 export const keyTrigramReverse = (
   third: string,
   second: string,
-  ns = DEFAULT_NAMESPACE
+  ns = DEFAULT_NAMESPACE,
 ) => `${prefixReverse(ns)}:${third}|${second}`;
 
 export async function addSentence(
   db: DB,
   sentence: string,
-  ns = DEFAULT_NAMESPACE
+  ns = DEFAULT_NAMESPACE,
 ): Promise<void> {
   log(`adding sentence: "${sentence}"`);
 
@@ -75,13 +76,13 @@ export async function addSentence(
 
 export async function initializeMarkov(
   db: DB,
-  ns = DEFAULT_NAMESPACE
+  ns = DEFAULT_NAMESPACE,
 ): Promise<void> {
   const { tarotLines } = JSON.parse(
     await fs.readFile(
       path.join(__dirname, "../../../data/corpora.json"),
-      "utf8"
-    )
+      "utf8",
+    ),
   );
 
   assert(Array.isArray(tarotLines));
@@ -123,7 +124,7 @@ export async function getRandomSeed(db: DB, ns = DEFAULT_NAMESPACE) {
 export async function getFollowingWords(
   db: DB,
   first: string,
-  ns = DEFAULT_NAMESPACE
+  ns = DEFAULT_NAMESPACE,
 ): Promise<string[]> {
   const prefix = `${prefixForward(ns)}:${first}`;
   const gte = `${prefix}|`;
@@ -141,7 +142,7 @@ export function getEntry(
   db: DB,
   first: string,
   second: string,
-  ns = DEFAULT_NAMESPACE
+  ns = DEFAULT_NAMESPACE,
 ): Promise<MarkovEntry | null> {
   return getOrNull<MarkovEntry>(db, keyTrigramForward(first, second, ns));
 }
@@ -150,7 +151,7 @@ export async function getSentence(
   db: DB,
   ns = DEFAULT_NAMESPACE,
   seedFirst?: string,
-  seedSecond?: string
+  seedSecond?: string,
 ): Promise<string> {
   let first = seedFirst;
   let second = seedSecond;

@@ -47,5 +47,5 @@ export default makeCommand(
     }
 
     return prefix + result;
-  }
+  },
 );

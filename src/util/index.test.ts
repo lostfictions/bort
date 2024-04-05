@@ -23,7 +23,7 @@ describe("random by weight", () => {
     (arrayOfWeights) => {
       const keys = new Set(arrayOfWeights.map(([k]) => k));
       return keys.has(randomByWeight(pairsToObj(arrayOfWeights)));
-    }
+    },
   );
 
   it("doesn't throw given integer weights", () => {
@@ -31,7 +31,7 @@ describe("random by weight", () => {
       randomByWeight({
         dog: 1,
         cat: 1000,
-      })
+      }),
     ).not.toThrow();
   });
 
@@ -41,13 +41,13 @@ describe("random by weight", () => {
         dog: 0.1,
         cat: 1,
         flower: 0.25,
-      })
+      }),
     ).not.toThrow();
 
     expect(() =>
       randomByWeight({
         dog: 0.1,
-      })
+      }),
     ).not.toThrow();
 
     expect(() =>
@@ -55,7 +55,7 @@ describe("random by weight", () => {
         dog: 0.1,
         cat: 0,
         flower: 0.25,
-      })
+      }),
     ).not.toThrow();
   });
 
@@ -65,7 +65,7 @@ describe("random by weight", () => {
         cat: 1,
         dog: 0,
         flower: 0,
-      })
+      }),
     ).toBe("cat");
 
     expect(
@@ -73,7 +73,7 @@ describe("random by weight", () => {
         dog: 0,
         flower: 0,
         cat: 1,
-      })
+      }),
     ).toBe("cat");
 
     expect(
@@ -81,7 +81,7 @@ describe("random by weight", () => {
         dog: 0,
         cat: 1,
         flower: 0,
-      })
+      }),
     ).toBe("cat");
 
     expect(
@@ -89,14 +89,14 @@ describe("random by weight", () => {
         dog: 0,
         cat: 0.1,
         flower: 0,
-      })
+      }),
     ).toBe("cat");
 
     expect(
       randomByWeight({
         cat: 0.001,
         dog: 0,
-      })
+      }),
     ).toBe("cat");
   });
 });

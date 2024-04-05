@@ -16,7 +16,7 @@ export const getTimerMessage = ({
 }: TimerPayload) => {
   const author = user === creator ? "you" : creator;
   return `${user}, ${author} asked me to tell you ${dayjs(
-    setTime
+    setTime,
   ).fromNow()}: ${message}`;
 };
 
@@ -76,7 +76,7 @@ export function getTimers(db: DB): Promise<Timers> {
 export async function activateTimer(
   db: DB,
   id: string,
-  action: (payload: TimerPayload) => void
+  action: (payload: TimerPayload) => void,
 ): Promise<NodeJS.Timeout | null> {
   const t = await db.get<Timers>(key);
   const payload = t.timers[id];
@@ -91,7 +91,7 @@ export async function activateTimer(
     const _payload = _t.timers[id];
     if (!_payload) {
       console.log(
-        `Trying to activate timer with id ${id}, but it doesn't exist. It may have been deleted.`
+        `Trying to activate timer with id ${id}, but it doesn't exist. It may have been deleted.`,
       );
       return;
     }
@@ -108,7 +108,7 @@ export async function activateTimer(
 
   if (fireTime >= MAX_DELAY) {
     console.log(
-      `Timer with id ${id} is far in the future; not scheduling it for now.`
+      `Timer with id ${id} is far in the future; not scheduling it for now.`,
     );
     return null;
   }
@@ -119,16 +119,16 @@ export async function activateTimer(
 
 export async function activateAllTimers(
   db: DB,
-  action: (payload: TimerPayload) => void
+  action: (payload: TimerPayload) => void,
 ): Promise<NodeJS.Timeout[]> {
   const t = await db.get<Timers>(key);
 
   const results = await Promise.all(
-    Object.keys(t.timers).map((id) => activateTimer(db, id, action))
+    Object.keys(t.timers).map((id) => activateTimer(db, id, action)),
   );
 
   return results.filter<NodeJS.Timeout>(
-    (res): res is NodeJS.Timeout => res !== null
+    (res): res is NodeJS.Timeout => res !== null,
   );
 }
 

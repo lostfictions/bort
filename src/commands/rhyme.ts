@@ -96,7 +96,7 @@ export default makeCommand(
     // }
 
     // return prefix + joined;
-  }
+  },
 );
 
 // function getRhymeFor(word: string): string {

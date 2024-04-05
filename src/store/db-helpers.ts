@@ -14,7 +14,7 @@ export async function getOrNull<T>(db: DB, key: string): Promise<T | null> {
 export async function getWithDefault<T>(
   db: DB,
   key: string,
-  defaultValue: T
+  defaultValue: T,
 ): Promise<T> {
   try {
     return await db.get<T>(key);

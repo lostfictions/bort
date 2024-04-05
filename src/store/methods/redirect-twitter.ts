@@ -8,7 +8,7 @@ interface RedirectTwitterConfig {
 
 export async function setRedirectTwitterEnabled(
   db: DB,
-  enabled: boolean
+  enabled: boolean,
 ): Promise<void> {
   const redirectTwitter = await db.get<RedirectTwitterConfig>(key);
   redirectTwitter.enabled = enabled;
@@ -21,7 +21,7 @@ export async function getRedirectTwitterEnabled(db: DB): Promise<boolean> {
 }
 
 export async function shouldInitializeRedirectTwitter(
-  db: DB
+  db: DB,
 ): Promise<boolean> {
   try {
     const redirectTwitter = await db.get<RedirectTwitterConfig>(key);

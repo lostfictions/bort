@@ -71,7 +71,7 @@ for (const c of subCommands) {
     const maybeCommand = subcommandsByNameOrAlias.get(a);
     if (maybeCommand) {
       console.error(
-        `Command named ${a} already exists in command list! (Canonical name ${maybeCommand.name})`
+        `Command named ${a} already exists in command list! (Canonical name ${maybeCommand.name})`,
       );
     } else {
       subcommandsByNameOrAlias.set(a, c);
@@ -82,7 +82,7 @@ for (const c of subCommands) {
 const subcommandsMatcher = new RegExp(
   `^\\s*(${[...subcommandsByNameOrAlias.keys()]
     .map((a) => escapeForRegex(a))
-    .join("|")})\\s*$`
+    .join("|")})\\s*$`,
 );
 
 // TODO: allow getting usage for subcommands
@@ -101,7 +101,7 @@ const helpCommand = makeCommand(
           const reply = [command.name];
           if (command.aliases) {
             reply.push(
-              `Aliases: ${command.aliases.map((a) => `*${a}*`).join(", ")}`
+              `Aliases: ${command.aliases.map((a) => `*${a}*`).join(", ")}`,
             );
           }
           if (command.description) {
@@ -136,7 +136,7 @@ const helpCommand = makeCommand(
     ]
       .filter((str) => str)
       .join("\n");
-  }
+  },
 );
 
 const rootCommand = [
@@ -211,7 +211,7 @@ const bortCommand = makeCommand(
     // aliases: botNames.aliases,
     description: `it ${BOT_NAME}`,
   },
-  rootCommand
+  rootCommand,
 );
 
 const messageHandler = [

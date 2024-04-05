@@ -17,7 +17,7 @@ export async function addConcept(
   db: DB,
   concept: string,
   items?: string[],
-  overwrite = false
+  overwrite = false,
 ): Promise<boolean> {
   const existing = await getOrNull<Concept>(db, key(concept));
 
@@ -40,7 +40,7 @@ export async function removeConcept(db: DB, concept: string): Promise<void> {
 export async function addToConcept(
   db: DB,
   concept: string,
-  items: string[]
+  items: string[],
 ): Promise<void> {
   const c = await db.get<Concept>(key(concept));
   for (const i of items) {
@@ -56,7 +56,7 @@ export async function addToConcept(
 export async function removeFromConcept(
   db: DB,
   concept: string,
-  items: string[]
+  items: string[],
 ): Promise<boolean> {
   const c = await db.get<Concept>(key(concept));
 
@@ -70,7 +70,7 @@ export async function removeFromConcept(
 
 export async function getConcept(
   db: DB,
-  concept: string
+  concept: string,
 ): Promise<Concept | false> {
   const existing = await getOrNull<Concept>(db, key(concept));
   return existing ?? false;
@@ -87,7 +87,7 @@ export async function getConceptList(db: DB): Promise<string[]> {
 
 export async function initializeConcepts(db: DB): Promise<void> {
   const corpora = JSON.parse(
-    fs.readFileSync(path.join(__dirname, "../../../data/corpora.json"), "utf8")
+    fs.readFileSync(path.join(__dirname, "../../../data/corpora.json"), "utf8"),
   );
 
   for (const i of [
@@ -105,7 +105,7 @@ export async function initializeConcepts(db: DB): Promise<void> {
 
   assert(
     Array.isArray(corpora.verb) &&
-      corpora.verb.every((v: any) => typeof v.present === "string")
+      corpora.verb.every((v: any) => typeof v.present === "string"),
   );
 
   await addConcept(db, "punc", corpora.punc);
@@ -118,6 +118,6 @@ export async function initializeConcepts(db: DB): Promise<void> {
   await addConcept(
     db,
     "verb",
-    corpora.verb.map((v: { present: string; past: string }) => v.present)
+    corpora.verb.map((v: { present: string; past: string }) => v.present),
   );
 }

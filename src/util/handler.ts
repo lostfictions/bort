@@ -12,7 +12,7 @@ type DefaultData = { message: string };
 
 export async function processMessage<TData = DefaultData>(
   handlerOrHandlers: HandlerOrHandlers<TData>,
-  data: TData
+  data: TData,
 ): Promise<string | false> {
   if (!Array.isArray(handlerOrHandlers)) {
     if (typeof handlerOrHandlers === "function") {
@@ -50,7 +50,7 @@ export interface Command<TData> {
 
 export function makeCommand<TData extends { message: string } = HandlerArgs>(
   options: CommandOptions,
-  handlerOrHandlers: HandlerOrHandlers<TData>
+  handlerOrHandlers: HandlerOrHandlers<TData>,
 ): Command<TData> {
   const escapedAliases = [options.name, ...(options.aliases ?? [])]
     .map(escapeForRegex)
@@ -58,7 +58,7 @@ export function makeCommand<TData extends { message: string } = HandlerArgs>(
 
   const aliasRegex = new RegExp(
     `^(?:${escapedAliases})(?:\\s+|$)([\\s\\S]*)`,
-    "i"
+    "i",
   );
 
   const handleMessage = async (data: TData) => {
@@ -90,7 +90,7 @@ export function makeCommand<TData extends { message: string } = HandlerArgs>(
 
 export function adjustArgs<TAdjusted = { message: string }, TData = TAdjusted>(
   adjuster: (data: TData) => TAdjusted | false | Promise<TAdjusted | false>,
-  handlerOrHandlers: HandlerOrHandlers<TAdjusted>
+  handlerOrHandlers: HandlerOrHandlers<TAdjusted>,
 ): (data: TData) => Promise<string | false> {
   return async (data: TData) => {
     const adjustedData = await adjuster(data);

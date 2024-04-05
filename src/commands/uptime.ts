@@ -23,5 +23,5 @@ export default makeCommand(
     }
 
     return `hi its me ${botName} i have been here for **${uptime}** via \`${hostname()}\``;
-  }
+  },
 );

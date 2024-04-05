@@ -39,7 +39,7 @@ export function getStoreNameForChannel(channel: Channel): string {
 
   console.warn(
     `message received in unknown channel type:`,
-    `[${channel.type}] (id: ${channel.id})`
+    `[${channel.type}] (id: ${channel.id})`,
   );
   return `discord-other-${channel.id}`;
 }
@@ -70,7 +70,7 @@ export function makeDiscordBot(discordToken: string) {
   let guildList = "guild-list-not-yet-retrieved";
 
   async function onMessage(
-    message: DiscordMessage
+    message: DiscordMessage,
   ): Promise<false | undefined> {
     try {
       if (message.author.bot) {
@@ -99,7 +99,7 @@ export function makeDiscordBot(discordToken: string) {
             });
           } else {
             console.warn(
-              `Trying to send message [${m}] in channel with id ${message.channel.id}, but it's been deleted`
+              `Trying to send message [${m}] in channel with id ${message.channel.id}, but it's been deleted`,
             );
           }
         },
@@ -118,7 +118,7 @@ export function makeDiscordBot(discordToken: string) {
       console.error(
         `Error in Discord client replying to message ${message.id}`,
         `("${message.content}") in guild ${message.guild?.name}:`,
-        `'${err}'`
+        `'${err}'`,
       );
 
       Sentry.captureException(error, {
@@ -144,7 +144,7 @@ export function makeDiscordBot(discordToken: string) {
     guildList = guilds.map((g) => `'${g.name}'`).join(", ");
 
     console.log(
-      `Connected to Discord guilds ${guildList} as ${client.user!.username}`
+      `Connected to Discord guilds ${guildList} as ${client.user!.username}`,
     );
 
     let timeouts: NodeJS.Timeout[] = [];
@@ -163,13 +163,13 @@ export function makeDiscordBot(discordToken: string) {
           const channel = guild.channels.resolve(payload.channel);
           if (!channel) {
             console.error(
-              `[${guild.name}] trying to fire reminder but can't resolve channel id [${payload.channel}]`
+              `[${guild.name}] trying to fire reminder but can't resolve channel id [${payload.channel}]`,
             );
             return;
           }
           if (!(channel instanceof TextChannel)) {
             console.error(
-              `[${guild.name}] trying to fire reminder but channel isn't text: [${channel.name}]`
+              `[${guild.name}] trying to fire reminder but channel isn't text: [${channel.name}]`,
             );
             return;
           }

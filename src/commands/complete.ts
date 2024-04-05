@@ -22,7 +22,7 @@ export default makeCommand(
         params: { q: message, client: "firefox" },
         timeout: 5000,
         responseType: "json",
-      }
+      },
     );
 
     if (res.data.length > 0) {
@@ -33,5 +33,5 @@ export default makeCommand(
     }
 
     return `${prefix}¯\\_(ツ)_/¯`;
-  }
+  },
 );

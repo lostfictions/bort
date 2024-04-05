@@ -89,11 +89,11 @@ describe("db markov", () => {
         expect.objectContaining({
           first: expect.stringMatching(/one|cat/),
           second: expect.stringMatching(/two|dog/),
-        })
+        }),
       );
 
       expect(Object.keys(seed.entry)).toEqual(
-        expect.arrayContaining([expect.stringMatching(/three|cute/)])
+        expect.arrayContaining([expect.stringMatching(/three|cute/)]),
       );
     });
   });

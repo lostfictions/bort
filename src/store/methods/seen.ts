@@ -17,7 +17,7 @@ export async function setSeen(
   username: string,
   message: string,
   channel: string,
-  time = Date.now()
+  time = Date.now(),
 ): Promise<void> {
   const seen = await db.get<SeenData>(key);
   seen[username] = {
@@ -30,7 +30,7 @@ export async function setSeen(
 
 export async function getSeen(
   db: DB,
-  username: string
+  username: string,
 ): Promise<SeenEntry | false> {
   const seen = await db.get<SeenData>(key);
   const entry = seen[username];

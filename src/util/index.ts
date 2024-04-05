@@ -5,14 +5,14 @@
  * @returns The escaped string, usable in a regular expression constructor.
  */
 export function escapeForRegex(expression: string): string {
-  return expression.replace(/[\\^$*+?.()|[\]{}]/g, "\\$&");
+  return expression.replaceAll(/[\\^$*+?.()|[\]{}]/g, "\\$&");
 }
 
 /** Returns a random number between min (inclusive) and max (exclusive). */
 export function randomInt(max: number): number;
 export function randomInt(min: number, max?: number): number {
   /* eslint-disable no-param-reassign */
-  if (typeof max === "undefined") {
+  if (max == null) {
     max = min;
     min = 0;
   }

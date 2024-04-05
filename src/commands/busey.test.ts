@@ -39,7 +39,7 @@ describe("busey", () => {
             channel,
           } as any);
           expect(result).toBe("Aa Bb Cc");
-        })
+        }),
       );
     });
 

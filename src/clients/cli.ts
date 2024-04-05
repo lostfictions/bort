@@ -33,7 +33,7 @@ export const makeCLIBot = (dbName = "_cli-test") => {
                 .split("\n")
                 .map((line) => `[bort] ${line}`)
                 .join("\n")
-            : "-"
+            : "-",
         );
       } catch (e) {
         console.error("[ERROR]", e);

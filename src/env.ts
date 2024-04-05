@@ -3,7 +3,7 @@
 import fs from "fs";
 import { parseEnv, z } from "znv";
 import { init as initSentry } from "@sentry/node";
-import { CaptureConsole } from "@sentry/integrations";
+import { captureConsoleIntegration } from "@sentry/integrations";
 import debug from "debug";
 import { oneLine } from "common-tags";
 
@@ -56,20 +56,22 @@ if (!fs.existsSync(DATA_DIR)) {
 if (!USE_CLI && !isTestEnv) {
   if (!OPEN_WEATHER_MAP_KEY) {
     console.warn(
-      `Open Weather Map key appears invalid! Weather command may not work.`
+      `Open Weather Map key appears invalid! Weather command may not work.`,
     );
   }
 
   if (!SENTRY_DSN) {
     console.warn(
-      `Sentry DSN is invalid! Error reporting to sentry will be disabled.`
+      `Sentry DSN is invalid! Error reporting to sentry will be disabled.`,
     );
   } else {
     initSentry({
       dsn: SENTRY_DSN,
       environment: isDevEnv ? "dev" : "prod",
       integrations: [
-        new CaptureConsole({ levels: ["warn", "error", "debug", "assert"] }),
+        captureConsoleIntegration({
+          levels: ["warn", "error", "debug", "assert"],
+        }),
       ],
     });
   }

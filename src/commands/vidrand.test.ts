@@ -5,7 +5,7 @@ import command, { getFilmUrlsFromLetterboxdList, USAGE } from "./vidrand";
 
 const loadFixture = (page: number) =>
   readFileSync(
-    join(__dirname, `../../fixtures/vidrand/letterboxd-response-${page}.html`)
+    join(__dirname, `../../fixtures/vidrand/letterboxd-response-${page}.html`),
   ).toString();
 
 const mockResponses = {
@@ -20,7 +20,7 @@ jest.mock("axios", () =>
     if (url.endsWith("2")) return { data: mockResponses["2"] };
     if (url.endsWith("3")) return { data: mockResponses["3"] };
     throw new Error(`Unexpected url calling mocked axios: ${url}`);
-  })
+  }),
 );
 
 describe("vidrand", () => {
@@ -55,7 +55,7 @@ describe("vidrand", () => {
 
       expect(typeof result).toBe("string");
       expect((result as string).startsWith("https://letterboxd.com/film")).toBe(
-        true
+        true,
       );
     });
   });

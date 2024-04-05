@@ -12,5 +12,5 @@ export default makeCommand(
   async ({ message: rawMessage, store }) => {
     const { message, prefix } = await maybeTraced(store, rawMessage);
     return prefix + ` ${message} `.split(whitespaceRegex).join(" :clap: ");
-  }
+  },
 );

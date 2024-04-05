@@ -62,7 +62,7 @@ if (!USE_CLI && !isTestEnv) {
 
   if (!SENTRY_DSN) {
     console.warn(
-      `Sentry DSN is invalid! Error reporting to sentry will be disabled.`,
+      `Sentry DSN is invalid! Error reporting to Sentry will be disabled.`,
     );
   } else {
     initSentry({

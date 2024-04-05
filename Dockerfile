@@ -1,4 +1,4 @@
-FROM node:18.12.1 AS build
+FROM node:20.12.1 AS build
 WORKDIR /app
 ENV YARN_CACHE_FOLDER=/root/.yarn
 COPY package.json yarn.lock ./
@@ -11,7 +11,7 @@ COPY tsconfig.json ./
 # RUN --mount=type=cache,target=/root/.yarn yarn build && yarn install --frozen-lockfile --production --offline
 RUN yarn build && yarn install --frozen-lockfile --production --offline
 
-FROM node:18.12.1
+FROM node:20.12.1
 WORKDIR /app
 COPY data ./data
 COPY --from=build /app/node_modules ./node_modules

@@ -1,6 +1,6 @@
 {
   "name": "bort",
-  "version": "6.0.2",
+  "version": "6.0.3",
   "description": "a fun bot for you",
   "private": true,
   "main": "dist/main.js",
@@ -20,11 +20,11 @@
     "jest": "jest --watch"
   },
   "dependencies": {
-    "@sentry/integrations": "^7.91.0",
-    "@sentry/node": "7.91.0",
+    "@sentry/integrations": "^7.109.0",
+    "@sentry/node": "7.109.0",
     "axios": "^0.27.2",
     "cheerio": "^0.22.0",
-    "chrono-node": "^2.7.4",
+    "chrono-node": "^2.7.5",
     "cmu-pronouncing-dictionary": "^1.0.3",
     "common-tags": "^1.8.2",
     "dayjs": "^1.11.10",
@@ -32,8 +32,8 @@
     "discord.js": "^12.5.3",
     "level": "^7.0.1",
     "lru-cache": "^6.0.0",
-    "znv": "^0.3.1",
-    "zod": "^3.19.1"
+    "znv": "^0.4.0",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@types/cheerio": "0.22.22",
@@ -44,15 +44,15 @@
     "@types/lru-cache": "^5.1.1",
     "@types/node": "^16.11.17",
     "dotenv": "^14.3.2",
-    "eslint": "^8.29.0",
-    "eslint-config-lostfictions": "^4.0.0",
-    "jest": "^29.3.1",
+    "eslint": "^8.57.0",
+    "eslint-config-lostfictions": "^6.1.0",
+    "jest": "^29.7.0",
     "jsverify": "^0.8.4",
     "npm-run-all": "^4.1.5",
-    "prettier": "^2.8.1",
-    "ts-jest": "^29.0.3",
-    "ts-node": "^10.9.1",
-    "typescript": "^4.9.4"
+    "prettier": "^3.2.5",
+    "ts-jest": "^29.1.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.4"
   },
   "jest": {
     "preset": "ts-jest/presets/js-with-ts",

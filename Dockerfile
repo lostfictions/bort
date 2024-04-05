@@ -1,5 +1,6 @@
 FROM node:20.12.1 AS build
 WORKDIR /app
+RUN corepack enable
 ENV YARN_CACHE_FOLDER=/root/.yarn
 COPY package.json yarn.lock ./
 # RUN --mount=type=cache,target=/root/.yarn yarn install --frozen-lockfile

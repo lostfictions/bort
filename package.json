@@ -6,6 +6,7 @@
   "main": "dist/main.js",
   "author": "s <https://github.com/lostfictions>",
   "license": "AGPL-3.0",
+  "packageManager": "yarn@1.22.22",
   "scripts": {
     "start": "node --enable-source-maps dist/main.js",
     "dev": "DEBUG=bort DEBUG_HIDE_DATE=true DEBUG_COLORS=true ts-node -T src/main.ts",

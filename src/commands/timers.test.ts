@@ -5,7 +5,7 @@ import { initializeTimers } from "../store/methods/timers";
 
 const startDate = new Date("2020-01-01T00:00:00.000Z").valueOf();
 
-jest.useFakeTimers("modern");
+jest.useFakeTimers();
 jest.setSystemTime(startDate);
 
 describe("timers", () => {

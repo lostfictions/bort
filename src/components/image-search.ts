@@ -104,7 +104,7 @@ export function request({
 export function parse(html: string) {
   const $ = cheerio.load(html);
 
-  const strategies = [allJsonpStrategy];
+  const strategies = [genericScriptPayloadStrategy, allJsonpStrategy];
 
   for (const s of strategies) {
     const res = s($);
@@ -112,6 +112,31 @@ export function parse(html: string) {
   }
 
   return [];
+}
+
+// identical to older `allJsonpStrategy` below, but without filtering
+export function genericScriptPayloadStrategy(
+  $: cheerio.Root,
+): string[] | false {
+  const scripts = $("script")
+    .toArray()
+    .map((el) => $(el).text());
+
+  if (scripts.length > 0) {
+    return scripts
+      .flatMap((script) => [
+        ...script.matchAll(/"(https?:\/\/[^"]+\.(?:jpe?g|gifv?|png))"/g),
+      ])
+      .map((res) =>
+        // google image search results sometimes contain code points encoded as
+        // eg. \u003d, so replace them with their actual values
+        res[1].replaceAll(/\\u([a-fA-F0-9]{4})/gi, (_, g) =>
+          String.fromCodePoint(parseInt(g, 16)),
+        ),
+      );
+  }
+
+  return false;
 }
 
 const PREFIX = "AF_initDataCallback";

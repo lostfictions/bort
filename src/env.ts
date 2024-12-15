@@ -2,8 +2,7 @@
 
 import fs from "fs";
 import { parseEnv, z } from "znv";
-import { init as initSentry } from "@sentry/node";
-import { captureConsoleIntegration } from "@sentry/integrations";
+import { init as initSentry, captureConsoleIntegration } from "@sentry/node";
 import debug from "debug";
 import { oneLine } from "common-tags";
 

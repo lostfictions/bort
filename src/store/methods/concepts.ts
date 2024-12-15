@@ -100,7 +100,10 @@ type Corpora = {
 
 export async function initializeConcepts(db: DB): Promise<void> {
   const corpora: Corpora = JSON.parse(
-    fs.readFileSync(path.join(__dirname, "../../../data/corpora.json"), "utf8"),
+    fs.readFileSync(
+      path.join(import.meta.dirname, "../../../data/corpora.json"),
+      "utf8",
+    ),
   );
 
   for (const i of [

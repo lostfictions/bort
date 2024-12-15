@@ -80,7 +80,7 @@ export async function initializeMarkov(
 ): Promise<void> {
   const { tarotLines } = JSON.parse(
     await fs.readFile(
-      path.join(__dirname, "../../../data/corpora.json"),
+      path.join(import.meta.dirname, "../../../data/corpora.json"),
       "utf8",
     ),
   );

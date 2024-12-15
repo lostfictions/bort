@@ -4,7 +4,7 @@ import { it, describe, expect } from "vitest";
 
 import { parse } from "./image-search.ts";
 
-const fixturePath = join(__dirname, `../../fixtures/image-search`);
+const fixturePath = join(import.meta.dirname, `../../fixtures/image-search`);
 const fixtureFiles = readdirSync(fixturePath);
 
 const fixtures = fixtureFiles.map((f) => [

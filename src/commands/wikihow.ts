@@ -1,5 +1,5 @@
 import ky from "ky";
-import cheerio from "cheerio";
+import * as cheerio from "cheerio";
 
 import { makeCommand } from "../util/handler.ts";
 import { randomInArray } from "../util/index.ts";

@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@sentry/node": "8.45.0",
-    "cheerio": "^0.22.0",
+    "cheerio": "^1.0.0",
     "chrono-node": "^2.7.7",
     "cmu-pronouncing-dictionary": "^1.0.3",
     "common-tags": "^1.8.2",
@@ -35,7 +35,6 @@
     "zod": "^3.24.1"
   },
   "devDependencies": {
-    "@types/cheerio": "0.22.22",
     "@types/common-tags": "^1.8.4",
     "@types/debug": "4.1.12",
     "@types/levelup": "^4.3.3",

@@ -1,5 +1,5 @@
 import ky from "ky";
-import cheerio from "cheerio";
+import * as cheerio from "cheerio";
 
 import { randomInt } from "../util/index.ts";
 
@@ -123,7 +123,7 @@ export function parse(html: string) {
 
 // identical to older `allJsonpStrategy` below, but without filtering
 export function genericScriptPayloadStrategy(
-  $: cheerio.Root,
+  $: cheerio.CheerioAPI,
 ): string[] | false {
   const scripts = $("script")
     .toArray()
@@ -148,7 +148,7 @@ export function genericScriptPayloadStrategy(
 
 const PREFIX = "AF_initDataCallback";
 
-export function allJsonpStrategy($: cheerio.Root): string[] | false {
+export function allJsonpStrategy($: cheerio.CheerioAPI): string[] | false {
   const scripts = $("script")
     .toArray()
     .map((el) => $(el).text())

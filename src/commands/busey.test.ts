@@ -1,3 +1,4 @@
+import { it, describe, expect } from "vitest";
 import command, { USAGE } from "./busey.ts";
 
 import makeMockDb from "../store/mock-db.ts";

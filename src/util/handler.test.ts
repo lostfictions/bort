@@ -1,3 +1,4 @@
+import { it, describe, expect } from "vitest";
 import { processMessage, makeCommand, type Handler } from "./handler.ts";
 
 describe("processMessage", () => {

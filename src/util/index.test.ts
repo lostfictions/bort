@@ -1,4 +1,5 @@
-import jsc from "jsverify";
+import { it, describe, expect } from "vitest";
+import fc from "fast-check";
 
 import { randomByWeight, randomInArray } from "./index.ts";
 
@@ -17,14 +18,32 @@ describe("random in array", () => {
 });
 
 describe("random by weight", () => {
-  jsc.property(
-    "result is one of inputs",
-    jsc.nearray(jsc.tuple([jsc.string, jsc.number(0, 10)])),
-    (arrayOfWeights) => {
-      const keys = new Set(arrayOfWeights.map(([k]) => k));
-      return keys.has(randomByWeight(pairsToObj(arrayOfWeights)));
-    },
-  );
+  it("returns one of the inputs", () => {
+    expect(() =>
+      fc.assert(
+        fc.property(
+          fc.array(
+            fc.tuple(
+              fc.string(),
+              fc.float({
+                min: 0,
+                minExcluded: true,
+                noDefaultInfinity: true,
+                noNaN: true,
+              }),
+            ),
+            {
+              minLength: 1,
+            },
+          ),
+          (arrayOfWeights) => {
+            const keys = new Set(arrayOfWeights.map(([k]) => k));
+            return keys.has(randomByWeight(pairsToObj(arrayOfWeights)));
+          },
+        ),
+      ),
+    ).not.toThrow();
+  });
 
   it("doesn't throw given integer weights", () => {
     expect(() =>

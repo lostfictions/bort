@@ -1,5 +1,7 @@
 import { readFileSync } from "fs";
 import { join } from "path";
+import { it, describe, expect, vi } from "vitest";
+import ky from "ky";
 
 import command, { getFilmUrlsFromLetterboxdList, USAGE } from "./vidrand.ts";
 
@@ -14,14 +16,20 @@ const mockResponses = {
   "3": loadFixture(3),
 };
 
-jest.mock("axios", () =>
-  jest.fn(async (url: string) => {
-    if (url.endsWith("1")) return { data: mockResponses["1"] };
-    if (url.endsWith("2")) return { data: mockResponses["2"] };
-    if (url.endsWith("3")) return { data: mockResponses["3"] };
-    throw new Error(`Unexpected url calling mocked axios: ${url}`);
-  }),
-);
+vi.mock("ky", async (importOriginal) => {
+  const { HTTPError } = await importOriginal<typeof import("ky")>();
+  return {
+    default: {
+      get: vi.fn((url: string) => {
+        if (url.endsWith("1")) return { text: async () => mockResponses["1"] };
+        if (url.endsWith("2")) return { text: async () => mockResponses["2"] };
+        if (url.endsWith("3")) return { text: async () => mockResponses["3"] };
+        throw new Error(`Unexpected url calling mocked ky: ${url}`);
+      }),
+    },
+    HTTPError,
+  };
+});
 
 describe("vidrand", () => {
   describe("getFilmUrlsFromLetterboxdList", () => {
@@ -50,8 +58,7 @@ describe("vidrand", () => {
         message: "vidrand https://letterboxd.com/someuser/watchlist",
       } as any);
 
-      const axiosMock = jest.requireMock("axios");
-      expect(axiosMock).toHaveBeenCalled();
+      expect(ky.get).toHaveBeenCalled();
 
       expect(typeof result).toBe("string");
       expect((result as string).startsWith("https://letterboxd.com/film")).toBe(

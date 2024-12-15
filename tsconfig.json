@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     // https://github.com/microsoft/TypeScript/wiki/Node-Target-Mapping
-    "target": "es2024",
+    "target": "es2023",
     "lib": ["es2024"],
     "module": "nodenext",
     "noEmit": true,

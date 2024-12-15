@@ -1,3 +1,4 @@
+import { it, describe, expect } from "vitest";
 import command from "./choose.ts";
 
 import makeMockDb from "../store/mock-db.ts";

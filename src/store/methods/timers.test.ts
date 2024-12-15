@@ -1,3 +1,4 @@
+import { it, describe, expect } from "vitest";
 import { addTimer, removeTimer, initializeTimers } from "./timers.ts";
 import makeMockDb from "../mock-db.ts";
 

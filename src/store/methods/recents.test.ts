@@ -1,3 +1,4 @@
+import { it, describe, expect } from "vitest";
 import { addRecent, cleanRecents, initializeRecents } from "./recents.ts";
 import makeMockDb from "../mock-db.ts";
 

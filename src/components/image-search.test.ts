@@ -1,5 +1,6 @@
 import { readFileSync, readdirSync } from "fs";
 import { join } from "path";
+import { it, describe, expect } from "vitest";
 
 import { parse } from "./image-search.ts";
 

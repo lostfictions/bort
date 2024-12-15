@@ -1,3 +1,4 @@
+import { it, describe, expect, vi } from "vitest";
 import command from "./timers.ts";
 
 import makeMockDb from "../store/mock-db.ts";
@@ -5,8 +6,8 @@ import { initializeTimers } from "../store/methods/timers.ts";
 
 const startDate = new Date("2020-01-01T00:00:00.000Z").valueOf();
 
-jest.useFakeTimers();
-jest.setSystemTime(startDate);
+vi.useFakeTimers();
+vi.setSystemTime(startDate);
 
 describe("timers", () => {
   describe("timers command", () => {

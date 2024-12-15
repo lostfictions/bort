@@ -12,7 +12,10 @@ const term = "puppies";
     term,
   });
 
-  const fn = path.join(__dirname, `../fixtures/image-search/${term}.html`);
+  const fn = path.join(
+    import.meta.dirname,
+    `../fixtures/image-search/${term}.html`,
+  );
   await fs.writeFile(fn, res);
 
   console.log(`Wrote data of len ${res.length} to ${fn}`);

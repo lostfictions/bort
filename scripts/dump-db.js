@@ -1,6 +1,6 @@
-const path = require("path");
+import { join } from "path";
 
-const level = require("level");
+import level from "level";
 
 let dbName = process.argv[2];
 
@@ -9,7 +9,7 @@ if (!dbName) {
   console.warn(`no db name provided, using "${dbName}" instead`);
 }
 
-const db = level(path.join(__dirname, "../persist/db", dbName));
+const db = level(join(import.meta.dirname, "../persist/db", dbName));
 
 (async () => {
   for await (const data of db.createReadStream()) {
@@ -17,6 +17,6 @@ const db = level(path.join(__dirname, "../persist/db", dbName));
   }
 })()
   .then(() => console.log("done."))
-  .catch(e => {
+  .catch((e) => {
     throw e;
   });

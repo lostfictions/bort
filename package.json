@@ -13,10 +13,10 @@
     "dev-cli": "USE_CLI=true run-s dev",
     "test": "run-p -cl test:*",
     "test:ts": "tsc --pretty --noEmit",
-    "test:eslint": "eslint --color --max-warnings=0 'src/**/*'",
+    "test:eslint": "eslint --color --max-warnings=0 '{src,scripts}/**/*'",
     "test:vitest": "vitest run --color",
-    "test:prettier": "prettier 'src/**/*' -l",
-    "prettier": "prettier 'src/**/*' --write",
+    "test:prettier": "prettier '{src,scripts}/**/*' -l",
+    "prettier": "prettier '{src,scripts}/**/*' --write",
     "vitest": "vitest"
   },
   "dependencies": {

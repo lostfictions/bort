@@ -65,7 +65,17 @@ const initializeChannel = async (channel: Channel) => {
 };
 
 export function makeDiscordBot(discordToken: string) {
-  const client = new DiscordClient({ intents: [GatewayIntentBits.Guilds] });
+  const client = new DiscordClient({
+    intents: [
+      GatewayIntentBits.Guilds,
+      GatewayIntentBits.GuildMembers,
+      GatewayIntentBits.GuildMessages,
+      GatewayIntentBits.GuildMessageReactions,
+      GatewayIntentBits.DirectMessages,
+      GatewayIntentBits.DirectMessageReactions,
+      GatewayIntentBits.MessageContent,
+    ],
+  });
 
   let guildList = "guild-list-not-yet-retrieved";
 
@@ -203,7 +213,7 @@ export function makeDiscordBot(discordToken: string) {
       });
   });
 
-  client.on("message", onMessage);
+  client.on("messageCreate", onMessage);
 
   // allow deleting message with ❌
   client.on("messageReactionAdd", async ({ message, emoji }, user) => {

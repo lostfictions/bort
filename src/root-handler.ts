@@ -1,43 +1,48 @@
-import { BOT_NAME } from "./env";
+import { BOT_NAME } from "./env.ts";
 
-import { escapeForRegex } from "./util";
-import { processMessage, makeCommand, Handler, Command } from "./util/handler";
+import { escapeForRegex } from "./util/index.ts";
+import {
+  processMessage,
+  makeCommand,
+  type Handler,
+  type Command,
+} from "./util/handler.ts";
 
-import { HandlerArgs } from "./handler-args";
-
-import buseyCommand from "./commands/busey";
-import clapifyCommand from "./commands/clapify";
-import chooseCommand from "./commands/choose";
-import emojiListCommand from "./commands/emoji-list";
-import seenCommand from "./commands/seen";
-// import rhymeCommand from "./commands/rhyme";
-import weatherCommand from "./commands/weather";
-import uptimeCommand from "./commands/uptime";
-import { imageSearchCommand, gifSearchCommand } from "./commands/images";
-import timerCommand from "./commands/timers";
+import buseyCommand from "./commands/busey.ts";
+import clapifyCommand from "./commands/clapify.ts";
+import chooseCommand from "./commands/choose.ts";
+import emojiListCommand from "./commands/emoji-list.ts";
+import seenCommand from "./commands/seen.ts";
+// import rhymeCommand from "./commands/rhyme.ts";
+import weatherCommand from "./commands/weather.ts";
+import uptimeCommand from "./commands/uptime.ts";
+import { imageSearchCommand, gifSearchCommand } from "./commands/images.ts";
+import timerCommand from "./commands/timers.ts";
 // gifcities is down, i guess :(
-// import gifcitiesCommand from "./commands/gifcities";
-import completeCommand from "./commands/complete";
-import wikihowCommand from "./commands/wikihow";
-import conceptLoadCommand from "./commands/concept-load";
-import shuffleCommand from "./commands/shuffle";
-import vidrandCommand from "./commands/vidrand";
+// import gifcitiesCommand from "./commands/gifcities.ts";
+import completeCommand from "./commands/complete.ts";
+import wikihowCommand from "./commands/wikihow.ts";
+import conceptLoadCommand from "./commands/concept-load.ts";
+import shuffleCommand from "./commands/shuffle.ts";
+import vidrandCommand from "./commands/vidrand.ts";
 import {
   conceptAddCommand,
   conceptSetCommand,
   conceptRemoveCommand,
   conceptListCommand,
   conceptMatcher,
-} from "./commands/concepts";
-import redirectCommand from "./commands/redirect";
+} from "./commands/concepts.ts";
+import redirectCommand from "./commands/redirect.ts";
 
-import { getSentence, addSentence } from "./store/methods/markov";
-import { setSeen } from "./store/methods/seen";
-import { getConceptList, getConcept } from "./store/methods/concepts";
+import { getSentence, addSentence } from "./store/methods/markov.ts";
+import { setSeen } from "./store/methods/seen.ts";
+import { getConceptList, getConcept } from "./store/methods/concepts.ts";
 
-import { postRedirectedTwitterUrls } from "./components/post-redirected-twitter-urls";
-import { tryTrace, trace } from "./components/trace";
-import { recordEmojiCountInMessage } from "./components/reactions";
+import { postRedirectedTwitterUrls } from "./components/post-redirected-twitter-urls.ts";
+import { tryTrace, trace } from "./components/trace.ts";
+import { recordEmojiCountInMessage } from "./components/reactions.ts";
+
+import type { HandlerArgs } from "./handler-args.ts";
 
 const subCommands = [
   conceptAddCommand,
@@ -195,7 +200,7 @@ const doSetSeen = ({
   }
 
   // we don't actually want to wait for this to finish
-  setSeen(store, usernameOrId, message, channel).catch((e) => {
+  setSeen(store, usernameOrId, message, channel).catch((e: unknown) => {
     throw e;
   });
 

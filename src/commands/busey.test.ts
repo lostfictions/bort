@@ -1,8 +1,8 @@
-import command, { USAGE } from "./busey";
+import command, { USAGE } from "./busey.ts";
 
-import makeMockDb from "../store/mock-db";
-import { key as keyConcept } from "../store/methods/concepts";
-import { keyTrigramForward } from "../store/methods/markov";
+import makeMockDb from "../store/mock-db.ts";
+import { key as keyConcept } from "../store/methods/concepts.ts";
+import { keyTrigramForward } from "../store/methods/markov.ts";
 
 describe("busey", () => {
   const channel = "cool_chats";

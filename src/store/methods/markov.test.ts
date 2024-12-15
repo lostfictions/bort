@@ -5,8 +5,8 @@ import {
   keyTrigramReverse,
   getSentence,
   DEFAULT_NAMESPACE,
-} from "./markov";
-import makeMockDb from "../mock-db";
+} from "./markov.ts";
+import makeMockDb from "../mock-db.ts";
 
 describe("db markov", () => {
   describe("add sentence", () => {

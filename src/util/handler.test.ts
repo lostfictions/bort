@@ -1,4 +1,4 @@
-import { processMessage, makeCommand, Handler } from "./handler";
+import { processMessage, makeCommand, type Handler } from "./handler.ts";
 
 describe("processMessage", () => {
   it("should resolve a handler function to false", () =>

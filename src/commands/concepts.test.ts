@@ -4,9 +4,9 @@ import {
   // conceptRemoveCommand,
   // conceptListCommand,
   conceptMatcher,
-} from "./concepts";
+} from "./concepts.ts";
 
-import makeMockDb from "../store/mock-db";
+import makeMockDb from "../store/mock-db.ts";
 
 describe("concepts", () => {
   describe("concept add command", () => {

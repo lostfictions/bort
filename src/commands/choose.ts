@@ -1,6 +1,6 @@
-import { makeCommand } from "../util/handler";
-import { maybeTraced } from "../components/trace";
-import { randomInArray } from "../util";
+import { makeCommand } from "../util/handler.ts";
+import { maybeTraced } from "../components/trace.ts";
+import { randomInArray } from "../util/index.ts";
 
 export default makeCommand(
   {

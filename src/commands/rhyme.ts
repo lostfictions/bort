@@ -1,7 +1,7 @@
-import { makeCommand } from "../util/handler";
-// import { randomInArray } from "../util";
+import { makeCommand } from "../util/handler.ts";
+// import { randomInArray } from "../util/index.ts";
 
-// import { maybeTraced } from "../components/trace";
+// import { maybeTraced } from "../components/trace.ts";
 
 // import cmu from "cmu-pronouncing-dictionary";
 

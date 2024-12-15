@@ -1,7 +1,7 @@
-import axios from "axios";
+import ky from "ky";
 import cheerio from "cheerio";
 
-import { randomInt } from "../util";
+import { randomInt } from "../util/index.ts";
 
 /**
  * Perform an image search, optionally filter recently-seen images, and select a
@@ -53,7 +53,7 @@ export async function imageSearch({
 
     // test that it actually exists
     try {
-      await axios.head(result);
+      await ky.head(result);
       return result;
     } catch {
       // don't care, just try another result
@@ -72,7 +72,7 @@ export interface ImageSearchOptions {
 
 export async function requestAndParse(options: ImageSearchOptions) {
   const res = await request(options);
-  return parse(res.data);
+  return parse(res);
 }
 
 export function request({
@@ -85,20 +85,27 @@ export function request({
     .filter(Boolean)
     .join(",");
 
-  return axios.get<string>("https://www.google.com/search", {
-    params: {
-      q: term,
-      tbm: "isch",
-      nfpr: exact ? 1 : 0,
-      tbs: tbs || undefined,
-    },
-    timeout: 5000,
-    headers: {
-      "User-Agent":
-        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 " +
-        "(KHTML, like Gecko) Chrome/79.0.3945.79 Safari/537.36",
-    },
-  });
+  const searchParams: Record<string, string | number> = {
+    q: term,
+    tbm: "isch",
+    nfpr: exact ? 1 : 0,
+  };
+
+  if (tbs) {
+    searchParams.tbs = tbs;
+  }
+
+  return ky
+    .get("https://www.google.com/search", {
+      searchParams,
+      timeout: 5000,
+      headers: {
+        "User-Agent":
+          "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 " +
+          "(KHTML, like Gecko) Chrome/79.0.3945.79 Safari/537.36",
+      },
+    })
+    .text();
 }
 
 export function parse(html: string) {

@@ -1,6 +1,6 @@
-import { incrementChatEmojiCount } from "../store/methods/emoji-count";
+import { incrementChatEmojiCount } from "../store/methods/emoji-count.ts";
 
-import type { HandlerArgs } from "../handler-args";
+import type { HandlerArgs } from "../handler-args.ts";
 
 const messageCustomEmojiMatcher = /<:([a-zA-Z0-9_]{2,}):(\d+)>/g;
 

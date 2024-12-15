@@ -1,9 +1,9 @@
-import { makeCommand } from "../util/handler";
+import { makeCommand } from "../util/handler.ts";
 
 import {
   setRedirectTwitterEnabled,
   getRedirectTwitterEnabled,
-} from "../store/methods/redirect-twitter";
+} from "../store/methods/redirect-twitter.ts";
 
 const USAGE = "redirect [enable|disable|on|off]";
 

@@ -1,9 +1,9 @@
 import { URL } from "url";
-import axios from "axios";
+import ky from "ky";
 import { stripIndent, oneLine } from "common-tags";
 
-import { makeCommand } from "../util/handler";
-import { addConcept, getConcept } from "../store/methods/concepts";
+import { makeCommand } from "../util/handler.ts";
+import { addConcept, getConcept } from "../store/methods/concepts.ts";
 
 const loaderRegex = /^([^ ]+) +(?:path[=: ]([\w\d.]+) +)?(?:as|to) +([^\s]+)$/;
 
@@ -14,7 +14,7 @@ const traverse = (obj: any, path: string[]): any => {
     // eslint-disable-next-line no-param-reassign
     for (const p of path) obj = obj[p];
     return obj;
-  } catch (e) {
+  } catch {
     /* just toss out any failure to traverse and return null. */
   }
   return null;
@@ -75,20 +75,25 @@ export default makeCommand(
       return `Error: '${url}' doesn't appear to be a valid URL.\n${usage}`;
     }
 
-    // responseType: json attempts to convert to json, but falls back to string if not.
-    const { data: maybeJson } = await axios.get(url, { responseType: "json" });
+    const res = await ky.get(url).text();
+    let resAsJson: unknown = null;
+    try {
+      resAsJson = JSON.parse(res);
+    } catch {
+      // don't care
+    }
 
     const result: string[] = [];
     let items: string[];
-    if (typeof maybeJson === "string") {
+    if (resAsJson == null) {
       result.push(
         "Response type appears to be plaintext. Splitting to newlines.",
       );
-      items = maybeJson.split("\n").map((l) => l.trim());
+      items = res.split("\n").map((l) => l.trim());
     } else if (path) {
-      const itemOrItems = traverse(maybeJson, path);
+      const itemOrItems = traverse(resAsJson, path);
       if (!itemOrItems) {
-        const validKeys = Object.keys(maybeJson)
+        const validKeys = Object.keys(resAsJson)
           .slice(0, 5)
           .map((k) => `'${k}'`)
           .join(", ");
@@ -97,9 +102,9 @@ export default makeCommand(
         );
       }
       if (Array.isArray(itemOrItems)) {
-        items = itemOrItems.map((i) => i.toString());
+        items = itemOrItems.map((i) => String(i));
       } else {
-        const item = itemOrItems.toString();
+        const item = String(itemOrItems);
         if (item === "[object Object]") {
           throw new Error(
             `The item at "${path.join("/")}" does not appear to be a primitive or array!`,
@@ -107,9 +112,9 @@ export default makeCommand(
         }
         items = [item];
       }
-    } else if (Array.isArray(maybeJson)) {
+    } else if (Array.isArray(resAsJson)) {
       result.push("Response type appears to be a JSON array.");
-      items = maybeJson.map((i) => i.toString());
+      items = resAsJson.map((i) => String(i));
     } else {
       throw new Error(oneLine`
         The file at this URL seems to be JSON, but it's not an array.

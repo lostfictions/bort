@@ -1,5 +1,5 @@
-import { addRecent, cleanRecents, initializeRecents } from "./recents";
-import makeMockDb from "../mock-db";
+import { addRecent, cleanRecents, initializeRecents } from "./recents.ts";
+import makeMockDb from "../mock-db.ts";
 
 describe("db recents", () => {
   it("adds a recent 1", async () => {

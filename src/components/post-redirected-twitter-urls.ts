@@ -1,9 +1,9 @@
-import { getRedirectTwitterEnabled } from "../store/methods/redirect-twitter";
+import { getRedirectTwitterEnabled } from "../store/methods/redirect-twitter.ts";
 
 const baseTwitterUrlMatcher =
   /https:\/\/(?:m\.|mobile\.)?(?:x|twitter)\.com\/(?<path>[a-zA-Z0-9-_/?=&]+)/gi;
 
-import type { HandlerArgs } from "../handler-args";
+import type { HandlerArgs } from "../handler-args.ts";
 
 export async function postRedirectedTwitterUrls(
   handlerArgs: HandlerArgs,
@@ -12,7 +12,7 @@ export async function postRedirectedTwitterUrls(
   if (!enabled) return false;
 
   // redirecting should never block actual command resolution
-  matchAndPostUrls(handlerArgs).catch((e) => {
+  matchAndPostUrls(handlerArgs).catch((e: unknown) => {
     throw e;
   });
 

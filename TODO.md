@@ -1,3 +1,26 @@
+<!-- prettier-ignore-start -->
+
+- update libs
+
+- migrate to pnpm => dockerfile too
+
+- migrate to prisma/sqlite
+
+- migrate to "tsx" for transpilation/dev?
+
+=================
+
+- rewrite markov => better tokenization, handle start/end for greater coherency, better handling of punctuation
+
+- reinstate rhyming
+
+
+
+
+
+
+
+
 //////////
 
 - api for editing a posted message
@@ -53,3 +76,8 @@ improve help text
 - allow commands to be automatically disabled if eg. api keys are missing
 
 ---
+
+
+
+
+<!-- prettier-ignore-end -->

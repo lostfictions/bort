@@ -1,7 +1,7 @@
-import command from "./timers";
+import command from "./timers.ts";
 
-import makeMockDb from "../store/mock-db";
-import { initializeTimers } from "../store/methods/timers";
+import makeMockDb from "../store/mock-db.ts";
+import { initializeTimers } from "../store/methods/timers.ts";
 
 const startDate = new Date("2020-01-01T00:00:00.000Z").valueOf();
 

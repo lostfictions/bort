@@ -1,4 +1,4 @@
-import { DB } from "./get-db";
+import type { DB } from "./get-db.ts";
 
 export async function getOrNull<T>(db: DB, key: string): Promise<T | null> {
   try {

@@ -1,5 +1,5 @@
-import makeMockDb from "../mock-db";
-import { setSeen, initializeSeen } from "./seen";
+import makeMockDb from "../mock-db.ts";
+import { setSeen, initializeSeen } from "./seen.ts";
 
 describe("db seen", () => {
   it("sets seen via action 1", async () => {

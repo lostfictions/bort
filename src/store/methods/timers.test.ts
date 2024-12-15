@@ -1,5 +1,5 @@
-import { addTimer, removeTimer, initializeTimers } from "./timers";
-import makeMockDb from "../mock-db";
+import { addTimer, removeTimer, initializeTimers } from "./timers.ts";
+import makeMockDb from "../mock-db.ts";
 
 describe("db timers", () => {
   it("adds a timer", async () => {

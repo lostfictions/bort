@@ -4,9 +4,9 @@ import {
   addToConcept,
   removeFromConcept,
   getConceptList,
-} from "./concepts";
+} from "./concepts.ts";
 
-import makeMockDb from "../mock-db";
+import makeMockDb from "../mock-db.ts";
 
 describe("db concepts", () => {
   it("adds a concept 1", async () => {

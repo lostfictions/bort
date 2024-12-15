@@ -1,12 +1,12 @@
-import { makeCommand, adjustArgs } from "../util/handler";
-import { HandlerArgs } from "../handler-args";
+import { makeCommand, adjustArgs } from "../util/handler.ts";
 import {
   addConcept,
   removeConcept,
   getConcept,
   addToConcept,
   removeFromConcept,
-} from "../store/methods/concepts";
+} from "../store/methods/concepts.ts";
+import type { HandlerArgs } from "../handler-args.ts";
 
 type HandlerArgsWithConcept = HandlerArgs & { concept: string };
 
@@ -150,7 +150,7 @@ const conceptAddToCommand = makeCommand<HandlerArgsWithConcept>(
       return `Concept "${message}" doesn't exist!`;
     }
 
-    if (Object.hasOwnProperty.call(maybeConcept, concept)) {
+    if (Object.hasOwn(maybeConcept, concept)) {
       return `"${message}" already exists in "${concept}"!`;
     }
 
@@ -177,12 +177,10 @@ const conceptBulkAddToCommand = makeCommand<HandlerArgsWithConcept>(
     }
 
     const results = conceptsToAdd
-      .filter((c) => Object.hasOwnProperty.call(maybeConcept, c))
+      .filter((c) => Object.hasOwn(maybeConcept, c))
       .map((c) => `"${c}" already exists in "${concept}"!`);
 
-    const toAdd = conceptsToAdd.filter(
-      (c) => !Object.hasOwnProperty.call(maybeConcept, c),
-    );
+    const toAdd = conceptsToAdd.filter((c) => !Object.hasOwn(maybeConcept, c));
 
     await addToConcept(store, concept, toAdd);
 
@@ -206,7 +204,7 @@ const conceptRemoveFromCommand = makeCommand<HandlerArgsWithConcept>(
       return `Concept "${message}" doesn't exist!`;
     }
 
-    if (!Object.hasOwnProperty.call(maybeConcept, message)) {
+    if (!Object.hasOwn(maybeConcept, message)) {
       return `"${message}" doesn't exist in "${concept}"!`;
     }
 

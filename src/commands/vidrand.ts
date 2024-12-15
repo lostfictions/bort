@@ -1,9 +1,9 @@
-import axios, { AxiosResponse } from "axios";
+import ky, { HTTPError } from "ky";
 import cheerio from "cheerio";
 
-import { makeCommand } from "../util/handler";
-import { randomInArray } from "../util";
-import { getConcept } from "../store/methods/concepts";
+import { makeCommand } from "../util/handler.ts";
+import { randomInArray } from "../util/index.ts";
+import { getConcept } from "../store/methods/concepts.ts";
 
 export const USAGE = [
   "Usage:",
@@ -35,11 +35,11 @@ export async function getFilmUrlsFromLetterboxdList(
       ? `${url}page/${currentPage}`
       : `${url}/page/${currentPage}`;
 
-    let res: AxiosResponse;
+    let res;
     try {
-      res = await axios(resolvedUrl);
-    } catch (e: any) {
-      if (e.response?.status === 404) {
+      res = await ky.get(resolvedUrl).text();
+    } catch (e) {
+      if (e instanceof HTTPError && e.response.status === 404) {
         return { errorMessage: `Couldn't find a page at '${url}'!` };
       }
 
@@ -47,7 +47,7 @@ export async function getFilmUrlsFromLetterboxdList(
     }
 
     pageResults = cheerio
-      .load(res.data)(".poster")
+      .load(res)(".poster")
       .toArray()
       .map((div) => div.attribs["data-film-slug"])
       .filter((slug) => slug);

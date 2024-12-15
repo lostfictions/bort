@@ -1,5 +1,5 @@
-import { makeCommand } from "../util/handler";
-import { maybeTraced } from "../components/trace";
+import { makeCommand } from "../util/handler.ts";
+import { maybeTraced } from "../components/trace.ts";
 
 const whitespaceRegex = /\s+/;
 

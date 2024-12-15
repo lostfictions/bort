@@ -1,18 +1,18 @@
-import axios from "axios";
+import ky from "ky";
 import cheerio from "cheerio";
 
-import { makeCommand } from "../util/handler";
-import { randomInArray } from "../util";
+import { makeCommand } from "../util/handler.ts";
+import { randomInArray } from "../util/index.ts";
 
-import { maybeTraced } from "../components/trace";
-import { imageSearch } from "../components/image-search";
-import { addRecent, getRecents } from "../store/methods/recents";
+import { maybeTraced } from "../components/trace.ts";
+import { imageSearch } from "../components/image-search.ts";
+import { addRecent, getRecents } from "../store/methods/recents.ts";
 
 async function getRandomWikihowImage(): Promise<string> {
-  const res = await axios.get("https://www.wikihow.com/Special:Randomizer");
+  const res = await ky.get("https://www.wikihow.com/Special:Randomizer").text();
 
   const imgs = cheerio
-    .load(res.data)("img.whcdn")
+    .load(res)("img.whcdn")
     .toArray()
     .map((img) => img.attribs["data-src"])
     .filter((url) => url); // only images with this attribute!

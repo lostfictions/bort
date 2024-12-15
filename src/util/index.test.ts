@@ -1,9 +1,9 @@
 import jsc from "jsverify";
 
-import { randomByWeight, randomInArray } from "./index";
+import { randomByWeight, randomInArray } from "./index.ts";
 
-function pairsToObj<T>(pairs: [string, T][]): { [k: string]: T } {
-  const res: any = {};
+function pairsToObj<T>(pairs: [string, T][]) {
+  const res: Record<string, T> = {};
   for (const [k, v] of pairs) {
     res[k] = v;
   }

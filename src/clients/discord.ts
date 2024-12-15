@@ -1,40 +1,40 @@
 import {
   Client as DiscordClient,
   Message as DiscordMessage,
-  Channel,
   TextChannel,
-  GuildChannel,
   DMChannel,
   Guild,
   GuildEmoji,
   DiscordAPIError,
+  ChannelType,
+  GatewayIntentBits,
+  MessageType,
+  type Channel,
 } from "discord.js";
 import * as Sentry from "@sentry/node";
 
-import { getDb } from "../store/get-db";
-import messageHandler from "../root-handler";
-import { HandlerArgs } from "../handler-args";
+import { getDb } from "../store/get-db.ts";
+import messageHandler from "../root-handler.ts";
 
-import { processMessage } from "../util/handler";
-import { initializeMarkov } from "../store/methods/markov";
-import { activateAllTimers, getTimerMessage } from "../store/methods/timers";
+import { processMessage } from "../util/handler.ts";
+import { initializeMarkov } from "../store/methods/markov.ts";
+import { activateAllTimers, getTimerMessage } from "../store/methods/timers.ts";
 import {
   decrementReactionEmojiCount,
   incrementReactionEmojiCount,
-} from "../store/methods/emoji-count";
+} from "../store/methods/emoji-count.ts";
+
+import type { HandlerArgs } from "../handler-args.ts";
 
 export const getStoreNameForGuild = (guild: Guild) =>
   `discord-${guild.name}-${guild.id}`;
 
 export function getStoreNameForChannel(channel: Channel): string {
-  if (channel instanceof GuildChannel) {
+  if (channel.type === ChannelType.GuildText) {
     return getStoreNameForGuild(channel.guild);
   }
-  if (channel instanceof TextChannel) {
-    return `discord-${channel.name}-${channel.id}`;
-  }
-  if (channel instanceof DMChannel) {
-    return `discord-dm-${channel.recipient.username}-${channel.id}`;
+  if (channel.type === ChannelType.DM) {
+    return `discord-dm-${channel.recipientId}-${channel.id}`;
   }
 
   console.warn(
@@ -51,8 +51,8 @@ export function getStoreNameForChannel(channel: Channel): string {
  * delete corresponding DB slice when a channel delete event is emitted)
  */
 export function getInternalChannelId(channel: Channel): string {
-  if (channel instanceof TextChannel) return channel.name;
-  if (channel instanceof DMChannel) return channel.recipient.username;
+  if (channel.type === ChannelType.GuildText) return channel.name;
+  if (channel.type === ChannelType.DM) return channel.recipientId;
   return `other-${channel.id}`;
 }
 
@@ -65,7 +65,7 @@ const initializeChannel = async (channel: Channel) => {
 };
 
 export function makeDiscordBot(discordToken: string) {
-  const client = new DiscordClient();
+  const client = new DiscordClient({ intents: [GatewayIntentBits.Guilds] });
 
   let guildList = "guild-list-not-yet-retrieved";
 
@@ -78,7 +78,7 @@ export function makeDiscordBot(discordToken: string) {
       }
 
       // Don't respond to non-message messages.
-      if (message.type !== "DEFAULT") {
+      if (message.type !== MessageType.Default) {
         console.log(`Discord bot: Ignoring message type "${message.type}"`);
         return false;
       }
@@ -91,15 +91,17 @@ export function makeDiscordBot(discordToken: string) {
         message: message.content,
         username: message.author.username,
         channel: getInternalChannelId(message.channel),
-        isDM: message.channel.type === "dm",
+        isDM: message.channel.type === ChannelType.DM,
         sendMessage: async (m) => {
-          if (!message.channel.deleted) {
-            await message.channel.send(m, { split: true }).catch((e) => {
-              throw e;
-            });
+          if (message.channel.isSendable()) {
+            for (const msg of splitMessage(m)) {
+              await message.channel.send(msg).catch((e: unknown) => {
+                throw e;
+              });
+            }
           } else {
             console.warn(
-              `Trying to send message [${m}] in channel with id ${message.channel.id}, but it's been deleted`,
+              `Trying to send message [${m}] in channel with id ${message.channel.id}, but it's not sendable`,
             );
           }
         },
@@ -110,7 +112,11 @@ export function makeDiscordBot(discordToken: string) {
         return false;
       }
 
-      await message.channel.send(response, { split: true });
+      if (message.channel.isSendable()) {
+        for (const msg of splitMessage(response)) {
+          await message.channel.send(msg);
+        }
+      }
     } catch (error) {
       const err =
         error instanceof DiscordAPIError ? error.message : String(error);
@@ -125,21 +131,23 @@ export function makeDiscordBot(discordToken: string) {
         contexts: { message: message.toJSON() as any },
       });
 
-      message.channel
-        .send(`[Something went wrong!] [${err.slice(0, 1800)}]`)
-        .catch((e) => {
-          throw e;
-        });
+      if (message.channel.isSendable()) {
+        message.channel
+          .send(`[Something went wrong!] [${err.slice(0, 1800)}]`)
+          .catch((e: unknown) => {
+            throw e;
+          });
+      }
     }
   }
 
-  client.on("disconnect", (ev: any) => {
+  client.on("disconnect", (ev) => {
     console.log(`Discord bot disconnected! reason: ${ev.reason}`);
   });
 
   /* eslint-disable @typescript-eslint/no-misused-promises */
   client.on("ready", async () => {
-    const guilds = client.guilds.cache.array();
+    const guilds = [...client.guilds.cache.values()];
 
     guildList = guilds.map((g) => `'${g.name}'`).join(", ");
 
@@ -156,7 +164,7 @@ export function makeDiscordBot(discordToken: string) {
 
       timeouts = [];
 
-      for (const guild of client.guilds.cache.array()) {
+      for (const guild of client.guilds.cache.values()) {
         const storeName = getStoreNameForGuild(guild);
         const store = await getDb(storeName);
         const guildTimeouts = await activateAllTimers(store, (payload) => {
@@ -174,9 +182,11 @@ export function makeDiscordBot(discordToken: string) {
             return;
           }
 
-          channel.send(getTimerMessage(payload), { split: true }).catch((e) => {
-            throw e;
-          });
+          for (const msg of splitMessage(getTimerMessage(payload))) {
+            channel.send(msg).catch((e: unknown) => {
+              throw e;
+            });
+          }
         });
         timeouts.push(...guildTimeouts);
       }
@@ -188,7 +198,7 @@ export function makeDiscordBot(discordToken: string) {
       .then(() => {
         setTimeout(checkAndReinitializeTimeouts, 1000 * 60 * 60 * 24);
       })
-      .catch((e) => {
+      .catch((e: unknown) => {
         throw e;
       });
   });
@@ -198,7 +208,10 @@ export function makeDiscordBot(discordToken: string) {
   // allow deleting message with ❌
   client.on("messageReactionAdd", async ({ message, emoji }, user) => {
     if (message.author === client.user && emoji.name === "❌") {
-      await message.delete({ reason: `Delete requested by user ${user.tag}` });
+      console.log(
+        `Message "${message.content}" (id ${message.id}): delete requested by user ${user.tag}`,
+      );
+      await message.delete();
     }
   });
 
@@ -245,4 +258,34 @@ export function makeDiscordBot(discordToken: string) {
     client,
     login: client.login.bind(client, discordToken) as () => Promise<string>,
   };
+}
+
+/**
+ * Splits a string into multiple chunks at a designated character that do not
+ * exceed a specific length.
+ *
+ * Adapted from deleted functionality in Discord.js:
+ * https://github.com/discordjs/discord.js/pull/7780/files
+ */
+function splitMessage(text: string): string[] {
+  const maxLength = 2_000;
+
+  const char = "\n";
+
+  if (text.length <= maxLength) return [text];
+  const splitText = text.split(char);
+
+  if (splitText.some((elem) => elem.length > maxLength)) {
+    throw new RangeError("SPLIT_MAX_LEN");
+  }
+  const messages = [];
+  let msg = "";
+  for (const chunk of splitText) {
+    if (msg && (msg + char + chunk).length > maxLength) {
+      messages.push(msg);
+      msg = "";
+    }
+    msg += (msg && msg !== "" ? char : "") + chunk;
+  }
+  return messages.concat(msg).filter((m) => m);
 }

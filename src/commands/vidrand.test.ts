@@ -1,7 +1,7 @@
 import { readFileSync } from "fs";
 import { join } from "path";
 
-import command, { getFilmUrlsFromLetterboxdList, USAGE } from "./vidrand";
+import command, { getFilmUrlsFromLetterboxdList, USAGE } from "./vidrand.ts";
 
 const loadFixture = (page: number) =>
   readFileSync(

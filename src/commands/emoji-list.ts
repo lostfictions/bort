@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 
-import { makeCommand } from "../util/handler";
-import { getEmojiCount } from "../store/methods/emoji-count";
+import { makeCommand } from "../util/handler.ts";
+import { getEmojiCount } from "../store/methods/emoji-count.ts";
 
 export default makeCommand(
   {
@@ -39,7 +39,7 @@ export default makeCommand(
 
     for (const e of sortedEmoji) {
       const emoji = discordMeta.message.guild.emojis.resolve(e.id);
-      if (emoji && !emoji.deleted) {
+      if (emoji) {
         let maybeAge = "";
         if (
           !dayjs(emoji.createdTimestamp).isBefore(dayjs().subtract(6, "month"))

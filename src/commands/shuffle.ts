@@ -1,7 +1,7 @@
-import { makeCommand } from "../util/handler";
+import { makeCommand } from "../util/handler.ts";
 
-import { randomInt } from "../util";
-import { getConcept } from "../store/methods/concepts";
+import { randomInt } from "../util/index.ts";
+import { getConcept } from "../store/methods/concepts.ts";
 
 export default makeCommand(
   {

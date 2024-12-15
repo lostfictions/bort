@@ -1,7 +1,7 @@
 import { readFileSync, readdirSync } from "fs";
 import { join } from "path";
 
-import { parse } from "./image-search";
+import { parse } from "./image-search.ts";
 
 const fixturePath = join(__dirname, `../../fixtures/image-search`);
 const fixtureFiles = readdirSync(fixturePath);

@@ -2,8 +2,9 @@ import fs from "fs";
 import path from "path";
 import assert from "assert";
 
-import { DB } from "../get-db";
-import { getOrNull } from "../db-helpers";
+import { getOrNull } from "../db-helpers.ts";
+
+import type { DB } from "../get-db.ts";
 
 export type Concept = { [entry: string]: number };
 
@@ -61,6 +62,7 @@ export async function removeFromConcept(
   const c = await db.get<Concept>(key(concept));
 
   for (const item of items) {
+    // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
     delete c[item];
   }
 
@@ -85,8 +87,19 @@ export async function getConceptList(db: DB): Promise<string[]> {
   return keys;
 }
 
+type Corpora = {
+  punc: string[];
+  interjection: string[];
+  adj: string[];
+  noun: string[];
+  digit: string[];
+  consonant: string[];
+  vowel: string[];
+  verb: { present: string }[];
+};
+
 export async function initializeConcepts(db: DB): Promise<void> {
-  const corpora = JSON.parse(
+  const corpora: Corpora = JSON.parse(
     fs.readFileSync(path.join(__dirname, "../../../data/corpora.json"), "utf8"),
   );
 
@@ -98,14 +111,14 @@ export async function initializeConcepts(db: DB): Promise<void> {
     "digit",
     "consonant",
     "vowel",
-  ]) {
+  ] as const) {
     assert(Array.isArray(corpora[i]));
     corpora[i].every((c: any) => typeof c === "string");
   }
 
   assert(
     Array.isArray(corpora.verb) &&
-      corpora.verb.every((v: any) => typeof v.present === "string"),
+      corpora.verb.every((v) => typeof v.present === "string"),
   );
 
   await addConcept(db, "punc", corpora.punc);
@@ -118,6 +131,6 @@ export async function initializeConcepts(db: DB): Promise<void> {
   await addConcept(
     db,
     "verb",
-    corpora.verb.map((v: { present: string; past: string }) => v.present),
+    corpora.verb.map((v) => v.present),
   );
 }

@@ -1,4 +1,4 @@
-import { DB } from "./get-db";
+import type { DB } from "./get-db.ts";
 
 export default function makeMockDb(store: { [key: string]: any } = {}): {
   store: { [key: string]: any };
@@ -11,15 +11,17 @@ export default function makeMockDb(store: { [key: string]: any } = {}): {
         // TODO [-level] replace `in` operator
         // eslint-disable-next-line no-restricted-syntax
         if (!(key in store)) {
-          // eslint-disable-next-line @typescript-eslint/no-throw-literal
+          // eslint-disable-next-line @typescript-eslint/only-throw-error
           throw { notFound: true };
         }
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
         return store[key];
       },
-      async put<T = any>(key: string, value: T): Promise<void> {
+      async put(key: string, value: unknown): Promise<void> {
         store[key] = value;
       },
       async del(key: string): Promise<void> {
+        // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
         delete store[key];
       },
       createKeyStream(_opts) {

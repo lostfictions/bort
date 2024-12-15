@@ -1,14 +1,14 @@
 import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
+import relativeTime from "dayjs/plugin/relativeTime.js";
 import { casual } from "chrono-node";
 
-import { makeCommand } from "../util/handler";
+import { makeCommand } from "../util/handler.ts";
 import {
   addTimer,
   removeTimer,
   activateTimer,
   getTimerMessage,
-} from "../store/methods/timers";
+} from "../store/methods/timers.ts";
 
 dayjs.extend(relativeTime);
 
@@ -114,7 +114,7 @@ export default makeCommand(
     });
 
     await activateTimer(store, timerId, (payload) => {
-      sendMessage(getTimerMessage(payload)).catch((e) => {
+      sendMessage(getTimerMessage(payload)).catch((e: unknown) => {
         throw e;
       });
     });

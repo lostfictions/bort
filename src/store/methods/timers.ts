@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
+import relativeTime from "dayjs/plugin/relativeTime.js";
 
-import { DB } from "../get-db";
+import type { DB } from "../get-db.ts";
 
 dayjs.extend(relativeTime);
 
@@ -56,6 +56,7 @@ export async function removeTimer(db: DB, id: string): Promise<boolean> {
   // TODO [-level] replace `in` operator
   // eslint-disable-next-line no-restricted-syntax
   if (id in t.timers) {
+    // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
     delete t.timers[id];
     await db.put<Timers>(key, t);
     return true;

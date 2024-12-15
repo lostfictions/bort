@@ -1,5 +1,5 @@
-import { escapeForRegex } from "./index";
-import { HandlerArgs } from "../handler-args";
+import { escapeForRegex } from "./index.ts";
+import type { HandlerArgs } from "../handler-args.ts";
 type HandlerResult<T> = T | false | Promise<T | false>;
 type HandlerFn<TData, TResult> = (data: TData) => HandlerResult<TResult>;
 export type Handler<TData, TResult = string> =

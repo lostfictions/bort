@@ -1,12 +1,13 @@
-import { makeCommand } from "../util/handler";
-import { randomByWeight } from "../util";
+import { makeCommand } from "../util/handler.ts";
+import { randomByWeight } from "../util/index.ts";
 
-import { addRecent, getRecents } from "../store/methods/recents";
-import { maybeTraced } from "../components/trace";
-import { imageSearch } from "../components/image-search";
+import { addRecent, getRecents } from "../store/methods/recents.ts";
+import { maybeTraced } from "../components/trace.ts";
+import { imageSearch } from "../components/image-search.ts";
 
-import { DB } from "../store/get-db";
-import { getConcept } from "../store/methods/concepts";
+import { getConcept } from "../store/methods/concepts.ts";
+
+import type { DB } from "../store/get-db.ts";
 
 async function doSearch(rawMessage: string, store: DB, animated = false) {
   let message: string;

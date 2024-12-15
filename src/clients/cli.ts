@@ -1,8 +1,8 @@
 import readline from "readline";
-import { processMessage } from "../util/handler";
+import { processMessage } from "../util/handler.ts";
 
-import { getDb } from "../store/get-db";
-import messageHandler from "../root-handler";
+import { getDb } from "../store/get-db.ts";
+import messageHandler from "../root-handler.ts";
 
 export const makeCLIBot = (dbName = "_cli-test") => {
   const rl = readline.createInterface({

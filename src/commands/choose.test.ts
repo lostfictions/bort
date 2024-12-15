@@ -1,6 +1,6 @@
-import command from "./choose";
+import command from "./choose.ts";
 
-import makeMockDb from "../store/mock-db";
+import makeMockDb from "../store/mock-db.ts";
 
 describe("choose", () => {
   describe("choose command", () => {

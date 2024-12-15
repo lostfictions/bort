@@ -4,24 +4,24 @@ import path from "path";
 import level from "level";
 import debug from "debug";
 
-import { initializeConcepts } from "./methods/concepts";
-import { initializeSeen, shouldInitializeSeen } from "./methods/seen";
+import { initializeConcepts } from "./methods/concepts.ts";
+import { initializeSeen, shouldInitializeSeen } from "./methods/seen.ts";
 import {
   initializeRedirectTwitter,
   shouldInitializeRedirectTwitter,
-} from "./methods/redirect-twitter";
+} from "./methods/redirect-twitter.ts";
 import {
   initializeRecents,
   shouldInitializeRecents,
   cleanRecents,
-} from "./methods/recents";
-import { initializeTimers, shouldInitializeTimers } from "./methods/timers";
+} from "./methods/recents.ts";
+import { initializeTimers, shouldInitializeTimers } from "./methods/timers.ts";
 import {
   initializeEmojiCount,
   shouldInitializeEmojiCount,
-} from "./methods/emoji-count";
+} from "./methods/emoji-count.ts";
 
-import { DATA_DIR } from "../env";
+import { DATA_DIR } from "../env.ts";
 
 const log = debug("bort:store");
 
@@ -40,9 +40,11 @@ interface ReadStreamOptions {
 
 export type DB = {
   get: <T = any>(key: string) => Promise<T>;
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-parameters
   put: <T = any>(key: string, value: T) => Promise<void>;
   del: (key: string) => Promise<void>;
   createKeyStream: (options?: ReadStreamOptions) => AsyncIterable<string>;
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-parameters
   createReadStream: <T = any>(
     options?: ReadStreamOptions,
   ) => AsyncIterable<{ key: string; value: T }>;

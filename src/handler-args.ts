@@ -1,4 +1,4 @@
-import type { DB } from "./store/get-db";
+import type { DB } from "./store/get-db.ts";
 import type {
   Message as DiscordMessage,
   Client as DiscordClient,

@@ -1,6 +1,6 @@
-import { randomByWeight } from "../util";
-import { DB } from "../store/get-db";
-import { getConcept } from "../store/methods/concepts";
+import { randomByWeight } from "../util/index.ts";
+import { getConcept } from "../store/methods/concepts.ts";
+import type { DB } from "../store/get-db.ts";
 
 type Modifier = (token: string, ...args: string[]) => string;
 interface ModifierList {

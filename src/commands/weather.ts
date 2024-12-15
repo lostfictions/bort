@@ -1,9 +1,9 @@
-import axios, { AxiosResponse } from "axios";
+import ky, { HTTPError } from "ky";
 import { stripIndent } from "common-tags";
 
-import { makeCommand } from "../util/handler";
+import { makeCommand } from "../util/handler.ts";
 
-import { OPEN_WEATHER_MAP_KEY } from "../env";
+import { OPEN_WEATHER_MAP_KEY } from "../env.ts";
 
 const kelvinToC = (kelvin: number) => kelvin - 273.15;
 const kelvinToF = (kelvin: number) => (kelvin * 9) / 5 - 459.67;
@@ -65,31 +65,24 @@ export default makeCommand(
 
     const trimmed = message.trim();
 
-    const query = /^[0-9]{5}$/.test(trimmed)
-      ? { zip: trimmed }
-      : { q: trimmed };
-
-    let owmRes: AxiosResponse<OWMResponse>;
+    let owmRes;
     try {
-      owmRes = await axios.get(
-        `https://api.openweathermap.org/data/2.5/weather`,
-        {
-          params: {
-            ...query,
-            appid: OPEN_WEATHER_MAP_KEY,
-          },
-          responseType: "json",
+      owmRes = await ky
+        .get(`https://api.openweathermap.org/data/2.5/weather`, {
+          searchParams: /^[0-9]{5}$/.test(trimmed)
+            ? { zip: trimmed, appid: OPEN_WEATHER_MAP_KEY }
+            : { q: trimmed, appid: OPEN_WEATHER_MAP_KEY },
           timeout: 5000,
-        },
-      );
-    } catch (e: any) {
-      if (e.response?.status === 404) {
+        })
+        .json();
+    } catch (e) {
+      if (e instanceof HTTPError && e.response.status === 404) {
         return `dunno where '${message}' is ¯\\_(ツ)_/¯`;
       }
-      return `Can't get weather for '${message}'! (Error: ${e})`;
+      return `Can't get weather for '${message}'! (Error: ${String(e)})`;
     }
 
-    const { sys, weather, main, wind, name } = owmRes.data;
+    const { sys, weather, main, wind, name } = owmRes as OWMResponse;
 
     let formattedWind = "";
     if (wind) {

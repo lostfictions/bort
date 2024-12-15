@@ -1,4 +1,4 @@
-import { DB } from "../get-db";
+import type { DB } from "../get-db.ts";
 
 const key = "emoji-count";
 

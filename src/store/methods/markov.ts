@@ -4,14 +4,14 @@ import assert from "assert";
 
 import debug from "debug";
 
-import { randomInArray, randomByWeight } from "../../util";
-import { DB } from "../get-db";
+import { randomInArray, randomByWeight } from "../../util/index.ts";
 import {
   getWithDefault,
   getOrNull,
   isRestrictedObjectPropertyName,
-} from "../db-helpers";
-import { endTest } from "./markov-helpers";
+} from "../db-helpers.ts";
+import { endTest } from "./markov-helpers.ts";
+import type { DB } from "../get-db.ts";
 
 const log = debug("bort-verbose:markov");
 
@@ -88,7 +88,7 @@ export async function initializeMarkov(
   assert(Array.isArray(tarotLines));
   assert(tarotLines.every((l) => typeof l === "string"));
 
-  for (const line of tarotLines as string[]) {
+  for (const line of tarotLines) {
     await addSentence(db, line, ns);
   }
 }

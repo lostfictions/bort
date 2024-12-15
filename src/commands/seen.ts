@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
-import { makeCommand } from "../util/handler";
-import { getSeen, SeenEntry } from "../store/methods/seen";
+import relativeTime from "dayjs/plugin/relativeTime.js";
+import { makeCommand } from "../util/handler.ts";
+import { getSeen, type SeenEntry } from "../store/methods/seen.ts";
 
 dayjs.extend(relativeTime);
 

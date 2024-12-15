@@ -13,7 +13,7 @@ const isDevEnv = process.env["NODE_ENV"] !== "production";
 const isTestEnv = process.env["NODE_ENV"] === "test";
 
 if (isDevEnv) {
-  require("dotenv").config();
+  (await import("dotenv")).config();
 }
 
 export const {

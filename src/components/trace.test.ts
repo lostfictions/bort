@@ -4,9 +4,9 @@ import {
   emptyConceptError,
   unknownConceptError,
   MAX_CYCLES_ERROR,
-} from "./trace";
+} from "./trace.ts";
 
-import makeMockDb from "../store/mock-db";
+import makeMockDb from "../store/mock-db.ts";
 
 describe("tracing functions", () => {
   describe("trace", () => {

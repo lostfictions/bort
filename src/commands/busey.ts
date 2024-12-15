@@ -1,8 +1,12 @@
-import { makeCommand } from "../util/handler";
-import { randomInArray } from "../util";
-import { maybeTraced } from "../components/trace";
-import { getEntry, prefixForward, MarkovEntry } from "../store/methods/markov";
-import { DB } from "../store/get-db";
+import { makeCommand } from "../util/handler.ts";
+import { randomInArray } from "../util/index.ts";
+import { maybeTraced } from "../components/trace.ts";
+import {
+  getEntry,
+  prefixForward,
+  type MarkovEntry,
+} from "../store/methods/markov.ts";
+import type { DB } from "../store/get-db.ts";
 
 export const USAGE = [
   "Usage:",

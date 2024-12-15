@@ -30,7 +30,10 @@ export const getStoreNameForGuild = (guild: Guild) =>
   `discord-${guild.name}-${guild.id}`;
 
 export function getStoreNameForChannel(channel: Channel): string {
-  if (channel.type === ChannelType.GuildText) {
+  if (
+    channel.type === ChannelType.GuildText ||
+    channel.type === ChannelType.PublicThread
+  ) {
     return getStoreNameForGuild(channel.guild);
   }
   if (channel.type === ChannelType.DM) {
@@ -52,6 +55,9 @@ export function getStoreNameForChannel(channel: Channel): string {
  */
 export function getInternalChannelId(channel: Channel): string {
   if (channel.type === ChannelType.GuildText) return channel.name;
+  if (channel.type === ChannelType.PublicThread && channel.parent) {
+    return channel.parent.name;
+  }
   if (channel.type === ChannelType.DM) return channel.recipientId;
   return `other-${channel.id}`;
 }
@@ -214,6 +220,14 @@ export function makeDiscordBot(discordToken: string) {
   });
 
   client.on("messageCreate", onMessage);
+
+  client.on("threadCreate", (thread, newlyCreated) => {
+    if (newlyCreated && thread.joinable) {
+      thread.join().catch((e: unknown) => {
+        throw e;
+      });
+    }
+  });
 
   // allow deleting message with ❌
   client.on("messageReactionAdd", async ({ message, emoji }, user) => {

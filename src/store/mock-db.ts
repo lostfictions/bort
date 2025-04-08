@@ -14,7 +14,6 @@ export default function makeMockDb(store: { [key: string]: any } = {}): {
           // eslint-disable-next-line @typescript-eslint/only-throw-error
           throw { notFound: true };
         }
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
         return store[key];
       },
       async put(key: string, value: unknown): Promise<void> {

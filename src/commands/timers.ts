@@ -13,14 +13,6 @@ import {
 dayjs.extend(relativeTime);
 
 const chrono = casual.clone();
-// formerly we removed the timezone abbreviation parser to work around
-// https://github.com/wanasit/chrono/issues/360. this appears to no longer be
-// necessary; i've kept the test in timers.test.ts in case regressions recur.
-
-// const refinersWithoutAbbrParsing = chrono.refiners.filter(
-//   (r) => r.constructor.name !== "ExtractTimezoneAbbrRefiner"
-// );
-// chrono.refiners = refinersWithoutAbbrParsing;
 
 export default makeCommand(
   {

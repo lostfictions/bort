@@ -85,7 +85,7 @@ export default makeCommand(
         content: `AQI data for ${name}, ${country}`,
         files: [attachment],
       });
-      return "";
+      return true;
     }
 
     if (channel === "cli-channel") {

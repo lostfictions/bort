@@ -1,6 +1,6 @@
 import { escapeForRegex } from "./index.ts";
 import type { HandlerArgs } from "../handler-args.ts";
-type HandlerResult<T> = T | false | Promise<T | false>;
+type HandlerResult<T> = T | boolean | Promise<T | boolean>;
 type HandlerFn<TData, TResult> = (data: TData) => HandlerResult<TResult>;
 export type Handler<TData, TResult = string> =
   | HandlerFn<TData, TResult>
@@ -13,7 +13,7 @@ type DefaultData = { message: string };
 export async function processMessage<TData = DefaultData>(
   handlerOrHandlers: HandlerOrHandlers<TData>,
   data: TData,
-): Promise<string | false> {
+): Promise<string | boolean> {
   if (!Array.isArray(handlerOrHandlers)) {
     if (typeof handlerOrHandlers === "function") {
       return handlerOrHandlers(data);
@@ -24,9 +24,10 @@ export async function processMessage<TData = DefaultData>(
   for (const handler of handlerOrHandlers) {
     const res = await processMessage(handler, data);
 
-    if (res !== false) {
-      return res;
-    }
+    // true: the message was handled, but with no output
+    if (res === true) return false;
+    if (res !== false) return res;
+    // false: continue
   }
   return false;
 }
@@ -91,7 +92,7 @@ export function makeCommand<TData extends { message: string } = HandlerArgs>(
 export function adjustArgs<TAdjusted = { message: string }, TData = TAdjusted>(
   adjuster: (data: TData) => TAdjusted | false | Promise<TAdjusted | false>,
   handlerOrHandlers: HandlerOrHandlers<TAdjusted>,
-): (data: TData) => Promise<string | false> {
+): (data: TData) => Promise<string | boolean> {
   return async (data: TData) => {
     const adjustedData = await adjuster(data);
     if (adjustedData === false) {

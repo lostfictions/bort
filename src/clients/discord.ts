@@ -124,7 +124,7 @@ export function makeDiscordBot(discordToken: string) {
         discordMeta: { message, client },
       });
 
-      if (response === false) {
+      if (typeof response === "boolean") {
         return false;
       }
 

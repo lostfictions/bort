@@ -28,7 +28,7 @@ export const makeCLIBot = (dbName = "_cli-test") => {
         });
 
         console.log(
-          response !== false
+          typeof response !== "boolean"
             ? response
                 .split("\n")
                 .map((line) => `[bort] ${line}`)

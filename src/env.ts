@@ -11,10 +11,6 @@ const log = debug("bort:env");
 const isDevEnv = process.env["NODE_ENV"] !== "production";
 const isTestEnv = process.env["NODE_ENV"] === "test";
 
-if (isDevEnv) {
-  (await import("dotenv")).config();
-}
-
 export const {
   BOT_NAME,
   DATA_DIR,

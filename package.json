@@ -9,7 +9,7 @@
   "type": "module",
   "scripts": {
     "start": "DEBUG=bort node --experimental-strip-types src/main.ts",
-    "dev": "DEBUG=bort DEBUG_HIDE_DATE=true DEBUG_COLORS=true node --experimental-strip-types src/main.ts",
+    "dev": "DEBUG=bort DEBUG_HIDE_DATE=true DEBUG_COLORS=true node --env-file-if-exists=.env --experimental-strip-types src/main.ts",
     "dev-cli": "USE_CLI=true run-s dev",
     "test": "run-p -cl test:*",
     "test:ts": "tsc --pretty --noEmit",
@@ -38,7 +38,6 @@
     "@types/debug": "4.1.12",
     "@types/levelup": "^4.3.3",
     "@types/node": "^22.14.0",
-    "dotenv": "^16.4.7",
     "eslint": "^9.33.0",
     "eslint-config-lostfictions": "7.0.0",
     "fast-check": "^4.2.0",

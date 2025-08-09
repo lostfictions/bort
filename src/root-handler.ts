@@ -8,6 +8,7 @@ import {
   type Command,
 } from "./util/handler.ts";
 
+import aqiCommand from "./commands/aqi.ts";
 import buseyCommand from "./commands/busey.ts";
 import clapifyCommand from "./commands/clapify.ts";
 import chooseCommand from "./commands/choose.ts";
@@ -63,6 +64,7 @@ const subCommands = [
   gifSearchCommand,
   timerCommand,
   completeCommand,
+  aqiCommand,
   weatherCommand,
   uptimeCommand,
   redirectCommand,

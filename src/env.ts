@@ -15,6 +15,7 @@ export const {
   BOT_NAME,
   DATA_DIR,
   DISCORD_TOKEN,
+  AQICN_KEY,
   OPEN_WEATHER_MAP_KEY,
   SENTRY_DSN,
   USE_CLI,
@@ -34,6 +35,7 @@ export const {
       _: "",
     },
   },
+  AQICN_KEY: z.string().optional(),
   OPEN_WEATHER_MAP_KEY: z.string().optional(),
   SENTRY_DSN: { schema: z.string().min(1).optional() },
   USE_CLI: {
@@ -49,6 +51,10 @@ if (!fs.existsSync(DATA_DIR)) {
 }
 
 if (!USE_CLI && !isTestEnv) {
+  if (!AQICN_KEY) {
+    console.warn(`aqicn.org key appears invalid! AQI command may not work.`);
+  }
+
   if (!OPEN_WEATHER_MAP_KEY) {
     console.warn(
       `Open Weather Map key appears invalid! Weather command may not work.`,

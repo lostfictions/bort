@@ -21,14 +21,14 @@
   },
   "dependencies": {
     "@sentry/node": "9.11.0",
-    "cheerio": "^1.0.0",
-    "chrono-node": "^2.8.0",
+    "cheerio": "^1.1.2",
+    "chrono-node": "^2.8.4",
     "cmu-pronouncing-dictionary": "^1.0.3",
     "common-tags": "^1.8.2",
     "dayjs": "^1.11.13",
-    "debug": "^4.4.0",
+    "debug": "^4.4.1",
     "discord.js": "^14.18.0",
-    "ky": "^1.8.0",
+    "ky": "^1.8.2",
     "level": "^7.0.1",
     "znv": "^0.5.0",
     "zod": "^3.24.2"
@@ -39,13 +39,13 @@
     "@types/levelup": "^4.3.3",
     "@types/node": "^22.14.0",
     "dotenv": "^16.4.7",
-    "eslint": "^9.24.0",
+    "eslint": "^9.33.0",
     "eslint-config-lostfictions": "7.0.0",
-    "fast-check": "^4.1.0",
+    "fast-check": "^4.2.0",
     "npm-run-all": "^4.1.5",
-    "prettier": "^3.5.3",
-    "typescript": "^5.8.3",
-    "vitest": "^3.1.1"
+    "prettier": "^3.6.2",
+    "typescript": "~5.8.3",
+    "vitest": "^3.2.4"
   },
   "packageManager": "pnpm@10.8.0+sha512.0e82714d1b5b43c74610193cb20734897c1d00de89d0e18420aebc5977fa13d780a9cb05734624e81ebd81cc876cd464794850641c48b9544326b5622ca29971"
 }

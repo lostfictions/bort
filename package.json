@@ -8,7 +8,7 @@
   "license": "AGPL-3.0",
   "type": "module",
   "scripts": {
-    "start": "DEBUG='bort,bort:* node src/main.ts",
+    "start": "DEBUG='bort,bort:*' node src/main.ts",
     "dev": "DEBUG='bort,bort:*' DEBUG_HIDE_DATE=true DEBUG_COLORS=true node --watch --env-file-if-exists=.env src/main.ts",
     "dev-cli": "USE_CLI=true run-s dev",
     "test": "run-p -cl test:*",

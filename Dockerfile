@@ -2,7 +2,7 @@
 FROM node:22.18.0-slim
 WORKDIR /app
 RUN corepack enable
-COPY pnpm-lock.yaml ./
+COPY pnpm-lock.yaml pnpm-workspace.yaml ./
 RUN pnpm fetch --prod
 COPY package.json ./
 RUN pnpm install --offline --prod

@@ -3,8 +3,6 @@ import path from "path";
 
 import { request } from "../src/components/image-search.ts";
 
-// run with ./node_modules/.bin/ts-node --transpile-only scripts/save-image-search-fixture.ts
-
 const term = "puppies";
 
 (async () => {

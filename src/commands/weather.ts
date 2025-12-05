@@ -1,9 +1,95 @@
 import ky, { HTTPError } from "ky";
 import { stripIndent } from "common-tags";
+import { z } from "zod";
 
 import { makeCommand } from "../util/handler.ts";
 
 import { OPEN_WEATHER_MAP_KEY } from "../env.ts";
+
+const owmResSchema = z.object({
+  coord: z.object({ lon: z.number(), lat: z.number() }),
+  weather: z.array(
+    z.object({
+      /** Weather condition id */
+      id: z.number(),
+      /** Group of weather parameters (Rain, Snow, Extreme etc.) */
+      main: z.string(),
+      /** Weather condition within the group */
+      description: z.string(),
+      /** http://openweathermap.org/img/w/${icon}.png */
+      icon: z.string(),
+    }),
+  ),
+  main: z.object({
+    /** Temperature. Unit Default: Kelvin */
+    temp: z.number(),
+    /** Temperature. This temperature parameter accounts for the human perception of weather. */
+    feels_like: z.number(),
+    /** Atmospheric pressure (on the sea level, if there is no sea_level or grnd_level data), hPa */
+    pressure: z.number(),
+    /** Humidity, % */
+    humidity: z.number(),
+    /**
+     * Minimum temperature at the moment. This is deviation from current temp
+     * that is possible for large cities and megalopolises geographically
+     * expanded (use these parameter optionally).
+     */
+    temp_min: z.number(),
+    /**
+     * Maximum temperature at the moment. This is deviation from current temp
+     * that is possible for large cities and megalopolises geographically
+     * expanded (use these parameter optionally).
+     */
+    temp_max: z.number(),
+    /**  Atmospheric pressure on the sea level, hPa */
+    sea_level: z.number().optional(),
+    /**  Atmospheric pressure on the ground level, hPa */
+    grnd_level: z.number().optional(),
+  }),
+  wind: z
+    .object({
+      /** Wind speed. Unit Default: meter/sec */
+      speed: z.number(),
+      /** Wind direction, degrees (meteorological) */
+      deg: z.number().optional(),
+    })
+    .optional(),
+  clouds: z.object({
+    all: z.number(),
+  }),
+  rain: z
+    .object({
+      "3h": z.number(),
+    })
+    .optional(),
+  snow: z
+    .object({
+      "3h": z.number(),
+    })
+    .optional(),
+  /** Time of data calculation, unix, UTC */
+  dt: z.number(),
+  sys: z.object({
+    /** Country code (GB, JP etc.) */
+    country: z.string(),
+    /** Sunrise time, unix, UTC */
+    sunrise: z.number(),
+    /** Sunset time, unix, UTC */
+    sunset: z.number(),
+  }),
+  /** City ID */
+  id: z.number(),
+  /** City name */
+  name: z.string(),
+});
+
+const owmResRelevantFieldsOnly = owmResSchema.pick({
+  sys: true,
+  weather: true,
+  main: true,
+  wind: true,
+  name: true,
+});
 
 const kelvinToC = (kelvin: number) => kelvin - 273.15;
 const kelvinToF = (kelvin: number) => (kelvin * 9) / 5 - 459.67;
@@ -82,7 +168,16 @@ export default makeCommand(
       return `Can't get weather for '${message}'! (Error: ${String(e)})`;
     }
 
-    const { sys, weather, main, wind, name } = owmRes as OWMResponse;
+    const parsed = owmResRelevantFieldsOnly.safeParse(owmRes);
+
+    if (!parsed.success) {
+      return [
+        `Couldn't parse OpenWeatherMap API response:`,
+        `\`\`\`JSON\n${JSON.stringify(parsed.error.issues, undefined, 2)}\n\`\`\``,
+      ].join("\n");
+    }
+
+    const { sys, weather, main, wind, name } = parsed.data;
 
     let formattedWind = "";
     if (wind) {
@@ -99,79 +194,11 @@ export default makeCommand(
       ${weather[0].description}
       ${Math.round(kelvinToC(main.temp))}°C (${Math.round(
         kelvinToF(main.temp),
+      )}°F) / feels like ${Math.round(kelvinToC(main.feels_like))}°C (${Math.round(
+        kelvinToF(main.feels_like),
       )}°F)
       ${main.humidity}% humidity
       ${formattedWind}
     `;
   },
 );
-
-interface OWMResponse {
-  coord: {
-    lon: number;
-    lat: number;
-  };
-  weather: {
-    /** Weather condition id */
-    id: number;
-    /** Group of weather parameters (Rain, Snow, Extreme etc.) */
-    main: string;
-    /** Weather condition within the group */
-    description: string;
-    /** http://openweathermap.org/img/w/${icon}.png */
-    icon: string;
-  }[];
-  main: {
-    /** Temperature. Unit Default: Kelvin */
-    temp: number;
-    /** Atmospheric pressure (on the sea level, if there is no sea_level or grnd_level data), hPa */
-    pressure: number;
-    /** Humidity, % */
-    humidity: number;
-    /**
-     * Minimum temperature at the moment. This is deviation from current temp
-     * that is possible for large cities and megalopolises geographically
-     * expanded (use these parameter optionally).
-     */
-    temp_min: number;
-    /**
-     * Maximum temperature at the moment. This is deviation from current temp
-     * that is possible for large cities and megalopolises geographically
-     * expanded (use these parameter optionally).
-     */
-    temp_max: number;
-    /**  Atmospheric pressure on the sea level, hPa */
-    sea_level?: number;
-    /**  Atmospheric pressure on the ground level, hPa */
-    grnd_level?: number;
-  };
-  wind?: {
-    /** Wind speed. Unit Default: meter/sec */
-    speed: number;
-    /** Wind direction, degrees (meteorological) */
-    deg?: number;
-  };
-  clouds: {
-    all: number;
-  };
-  rain?: {
-    "3h": number;
-  };
-  snow?: {
-    "3h": number;
-  };
-  /** Time of data calculation, unix, UTC */
-  dt: number;
-  sys: {
-    /** Country code (GB, JP etc.) */
-    country: string;
-    /** Sunrise time, unix, UTC */
-    sunrise: number;
-    /** Sunset time, unix, UTC */
-    sunset: number;
-  };
-  /** City ID */
-  id: number;
-  /** City name */
-  name: string;
-}

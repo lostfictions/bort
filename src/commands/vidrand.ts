@@ -40,7 +40,7 @@ export async function getFilmUrlsFromLetterboxdList(
       res = await ky.get(resolvedUrl).text();
     } catch (e) {
       if (e instanceof HTTPError && e.response.status === 404) {
-        return { errorMessage: `Couldn't find a page at '${url}'!` };
+        return { errorMessage: `Couldn't find a page at '<${url}>'!` };
       }
 
       throw e;
@@ -55,6 +55,12 @@ export async function getFilmUrlsFromLetterboxdList(
     allResults.push(...pageResults);
     currentPage++;
   } while (pageResults != null && pageResults.length > 0);
+
+  if (allResults.length === 0) {
+    return {
+      errorMessage: `Scraped '<${url}>', but CSS selector returned no results! Ensure page type is compatible.`,
+    };
+  }
 
   resultCache[url] = {
     lastRetrieved: Date.now(),
@@ -96,6 +102,6 @@ export default makeCommand(
       return `https://letterboxd.com${randomInArray(result)}`;
     }
 
-    return `Error getting a random vid: ${result.errorMessage}`;
+    return `Error getting a random vid:\n${result.errorMessage}`;
   },
 );

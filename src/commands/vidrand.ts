@@ -47,7 +47,7 @@ export async function getFilmUrlsFromLetterboxdList(
     }
 
     pageResults = cheerio
-      .load(res)(".posteritem .react-component")
+      .load(res)(".posteritem .react-component, .poster-grid .react-component")
       .toArray()
       .map((div) => div.attribs["data-item-link"])
       .filter((slug) => slug);

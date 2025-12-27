@@ -40,9 +40,9 @@ describe("vidrand", () => {
       const urls = await getFilmUrlsFromLetterboxdList("whatever");
 
       // results from both pages! (the last page is empty)
-      expect(urls).toContain("the-age-of-consent");
-      expect(urls).toContain("boesman-and-lena");
-      expect(urls).toContain("ouch");
+      expect(urls).toContain("/film/the-age-of-consent/");
+      expect(urls).toContain("/film/boesman-and-lena/");
+      expect(urls).toContain("/film/ouch/");
 
       expect((urls as string[]).length).toBeGreaterThan(70);
     });

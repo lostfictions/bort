@@ -47,9 +47,9 @@ export async function getFilmUrlsFromLetterboxdList(
     }
 
     pageResults = cheerio
-      .load(res)(".poster")
+      .load(res)(".posteritem .react-component")
       .toArray()
-      .map((div) => div.attribs["data-film-slug"])
+      .map((div) => div.attribs["data-item-link"])
       .filter((slug) => slug);
 
     allResults.push(...pageResults);
@@ -93,7 +93,7 @@ export default makeCommand(
     const result = await getFilmUrlsFromLetterboxdList(url);
 
     if (Array.isArray(result)) {
-      return `https://letterboxd.com/film/${randomInArray(result)}`;
+      return `https://letterboxd.com${randomInArray(result)}`;
     }
 
     return `Error getting a random vid: ${result.errorMessage}`;

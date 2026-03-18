@@ -1,5 +1,5 @@
-import { readFileSync, readdirSync } from "fs";
-import { join } from "path";
+import { readFileSync, readdirSync } from "node:fs";
+import { join } from "node:path";
 import { it, describe, expect } from "vitest";
 
 import { parse } from "./image-search.ts";

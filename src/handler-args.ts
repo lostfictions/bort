@@ -1,8 +1,8 @@
-import type { DB } from "./store/get-db.ts";
 import type {
   Message as DiscordMessage,
   Client as DiscordClient,
 } from "discord.js";
+import type { DB } from "./store/get-db.ts";
 
 export interface HandlerArgs {
   message: string;

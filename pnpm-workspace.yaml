@@ -1,3 +1,14 @@
 onlyBuiltDependencies:
   - esbuild
   - leveldown
+
+strictDepBuilds: true
+
+trustPolicy: no-downgrade
+# trustPolicyIgnoreAfter: 10080
+
+blockExoticSubdeps: true
+
+minimumReleaseAge: 10080
+# minimumReleaseAgeExclude:
+#   - "@types/*"

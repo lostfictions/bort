@@ -36,7 +36,7 @@ export default makeCommand(
 
     if (matches.length > 0) {
       let m = message;
-      for (const match of matches.reverse()) {
+      for (const match of matches.toReversed()) {
         const [start, end] = match.indices![0];
 
         const maybeReplaced = await busey(
@@ -163,8 +163,7 @@ async function busey(
           if (hasFollowing) break;
         }
       }
-      acro.push(first);
-      acro.push(second);
+      acro.push(first, second);
       i += 1;
     } else if (others.length > 0) {
       const [word] = randomInArray(others);

@@ -1,4 +1,4 @@
-import readline from "readline";
+import readline from "node:readline";
 import { processMessage } from "../util/handler.ts";
 
 import { getDb } from "../store/get-db.ts";

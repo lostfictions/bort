@@ -1,5 +1,5 @@
-import { promises as fs } from "fs";
-import path from "path";
+import { writeFile } from "node:fs/promises";
+import { join } from "node:path";
 
 import { request } from "../src/components/image-search.ts";
 
@@ -10,11 +10,8 @@ const term = "puppies";
     term,
   });
 
-  const fn = path.join(
-    import.meta.dirname,
-    `../fixtures/image-search/${term}.html`,
-  );
-  await fs.writeFile(fn, res);
+  const fn = join(import.meta.dirname, `../fixtures/image-search/${term}.html`);
+  await writeFile(fn, res);
 
   console.log(`Wrote data of len ${res.length} to ${fn}`);
 })().catch((e: unknown) => {

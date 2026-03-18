@@ -110,7 +110,7 @@ export async function trace({
   }
 
   let result = randomByWeight(concepts);
-  const matches = [...result.matchAll(matcher)].reverse();
+  const matches = [...result.matchAll(matcher)].toReversed();
 
   for (const match of matches) {
     const [group, nextConcept] = match;
@@ -134,7 +134,7 @@ export async function tryTrace(
   db: DB,
   message: string,
 ): Promise<string | false> {
-  const matches = [...message.matchAll(matcher)].reverse();
+  const matches = [...message.matchAll(matcher)].toReversed();
 
   if (matches.length > 0) {
     let result = message;

@@ -1,4 +1,4 @@
-import { hostname } from "os";
+import { hostname } from "node:os";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime.js";
 import { makeCommand } from "../util/handler.ts";

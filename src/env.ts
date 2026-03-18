@@ -1,6 +1,6 @@
 /* eslint-disable node/no-process-env */
 
-import fs from "fs";
+import fs from "node:fs";
 import { parseEnv, z } from "znv";
 import { init as initSentry, captureConsoleIntegration } from "@sentry/node";
 import debug from "debug";

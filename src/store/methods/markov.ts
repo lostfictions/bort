@@ -1,6 +1,6 @@
-import { promises as fs } from "fs";
-import path from "path";
-import assert from "assert";
+import fs from "node:fs/promises";
+import path from "node:path";
+import assert from "node:assert";
 
 import debug from "debug";
 

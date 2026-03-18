@@ -2,7 +2,7 @@
 // let { $, html } = await load("puppies")
 
 export async function loadFixture(term: string) {
-  const { readFile } = await import("fs/promises");
+  const { readFile } = await import("node:fs/promises");
   const { load } = await import("cheerio");
 
   const fn = `./fixtures/image-search/${term}.html`;

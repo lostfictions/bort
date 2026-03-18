@@ -24,7 +24,7 @@ export default makeCommand(
         reactionCount,
         total: chatCount + reactionCount,
       }))
-      .sort((a, b) => b.total - a.total);
+      .toSorted((a, b) => b.total - a.total);
 
     if (sortedEmoji.length === 0) {
       return "nothing to show! use some custom emoji in chat or reactions.";

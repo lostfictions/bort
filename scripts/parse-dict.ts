@@ -1,5 +1,5 @@
-import fs from "fs";
-import path from "path";
+import fs from "node:fs";
+import path from "node:path";
 
 const DICT_OUT_PATH = "../data/flipdict.json";
 const SYLLABLES_OUT_PATH = "../data/syllables.json";
@@ -59,5 +59,5 @@ fs.writeFileSync(
 );
 fs.writeFileSync(
   path.join(import.meta.dirname, SYLLABLES_OUT_PATH),
-  JSON.stringify([...syllables.values()].sort(), undefined, 2),
+  JSON.stringify([...syllables.values()].toSorted(), undefined, 2),
 );

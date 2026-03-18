@@ -1,4 +1,3 @@
-import { URL } from "url";
 import ky from "ky";
 import { stripIndent, oneLine } from "common-tags";
 

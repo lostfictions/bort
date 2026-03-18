@@ -18,11 +18,12 @@ export async function imageSearch({
   recents?: { [url: string]: unknown };
   animated?: boolean;
 }): Promise<string | false> {
-  let res = await requestAndParse({ term, animated, exact: true });
-  if (res.length === 0) {
-    // if no results, try an inexact search
-    res = await requestAndParse({ term, animated });
-  }
+  const res = await requestAndParse({ term, animated, exact: true });
+  // TODO: check if comparable "exact" search possible with bing
+  // if (res.length === 0) {
+  //   // if no results, try an inexact search
+  //   res = await requestAndParse({ term, animated });
+  // }
 
   let cursor = 0;
   let sliced: string[] = [];
@@ -81,10 +82,6 @@ export function request({
   exact,
   transparent,
 }: ImageSearchOptions) {
-  const tbs = [transparent && "ic:trans", animated && "itp:animated"]
-    .filter(Boolean)
-    .join(",");
-
   const searchParams: Record<string, string | number> = {
     q: term,
     qs: "n",
@@ -95,8 +92,10 @@ export function request({
     first: "1",
   };
 
-  if (tbs) {
-    searchParams.tbs = tbs;
+  if (animated) {
+    searchParams.qft = "+filterui:photo-animatedgif";
+  } else if (transparent) {
+    searchParams.qft = "+filterui:photo-transparent";
   }
 
   return ky

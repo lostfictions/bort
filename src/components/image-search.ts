@@ -87,8 +87,12 @@ export function request({
 
   const searchParams: Record<string, string | number> = {
     q: term,
-    tbm: "isch",
-    nfpr: exact ? 1 : 0,
+    qs: "n",
+    sp: "-1",
+    lq: "0",
+    pq: term,
+    sc: "10-5",
+    first: "1",
   };
 
   if (tbs) {
@@ -96,12 +100,12 @@ export function request({
   }
 
   return ky
-    .get("https://www.google.com/search", {
+    .get("https://www.bing.com/images/search", {
       searchParams,
       timeout: 5000,
       headers: {
         "User-Agent":
-          "Mozilla/5.0 (X11; Linux x86_64; rv:145.0) Gecko/20100101 Firefox/145.0",
+          "Mozilla/5.0 (X11; Linux x86_64; rv:148.0) Gecko/20100101 Firefox/148.0",
       },
     })
     .text();
@@ -110,7 +114,7 @@ export function request({
 export function parse(html: string) {
   const $ = cheerio.load(html);
 
-  const strategies = [genericScriptPayloadStrategy, allJsonpStrategy];
+  const strategies = [murlStrategy];
 
   for (const s of strategies) {
     const res = s($);
@@ -120,51 +124,22 @@ export function parse(html: string) {
   return [];
 }
 
-// identical to older `allJsonpStrategy` below, but without filtering
-export function genericScriptPayloadStrategy(
-  $: cheerio.CheerioAPI,
-): string[] | false {
-  const scripts = $("script")
+export function murlStrategy($: cheerio.CheerioAPI): string[] | false {
+  const imgData = $("div.imgpt > a.iusc")
     .toArray()
-    .map((el) => $(el).text());
+    .map((el) => $(el).attr("m"));
 
-  if (scripts.length > 0) {
-    return scripts
-      .flatMap((script) => [
-        ...script.matchAll(/"(https?:\/\/[^"]+\.(?:jpe?g|gifv?|png))"/g),
-      ])
-      .map((res) =>
-        // google image search results sometimes contain code points encoded as
-        // eg. \u003d, so replace them with their actual values
-        res[1].replaceAll(/\\u([a-fA-F0-9]{4})/gi, (_, g) =>
-          String.fromCodePoint(parseInt(g, 16)),
-        ),
-      );
-  }
-
-  return false;
-}
-
-const PREFIX = "AF_initDataCallback";
-
-export function allJsonpStrategy($: cheerio.CheerioAPI): string[] | false {
-  const scripts = $("script")
-    .toArray()
-    .map((el) => $(el).text())
-    .filter((t) => t.startsWith(PREFIX));
-
-  if (scripts.length > 0) {
-    return scripts
-      .flatMap((script) => [
-        ...script.matchAll(/"(https?:\/\/[^"]+\.(?:jpe?g|gifv?|png))"/g),
-      ])
-      .map((res) =>
-        // google image search results sometimes contain code points encoded as
-        // eg. \u003d, so replace them with their actual values
-        res[1].replaceAll(/\\u([a-fA-F0-9]{4})/gi, (_, g) =>
-          String.fromCodePoint(parseInt(g, 16)),
-        ),
-      );
+  if (imgData.length > 0) {
+    return imgData
+      .map((res) => (res ? JSON.parse(res)["murl"] : undefined))
+      .filter((url) => {
+        try {
+          URL.parse(url);
+        } catch {
+          return false;
+        }
+        return true;
+      });
   }
 
   return false;

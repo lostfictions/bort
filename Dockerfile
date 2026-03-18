@@ -1,5 +1,5 @@
 # should match .node-version
-FROM node:24.11.1-slim
+FROM node:24.14.0-slim
 WORKDIR /app
 RUN corepack enable
 COPY pnpm-lock.yaml pnpm-workspace.yaml ./

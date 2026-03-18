@@ -124,20 +124,22 @@ export function parse(html: string) {
 }
 
 export function murlStrategy($: cheerio.CheerioAPI): string[] | false {
-  const imgData = $("div.imgpt > a.iusc")
+  const imgData = $("div.imgpt > a.iusc[m]")
     .toArray()
     .map((el) => $(el).attr("m"));
 
   if (imgData.length > 0) {
     return imgData
-      .map((res) => (res ? JSON.parse(res)["murl"] : undefined))
+      .map((res) =>
+        res ? ((JSON.parse(res)["murl"] as string | undefined) ?? "") : "",
+      )
       .filter((url) => {
         try {
           URL.parse(url);
+          return true;
         } catch {
           return false;
         }
-        return true;
       });
   }
 

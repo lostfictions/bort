@@ -130,9 +130,12 @@ export function murlStrategy($: cheerio.CheerioAPI): string[] | false {
 
   if (imgData.length > 0) {
     return imgData
-      .map((res) =>
-        res ? ((JSON.parse(res)["murl"] as string | undefined) ?? "") : "",
-      )
+      .map((res) => {
+        if (!res) return "";
+        const parsed = JSON.parse(res)["murl"] as string | undefined;
+        // the results sometimes contain whitespace
+        return encodeURI(parsed ?? "");
+      })
       .filter((url) => {
         try {
           URL.parse(url);

@@ -1,0 +1,1608 @@
+{
+  "ads": null,
+  "next": "i.js?q=puppy&o=json&p=-1&s=100&u=bing&f=hide_ai_images:1&l=us-en&ct=AT",
+  "query": "puppy",
+  "queryEncoded": "puppy",
+  "query_expansions": [
+    {
+      "displayText": "Black Lab",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Black+Lab+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Black+Lab%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Black Lab Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse1.mm.bing.net/th?q=Black+Lab+Puppy&r=0&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Black+Lab+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Black+Lab%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5713.1"
+    },
+    {
+      "displayText": "Coloring Pages",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Puppy+Coloring+Pages&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Coloring+Pages%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Puppy Coloring Pages",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse2.mm.bing.net/th?q=Puppy+Coloring+Pages&r=0&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Puppy+Coloring+Pages&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Coloring+Pages%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5715.1"
+    },
+    {
+      "displayText": "Golden Retriever",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Golden+Retriever+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Golden+Retriever%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Golden Retriever Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse4.mm.bing.net/th?q=Golden+Retriever+Puppy&r=0&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Golden+Retriever+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Golden+Retriever%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5717.1"
+    },
+    {
+      "displayText": "Line Art",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Puppy+Line+Art&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Line+Art%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Puppy Line Art",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse4.mm.bing.net/th?q=Puppy+Line+Art&r=0&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Puppy+Line+Art&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Line+Art%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5719.1"
+    },
+    {
+      "displayText": "Sausage Dog",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Sausage+Dog+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Sausage+Dog%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Sausage Dog Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse2.mm.bing.net/th?q=Sausage+Dog+Puppy&r=0&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Sausage+Dog+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Sausage+Dog%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5721.1"
+    },
+    {
+      "displayText": "Australian Shepherd",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Australian+Shepherd+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Australian+Shepherd%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Australian Shepherd Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse4.mm.bing.net/th?q=Australian+Shepherd+Puppy&r=0&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Australian+Shepherd+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Australian+Shepherd%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5723.1"
+    },
+    {
+      "displayText": "Tea Cup",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=TeaCup+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Tea+Cup%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "TeaCup Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse3.mm.bing.net/th?q=TeaCup+Puppy&r=0&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=TeaCup+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Tea+Cup%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5725.1"
+    },
+    {
+      "displayText": "Chocolate Lab",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Chocolate+Lab+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Chocolate+Lab%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Chocolate Lab Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse2.mm.bing.net/th?q=Chocolate+Lab+Puppy&r=0&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Chocolate+Lab+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Chocolate+Lab%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5727.1"
+    },
+    {
+      "displayText": "Yellow Lab",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Yellow+Lab+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Yellow+Lab%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Yellow Lab Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse4.mm.bing.net/th?q=Yellow+Lab+Puppy&r=0&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Yellow+Lab+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Yellow+Lab%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5729.1"
+    },
+    {
+      "displayText": "Realistic Robot",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Realistic+Robot+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Realistic+Robot%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Realistic Robot Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse1.mm.bing.net/th?q=Realistic+Robot+Puppy&r=0&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Realistic+Robot+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Realistic+Robot%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5731.1"
+    },
+    {
+      "displayText": "Cocker Spaniel",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Cocker+Spaniel+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Cocker+Spaniel%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Cocker Spaniel Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse4.mm.bing.net/th?q=Cocker+Spaniel+Puppy&r=0&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Cocker+Spaniel+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Cocker+Spaniel%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5733.1"
+    },
+    {
+      "displayText": "Basset Hound",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Basset+Hound+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Basset+Hound%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Basset Hound Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse1.mm.bing.net/th?q=Basset+Hound+Puppy&r=0&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Basset+Hound+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Basset+Hound%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5735.1"
+    },
+    {
+      "displayText": "Labrador Retriever",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Labrador+Retriever+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Labrador+Retriever%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Labrador Retriever Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse4.mm.bing.net/th?q=Labrador+Retriever+Puppy&r=0&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Labrador+Retriever+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Labrador+Retriever%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5737.1"
+    },
+    {
+      "displayText": "Fisher-Price",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Fisher+Price+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Fisher-Price%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Fisher Price Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse1.mm.bing.net/th?q=Fisher+Price+Puppy&r=0&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Fisher+Price+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Fisher-Price%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5739.1"
+    },
+    {
+      "displayText": "Dog Training",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Puppy+Dog+Training&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Dog+Training%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Puppy Dog Training",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse1.mm.bing.net/th?q=Puppy+Dog+Training&r=0&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Puppy+Dog+Training&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Dog+Training%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5741.1"
+    },
+    {
+      "displayText": "Shopping List",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Puppy+Shopping+List&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Shopping+List%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Puppy Shopping List",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse1.mm.bing.net/th?q=Puppy+Shopping+List&r=0&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Puppy+Shopping+List&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Shopping+List%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5743.1"
+    },
+    {
+      "displayText": "French Bulldog",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=French+Bulldog+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22French+Bulldog%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "French Bulldog Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse4.mm.bing.net/th?q=French+Bulldog+Puppy&r=0&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=French+Bulldog+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22French+Bulldog%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5745.1"
+    },
+    {
+      "displayText": "PitBull",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Pit+Bull+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22PitBull%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Pit Bull Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse3.mm.bing.net/th?q=Pit+Bull+Puppy&r=0&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Pit+Bull+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22PitBull%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5747.1"
+    },
+    {
+      "displayText": "Blue Heeler",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Blue+Heeler+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Blue+Heeler%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Blue Heeler Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse4.mm.bing.net/th?q=Blue+Heeler+Puppy&r=0&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Blue+Heeler+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Blue+Heeler%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5749.1"
+    },
+    {
+      "displayText": "Plush Toys",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Puppy+Plush+Toys&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Plush+Toys%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Puppy Plush Toys",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse2.mm.bing.net/th?q=Puppy+Plush+Toys&r=0&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Puppy+Plush+Toys&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Plush+Toys%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5751.1"
+    },
+    {
+      "displayText": "Great Dane",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Great+Dane+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Great+Dane%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Great Dane Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse4.mm.bing.net/th?q=Great+Dane+Puppy&r=0&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Great+Dane+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Great+Dane%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5753.1"
+    },
+    {
+      "displayText": "Potty Training",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Potty+Training+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Potty+Training%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Potty Training Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse3.mm.bing.net/th?q=Potty+Training+Puppy&r=0&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Potty+Training+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Potty+Training%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5755.1"
+    },
+    {
+      "displayText": "Clip Art",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Puppy+Clip+Art&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Clip+Art%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Puppy Clip Art",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse2.mm.bing.net/th?q=Puppy+Clip+Art&r=0&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Puppy+Clip+Art&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Clip+Art%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5757.1"
+    },
+    {
+      "displayText": "Maltese Dog",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Maltese+Dog+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Maltese+Dog%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Maltese Dog Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse4.mm.bing.net/th?q=Maltese+Dog+Puppy&r=0&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Maltese+Dog+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Maltese+Dog%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5759.1"
+    },
+    {
+      "displayText": "Mini Poodle",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Mini+Poodle+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Mini+Poodle%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Mini Poodle Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse1.mm.bing.net/th?q=Mini+Poodle+Puppy&r=0&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Mini+Poodle+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Mini+Poodle%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5761.1"
+    },
+    {
+      "displayText": "Free Chihuahua",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Free+Chihuahua+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Free+Chihuahua%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Free Chihuahua Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse1.mm.bing.net/th?q=Free+Chihuahua+Puppy&r=0&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Free+Chihuahua+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Free+Chihuahua%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5763.1"
+    },
+    {
+      "displayText": "Cute",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Cute+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Cute%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Cute Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse4.mm.bing.net/th?q=Cute+Puppy&r=0&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Cute+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Cute%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5765.1"
+    },
+    {
+      "displayText": "Bulldog",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Bulldog+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Bulldog%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Bulldog Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse2.mm.bing.net/th?q=Bulldog+Puppy&r=0&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Bulldog+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Bulldog%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5767.1"
+    },
+    {
+      "displayText": "Morkie",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Morkie+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Morkie%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Morkie Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse4.mm.bing.net/th?q=Morkie+Puppy&r=0&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Morkie+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Morkie%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5769.1"
+    },
+    {
+      "displayText": "Pug",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Pug+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Pug%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Pug Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse1.mm.bing.net/th?q=Pug+Puppy&r=0&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Pug+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Pug%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5771.1"
+    },
+    {
+      "displayText": "Bichon",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Bichon+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Bichon%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Bichon Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse4.mm.bing.net/th?q=Bichon+Puppy&r=0&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Bichon+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Bichon%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5773.1"
+    },
+    {
+      "displayText": "Toy Poodle",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Toy+Poodle+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Toy+Poodle%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Toy Poodle Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse2.mm.bing.net/th?q=Toy+Poodle+Puppy&r=0&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Toy+Poodle+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Toy+Poodle%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5775.1"
+    },
+    {
+      "displayText": "Yorkie",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Yorkie+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Yorkie%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Yorkie Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse4.mm.bing.net/th?q=Yorkie+Puppy&r=0&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Yorkie+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Yorkie%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5777.1"
+    },
+    {
+      "displayText": "Mastiff",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Mastiff+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Mastiff%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Mastiff Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse1.mm.bing.net/th?q=Mastiff+Puppy&r=0&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Mastiff+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Mastiff%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5779.1"
+    },
+    {
+      "displayText": "Baby",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Baby+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Baby%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Baby Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse1.mm.bing.net/th?q=Baby+Puppy&r=0&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Baby+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Baby%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5781.1"
+    },
+    {
+      "displayText": "Doberman",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Doberman+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Doberman%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Doberman Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse3.mm.bing.net/th?q=Doberman+Puppy&r=0&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Doberman+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Doberman%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5783.1"
+    },
+    {
+      "displayText": "Dachshund",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Dachshund+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Dachshund%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Dachshund Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse1.mm.bing.net/th?q=Dachshund+Puppy&r=0&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Dachshund+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Dachshund%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5785.1"
+    },
+    {
+      "displayText": "Aussie",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Aussie+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Aussie%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Aussie Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse3.mm.bing.net/th?q=Aussie+Puppy&r=0&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Aussie+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Aussie%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5787.1"
+    },
+    {
+      "displayText": "Beagle",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Beagle+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Beagle%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Beagle Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse3.mm.bing.net/th?q=Beagle+Puppy&r=0&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Beagle+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Beagle%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5789.1"
+    },
+    {
+      "displayText": "Funny",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Funny+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Funny%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Funny Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse1.mm.bing.net/th?q=Funny+Puppy&r=0&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Funny+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Funny%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5791.1"
+    },
+    {
+      "displayText": "Face",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Puppy+Face&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Face%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Puppy Face",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse4.mm.bing.net/th?q=Puppy+Face&r=0&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Puppy+Face&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Face%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5793.1"
+    },
+    {
+      "displayText": "Goldendoodle",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Goldendoodle+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Goldendoodle%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Goldendoodle Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse1.mm.bing.net/th?q=Goldendoodle+Puppy&r=0&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Goldendoodle+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Goldendoodle%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5795.1"
+    },
+    {
+      "displayText": "Birthday",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Puppy+Birthday&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Birthday%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Puppy Birthday",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse2.mm.bing.net/th?q=Puppy+Birthday&r=0&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Puppy+Birthday&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Birthday%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5797.1"
+    },
+    {
+      "displayText": "Cockapoo",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Cockapoo+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Cockapoo%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Cockapoo Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse4.mm.bing.net/th?q=Cockapoo+Puppy&r=0&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Cockapoo+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Cockapoo%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5799.1"
+    },
+    {
+      "displayText": "Happy",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Happy+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Happy%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Happy Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse3.mm.bing.net/th?q=Happy+Puppy&r=0&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Happy+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Happy%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5801.1"
+    }
+  ],
+  "response_type": "images",
+  "results": [
+    {
+      "discovery_date": "2025-08-09T00:00:00.0000000Z",
+      "encoding_format": "png",
+      "height": 768,
+      "image": "https://data.ipic.ai/images/hk6TKdcPpxZSBMj_1730833327.png",
+      "image_token": "36ef35df8f933b51e63abfa74ddf697ddc4f4acd7b1b371b63deb881d14486c2",
+      "source": "Bing",
+      "thumbnail": "https://tse1.mm.bing.net/th/id/OIP.vW1TFJaac9QUoEAzKRoqYgHaHa?r=0&pid=Api",
+      "thumbnail_token": "51c9e9bbc4dd4b988f8db323568227ecef306b87c93dd2fb564dfe6fb7e33885",
+      "title": "Adorable Fluffy Puppy Sitting Among Lush Green Grass in Nature",
+      "url": "https://www.ipic.ai/images/3grZl9/view",
+      "width": 768
+    },
+    {
+      "discovery_date": "2022-11-29T00:00:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 1780,
+      "image": "https://images5.alphacoders.com/129/1291097.jpg",
+      "image_token": "496f058d598ce73c8679b1d7f9f741c0bfe991e6f8b4f4b3a4f6032180a50308",
+      "source": "Bing",
+      "thumbnail": "https://tse1.mm.bing.net/th/id/OIP.j4FjaXTU7mz08Z0QFUlrzwHaEk?r=0&pid=Api",
+      "thumbnail_token": "dcfb34ffb78f0292d4540caac5b2d2d535eb6c0c05c871b30e6dc3bace449d50",
+      "title": "Adorable Puppy in Nature - HD Wallpaper",
+      "url": "https://wall.alphacoders.com/big.php?i=1291097",
+      "width": 2880
+    },
+    {
+      "discovery_date": "2022-07-17T00:00:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 1600,
+      "image": "https://cdn.wallpapersafari.com/66/98/DIyTtn.jpg",
+      "image_token": "492410fd5fb0023d046505583459a4e3632166352739fcc6e7cb54cc2370d32c",
+      "source": "Bing",
+      "thumbnail": "https://tse4.mm.bing.net/th/id/OIP.PEYPtoobjgL9dNxpMolW4gHaEo?r=0&pid=Api",
+      "thumbnail_token": "b6f8e89bb5c1bd38f8136d5f81355263e5ec274b45cc5e60bd277eeff1693a1d",
+      "title": "🔥 [30+] Cute Puppies Winter Wallpapers | WallpaperSafari",
+      "url": "https://wallpapersafari.com/cute-puppies-winter-wallpapers/",
+      "width": 2560
+    },
+    {
+      "discovery_date": "2024-01-17T00:00:00.0000000Z",
+      "encoding_format": "png",
+      "height": 512,
+      "image": "https://data.ipic.ai/images/gIS0H0JkoI7ZAAb_1724883752.png",
+      "image_token": "2e311d78b27fc0a01ebefe70fbdb772dc721045c7fc5420b1ea80b6fb224a82a",
+      "source": "Bing",
+      "thumbnail": "https://tse4.mm.bing.net/th/id/OIP.zVhRzWf4_SK3lcazY2v5vAHaDt?r=0&pid=Api",
+      "thumbnail_token": "dc809bdf2c75c1e864537107aab6ded53cf1fac7344699616c48a9497afa3e3f",
+      "title": "A Cute Puppy Sitting in a Flowery Meadow During Golden Hour.",
+      "url": "https://www.ipic.ai/images/zladdY/view",
+      "width": 1024
+    },
+    {
+      "discovery_date": "2016-02-22T02:41:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 1200,
+      "image": "https://images8.alphacoders.com/407/thumb-1920-407173.jpg",
+      "image_token": "daf72025547ca4a23be194f474e7be293eaaea3f641804e0266002b215bfaaad",
+      "source": "Bing",
+      "thumbnail": "https://tse1.mm.bing.net/th/id/OIP.cu-xMXO7ZKXCxXPzp4RMewHaEo?r=0&pid=Api",
+      "thumbnail_token": "bebf94f17412c3c03558d7de803a889ceb5cdacce0e7465d1fd4c78034db2077",
+      "title": "HD Wallpaper: Adorable Puppy in the Grass",
+      "url": "https://wall.alphacoders.com/big.php?i=407173",
+      "width": 1920
+    },
+    {
+      "discovery_date": "2023-07-28T00:00:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 1200,
+      "image": "https://wallpapers.com/images/hd/adorable-puppy-lounging-in-the-sunshine-kyaavopqtkb5yhs0.jpg",
+      "image_token": "50754668fdac1de5d413a43bbb6f3ad5611bfe611d18304fc19fe926448d0ab1",
+      "source": "Bing",
+      "thumbnail": "https://tse4.mm.bing.net/th/id/OIP.8Et-NRTcJ_oMKBtCf-ejYgHaFj?r=0&pid=Api",
+      "thumbnail_token": "0859ff9b51c607adac11e4f1a1a33635b42dfeab05ae0d42798d5c0d4f3aa446",
+      "title": "Download Adorable Puppy Lounging In The Sunshine Wallpaper | Wallpapers.com",
+      "url": "https://wallpapers.com/wallpapers/adorable-puppy-lounging-in-the-sunshine-kyaavopqtkb5yhs0.html",
+      "width": 1600
+    },
+    {
+      "discovery_date": "2018-01-30T00:00:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 528,
+      "image": "https://thumbs.dreamstime.com/b/adorable-cute-young-puppy-outside-yard-62122821.jpg",
+      "image_token": "f9647438ca394be149f268a8f191c3c65c9970c19e70e5307dc77fc69a60ffe8",
+      "source": "Bing",
+      "thumbnail": "https://tse2.mm.bing.net/th/id/OIP.0jVKHdZla88WpC6Dtoa5qAHaE4?r=0&pid=Api",
+      "thumbnail_token": "dc809c58d422881c4526f95b26edd1076e62a83537e5894a26aee77db11e9309",
+      "title": "Adorable Cute Young Puppy stock image. Image of mammal - 62122821",
+      "url": "https://www.dreamstime.com/stock-photo-adorable-cute-young-puppy-outside-yard-image62122821",
+      "width": 800
+    },
+    {
+      "discovery_date": "2020-08-06T00:00:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 1350,
+      "image": "https://i.pinimg.com/originals/60/de/b3/60deb334a5026627eecabbbc98def86c.jpg",
+      "image_token": "0b093e7af3fb7e4ab674f92735f91c5e9cc8903fb9d4e234011cc54e684f252d",
+      "source": "Bing",
+      "thumbnail": "https://tse1.mm.bing.net/th/id/OIP.2TXF5n_bNukstybLSUFZ_wHaJQ?r=0&pid=Api",
+      "thumbnail_token": "5bc81fb05dd70fddbdc59585232651e7c7cc64e277eeb07832df63b7e7d56e04",
+      "title": "Golden Retriever's Instagram profile post: \"🐶Happy Puppy 👉 Happy Doggo🐶 ...",
+      "url": "https://br.pinterest.com/pin/723179652653075793/",
+      "width": 1080
+    },
+    {
+      "discovery_date": "2017-12-01T12:48:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 800,
+      "image": "http://www.telegraph.co.uk/content/dam/Pets/spark/pets-at-home-2017/fluffy-white-puppy-xlarge.jpg",
+      "image_token": "761412158482a25797ac96c08df6aa6243a2d6948d78c1e18d29d91166111a7f",
+      "source": "Bing",
+      "thumbnail": "https://tse1.mm.bing.net/th/id/OIP.NpMf0V4UZ5npgdNh1fCoQwHaEo?r=0&pid=Api",
+      "thumbnail_token": "f6d7f988cadd743054a5a539ad5e75df0ff810511ebd355478b7229781082928",
+      "title": "Why you should feed your puppy well",
+      "url": "http://www.telegraph.co.uk/pets/family-animals/how-to-feed-your-puppy-well/",
+      "width": 1280
+    },
+    {
+      "discovery_date": "2018-01-30T00:00:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 534,
+      "image": "https://thumbs.dreamstime.com/b/adorable-cute-young-puppy-outside-yard-62122818.jpg",
+      "image_token": "b6c8ff246ecb2737e583fc38e893d9b1dd4918a69725dd4206ad2939ecca556e",
+      "source": "Bing",
+      "thumbnail": "https://tse4.mm.bing.net/th/id/OIP.OXxR7H4ZtEKWsFiE9JLPIwHaE8?r=0&pid=Api",
+      "thumbnail_token": "2cbeb6bb3e5c102c15033809329071da24abc716556a2dc0bb75d5edff0a7025",
+      "title": "Adorable Cute Young Puppy stock photo. Image of puppy - 62122818",
+      "url": "https://www.dreamstime.com/stock-photo-adorable-cute-young-puppy-outside-yard-image62122818",
+      "width": 800
+    },
+    {
+      "discovery_date": "2017-09-03T19:49:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 1050,
+      "image": "https://wallpapercave.com/wp/1MiOsHf.jpg",
+      "image_token": "36d11755c71954fa09bda129ed6dd09387589416099a58066cddc65073207095",
+      "source": "Bing",
+      "thumbnail": "https://tse3.mm.bing.net/th/id/OIP.D2Znw4zwreBD_nVWVFBKbAHaEo?r=0&pid=Api",
+      "thumbnail_token": "824c1ded1955371cb95c098e2909cd2ac6600095606c75be6af8a79a168e2f7c",
+      "title": "Cute Puppies Wallpapers - Wallpaper Cave",
+      "url": "https://wallpapercave.com/cute-puppies-wallpaper",
+      "width": 1680
+    },
+    {
+      "discovery_date": "2024-02-01T00:00:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 1960,
+      "image": "https://static.vecteezy.com/system/resources/previews/032/936/578/large_2x/cute-small-puppy-sitting-outdoors-fluffy-fur-playful-free-photo.jpg",
+      "image_token": "048919405c419cb7a9fc1a0c6c96d2ad4b0740ad904a64bcafbb551c3234f40c",
+      "source": "Bing",
+      "thumbnail": "https://tse1.mm.bing.net/th/id/OIP.kcZkDND-amctgRvUhRcspgHaEJ?r=0&pid=Api",
+      "thumbnail_token": "4b0d7eba9d07fbc26c7fdc6a346875d0bc7b0610a470637168c8397c0f14f834",
+      "title": "cute small puppy sitting outdoors fluffy fur playful 32936578 Stock ...",
+      "url": "https://www.vecteezy.com/photo/32936578-cute-small-puppy-sitting-outdoors-fluffy-fur-playful",
+      "width": 3497
+    },
+    {
+      "discovery_date": "2018-05-26T00:00:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 1200,
+      "image": "https://www.10wallpaper.com/wallpaper/1600x1200/1106/Puppy_in_Garden-Cute_puppys_outddor_fun-Lovely_Puppies_1600x1200.jpg",
+      "image_token": "9cf3ecfd4951be63bfe16121f3700f247ea90f11c51ee3b8890882fbb66fb155",
+      "source": "Bing",
+      "thumbnail": "https://tse3.mm.bing.net/th/id/OIP.MynZNBOUFDRvvXRrodEQ9AHaFj?r=0&pid=Api",
+      "thumbnail_token": "7529a01d0bd26f67b1322cacc6f8c830af5c45582500e29ebecd2c4b77be10d8",
+      "title": "Puppy in Garden-Cute puppys outddor fun-Lovely Puppies Preview ...",
+      "url": "https://www.10wallpaper.com/view/Puppy_in_Garden-Cute_puppys_outddor_fun-Lovely_Puppies.html",
+      "width": 1600
+    },
+    {
+      "discovery_date": "2024-02-04T00:00:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 1274,
+      "image": "https://wallpapers.com/images/hd/playful-adorable-puppy-in-a-garden-hd3jitdro7rn0k77.jpg",
+      "image_token": "c4ef0a8209144628e8492152477f1e1143c1a443c7718cee757cb3952fe19127",
+      "source": "Bing",
+      "thumbnail": "https://tse4.mm.bing.net/th/id/OIP.n_DgYeQZHoOywqrdvKb3DQHaE6?r=0&pid=Api",
+      "thumbnail_token": "8861b288b31bc54a299b6fe98ef5a8d849e799917deaf3de8d3eb86e3ca8590a",
+      "title": "Download Playful Adorable Puppy In A Garden Wallpaper | Wallpapers.com",
+      "url": "https://wallpapers.com/wallpapers/playful-adorable-puppy-in-a-garden-hd3jitdro7rn0k77.html",
+      "width": 1920
+    },
+    {
+      "discovery_date": "2023-06-01T00:00:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 1200,
+      "image": "https://wallpapers.com/images/hd/cute-dog-1920-x-1200-background-ywlcrqo2zvn75y69.jpg",
+      "image_token": "32a6d00502f386e2c75a32b3bb93343a20e60191d4625277ea79f7bf06ce2673",
+      "source": "Bing",
+      "thumbnail": "https://tse4.mm.bing.net/th/id/OIP.zMPW-nKi3hS8mufoFBezTgHaEo?r=0&pid=Api",
+      "thumbnail_token": "21adeca3eccf121f2b02dc2cb6adfe3766f25c787031143474a58c640717bb81",
+      "title": "Download Adorable Puppy Lounging in the Sunshine | Wallpapers.com",
+      "url": "https://wallpapers.com/background/cute-dog-1920-x-1200-background-ywlcrqo2zvn75y69.html",
+      "width": 1920
+    },
+    {
+      "discovery_date": "2017-05-15T00:00:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 1200,
+      "image": "https://images6.alphacoders.com/356/356445.jpg",
+      "image_token": "e3af113521ceca891bce08d29686a36fdf081d3810b17820bfc7d8b78c67410c",
+      "source": "Bing",
+      "thumbnail": "https://tse3.mm.bing.net/th/id/OIP.DyqqTGJfboI7PF7iNo-VGAHaEo?r=0&pid=Api",
+      "thumbnail_token": "58a19fb7b3e40780b0564b4af1ee98bce572638e4e9c459b2ec0b784f44245ea",
+      "title": "Adorable Puppy HD Wallpaper in a Lush Green Landscape",
+      "url": "https://wall.alphacoders.com/big.php?i=356445",
+      "width": 1920
+    },
+    {
+      "discovery_date": "2024-09-08T00:00:00.0000000Z",
+      "encoding_format": "png",
+      "height": 512,
+      "image": "https://data.ipic.ai/images/ij2eRVETniMHxtv_1725019333.png",
+      "image_token": "bb92e61c421364d237d95ce17f88312cd3458426738d435f8a0a20e9bd425d0f",
+      "source": "Bing",
+      "thumbnail": "https://tse1.mm.bing.net/th/id/OIP.PZlvBUL-OJK4Qvwr_GecsQHaHa?r=0&pid=Api",
+      "thumbnail_token": "555c4f16424f81235c80993a96735b59bf34fd58139c07a156a6715cddf7b304",
+      "title": "Adorable Puppy Sitting Among Colorful Autumn Leaves in the Park",
+      "url": "https://www.ipic.ai/images/GOyOAK/view",
+      "width": 512
+    },
+    {
+      "discovery_date": "2015-05-30T04:02:44.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 1200,
+      "image": "https://wallpapercave.com/wp/hodrhj1.jpg",
+      "image_token": "89a90bef0ecfa2a58ac252790e62934060b70eed5daccbcf51dfc8e600e1fafb",
+      "source": "Bing",
+      "thumbnail": "https://tse1.mm.bing.net/th/id/OIP.Bmnx56-ShX4ga-fj7HN6tAHaEo?r=0&pid=Api",
+      "thumbnail_token": "e43317d6357ba21868cede1bb720622334a2e4865b54215684583b8302ac881d",
+      "title": "Cute Puppy Wallpapers For Desktop - Wallpaper Cave",
+      "url": "https://wallpapercave.com/cute-puppy-wallpapers-for-desktop",
+      "width": 1920
+    },
+    {
+      "discovery_date": "2023-04-17T22:43:35.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 800,
+      "image": "https://www.rover.com/blog/wp-content/uploads/cute-puppy-min-e1681749120340.jpg",
+      "image_token": "43788384b0bbb6f790c001b69ff5b820609bfda8b2d3e9040317a112eda68908",
+      "source": "Bing",
+      "thumbnail": "https://tse2.mm.bing.net/th/id/OIP.aB98Hmqn0CFWk4D3Qa_1pwHaE8?r=0&pid=Api",
+      "thumbnail_token": "0fdc311aa88e7e173ba6d474aa2b689efdc0a6570f86c4bdf445b95e0e66cac2",
+      "title": "The 4 Puppy Stages: Every Puppy Development Stage Explained",
+      "url": "https://www.rover.com/blog/puppy-stages/",
+      "width": 1200
+    },
+    {
+      "discovery_date": "2023-10-05T00:00:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 1500,
+      "image": "https://img.freepik.com/premium-photo/summer-outdoor-portrait-cute-happy-puppy-sunset_663284-413.jpg?w=2000",
+      "image_token": "f8157ba02d2573d5cdca06a56ab541bfb78038a3087a99a67417f6fd8b1e9fc3",
+      "source": "Bing",
+      "thumbnail": "https://tse4.explicit.bing.net/th/id/OIP.TnpDu1U8aWysMipeXAjEqwHaFj?r=0&pid=Api",
+      "thumbnail_token": "3f7c28696429c44bbdc389887c4896d092209e3199a61d480639095ec3f5c70f",
+      "title": "Premium AI Image | Summer outdoor portrait of a cute happy puppy at sunset",
+      "url": "https://www.freepik.com/premium-ai-image/summer-outdoor-portrait-cute-happy-puppy-sunset_66482097.htm",
+      "width": 2000
+    },
+    {
+      "discovery_date": "2025-03-21T00:00:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 853,
+      "image": "https://cdn.pixabay.com/photo/2019/07/14/14/00/puppy-4337167_1280.jpg",
+      "image_token": "619e5dbc2259bed8d51bbd9e1cb582a75e3174cf55ebd9c503907a04327a5259",
+      "source": "Bing",
+      "thumbnail": "https://tse1.explicit.bing.net/th/id/OIP.CvIsWswxSfoNJmCYBZhsPAHaE7?r=0&pid=Api",
+      "thumbnail_token": "e47215dbf415883a83750e87ff5a4faa4badb4b45a9abe21fbb8b8b156bcff1e",
+      "title": "超过 3100000 张关于\"Puppy-Crying\"和\"自然\"的免费图片 - Pixabay",
+      "url": "https://pixabay.com/zh/images/search/puppy-crying/",
+      "width": 1280
+    },
+    {
+      "discovery_date": "2018-04-06T00:00:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 1200,
+      "image": "https://wallpapercave.com/wp/wp2488779.jpg",
+      "image_token": "cc4cc8fc0add3561ffc0f9215c92d5fab81963690aa838125761a38e5ae827f6",
+      "source": "Bing",
+      "thumbnail": "https://tse4.mm.bing.net/th/id/OIP.QDfdbY1xtdZ-wL6eW8_WXAHaEo?r=0&pid=Api",
+      "thumbnail_token": "f158d9f4cb5f7bffcdbd440bc45eca26776fb0e5914e846141ebbe8c2d5d8783",
+      "title": "Puppy HD Wallpapers - Wallpaper Cave",
+      "url": "https://wallpapercave.com/puppy-hd-wallpapers",
+      "width": 1920
+    },
+    {
+      "discovery_date": "2024-09-08T00:00:00.0000000Z",
+      "encoding_format": "png",
+      "height": 1024,
+      "image": "https://data.ipic.ai/images/7vEUEvRhIvpge2M_1724976332.png",
+      "image_token": "456bbd3bceee4de434a3958bb40b89da29201669d069e7f10db7f0d4857ea598",
+      "source": "Bing",
+      "thumbnail": "https://tse4.mm.bing.net/th/id/OIP.gT3_4H1PeBfjpijeg_k8gwHaJ4?r=0&pid=Api",
+      "thumbnail_token": "f399920e42f4a5e154324f56b623a3ffcb76d5647c1e831e7f6cee1971689d79",
+      "title": "A Cute Puppy Sitting in a Flower-Filled Meadow on a Sunny Day.",
+      "url": "https://www.ipic.ai/images/GQy4aR/view",
+      "width": 768
+    },
+    {
+      "discovery_date": "2017-05-03T00:00:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 1600,
+      "image": "https://images5.alphacoders.com/421/421380.jpg",
+      "image_token": "284cb834cc9e08e713ff7b4bfa94ea7a4afb828bd244f665642d1ac199aa98dc",
+      "source": "Bing",
+      "thumbnail": "https://tse2.mm.bing.net/th/id/OIP.z--oJf3PPeLDjzMdqbTw9QHaEo?r=0&pid=Api",
+      "thumbnail_token": "689e78d25d1ee7e50d5ba7e1413287547c8a63f9fd53b3c8c702f66981d98788",
+      "title": "Adorable Puppy HD Wallpaper: Playful Moments in Nature",
+      "url": "https://wall.alphacoders.com/big.php?i=421380",
+      "width": 2560
+    },
+    {
+      "discovery_date": "2023-06-01T00:00:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 1600,
+      "image": "https://wallpapers.com/images/hd/cute-dog-2560-x-1600-background-m6oi2au6izjb9eus.jpg",
+      "image_token": "de8f94855774d42a9384cb97419c718a500dcc1742d7b000bd0bc6a7cc293c0c",
+      "source": "Bing",
+      "thumbnail": "https://tse4.mm.bing.net/th/id/OIP.6NRwr5E1SB_J47JJgu1CDgHaEo?r=0&pid=Api",
+      "thumbnail_token": "963c0d0982e1e411d5a58a571d539509f34b21bfc9f75e7b9ed02d3b9406be1a",
+      "title": "Download Adorable Puppy Lounging in Nature | Wallpapers.com",
+      "url": "https://wallpapers.com/background/cute-dog-2560-x-1600-background-m6oi2au6izjb9eus.html",
+      "width": 2560
+    },
+    {
+      "discovery_date": "2024-06-30T04:00:38.0000000Z",
+      "encoding_format": "png",
+      "height": 768,
+      "image": "https://data.ipic.ai/images/PhmTHlm7q4AOwXQ_1716064513.png",
+      "image_token": "3c8c88ca610bf345e91606bf39142f78002e72c5239307786e6587d46182b7a4",
+      "source": "Bing",
+      "thumbnail": "https://tse1.mm.bing.net/th/id/OIP.uDz4J1kdR79d8WepvhKM9QHaFj?r=0&pid=Api",
+      "thumbnail_token": "6e6792262dca1834ad17fbe39fcfcec2c2bd01432ad439cf3409d2469edbacba",
+      "title": "Adorable Puppy Surrounded by Colorful Flowers in a Bright, Sunny Garden.",
+      "url": "https://www.ipic.ai/images/mpWB8d/view",
+      "width": 1024
+    },
+    {
+      "discovery_date": "2018-10-27T00:00:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 1080,
+      "image": "https://wallpaperaccess.com/full/391046.jpg",
+      "image_token": "e2bcde799190c0f387c1ae4c3cae2d6db0a24adcb6162bcb7009b9b81a03fa99",
+      "source": "Bing",
+      "thumbnail": "https://tse1.mm.bing.net/th/id/OIP.By95uZnSg1sJEr_tDLaGNQHaEK?r=0&pid=Api",
+      "thumbnail_token": "aa404bc3d4ca6a5f3e6f61a85ef833c36210bc195a203f0093ca72f5c84227fc",
+      "title": "Cute Puppy Wallpapers - Top Free Cute Puppy Backgrounds - WallpaperAccess",
+      "url": "https://wallpaperaccess.com/cute-puppy",
+      "width": 1920
+    },
+    {
+      "discovery_date": "2024-02-02T00:00:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 626,
+      "image": "https://img.freepik.com/premium-photo/cute-puppy_1037680-12019.jpg",
+      "image_token": "98c04684470d538eda79e9eb1ddd4051fdb16af274cf6d29afa77d9c8e578868",
+      "source": "Bing",
+      "thumbnail": "https://tse3.mm.bing.net/th/id/OIP.m3F2-bHDajS9KHM5YcRwQgHaHa?r=0&pid=Api",
+      "thumbnail_token": "acb683b958a4602a483ccfbebfa2ed134c2222d44f9722100468d3ed28e899dc",
+      "title": "Premium Photo | Cute puppy",
+      "url": "https://www.freepik.com/premium-ai-image/cute-puppy_137478025.htm",
+      "width": 626
+    },
+    {
+      "discovery_date": "2017-12-22T07:52:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 1196,
+      "image": "https://images7.alphacoders.com/881/881024.jpg",
+      "image_token": "ea13088fd5325a89e81c7de06f7f491fe82d4af6f4b0ef66b0b729f57487951a",
+      "source": "Bing",
+      "thumbnail": "https://tse4.mm.bing.net/th/id/OIP.qDLGgJbd1bWiTai7_X6dIQHaEU?r=0&pid=Api",
+      "thumbnail_token": "91e344be4f5cc653143724c56bc819fb60fd7ea03b97665933218427d4a8e570",
+      "title": "Adorable Puppy in Nature - HD Wallpaper",
+      "url": "https://wall.alphacoders.com/big.php?i=881024",
+      "width": 2048
+    },
+    {
+      "discovery_date": "2025-06-16T00:00:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 3840,
+      "image": "https://paradepets.com/.image/w_3840,q_auto:good,c_fill,ar_1:1/MTkxMzY1Nzg4NjczMzIwNTQ2/cutest-dog-breeds-jpg.jpg",
+      "image_token": "cf5b60e58db4fe16e1548305596f7b5f291c48e994f453982ee2176476513ef3",
+      "source": "Bing",
+      "thumbnail": "https://tse2.mm.bing.net/th/id/OIP.PWtPrm8qjARggfG_-mcuvgHaHa?r=0&pid=Api",
+      "thumbnail_token": "8dd3b370cfd2cb1f7e19798495abaccbe70a62bc13011a0a1c1b1c395642d43f",
+      "title": "Top 5 BBQ Dangers for Dogs, Vets Warn - Parade Pets",
+      "url": "https://paradepets.com/dogs/bbq-dangers-for-dogs",
+      "width": 3840
+    },
+    {
+      "discovery_date": "2018-09-09T21:13:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 1250,
+      "image": "http://wallpapercave.com/wp/iBq9NMZ.jpg",
+      "image_token": "954845173e8b9308904defe34e3a0b8eb7e2efc6b07a0f3863a4e1af233b06a4",
+      "source": "Bing",
+      "thumbnail": "https://tse1.explicit.bing.net/th/id/OIP.Ki-LtZyk9ROTQ2Y0lf9SIgHaEo?r=0&pid=Api",
+      "thumbnail_token": "fd8c0aaf7d98559dccc28e2cfd71a12f2f1d5d71c6cc2bb936459ccdb6fa3d3b",
+      "title": "Free Cute Puppy Wallpapers - Wallpaper Cave",
+      "url": "http://wallpapercave.com/free-cute-puppy-wallpapers",
+      "width": 2000
+    },
+    {
+      "discovery_date": "2018-03-10T00:00:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 1271,
+      "image": "https://www.publicdomainpictures.net/pictures/180000/velka/cute-puppy-1466048618VFT.jpg",
+      "image_token": "47c6553e92f115ece0f33fc694ce6b0ac995acd8a71c0c22935fc5a31561bac5",
+      "source": "Bing",
+      "thumbnail": "https://tse1.mm.bing.net/th/id/OIP.7XoFEgddO4iTA_Z4HtilwgHaE5?r=0&pid=Api",
+      "thumbnail_token": "b3d4b1dd4c7360d568e686d7d6e015cb41535fe60e1f578e871ebbb029f9e175",
+      "title": "Cute Puppy Free Stock Photo - Public Domain Pictures",
+      "url": "https://www.publicdomainpictures.net/view-image.php?image=175492&picture=cute-puppy",
+      "width": 1920
+    },
+    {
+      "discovery_date": "2017-09-09T12:55:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 1600,
+      "image": "https://wallpapercave.com/wp/6GcHLY2.jpg",
+      "image_token": "5836f09a8e8c3a7ffb47aed8163ab760b28a0b74616b269d7a28d78054e2fb31",
+      "source": "Bing",
+      "thumbnail": "https://tse3.mm.bing.net/th/id/OIP.pQineqriV490HM6xaqDODAHaEo?r=0&pid=Api",
+      "thumbnail_token": "dc4f080949fe59c8d8ed477278751f7b1945e022cc0e12750d4e2732d4971dd4",
+      "title": "Cute Puppy Wallpapers - Wallpaper Cave",
+      "url": "https://wallpapercave.com/cute-puppy-wallpaper",
+      "width": 2560
+    },
+    {
+      "discovery_date": "2019-07-09T00:00:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 640,
+      "image": "http://www.tanyaplonka.com/blog/images/2019/1905/0526-collins/11-adorable-outdoor-puppy-photos.jpg",
+      "image_token": "fe27803d2a0f94aa6c757b1320494ee31fe65bd8dc16af9b647dffff431af715",
+      "source": "Bing",
+      "thumbnail": "https://tse1.mm.bing.net/th/id/OIP.UQN2EcK8j0GNghZH9MC61AHaE8?r=0&pid=Api",
+      "thumbnail_token": "68e60da3df0c81dccb6695b2ef3d4d3862c0eadab0cbbdf644ccf905caaa6f2f",
+      "title": "Adorable Outdoor Puppy Photos [Collins from AARCS]",
+      "url": "https://tanyaplonka.com/blog/2019/07/adorable-outdoor-puppy-photos/",
+      "width": 960
+    },
+    {
+      "discovery_date": "2024-10-02T00:00:00.0000000Z",
+      "encoding_format": "png",
+      "height": 1024,
+      "image": "https://data.ipic.ai/images/Av6eUiYpqpW9HOM_1720892930.png",
+      "image_token": "95a36f6ea6050d1cb1a9063e543f9817ea6f2739e29d3dc7a1cef106b73f2f66",
+      "source": "Bing",
+      "thumbnail": "https://tse3.mm.bing.net/th/id/OIP.XscSaQcs7pRLykyyNnBglwHaO0?r=0&pid=Api",
+      "thumbnail_token": "1c097732c5b1add41a7c627585440e04722f7ccbbec0c4d41b487907800a27ba",
+      "title": "Adorable Puppy Sitting in a Forest Surrounded by Colorful Autumn Leaves",
+      "url": "https://www.ipic.ai/images/3gNAKA/view",
+      "width": 512
+    },
+    {
+      "discovery_date": "2018-04-19T00:00:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 1047,
+      "image": "https://c8.alamy.com/comp/D1HWA4/outdoor-portrait-of-young-puppies-D1HWA4.jpg",
+      "image_token": "822c2e5baf13c5686b5a72c41951dfcdc9a01c7f2c9fb78976025827adf4076f",
+      "source": "Bing",
+      "thumbnail": "https://tse4.mm.bing.net/th/id/OIP.zmfrYTIrq-nUO24i0JkJygHaF9?r=0&pid=Api",
+      "thumbnail_token": "f2c53aa224a3efcbbdd34beb3c6482f9565fc947acdab71946405838815c56af",
+      "title": "Outdoor portrait of young puppies Stock Photo - Alamy",
+      "url": "https://www.alamy.com/stock-photo-outdoor-portrait-of-young-puppies-52638828.html",
+      "width": 1300
+    },
+    {
+      "discovery_date": "2019-02-28T00:00:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 1365,
+      "image": "https://www.lookslikefilm.com/wp-content/uploads/2019/02/Blakeney-Clouse-Custom-blakeneyc.com_.jpg",
+      "image_token": "7bd14fc724cac43f636716c246daa7574f20313887be6ad33453334b22eaaca0",
+      "source": "Bing",
+      "thumbnail": "https://tse2.mm.bing.net/th/id/OIP.Yxcz_WRprS0-FXQbN8JyggHaE7?r=0&pid=Api",
+      "thumbnail_token": "8ea4c624f016544ecc49849bc5a09e6b9c0b7a6b9e2ff9de64090efc1382600d",
+      "title": "Cute Puppies - 15 Images That Will Melt Your Heart For Sure",
+      "url": "https://www.lookslikefilm.com/2019/02/28/cute-puppies/",
+      "width": 2048
+    },
+    {
+      "discovery_date": "2019-07-09T00:00:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 640,
+      "image": "http://www.tanyaplonka.com/blog/images/2019/1905/0526-collins/06-adorable-outdoor-puppy-photos.jpg",
+      "image_token": "f7d8a5dd516c89b71a955a622c9d9a6762bbd89572ebb257f60e0caea89052e2",
+      "source": "Bing",
+      "thumbnail": "https://tse2.explicit.bing.net/th/id/OIP.X1Rt5R4i5JC7xNA0ju9j3AHaE8?r=0&pid=Api",
+      "thumbnail_token": "7b0ce1b7fd6ac6724deec8b7e9b96b6c01f1eaa654e1220bbcdfb0d9a0fe6397",
+      "title": "Adorable Outdoor Puppy Photos [Collins from AARCS]",
+      "url": "https://tanyaplonka.com/blog/2019/07/adorable-outdoor-puppy-photos/",
+      "width": 960
+    },
+    {
+      "discovery_date": "2021-04-11T00:00:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 1248,
+      "image": "https://i.pinimg.com/originals/3a/cb/18/3acb18873ef49d78de58fc12a6cb8113.jpg",
+      "image_token": "f790d3677d4cc386dcf68999af6649d402b09a1ec9da1a20ff568c3f97170169",
+      "source": "Bing",
+      "thumbnail": "https://tse3.mm.bing.net/th/id/OIP.mix03tkz8-I6yS_7qwav1gHaFj?r=0&pid=Api",
+      "thumbnail_token": "f323cb6da432ba7d4bc53649280d36346c172ffbc64802032554af62ad64c6db",
+      "title": "Lab colors puppies #labradortraining | Labrador retriever, English lab ...",
+      "url": "https://www.pinterest.com/pin/535646949427961059/",
+      "width": 1664
+    },
+    {
+      "discovery_date": "2017-09-06T09:38:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 1200,
+      "image": "https://wallpapercave.com/wp/3vzTtXF.jpg",
+      "image_token": "6f416d99261404d5c5f544562ef3311ac47cad0aaf705e6713e27a691746dc84",
+      "source": "Bing",
+      "thumbnail": "https://tse4.mm.bing.net/th/id/OIP.fKlBp30uWeTyyQgUb4ldcwHaEo?r=0&pid=Api",
+      "thumbnail_token": "4b722420f2b277e2389fefdc57ce15c1a99d68c6f0e2fd7cd69104d7aed7dcb7",
+      "title": "Cute Puppy Desktop Wallpapers - Wallpaper Cave",
+      "url": "https://wallpapercave.com/cute-puppy-desktop-wallpaper",
+      "width": 1920
+    },
+    {
+      "discovery_date": "2025-02-16T04:45:00.0000000Z",
+      "encoding_format": "png",
+      "height": 768,
+      "image": "https://data.ipic.ai/images/RnPWsEBe83Bj6nG_1730698209.png",
+      "image_token": "e84c8820b51b9059a26c5e3e4962abb870fae9bdbf18b2f0a7283f7add4f84eb",
+      "source": "Bing",
+      "thumbnail": "https://tse1.mm.bing.net/th/id/OIP.ZAiTdyHAf8Dqx2ng8ZfsQQHaFj?r=0&pid=Api",
+      "thumbnail_token": "a58842c6dcd505e408eb1b2983070649552c04a7d37251d5078d0a7276ae7e32",
+      "title": "A Cute Puppy Relaxing Among Colorful Flowers at Sunset in Nature.",
+      "url": "https://www.ipic.ai/images/GJpWW1/view",
+      "width": 1024
+    },
+    {
+      "discovery_date": "2014-05-05T00:00:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 960,
+      "image": "https://s-media-cache-ak0.pinimg.com/736x/b4/25/c5/b425c57c6b4a8d2571bc3cd65966f4b3--yellow-lab-puppies-yellow-labrador-puppy.jpg",
+      "image_token": "7184b754f5c029300910383f2e6b64832a21ba4cfeabfbf8e8accd06180bdaaf",
+      "source": "Bing",
+      "thumbnail": "https://tse4.mm.bing.net/th/id/OIP.i7B7mO1oGJ1EtFRbzq_2mAHaJ4?r=0&pid=Api",
+      "thumbnail_token": "f3af7ba387d3bdec4d8e55a20825d58c72397bc4a6792dcd0e51eac511bc8e48",
+      "title": "2638 best images about Cute Dogs and Puppies on Pinterest",
+      "url": "https://www.pinterest.com/lolcuteanimals/cute-dogs-and-puppies/",
+      "width": 720
+    },
+    {
+      "discovery_date": "2024-09-08T00:00:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 664,
+      "image": "https://img.freepik.com/premium-photo/cute-puppy-sitting-outdoors-looking-sunset-enjoying-nature-generated-by-ai_776674-898048.jpg?w=996",
+      "image_token": "021a711cee77c29ffd098b590d6239eccac717c588ae7c1b7523b8b1c64240c6",
+      "source": "Bing",
+      "thumbnail": "https://tse1.mm.bing.net/th/id/OIP.MsuuIR2dKiYCY-4lY7o5lQHaE8?r=0&pid=Api",
+      "thumbnail_token": "cce22ff99d8c9f9ab20975fb559b71ce22c0b0a4ec93eefc7c277512d7832802",
+      "title": "Cute puppy sitting outdoors looking at sunset enjoying nature generated ...",
+      "url": "https://www.freepik.com/premium-ai-image/cute-puppy-sitting-outdoors-looking-sunset-enjoying-nature-generated-by-ai_194247908.htm",
+      "width": 996
+    },
+    {
+      "discovery_date": "2023-04-19T09:19:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 1050,
+      "image": "https://wallpapers.com/images/hd/puppy-background-200svuo9hjismwkt.jpg",
+      "image_token": "fad924cb766df99dda9365041a94c3138eeb1ec6053bb82cab8f3f53cfc6a0f6",
+      "source": "Bing",
+      "thumbnail": "https://tse2.mm.bing.net/th/id/OIP.NvtoT_Ms3k1RCo5Z0eeTowHaEo?r=0&pid=Api",
+      "thumbnail_token": "30d6e8bf5c8d5cd9b5e32e5034f5e2fad36a189ea9216f54c93d299ce051bee4",
+      "title": "Download Puppy Background | Wallpapers.com",
+      "url": "https://wallpapers.com/background/puppy-background-200svuo9hjismwkt.html",
+      "width": 1680
+    },
+    {
+      "discovery_date": "2024-03-24T00:00:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 417,
+      "image": "https://img.freepik.com/premium-photo/childrens-wallpapers-puppy-living-lonely-forest_1029476-118772.jpg",
+      "image_token": "bbb65579d5091bce4b60febd7fcae754e24ecbb8fd05263be18ba50866cbc494",
+      "source": "Bing",
+      "thumbnail": "https://tse1.mm.bing.net/th/id/OIP.7j-zbhjOu8uNyg7ijH8P7QHaE7?r=0&pid=Api",
+      "thumbnail_token": "66914b1540c70fa5ad7b228444ec0fd37ccc20279e219cc8b6d5e6354943b63c",
+      "title": "Premium Photo | Childrens wallpapers of a puppy living in a lonely forest",
+      "url": "https://www.freepik.com/premium-ai-image/childrens-wallpapers-puppy-living-lonely-forest_154873986.htm",
+      "width": 626
+    },
+    {
+      "discovery_date": "2020-05-16T14:42:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 1600,
+      "image": "https://eskipaper.com/images/little-cute-puppy-1.jpg",
+      "image_token": "81f04cb50f4a1c4cad3682ef5d07d18a5ad43b799a464eeaac6ad45e49ac53f2",
+      "source": "Bing",
+      "thumbnail": "https://tse4.mm.bing.net/th/id/OIP.wGni00dSX6p3NEPt2zP-pwHaEo?r=0&pid=Api",
+      "thumbnail_token": "51f5cf5a1487be5986470a89c00019880f206362c7ed93baa259fe390290bf9e",
+      "title": "Little Cute Puppy wallpaper | 2560x1600 | #13672",
+      "url": "https://eskipaper.com/little-cute-puppy.html",
+      "width": 2560
+    },
+    {
+      "discovery_date": "2023-07-28T00:00:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 4000,
+      "image": "https://wallpapers.com/images/file/german-shepherd-dog-puppy-cgkzskzzxge9g50g.jpg",
+      "image_token": "abd2076a7a21c569a990ab580fdb657da4246e370fd40b017993d5cc7db980f8",
+      "source": "Bing",
+      "thumbnail": "https://tse3.mm.bing.net/th/id/OIP.TgUkv1vPP3Y96eHNLy5-xAHaLG?r=0&pid=Api",
+      "thumbnail_token": "b6c02d3c396da7435508cb464aaeae77ce35f55561ba4d0701f6f4f14d837925",
+      "title": "Download Adorable Puppy Lounging In The Grass Wallpaper | Wallpapers.com",
+      "url": "https://wallpapers.com/wallpapers/adorable-puppy-lounging-in-the-grass-318rc7zm5btzsu5x.html",
+      "width": 2667
+    },
+    {
+      "discovery_date": "2024-07-21T00:00:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 351,
+      "image": "https://img.freepik.com/premium-photo/adorable-puppy-relaxing-green-pastures_868797-4627.jpg",
+      "image_token": "a87fa846c291b3ebbfc91d96278f51fb58beea2defa90d3c7732a1db90ba3d32",
+      "source": "Bing",
+      "thumbnail": "https://tse1.mm.bing.net/th/id/OIP.5lINHAN8ET5k6i3tXrPC8AHaEJ?r=0&pid=Api",
+      "thumbnail_token": "6e594ccab146645d11e6d33ce7f2166074af32d9185ab013db5e132115ebac94",
+      "title": "Premium Photo | Adorable Puppy Relaxing in the Green Pastures",
+      "url": "https://www.freepik.com/premium-ai-image/adorable-puppy-relaxing-green-pastures_134474341.htm",
+      "width": 626
+    },
+    {
+      "discovery_date": "2025-02-16T00:00:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 1960,
+      "image": "https://static.vecteezy.com/system/resources/previews/056/240/461/large_2x/happy-puppy-playing-in-sunny-park-with-flowers-adorable-canine-portrait-in-beautiful-nature-background-photo.jpeg",
+      "image_token": "f7aaea325d71e204587da6dfe3adb9324cc7921cebf5a47d5c6990e48382012c",
+      "source": "Bing",
+      "thumbnail": "https://tse2.mm.bing.net/th/id/OIP.qHB6C3LA86FTIPoPLZClqwHaCb?r=0&pid=Api",
+      "thumbnail_token": "12d3ddb17ce6d35aa045ac40f825f026801463015a3dc530782505e3905461f7",
+      "title": "Happy Puppy Playing in Sunny Park with Flowers - Adorable Canine ...",
+      "url": "https://www.vecteezy.com/photo/56240461-happy-puppy-playing-in-sunny-park-with-flowers-adorable-canine-portrait-in-beautiful-nature-background",
+      "width": 5973
+    },
+    {
+      "discovery_date": "2020-02-11T00:00:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 1080,
+      "image": "https://wallpapercave.com/wp/wp5408517.jpg",
+      "image_token": "4424f1a004123ea22ebe51239a75ed5e94a8564ef41cc786f76d11f30eca9849",
+      "source": "Bing",
+      "thumbnail": "https://tse3.mm.bing.net/th/id/OIP.P6IvGlDww7Ph9Wt1sTlO8gHaEK?r=0&pid=Api",
+      "thumbnail_token": "2c71c6393a71ac728260a1bc3ce66dbdc2520a4adce974c6aaf78bbcfb9f5c02",
+      "title": "Baby Puppy Wallpapers - Wallpaper Cave",
+      "url": "https://wallpapercave.com/baby-puppy-wallpapers",
+      "width": 1920
+    },
+    {
+      "discovery_date": "2024-05-23T00:00:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 626,
+      "image": "https://img.freepik.com/premium-photo/photo-young-puppy-sitting-nature-looking-cute-ai-generate_998411-4872.jpg",
+      "image_token": "95ac70fe3a074133264954e33dbb3a928506744c2722fb20c37675f737a4ab78",
+      "source": "Bing",
+      "thumbnail": "https://tse3.mm.bing.net/th/id/OIP.Fs-SsoPvqYcUHZiuiFA48wHaHa?r=0&pid=Api",
+      "thumbnail_token": "154ea3a3ad070333f2b1faac2432688c8e2c6e360737b682bf3e52e4701138cd",
+      "title": "Premium Photo | Photo young puppy sitting in nature looking cute Ai ...",
+      "url": "https://www.freepik.com/premium-ai-image/photo-young-puppy-sitting-nature-looking-cute-ai-generate_186317077.htm",
+      "width": 626
+    },
+    {
+      "discovery_date": "2024-11-13T00:00:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 1500,
+      "image": "https://images.pexels.com/photos/29372525/pexels-photo-29372525/free-photo-of-adorable-puppies-resting-in-a-garden-setting.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "image_token": "ebd900617db2064a67388b04be0cf8119d9c36b7c3ed1110939eb3cd63b80c2c",
+      "source": "Bing",
+      "thumbnail": "https://tse3.mm.bing.net/th/id/OIP.NY9Dw4XvYLTtL2kqoMVhFwHaJ4?r=0&pid=Api",
+      "thumbnail_token": "da2a8d22b085a2b31ab2563d8db64ee7369781df9844448b616a1b4f5ee1e893",
+      "title": "Adorable Puppies Resting in a Garden Setting · Free Stock Photo",
+      "url": "https://www.pexels.com/photo/adorable-puppies-resting-in-a-garden-setting-29372525/",
+      "width": 1125
+    },
+    {
+      "discovery_date": "2023-02-08T22:15:29.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 1200,
+      "image": "https://wallpapers.com/images/hd/cute-puppy-pictures-pdtivig3omubqpy5.jpg",
+      "image_token": "7ee3ed6750bc8814f6ef5b6fbf61764a8ca0b2c5809038cd207506fc25c90f25",
+      "source": "Bing",
+      "thumbnail": "https://tse4.mm.bing.net/th/id/OIP.zQGNYVrwMzx2PCOn180R5QHaE_?r=0&pid=Api",
+      "thumbnail_token": "76f72060898fb04600b58fdd18048c6ae071dd08637406ebee85bf47fe0d8f2d",
+      "title": "[300+] Cute Puppy Pictures | Wallpapers.com",
+      "url": "https://wallpapers.com/cute-puppy-pictures",
+      "width": 1783
+    },
+    {
+      "discovery_date": "2024-09-08T00:00:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 626,
+      "image": "https://img.freepik.com/premium-photo/joyful-puppies-discovering-nature-garden_762139-19952.jpg",
+      "image_token": "6b7f98cc9d0970f917cb1d3d9f82be0710b79d46658efc694efca2c8ed41e24c",
+      "source": "Bing",
+      "thumbnail": "https://tse3.mm.bing.net/th/id/OIP.NtMbJNDJeD1_vvJMnkxVSQHaHa?r=0&pid=Api",
+      "thumbnail_token": "f896daf1edf28426ab39bd5832cf58d926ede878b99ea759f3cfff054b2ba9e3",
+      "title": "Joyful Puppies Discovering Nature in a Garden | Premium AI-generated image",
+      "url": "https://www.freepik.com/premium-ai-image/joyful-puppies-discovering-nature-garden_289829757.htm",
+      "width": 626
+    },
+    {
+      "discovery_date": "2009-02-06T00:00:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 768,
+      "image": "http://mymodernmet.com/wp/wp-content/uploads/archive/ZP9zO6t9QHVbXam0LxD8_1082020995.jpeg",
+      "image_token": "f88669f9745e6a4a790f8a00fe793a53873cec1e825f0b73b881d2df7e10f02b",
+      "source": "Bing",
+      "thumbnail": "https://tse3.mm.bing.net/th/id/OIP.s0pFQkWlNU36tQVQtJlaCAHaFj?r=0&pid=Api",
+      "thumbnail_token": "7419d5363fea410415d5df1303bf84f42e1ed1eea7ca7bf6360b4b25424852d6",
+      "title": "The Cutest Puppies in the World (18 photos)",
+      "url": "http://mymodernmet.com/the-cutest-puppies-in-the/",
+      "width": 1024
+    },
+    {
+      "discovery_date": "2023-02-05T00:00:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 1200,
+      "image": "https://wallpapers.com/images/featured/cute-puppy-background-i85e6c4pqelymxsw.jpg",
+      "image_token": "cb3a48353c89980a07452ef5415cfacd3b6dcf5cc71ab8712fe70cc1625f0b6e",
+      "source": "Bing",
+      "thumbnail": "https://tse1.mm.bing.net/th/id/OIP.r-P4hJfgxnVYdHySj65UMAHaEo?r=0&pid=Api",
+      "thumbnail_token": "cf15e2f8081d9a87877104c4e38ec3a45a4f74a0826c40feac2d2f72a1edb472",
+      "title": "[200+] Cute Puppy Backgrounds | Wallpapers.com",
+      "url": "https://wallpapers.com/cute-puppy-background",
+      "width": 1920
+    },
+    {
+      "discovery_date": "2023-10-10T00:00:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 1960,
+      "image": "https://static.vecteezy.com/system/resources/previews/030/483/504/large_2x/cute-puppy-sitting-on-grass-looking-at-camera-enjoying-nature-generated-by-ai-free-photo.jpg",
+      "image_token": "74ff2271e2021d279a41585794e49b7594de45b42ec8e9f398ee3c1b5fd5a8b9",
+      "source": "Bing",
+      "thumbnail": "https://tse1.mm.bing.net/th/id/OIP.OLG1raclXjYqErEw8Ew_7AHaEO?r=0&pid=Api",
+      "thumbnail_token": "e67a4c2ca78bd7d4a148cf7047c03f2b893f686d4a5fdd78a99a05b6091b77da",
+      "title": "Cute puppy sitting on grass, looking at camera, enjoying nature ...",
+      "url": "https://www.vecteezy.com/photo/30483504-cute-puppy-sitting-on-grass-looking-at-camera-enjoying-nature-generated-by-ai",
+      "width": 3430
+    },
+    {
+      "discovery_date": "2025-02-15T00:00:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 1960,
+      "image": "https://static.vecteezy.com/system/resources/previews/056/239/140/large_2x/cute-puppy-resting-on-grass-in-the-afternoon-sunlight-enjoying-the-serene-outdoors-and-exploring-nature-s-beauty-photo.jpeg",
+      "image_token": "7f98b7a75d2426ee3a22a539b96f1c6cec15273c8d05bd5c56a26587f2f4d946",
+      "source": "Bing",
+      "thumbnail": "https://tse3.mm.bing.net/th/id/OIP.Fgo75NpPow4CI0--fBUrTgHaCb?r=0&pid=Api",
+      "thumbnail_token": "da717e4bd99b8e3428e5167099823571c08008514a226e5e5f2ea550f87547bc",
+      "title": "Cute puppy resting on grass in the afternoon sunlight enjoying the ...",
+      "url": "https://www.vecteezy.com/photo/56239140-cute-puppy-resting-on-grass-in-the-afternoon-sunlight-enjoying-the-serene-outdoors-and-exploring-nature-s-beauty",
+      "width": 5973
+    },
+    {
+      "discovery_date": "2019-07-09T00:00:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 640,
+      "image": "http://www.tanyaplonka.com/blog/images/2019/1905/0526-collins/09-adorable-outdoor-puppy-photos.jpg",
+      "image_token": "fee9754a31dba80352a8d35e6a04a60e40d5d0d8d40c494b9d9f48ef841b9362",
+      "source": "Bing",
+      "thumbnail": "https://tse3.mm.bing.net/th/id/OIP.B5BZMPcGR08o4EzDgyJavAHaE8?r=0&pid=Api",
+      "thumbnail_token": "293a9ecb13d865356416d1bb9fbecc19fddcaab0efcdede0ec1541022dde8be6",
+      "title": "Adorable Outdoor Puppy Photos [Collins from AARCS]",
+      "url": "https://tanyaplonka.com/blog/2019/07/adorable-outdoor-puppy-photos/",
+      "width": 960
+    },
+    {
+      "discovery_date": "2025-02-05T00:00:00.0000000Z",
+      "encoding_format": "png",
+      "height": 2048,
+      "image": "https://i.pinimg.com/originals/e2/84/28/e28428a0a9744256cf1a84378954c407.png",
+      "image_token": "400a9b9102da4907c41e4291eb8d62e0cd1472caf5b03a336498d685a2f55782",
+      "source": "Bing",
+      "thumbnail": "https://tse3.explicit.bing.net/th/id/OIP.HrNmdncm-sD9Xeq9s1SOMAHaJ4?r=0&pid=Api",
+      "thumbnail_token": "eb74a6004639ab8a8a397008ba69deed627eeb589875bb649a49d9fe221a9d63",
+      "title": "SO TINY | Puppies funny, Teacup puppies, Puppies",
+      "url": "https://ph.pinterest.com/pin/729372102125606613/",
+      "width": 1536
+    },
+    {
+      "discovery_date": "2019-07-09T00:00:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 640,
+      "image": "http://www.tanyaplonka.com/blog/images/2019/1905/0526-collins/13-adorable-outdoor-puppy-photos.jpg",
+      "image_token": "eeb234c5e5e0982e186c077909c4afc61d49be52c56443bb4e3aa63b8d8d4165",
+      "source": "Bing",
+      "thumbnail": "https://tse3.mm.bing.net/th/id/OIP.pHoGEuSxacM9wRhdPl8mVwHaE8?r=0&pid=Api",
+      "thumbnail_token": "48c14cdaad107cb387271cef7cc3da6bbf10dcceafd16bef133b1ed091235e50",
+      "title": "Adorable Outdoor Puppy Photos [Collins from AARCS]",
+      "url": "https://tanyaplonka.com/blog/2019/07/adorable-outdoor-puppy-photos/",
+      "width": 960
+    },
+    {
+      "discovery_date": "2023-05-19T00:00:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 1200,
+      "image": "https://wallpapers.com/images/hd/cute-dog-1600-x-1200-background-20mm51nl6vu1jiuc.jpg",
+      "image_token": "353d147a4e0687ad2292c4db56f7b83cb68cd85a4ec5899d1f596c2d874cc4af",
+      "source": "Bing",
+      "thumbnail": "https://tse2.mm.bing.net/th/id/OIP.3SbckfsoSYnSeDn_NgkswAHaFj?r=0&pid=Api",
+      "thumbnail_token": "ec782ee921570cb7e922111f7c8de128b9846be83b0a80d86b3e8feabbb08eb2",
+      "title": "Download Adorable Puppy Relaxing in Nature | Wallpapers.com",
+      "url": "https://wallpapers.com/background/cute-dog-1600-x-1200-background-20mm51nl6vu1jiuc.html",
+      "width": 1600
+    },
+    {
+      "discovery_date": "2024-07-21T00:00:00.0000000Z",
+      "encoding_format": "png",
+      "height": 512,
+      "image": "https://data.ipic.ai/images/lnJla2DusTh3ubI_1720023317.png",
+      "image_token": "02820bbfad2b40a7d105b3addfb185c42ce85949feaa46f02497cc5bade6af95",
+      "source": "Bing",
+      "thumbnail": "https://tse2.explicit.bing.net/th/id/OIP.gnPWwgQOh9kqIguHviDOcAHaDt?r=0&pid=Api",
+      "thumbnail_token": "4ea8974833e97f32edb60dc9ee8b8d717961997526b042661764ecce148fd10a",
+      "title": "Adorable Little Puppy Sitting Sweetly on Soft Floral Background",
+      "url": "https://www.ipic.ai/images/mpebxQ/view",
+      "width": 1024
+    },
+    {
+      "discovery_date": "2023-07-28T00:00:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 864,
+      "image": "https://wallpapers.com/images/hd/adorable-puppy-enjoying-a-sunny-day-ok5psolcu71fptxj.jpg",
+      "image_token": "5d4fac01c8a3163b59b4e7e8d1d044afc8026172a7d29ad458852cac5aafbc86",
+      "source": "Bing",
+      "thumbnail": "https://tse2.mm.bing.net/th/id/OIP.GRcrE_T6kj9LLzTq_A5wvwHaFj?r=0&pid=Api",
+      "thumbnail_token": "1f805f4194a5dfeb6f4a70c7a886609608888f94ccc70d559bc52b36a7e7c64c",
+      "title": "Download Adorable Puppy Enjoying A Sunny Day Wallpaper | Wallpapers.com",
+      "url": "https://wallpapers.com/wallpapers/adorable-puppy-enjoying-a-sunny-day-ok5psolcu71fptxj.html",
+      "width": 1152
+    },
+    {
+      "discovery_date": "2023-11-08T00:00:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 358,
+      "image": "https://img.freepik.com/free-photo/cute-puppy-sitting-grass-enjoying-nature-playful-beauty-generated-by-artificial-intelligence_188544-84973.jpg",
+      "image_token": "4c8096fcf5aa3753adab1369aa310b5a1db56418d5057f03fa481449c35d629a",
+      "source": "Bing",
+      "thumbnail": "https://tse2.mm.bing.net/th/id/OIP.cnmwlZi9m6-uwQ-Qt2HWWgHaEP?r=0&pid=Api",
+      "thumbnail_token": "b40d2256178e5ae07f3d68c7bff9344816855d73686cc3a9d5151dec77534d73",
+      "title": "Free Photo | Cute puppy sitting in grass enjoying nature playful beauty ...",
+      "url": "https://www.freepik.com/free-photo/cute-puppy-sitting-grass-enjoying-nature-playful-beauty-generated-by-artificial-intelligence_79687547.htm",
+      "width": 626
+    },
+    {
+      "discovery_date": "2019-03-16T10:15:48.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 2443,
+      "image": "https://www.thesprucepets.com/thmb/ZNHCOlGMUT1kMMOtA0TXPCInjqg=/3664x2443/filters:fill(auto,1)/four-days-old-puppy-95882865-5c758c2cc9e77c00012f80ce.jpg",
+      "image_token": "639c7e293413cc512b7d49aa512ae9fdb7fc4462b1881c1df03526515179f97b",
+      "source": "Bing",
+      "thumbnail": "https://tse1.mm.bing.net/th/id/OIP.9YA2yXdFGbYP02LaqfluNQHaE8?r=0&pid=Api",
+      "thumbnail_token": "c5f5a100b2f9221dc508b37f32280b4426258bd5303952b6ef5e696a1be00513",
+      "title": "Puppy Development From Newborn to One Week Old",
+      "url": "https://www.thesprucepets.com/puppy-development-from-newborn-to-one-week-4588125",
+      "width": 3664
+    },
+    {
+      "discovery_date": "2023-05-17T10:42:49.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 900,
+      "image": "https://wallpapers.com/images/hd/cute-dog-1440-x-900-background-lwn19sk62m3auy05.jpg",
+      "image_token": "de7e514d4e78d11ca38ec236176156f28b2a70530068a6fd79e558de9ef8bf44",
+      "source": "Bing",
+      "thumbnail": "https://tse3.mm.bing.net/th/id/OIP.5zersc4e8kDXyL9m4MGj-wHaEo?r=0&pid=Api",
+      "thumbnail_token": "8f921b1d3b007d80fb8464b65437e3c01f57fdb86af4e6a1b5808ba7c0b43430",
+      "title": "Download Adorable Puppy Lounging on Grass | Wallpapers.com",
+      "url": "https://wallpapers.com/background/cute-dog-1440-x-900-background-lwn19sk62m3auy05.html",
+      "width": 1440
+    },
+    {
+      "discovery_date": "2017-02-23T00:00:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 1200,
+      "image": "https://images8.alphacoders.com/379/379769.jpg",
+      "image_token": "29cb0bf27079966666399caa85e7a68f3d487cc00311795128fc5cddd95e5daa",
+      "source": "Bing",
+      "thumbnail": "https://tse4.mm.bing.net/th/id/OIP.IJUZJJdogLusor7bEggawgHaEo?r=0&pid=Api",
+      "thumbnail_token": "7d43de00ca0ee376bee697389d3cdf0442364478d6108acca45f53bdd1382502",
+      "title": "Adorable Dog HD Wallpaper: A Playful Pup in Nature",
+      "url": "https://wall.alphacoders.com/big.php?i=379769",
+      "width": 1920
+    },
+    {
+      "discovery_date": "2018-05-18T09:53:47.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 2160,
+      "image": "https://backiee.com/static/wallpapers/3840x2160/159629.jpg",
+      "image_token": "589692a1a79639095f898b10fa47d3c4c5b1913d3fc6bbb3721d7dd48620647a",
+      "source": "Bing",
+      "thumbnail": "https://tse4.mm.bing.net/th/id/OIP.n7nS7TWGm5cWJiSHFXUmFwHaEK?r=0&pid=Api",
+      "thumbnail_token": "a8f7324d20040edba84187d56d1c3651ec85633106075f3f0dfba0f68f642766",
+      "title": "Puppy's Serene Moment in Nature - backiee",
+      "url": "https://backiee.com/wallpaper/animals/59629",
+      "width": 3840
+    },
+    {
+      "discovery_date": "2020-12-12T00:00:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 1428,
+      "image": "https://i.pinimg.com/originals/26/35/c1/2635c1b5f55273391fc34755990416be.jpg",
+      "image_token": "e15a6affc326aabbb6bb478a665c0fd3a5ad598b9c27fc057091ad1d47f53b4a",
+      "source": "Bing",
+      "thumbnail": "https://tse3.mm.bing.net/th/id/OIP.yJuwxXqYn2OnfMl7xpk8LgHaFK?r=0&pid=Api",
+      "thumbnail_token": "757f21cd5a5a4084d5675573aed19b867365bf8a30f9b4bf1747db849f074b4f",
+      "title": "Teacup Puppy | Cute dogs, Cute dogs breeds, Super cute puppies",
+      "url": "https://www.pinterest.co.uk/pin/561542647295486693/",
+      "width": 2048
+    },
+    {
+      "discovery_date": "2019-07-09T00:00:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 640,
+      "image": "https://www.tanyaplonka.com/blog/images/2019/1905/0526-collins/07-adorable-outdoor-puppy-photos.jpg",
+      "image_token": "8aac9dc6f2740c4be0b31d4efc988ff34f9bce1a1e121e75809ac54e97feb706",
+      "source": "Bing",
+      "thumbnail": "https://tse2.mm.bing.net/th/id/OIP.tcBrUxJWc6q0PEQcGXEjrQHaE8?r=0&pid=Api",
+      "thumbnail_token": "f3cee93501ac05e00a4512944a2ca078eff505ace2d16cbefa6d797b2519d42b",
+      "title": "Adorable Outdoor Puppy Photos [Collins from AARCS]",
+      "url": "https://www.tanyaplonka.com/blog/2019/07/adorable-outdoor-puppy-photos/",
+      "width": 960
+    },
+    {
+      "discovery_date": "2023-11-06T00:00:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 980,
+      "image": "https://static.vecteezy.com/system/resources/previews/029/776/290/non_2x/cute-puppy-sitting-on-grass-enjoying-nature-beauty-in-autumn-generated-by-ai-free-photo.jpg",
+      "image_token": "e596263f7740a4ee4c7f29dd8ce4afa6176d430f6570da9d018fede6725a68db",
+      "source": "Bing",
+      "thumbnail": "https://tse4.explicit.bing.net/th/id/OIP.s31GEgL7P8sdN9qAdzJf8gHaEO?r=0&pid=Api",
+      "thumbnail_token": "fd6596f1e9c61ddde451fd901e5e802edbcbeae3123f1c8941d73a281df2e193",
+      "title": "Cute puppy sitting on grass, enjoying nature beauty in autumn generated ...",
+      "url": "https://www.vecteezy.com/photo/29776290-cute-puppy-sitting-on-grass-enjoying-nature-beauty-in-autumn-generated-by-ai",
+      "width": 1715
+    },
+    {
+      "discovery_date": "2018-01-30T00:00:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 522,
+      "image": "https://thumbs.dreamstime.com/b/adorable-cute-young-puppy-outside-yard-62122829.jpg",
+      "image_token": "99325940660275480e008150698ac217a8a96e54d9473d1c3faf970f33cdff98",
+      "source": "Bing",
+      "thumbnail": "https://tse2.mm.bing.net/th/id/OIP.ELkfw3AIfTaMQhGHBVnEVwHaE1?r=0&pid=Api",
+      "thumbnail_token": "5902ac3f10a73e593f33ad685542f80dfc9241aa2f41fcebbe9aa41e93930a9a",
+      "title": "Adorable Cute Young Puppy stock image. Image of play - 62122829",
+      "url": "https://www.dreamstime.com/stock-photo-adorable-cute-young-puppy-outside-yard-image62122829",
+      "width": 800
+    },
+    {
+      "discovery_date": "2023-06-09T02:57:40.0000000Z",
+      "encoding_format": "png",
+      "height": 1024,
+      "image": "https://rebarkable.com/wp-content/uploads/2023/04/puppy-routine-5-819x1024.png",
+      "image_token": "49df242d468f3705cee9a6233733cc877ab051c3b538a313c353d98462bb65ab",
+      "source": "Bing",
+      "thumbnail": "https://tse4.mm.bing.net/th/id/OIP.RKdI556ZFWscCD_7G-4JlwHaJQ?r=0&pid=Api",
+      "thumbnail_token": "31fb7e8e2519614007dc70a44f0c3216d5e5e716767983522de75196c1aa42df",
+      "title": "How to Set Up A Perfect Daily Routine For Your Puppy [2023] - Just ...",
+      "url": "https://justpawsomepets.com/2023/06/08/how-to-set-up-a-perfect-daily-routine-for-your-puppy-2023/",
+      "width": 819
+    },
+    {
+      "discovery_date": "2018-10-27T00:00:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 1600,
+      "image": "https://wallpaperaccess.com/full/203531.jpg",
+      "image_token": "a535987c350086a203b203b4f02c0e3376be847332368d2f85676122df6b9356",
+      "source": "Bing",
+      "thumbnail": "https://tse2.mm.bing.net/th/id/OIP.wyOVvInA_qphxsGO1_C0nwHaEo?r=0&pid=Api",
+      "thumbnail_token": "29ff06a5a8e8b07c45834399a5df5ba687e9a354437da89b7e1cf443b1abde34",
+      "title": "Cute Puppy Wallpapers - Top Free Cute Puppy Backgrounds - WallpaperAccess",
+      "url": "https://wallpaperaccess.com/cute-puppy",
+      "width": 2560
+    },
+    {
+      "discovery_date": "2024-11-14T00:00:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 750,
+      "image": "https://images.pexels.com/photos/29381660/pexels-photo-29381660/free-photo-of-two-adorable-puppies-in-outdoor-setting.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      "image_token": "a17c339c288f3b8546d5b224234002320145fdc582b1117dd2bff5d7bc155987",
+      "source": "Bing",
+      "thumbnail": "https://tse1.explicit.bing.net/th/id/OIP.ojo0Cewkm15bW8uH_MCY9gHaFj?r=0&pid=Api",
+      "thumbnail_token": "8e8e1a4adb31e109ea7e8ce6e8fd341f1676cf63387b66d8a49a0ca60b8399df",
+      "title": "Two Adorable Puppies in Outdoor Setting · Free Stock Photo",
+      "url": "https://www.pexels.com/photo/two-adorable-puppies-in-outdoor-setting-29381660/",
+      "width": 999
+    },
+    {
+      "discovery_date": "2024-02-08T00:00:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 626,
+      "image": "https://img.freepik.com/premium-photo/cute-purebred-puppy-sitting-autumn-forest-looking-camera_1011848-6691.jpg",
+      "image_token": "88b037d74437e44c1719f2b6dc9c7bc2930a18bf9eb6c57a6d2da0a175d17530",
+      "source": "Bing",
+      "thumbnail": "https://tse1.mm.bing.net/th/id/OIP.O0g81lMaThjPy6iArfM4TgHaHa?r=0&pid=Api",
+      "thumbnail_token": "d98a37f320a7e9973a69d11ae92a7db5bb7613f9268b6aad3fcc2183b0806563",
+      "title": "Premium Photo | Cute purebred puppy sitting in autumn forest looking at ...",
+      "url": "https://www.freepik.com/premium-ai-image/cute-purebred-puppy-sitting-autumn-forest-looking-camera_91441365.htm",
+      "width": 626
+    },
+    {
+      "discovery_date": "2024-12-25T00:00:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 560,
+      "image": "https://thumbs.dreamstime.com/z/cute-puppy-playing-colorful-garden-adorable-animal-scene-captured-bright-light-ai-generated-351586858.jpg?w=992",
+      "image_token": "e760186f2fc60c5a3bf9693bdd6d4bdd62a92c7b1bcf4b70eb0385cb21dc9872",
+      "source": "Bing",
+      "thumbnail": "https://tse3.mm.bing.net/th/id/OIP.LFYhJTI0Gsg090qy7zricwHaEL?r=0&pid=Api",
+      "thumbnail_token": "0060fd4e50b5228cf964273c91b4f47876cd63569f6bc5ffcb5452c24d38e0a3",
+      "title": "Cute Puppy Playing in a Colorful Garden Adorable Animal Scene Captured ...",
+      "url": "https://www.dreamstime.com/cute-puppy-playing-colorful-garden-adorable-animal-scene-captured-bright-light-ai-generated-image351586858",
+      "width": 992
+    },
+    {
+      "discovery_date": "2024-08-22T00:00:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 626,
+      "image": "https://img.freepik.com/premium-photo/puppy-is-sitting-grass-with-purple-flowers_951133-9938.jpg",
+      "image_token": "ae3d8d0e510e3b71ca7ea8e30297e863bd93a030caf1467ee85d1e7be2d00aa9",
+      "source": "Bing",
+      "thumbnail": "https://tse3.mm.bing.net/th/id/OIP.KlTo-eOhBLwkItEBhM-gGAAAAA?r=0&pid=Api",
+      "thumbnail_token": "049e935f1775c637add756922ae02099ae6213dda7a7592191e02a94fcd96f12",
+      "title": "A puppy is sitting in the grass with purple flowers | Premium AI ...",
+      "url": "https://www.freepik.com/premium-ai-image/puppy-is-sitting-grass-with-purple-flowers_235368714.htm",
+      "width": 417
+    },
+    {
+      "discovery_date": "2023-10-25T00:00:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 846,
+      "image": "https://img.freepik.com/free-photo/cute-small-puppy-sitting-outdoors-surrounded-by-yellow-tulips-generated-by-artificial-intelligence_25030-64663.jpg?t=st=1718536702~exp=1718540302~hmac=9236ed25fe64e15c12be7e17c31a6e021d379d6b6493a2b8a489086ded19fbac&w=1480",
+      "image_token": "7fe2aa13c2e8ca375cf173acd52aea9e1de2f95d5a2fc31fde73bedbdd8e0f1d",
+      "source": "Bing",
+      "thumbnail": "https://tse3.mm.bing.net/th/id/OIP.2U0JfeKmiith-nI7Gjk8SQHaEO?r=0&pid=Api",
+      "thumbnail_token": "f2bde3ce2131a91acf2060a447a515db39a0d80043f34f1699512a1bd6c94ff0",
+      "title": "Free Photo | Cute small puppy sitting outdoors surrounded by yellow ...",
+      "url": "https://www.freepik.com/free-ai-image/cute-small-puppy-sitting-outdoors-surrounded-by-yellow-tulips-generated-by-artificial-intelligence_77709297.htm",
+      "width": 1480
+    },
+    {
+      "discovery_date": "2023-10-10T00:00:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 1960,
+      "image": "https://static.vecteezy.com/system/resources/previews/030/483/476/large_2x/cute-puppy-sitting-in-meadow-enjoying-nature-beauty-and-friendship-generated-by-ai-free-photo.jpg",
+      "image_token": "a9af6f04c2fe80a39ceb49fbc06f6dab3965b61f500d776a269d9d260abdbc70",
+      "source": "Bing",
+      "thumbnail": "https://tse1.mm.bing.net/th/id/OIP.sVpRbHd-AZajD-gmAhvO1wHaEO?r=0&pid=Api",
+      "thumbnail_token": "b3d911855111235d4bbc2aa80561aa9f02725494c3f09685311994d6b1839cc5",
+      "title": "Cute puppy sitting in meadow, enjoying nature beauty and friendship ...",
+      "url": "https://www.vecteezy.com/photo/30483476-cute-puppy-sitting-in-meadow-enjoying-nature-beauty-and-friendship-generated-by-ai",
+      "width": 3430
+    },
+    {
+      "discovery_date": "2025-12-09T00:00:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 3155,
+      "image": "https://images.pexels.com/photos/1938124/pexels-photo-1938124.jpeg?cs=srgb&dl=pexels-helenalopes-1938124.jpg&fm=jpg",
+      "image_token": "65ce675375f443ee582e2254a973ca912aa1cbb8199800d666b8fa347ea3883b",
+      "source": "Bing",
+      "thumbnail": "https://tse1.mm.bing.net/th/id/OIP.itDO6quYRTa-0AzWlPLRGwHaE7?r=0&pid=Api",
+      "thumbnail_token": "44a16a50cf7a4b51837225d9b1f8039fd9d9a63cf8c4405a5ecff4a2cbb58c6f",
+      "title": "Nature With Flower With Small Puppy Photos, Download The BEST Free ...",
+      "url": "https://www.pexels.com/search/nature%20WITH%20FLOWER%20WITH%20SMALL%20PUPPY/",
+      "width": 4733
+    },
+    {
+      "discovery_date": "2023-03-21T12:17:22.0000000Z",
+      "encoding_format": "png",
+      "height": 1200,
+      "image": "https://png.pngtree.com/png-clipart/20230412/original/pngtree-a-cute-white-maltese-pet-puppy-png-image_9048439.png",
+      "image_token": "b92e3db66451203c549fa94ec84fc898e3eb0f9f526e4d70c0ce1be0677f132d",
+      "source": "Bing",
+      "thumbnail": "https://tse4.mm.bing.net/th/id/OIP.bYYeiZOjFKC1VS9A5oDIrQHaHa?r=0&pid=Api",
+      "thumbnail_token": "99b1f0dafced9a69767e85c13353ebf2d7fb036396e7779ef8bf0786b0416ea8",
+      "title": "A Cute White Maltese Pet Puppy, Animal, Pet, Dog PNG Transparent ...",
+      "url": "https://pngtree.com/freepng/a-cute-white-maltese-pet-puppy_9048439.html",
+      "width": 1200
+    },
+    {
+      "discovery_date": "2023-10-10T00:00:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 1960,
+      "image": "https://static.vecteezy.com/system/resources/previews/030/482/748/large_2x/cute-puppy-playing-in-autumn-forest-purebred-dog-enjoying-nature-generated-by-ai-free-photo.jpg",
+      "image_token": "283c94d3917b98c4c284ca59fb1ef3ae454cc57189c2ded204e701eba86254b5",
+      "source": "Bing",
+      "thumbnail": "https://tse2.mm.bing.net/th/id/OIP.aCEb0F2vvqiwpwqL6HHzeAHaEO?r=0&pid=Api",
+      "thumbnail_token": "53e5b3ac5771a2b5b0b0d367fa0837fd6a2eae37f4ee59d3e8c29b8efdebc2b8",
+      "title": "Cute puppy playing in autumn forest, purebred dog enjoying nature ...",
+      "url": "https://www.vecteezy.com/photo/30482748-cute-puppy-playing-in-autumn-forest-purebred-dog-enjoying-nature-generated-by-ai",
+      "width": 3430
+    },
+    {
+      "discovery_date": "2024-05-08T21:58:15.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 711,
+      "image": "https://i.pinimg.com/736x/61/91/ef/6191ef36b73939846442f5264b1be7dc.jpg",
+      "image_token": "98951a26d35f58f6bcb10b1127b6de87656fa20c43fe9d8a174d6aeffabc1dce",
+      "source": "Bing",
+      "thumbnail": "https://tse3.explicit.bing.net/th/id/OIP.1EqE9K5t6zxaNdFyy-PW1gAAAA?r=0&pid=Api",
+      "thumbnail_token": "f58dd9c6ceee4bbd6f76ed18c36ebeb5fb5118210941b58f0db9930e9ff427a6",
+      "title": "Enchanted Blooms & Puppy: Where Nature & Cuteness Entwine. | Cute cats ...",
+      "url": "https://www.pinterest.com/pin/821625525793478615/",
+      "width": 474
+    },
+    {
+      "discovery_date": "2017-09-14T00:00:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 1800,
+      "image": "https://wallpapercave.com/wp/KoQkm8I.jpg",
+      "image_token": "88441baf8bd327f1c5b6accd183158d06512f06ec689b4fd7e067c92648e36ec",
+      "source": "Bing",
+      "thumbnail": "https://tse4.mm.bing.net/th/id/OIP.6ET1gKZbzOiIzhSU8zplrAHaEo?r=0&pid=Api",
+      "thumbnail_token": "919ca089e1a4057e01407bf7d401eb75932f57ab0626492ffeab945805b08483",
+      "title": "Cute Puppy Pictures Wallpapers - Wallpaper Cave",
+      "url": "https://wallpapercave.com/cute-puppy-pictures-wallpaper",
+      "width": 2880
+    },
+    {
+      "discovery_date": "2023-10-25T00:00:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 358,
+      "image": "https://img.freepik.com/free-photo/cute-puppy-sitting-grass-enjoying-nature-beauty-generated-by-artificial-intelligence_25030-64656.jpg",
+      "image_token": "8f1e7cb1225f93fa269dfe9bd3207d2694746920237f294fa15fe90f83e0bd5e",
+      "source": "Bing",
+      "thumbnail": "https://tse1.mm.bing.net/th/id/OIP.YIRK9LoNsgraboSEtbCErAHaEP?r=0&pid=Api",
+      "thumbnail_token": "f0936cb989d478d895e3781926546ffe46c12ae484deec6e6ed98b145f0b88f3",
+      "title": "Free Photo | Cute puppy sitting in grass enjoying nature beauty ...",
+      "url": "https://www.freepik.com/free-ai-image/cute-puppy-sitting-grass-enjoying-nature-beauty-generated-by-artificial-intelligence_77709266.htm",
+      "width": 626
+    },
+    {
+      "discovery_date": "2024-02-09T00:00:00.0000000Z",
+      "encoding_format": "jpeg",
+      "height": 967,
+      "image": "https://intrepidquips.com/wp-content/uploads/2024/02/Puppy-feat.jpg",
+      "image_token": "67bf2e0f3ea4e635a80b4277b058096c4aa0dc0bdba1b8d4208a402117985432",
+      "source": "Bing",
+      "thumbnail": "https://tse1.mm.bing.net/th/id/OIP.Uw6RXCzX47qL31iDL65U7wHaDu?r=0&pid=Api",
+      "thumbnail_token": "b0aabdc5a47caa9b21f262a1aea17a69452194bbacfc93674469a7e8a696126d",
+      "title": "129 New Puppy Captions And Quotes That Will Pawsitively Melt Your Heart ...",
+      "url": "https://intrepidquips.com/new-puppy-captions-and-quotes/",
+      "width": 1920
+    }
+  ],
+  "vqd": {
+    "puppy": "4-123751406184030236872122724091288413361"
+  }
+}

@@ -1,7 +1,64 @@
 import ky from "ky";
-import * as cheerio from "cheerio";
-
+import { z } from "zod";
 import { randomInt } from "../util/index.ts";
+
+export const searchResultSchema = z.object({
+  results: z.array(z.object({ image: z.string() })),
+});
+
+function get(url: string) {
+  return ky.get(url, {
+    headers: {
+      Accept: "*/*",
+      "Accept-Language": "en-US,en;q=0.5",
+      Referer: "https://duckduckgo.com/",
+      "Sec-GPC": "1",
+      Connection: "keep-alive",
+      "Sec-Fetch-Dest": "empty",
+      "Sec-Fetch-Mode": "cors",
+      "Sec-Fetch-Site": "same-origin",
+      Priority: "u=4",
+    },
+  });
+}
+
+async function getVqd(query: string): Promise<string> {
+  const res = await get(
+    `https://duckduckgo.com?${new URLSearchParams({ q: query }).toString()}`,
+  ).text();
+
+  for (const pat of [/vqd="([^"]*)"/, /vqd=([^&]*)&/, /vqd='([^']*)'/]) {
+    const match = res.match(pat);
+    if (match) return match[1];
+  }
+
+  throw new Error(`Could not extract vqd for query "${query}".`);
+}
+
+async function search(query: string, gif?: boolean) {
+  const vqd = await getVqd(query);
+
+  const f = ["hide_ai_images:1"];
+  if (gif) f.unshift("type:gif");
+
+  const params = new URLSearchParams({
+    o: "json",
+    q: query,
+    l: "us-en",
+    vqd,
+    p: "-1",
+    ct: "AT",
+    f: f.join(","),
+  });
+
+  const res = await get(
+    `https://duckduckgo.com/i.js?${params.toString()}`,
+  ).json();
+
+  const { results } = searchResultSchema.parse(res);
+
+  return results.map((r) => r.image);
+}
 
 /**
  * Perform an image search, optionally filter recently-seen images, and select a
@@ -18,12 +75,7 @@ export async function imageSearch({
   recents?: { [url: string]: unknown };
   animated?: boolean;
 }): Promise<string | false> {
-  const res = await requestAndParse({ term, animated, exact: true });
-  // TODO: check if comparable "exact" search possible with bing
-  // if (res.length === 0) {
-  //   // if no results, try an inexact search
-  //   res = await requestAndParse({ term, animated });
-  // }
+  const res = await search(term, animated);
 
   let cursor = 0;
   let sliced: string[] = [];
@@ -59,91 +111,6 @@ export async function imageSearch({
     } catch {
       // don't care, just try another result
     }
-  }
-
-  return false;
-}
-
-export interface ImageSearchOptions {
-  term: string;
-  animated?: boolean;
-  exact?: boolean;
-  transparent?: boolean;
-}
-
-export async function requestAndParse(options: ImageSearchOptions) {
-  const res = await request(options);
-  return parse(res);
-}
-
-export function request({
-  term,
-  animated,
-  exact,
-  transparent,
-}: ImageSearchOptions) {
-  const searchParams: Record<string, string | number> = {
-    q: term,
-    qs: "n",
-    sp: "-1",
-    lq: "0",
-    pq: term,
-    sc: "10-5",
-    first: "1",
-  };
-
-  if (animated) {
-    searchParams.qft = "+filterui:photo-animatedgif";
-  } else if (transparent) {
-    searchParams.qft = "+filterui:photo-transparent";
-  }
-
-  return ky
-    .get("https://www.bing.com/images/search", {
-      searchParams,
-      timeout: 5000,
-      headers: {
-        "User-Agent":
-          "Mozilla/5.0 (X11; Linux x86_64; rv:148.0) Gecko/20100101 Firefox/148.0",
-      },
-    })
-    .text();
-}
-
-export function parse(html: string) {
-  const $ = cheerio.load(html);
-
-  const strategies = [murlStrategy];
-
-  for (const s of strategies) {
-    const res = s($);
-    if (res && res.length > 0) return res;
-  }
-
-  return [];
-}
-
-export function murlStrategy($: cheerio.CheerioAPI): string[] | false {
-  const imgData = $("div.imgpt > a.iusc[m]")
-    .toArray()
-    .map((el) => $(el).attr("m"));
-
-  if (imgData.length > 0) {
-    return imgData
-      .map((res) => {
-        if (!res) return "";
-        const parsed = JSON.parse(res)["murl"] as string | undefined;
-        // the results sometimes contain whitespace
-        return encodeURI(parsed ?? "");
-      })
-      .filter((url) => {
-        try {
-          URL.parse(url);
-          return true;
-        } catch {
-          return false;
-        }
-      });
   }
 
   return false;

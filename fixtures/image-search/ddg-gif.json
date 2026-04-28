@@ -1,0 +1,1660 @@
+{
+  "ads": null,
+  "next": "i.js?q=puppy&o=json&p=-1&s=100&u=bing&f=type:gif,hide_ai_images:1&l=us-en&ct=AT",
+  "query": "puppy",
+  "queryEncoded": "puppy",
+  "query_expansions": [
+    {
+      "displayText": "Black Lab",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Black+Lab+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Black+Lab%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Black Lab Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse1.mm.bing.net/th?q=Black+Lab+Puppy&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Black+Lab+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Black+Lab%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5709.1"
+    },
+    {
+      "displayText": "Coloring Pages",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Puppy+Coloring+Pages&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Coloring+Pages%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Puppy Coloring Pages",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse2.mm.bing.net/th?q=Puppy+Coloring+Pages&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Puppy+Coloring+Pages&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Coloring+Pages%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5711.1"
+    },
+    {
+      "displayText": "Golden Retriever",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Golden+Retriever+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Golden+Retriever%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Golden Retriever Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse4.mm.bing.net/th?q=Golden+Retriever+Puppy&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Golden+Retriever+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Golden+Retriever%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5713.1"
+    },
+    {
+      "displayText": "Line Art",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Puppy+Line+Art&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Line+Art%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Puppy Line Art",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse4.mm.bing.net/th?q=Puppy+Line+Art&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Puppy+Line+Art&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Line+Art%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5715.1"
+    },
+    {
+      "displayText": "Sausage Dog",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Sausage+Dog+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Sausage+Dog%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Sausage Dog Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse2.mm.bing.net/th?q=Sausage+Dog+Puppy&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Sausage+Dog+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Sausage+Dog%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5717.1"
+    },
+    {
+      "displayText": "Australian Shepherd",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Australian+Shepherd+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Australian+Shepherd%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Australian Shepherd Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse4.mm.bing.net/th?q=Australian+Shepherd+Puppy&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Australian+Shepherd+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Australian+Shepherd%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5719.1"
+    },
+    {
+      "displayText": "Tea Cup",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=TeaCup+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Tea+Cup%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "TeaCup Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse3.mm.bing.net/th?q=TeaCup+Puppy&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=TeaCup+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Tea+Cup%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5721.1"
+    },
+    {
+      "displayText": "Chocolate Lab",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Chocolate+Lab+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Chocolate+Lab%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Chocolate Lab Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse2.mm.bing.net/th?q=Chocolate+Lab+Puppy&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Chocolate+Lab+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Chocolate+Lab%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5723.1"
+    },
+    {
+      "displayText": "Yellow Lab",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Yellow+Lab+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Yellow+Lab%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Yellow Lab Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse4.mm.bing.net/th?q=Yellow+Lab+Puppy&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Yellow+Lab+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Yellow+Lab%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5725.1"
+    },
+    {
+      "displayText": "Realistic Robot",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Realistic+Robot+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Realistic+Robot%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Realistic Robot Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse1.mm.bing.net/th?q=Realistic+Robot+Puppy&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Realistic+Robot+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Realistic+Robot%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5727.1"
+    },
+    {
+      "displayText": "Cocker Spaniel",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Cocker+Spaniel+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Cocker+Spaniel%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Cocker Spaniel Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse4.mm.bing.net/th?q=Cocker+Spaniel+Puppy&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Cocker+Spaniel+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Cocker+Spaniel%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5729.1"
+    },
+    {
+      "displayText": "Basset Hound",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Basset+Hound+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Basset+Hound%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Basset Hound Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse1.mm.bing.net/th?q=Basset+Hound+Puppy&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Basset+Hound+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Basset+Hound%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5731.1"
+    },
+    {
+      "displayText": "Labrador Retriever",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Labrador+Retriever+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Labrador+Retriever%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Labrador Retriever Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse4.mm.bing.net/th?q=Labrador+Retriever+Puppy&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Labrador+Retriever+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Labrador+Retriever%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5733.1"
+    },
+    {
+      "displayText": "Fisher-Price",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Fisher+Price+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Fisher-Price%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Fisher Price Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse1.mm.bing.net/th?q=Fisher+Price+Puppy&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Fisher+Price+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Fisher-Price%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5735.1"
+    },
+    {
+      "displayText": "Dog Training",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Puppy+Dog+Training&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Dog+Training%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Puppy Dog Training",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse1.mm.bing.net/th?q=Puppy+Dog+Training&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Puppy+Dog+Training&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Dog+Training%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5737.1"
+    },
+    {
+      "displayText": "Shopping List",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Puppy+Shopping+List&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Shopping+List%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Puppy Shopping List",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse1.mm.bing.net/th?q=Puppy+Shopping+List&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Puppy+Shopping+List&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Shopping+List%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5739.1"
+    },
+    {
+      "displayText": "French Bulldog",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=French+Bulldog+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22French+Bulldog%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "French Bulldog Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse4.mm.bing.net/th?q=French+Bulldog+Puppy&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=French+Bulldog+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22French+Bulldog%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5741.1"
+    },
+    {
+      "displayText": "PitBull",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Pit+Bull+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22PitBull%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Pit Bull Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse3.mm.bing.net/th?q=Pit+Bull+Puppy&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Pit+Bull+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22PitBull%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5743.1"
+    },
+    {
+      "displayText": "Blue Heeler",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Blue+Heeler+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Blue+Heeler%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Blue Heeler Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse4.mm.bing.net/th?q=Blue+Heeler+Puppy&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Blue+Heeler+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Blue+Heeler%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5745.1"
+    },
+    {
+      "displayText": "Plush Toys",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Puppy+Plush+Toys&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Plush+Toys%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Puppy Plush Toys",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse2.mm.bing.net/th?q=Puppy+Plush+Toys&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Puppy+Plush+Toys&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Plush+Toys%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5747.1"
+    },
+    {
+      "displayText": "Great Dane",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Great+Dane+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Great+Dane%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Great Dane Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse4.mm.bing.net/th?q=Great+Dane+Puppy&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Great+Dane+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Great+Dane%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5749.1"
+    },
+    {
+      "displayText": "Potty Training",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Potty+Training+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Potty+Training%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Potty Training Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse3.mm.bing.net/th?q=Potty+Training+Puppy&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Potty+Training+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Potty+Training%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5751.1"
+    },
+    {
+      "displayText": "Clip Art",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Puppy+Clip+Art&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Clip+Art%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Puppy Clip Art",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse2.mm.bing.net/th?q=Puppy+Clip+Art&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Puppy+Clip+Art&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Clip+Art%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5753.1"
+    },
+    {
+      "displayText": "Maltese Dog",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Maltese+Dog+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Maltese+Dog%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Maltese Dog Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse4.mm.bing.net/th?q=Maltese+Dog+Puppy&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Maltese+Dog+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Maltese+Dog%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5755.1"
+    },
+    {
+      "displayText": "Mini Poodle",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Mini+Poodle+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Mini+Poodle%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Mini Poodle Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse1.mm.bing.net/th?q=Mini+Poodle+Puppy&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Mini+Poodle+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Mini+Poodle%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5757.1"
+    },
+    {
+      "displayText": "Free Chihuahua",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Free+Chihuahua+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Free+Chihuahua%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Free Chihuahua Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse1.mm.bing.net/th?q=Free+Chihuahua+Puppy&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Free+Chihuahua+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Free+Chihuahua%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5759.1"
+    },
+    {
+      "displayText": "Cute",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Cute+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Cute%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Cute Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse4.mm.bing.net/th?q=Cute+Puppy&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Cute+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Cute%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5761.1"
+    },
+    {
+      "displayText": "Bulldog",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Bulldog+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Bulldog%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Bulldog Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse2.mm.bing.net/th?q=Bulldog+Puppy&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Bulldog+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Bulldog%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5763.1"
+    },
+    {
+      "displayText": "Morkie",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Morkie+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Morkie%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Morkie Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse4.mm.bing.net/th?q=Morkie+Puppy&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Morkie+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Morkie%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5765.1"
+    },
+    {
+      "displayText": "Pug",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Pug+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Pug%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Pug Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse1.mm.bing.net/th?q=Pug+Puppy&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Pug+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Pug%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5767.1"
+    },
+    {
+      "displayText": "Bichon",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Bichon+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Bichon%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Bichon Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse4.mm.bing.net/th?q=Bichon+Puppy&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Bichon+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Bichon%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5769.1"
+    },
+    {
+      "displayText": "Toy Poodle",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Toy+Poodle+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Toy+Poodle%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Toy Poodle Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse2.mm.bing.net/th?q=Toy+Poodle+Puppy&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Toy+Poodle+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Toy+Poodle%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5771.1"
+    },
+    {
+      "displayText": "Yorkie",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Yorkie+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Yorkie%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Yorkie Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse4.mm.bing.net/th?q=Yorkie+Puppy&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Yorkie+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Yorkie%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5773.1"
+    },
+    {
+      "displayText": "Mastiff",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Mastiff+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Mastiff%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Mastiff Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse1.mm.bing.net/th?q=Mastiff+Puppy&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Mastiff+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Mastiff%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5775.1"
+    },
+    {
+      "displayText": "Baby",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Baby+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Baby%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Baby Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse1.mm.bing.net/th?q=Baby+Puppy&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Baby+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Baby%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5777.1"
+    },
+    {
+      "displayText": "Doberman",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Doberman+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Doberman%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Doberman Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse3.mm.bing.net/th?q=Doberman+Puppy&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Doberman+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Doberman%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5779.1"
+    },
+    {
+      "displayText": "Dachshund",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Dachshund+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Dachshund%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Dachshund Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse1.mm.bing.net/th?q=Dachshund+Puppy&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Dachshund+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Dachshund%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5781.1"
+    },
+    {
+      "displayText": "Aussie",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Aussie+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Aussie%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Aussie Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse3.mm.bing.net/th?q=Aussie+Puppy&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Aussie+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Aussie%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5783.1"
+    },
+    {
+      "displayText": "Beagle",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Beagle+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Beagle%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Beagle Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse3.mm.bing.net/th?q=Beagle+Puppy&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Beagle+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Beagle%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5785.1"
+    },
+    {
+      "displayText": "Funny",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Funny+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Funny%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Funny Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse1.mm.bing.net/th?q=Funny+Puppy&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Funny+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Funny%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5787.1"
+    },
+    {
+      "displayText": "Face",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Puppy+Face&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Face%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Puppy Face",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse4.mm.bing.net/th?q=Puppy+Face&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Puppy+Face&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Face%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5789.1"
+    },
+    {
+      "displayText": "Goldendoodle",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Goldendoodle+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Goldendoodle%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Goldendoodle Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse1.mm.bing.net/th?q=Goldendoodle+Puppy&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Goldendoodle+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Goldendoodle%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5791.1"
+    },
+    {
+      "displayText": "Birthday",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Puppy+Birthday&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Birthday%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Puppy Birthday",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse2.mm.bing.net/th?q=Puppy+Birthday&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Puppy+Birthday&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Birthday%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5793.1"
+    },
+    {
+      "displayText": "Cockapoo",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Cockapoo+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Cockapoo%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Cockapoo Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse4.mm.bing.net/th?q=Cockapoo+Puppy&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Cockapoo+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Cockapoo%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5795.1"
+    },
+    {
+      "displayText": "Happy",
+      "searchLink": "https://www.bingapis.com/api/v7/images/search?q=Happy+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Happy%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d",
+      "text": "Happy Puppy",
+      "thumbnail": {
+        "thumbnailUrl": "https://tse3.mm.bing.net/th?q=Happy+Puppy&pid=Api&mkt=en-US&cc=US&setlang=en&adlt=off&t=1"
+      },
+      "webSearchUrl": "https://www.bing.com/images/search?q=Happy+Puppy&tq=%7b%22pq%22%3a%22puppy%22%2c%22qs%22%3a%5b%7b%22cv%22%3a%22puppy%22%2c%22pv%22%3a%22puppy%22%2c%22hps%22%3afalse%2c%22iqp%22%3afalse%7d%2c%7b%22cv%22%3a%22Happy%22%2c%22pv%22%3a%22%22%2c%22hps%22%3afalse%2c%22iqp%22%3atrue%7d%5d%7d&FORM=IRPATC",
+      "webSearchUrlPingSuffix": "DevEx,5797.1"
+    }
+  ],
+  "response_type": "images",
+  "results": [
+    {
+      "discovery_date": "2019-10-22T00:00:00.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 335,
+      "image": "https://25.media.tumblr.com/c6b02a095c8990ecbb28381873b740a6/tumblr_mlce2sH8JJ1so7nmso1_500.gif",
+      "image_token": "8403e1d5a570001c0328420a9a670b749b23f50c75ad9e9886f183b42319bbe3",
+      "source": "Bing",
+      "thumbnail": "https://tse1.mm.bing.net/th/id/OIP.TpNiiRjr-zDSsWxJg_aWNwHaE9?pid=Api",
+      "thumbnail_token": "e25283554c97542b3996c6eaca2619aa22ae4420618fffe447e424bb9bae4397",
+      "title": "cute animals cute puppy gif | WiffleGif",
+      "url": "https://wifflegif.com/gifs/98023-cute-animals-cute-puppy-gif",
+      "width": 500
+    },
+    {
+      "discovery_date": "2023-03-28T22:20:29.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 498,
+      "image": "https://www.icegif.com/wp-content/uploads/2023/03/icegif-1626.gif",
+      "image_token": "78e6475f64ab35aa892bfd3ea72002e010a0946929d6f8a51f1029f2b20bb3a4",
+      "source": "Bing",
+      "thumbnail": "https://tse3.mm.bing.net/th/id/OIP.NudTfj1Frp7Q0qjy-JhfLgHaHa?pid=Api",
+      "thumbnail_token": "fb921d33d6cd706b691c13975cb6afbe6762c6ee67f63133e85a0240e96a32af",
+      "title": "Puppy Gif - IceGif",
+      "url": "https://www.icegif.com/puppy-32/",
+      "width": 498
+    },
+    {
+      "discovery_date": "2023-07-29T00:00:00.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 329,
+      "image": "https://i.pinimg.com/originals/de/e1/85/dee185a91899176a908917cc4f788741.gif",
+      "image_token": "6e5b2e04643f49e8b67dc7ad0cd51d360a1775cbb3c885d59e53e6042985bb15",
+      "source": "Bing",
+      "thumbnail": "https://tse4.mm.bing.net/th/id/OIP.b5pRjyxIcMJI0HTY32tFlAAAAA?pid=Api",
+      "thumbnail_token": "1029908c81e1dd6209e19de5a60225446d932f5e049741c16f09f48e2115ce9b",
+      "title": "Haciendo ojitos. Con movimiento. Cute Puppies, Dogs And Puppies, Pet ...",
+      "url": "https://ar.pinterest.com/pin/860609810012372675/",
+      "width": 300
+    },
+    {
+      "discovery_date": "2017-05-01T00:00:00.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 288,
+      "image": "https://media.giphy.com/media/l3vR6Pi2E1ZyOl9AI/giphy.gif",
+      "image_token": "1f9632d1256c4e3a0d19cf8b6042f9b323c7ee7bdaf6c936c780a52b1285e34c",
+      "source": "Bing",
+      "thumbnail": "https://tse3.explicit.bing.net/th/id/OIP.li7kyK3ggxirwfAsk1gzLwHaER?pid=Api",
+      "thumbnail_token": "59e2c20f52978b47ed12f703966986387aa0ee2f8ff662d93df8a09125f514bf",
+      "title": "Puppy GIF by BBC - Find & Share on GIPHY",
+      "url": "https://giphy.com/gifs/dog-cute-adorable-l3vR6Pi2E1ZyOl9AI",
+      "width": 500
+    },
+    {
+      "discovery_date": "2020-10-14T07:18:35.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 281,
+      "image": "https://www.icegif.com/wp-content/uploads/2022/06/icegif-711.gif",
+      "image_token": "315208ebdb20c06ac83b47d8f217be1e50c72611103b0b7abd0a7f8e2ff60700",
+      "source": "Bing",
+      "thumbnail": "https://tse3.mm.bing.net/th/id/OIP._VOvwPY-4bzmHacqGNytWAHaEK?pid=Api",
+      "thumbnail_token": "493c95313dd54be8ea6cd4b1214dddb949967b265a47c8a964e9932ba8b8363b",
+      "title": "Puppy Gif - IceGif",
+      "url": "https://www.icegif.com/puppy-10/",
+      "width": 500
+    },
+    {
+      "discovery_date": "2017-05-03T00:00:00.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 270,
+      "image": "https://media.giphy.com/media/1lf3jAjZWw8BG/giphy.gif",
+      "image_token": "18890c4bf69cb73e3c0d546ab9fdbf051845a2f12850a63e52e5d33c220e241e",
+      "source": "Bing",
+      "thumbnail": "https://tse1.explicit.bing.net/th/id/OIP.zpIs2ru9v_TyR2E90wZcNwHaEK?pid=Api",
+      "thumbnail_token": "c129466ecfd014bbc88ad5e7202a67d794467779e16ce0a1f8144f91a830696b",
+      "title": "Puppy Puppies GIF by Laurentian University - Find & Share on GIPHY",
+      "url": "https://giphy.com/gifs/laurentianu-puppy-puppies-1lf3jAjZWw8BG",
+      "width": 480
+    },
+    {
+      "discovery_date": null,
+      "encoding_format": "jpeg",
+      "height": 2560,
+      "image": "https://preventpetsuffocation.com/wp-content/uploads/2026/04/Duke-Puppy-scaled.jpg",
+      "image_token": "67e23792b4dc80ddcc349e575d3fb4d1d69ff6187236d9d4efc227e430ae0bfb",
+      "source": "Bing",
+      "thumbnail": "https://tse4.mm.bing.net/th/id/OIF.FScTbtrTRLUMH3MUNCdr0w?pid=Api",
+      "thumbnail_token": "ff393981a17983b65d0921426df743d7821c68643ae9600362aa66ee551b33d0",
+      "title": "The Ultimate New Puppy Checklist: Everything You Need for a Safe Start ...",
+      "url": "https://preventpetsuffocation.com/the-ultimate-new-puppy-checklist-everything-you-need-for-a-safe-start/",
+      "width": 1875
+    },
+    {
+      "discovery_date": null,
+      "encoding_format": "jpeg",
+      "height": 1024,
+      "image": "https://www.tcm-vet.com/wp-content/uploads/2024/09/A_playful_and_healthy-looking_puppy_sitting_in_a_g.jpg",
+      "image_token": "5618ad65eb45edde9bf3ca4e5827eea561672482656983f24784020b2b9c28dd",
+      "source": "Bing",
+      "thumbnail": "https://tse4.mm.bing.net/th?id=OIF.dcGGe%2bNvKluCXPeFM51MAA&pid=Api",
+      "thumbnail_token": "16cd9df2cd517a26fdb3ff445da8e2aa4c381ba33f9a69547c662adc4bfdebff",
+      "title": "Puppy met blaasmassa: volgende stappen en behandelingsopties - TCMVET",
+      "url": "https://www.tcm-vet.com/nl/puppy-met-blaasmassa-volgende-stappen-en-behandelingsopties/",
+      "width": 1024
+    },
+    {
+      "discovery_date": "2024-09-16T10:41:00.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 248,
+      "image": "https://www.icegif.com/wp-content/uploads/2024/09/puppy-icegif-2.gif",
+      "image_token": "740449006a0258ffe6f2dde96ea769ac0983159b4a1bd50214b36830e357d3b9",
+      "source": "Bing",
+      "thumbnail": "https://tse4.explicit.bing.net/th/id/OIP.oKUzpzIwWfOdGuats0E9kwAAAA?pid=Api",
+      "thumbnail_token": "d913908b9eac2c6d13aff5fe7ba201c09b0c9d78b0720be67ce192ea36eb972d",
+      "title": "Puppy Gif - IceGif",
+      "url": "https://www.icegif.com/puppy-37/",
+      "width": 165
+    },
+    {
+      "discovery_date": "2025-10-05T00:00:00.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 1000,
+      "image": "https://cdn3.emoji.gg/emojis/129716-bored-puppy.gif",
+      "image_token": "348118c6058c80d0ceacf1e350ad8e9d9ff57e79f8c9be67ed222675c8dcc204",
+      "source": "Bing",
+      "thumbnail": "https://tse4.mm.bing.net/th/id/OIP.sVhbfwpNmo4aanmltBenpAHaHa?pid=Api",
+      "thumbnail_token": "cc0224a10205cf263e48cdbfeac42413cf3781f26da766c98d441ff03347ed21",
+      "title": "Compile Emojis for Discord & Slack",
+      "url": "https://emoji.gg/emojis/compile",
+      "width": 1000
+    },
+    {
+      "discovery_date": "2016-05-19T00:00:00.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 281,
+      "image": "https://media.giphy.com/media/4dtKSU1d2Jo5i/giphy.gif",
+      "image_token": "712df2b4c346af5a53c300018395645d31de06ab5d4d17e94ad20fad30e1c48f",
+      "source": "Bing",
+      "thumbnail": "https://tse3.mm.bing.net/th/id/OIP.VoYzmi-_X0e6eoO7vD5BxQHaEK?pid=Api",
+      "thumbnail_token": "a721f85c5db7e0be8956cd39faa931ee02d3378641653fff4f1dec8aac3b7842",
+      "title": "Wink Puppy GIF - Find & Share on GIPHY",
+      "url": "https://giphy.com/gifs/realitytvgifs-puppy-television-4dtKSU1d2Jo5i",
+      "width": 500
+    },
+    {
+      "discovery_date": "2017-09-12T00:00:00.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 233,
+      "image": "https://c.tenor.com/OIkalszJmBIAAAAM/puppy-retriever.gif",
+      "image_token": "6c207a4228153a73579984da75b7e21fffa6e59f9ae52260e9c2a1c8bb311fba",
+      "source": "Bing",
+      "thumbnail": "https://tse3.mm.bing.net/th/id/OIP.PEjWKq45B719AKZloCFybAAAAA?pid=Api",
+      "thumbnail_token": "84cbaa4f84426f943704fcfc4a339e7eef10f6dbf87eecea82ef2a4a3e5b4a89",
+      "title": "Little Golden Retriever GIFs | Tenor",
+      "url": "https://tenor.com/search/little-golden-retriever-gifs",
+      "width": 220
+    },
+    {
+      "discovery_date": null,
+      "encoding_format": "jpeg",
+      "height": 853,
+      "image": "https://hookedhome.com/wp-content/uploads/2026/04/fluffy-white-puppy-with-dark-eyes-and-its-mouth-open-in-a-happy-expression-featured-image-2.jpg",
+      "image_token": "836d484d258d9e1be23a24e1cf67b98c5e6993ef326ef5c1ee01b60b15b35d5c",
+      "source": "Bing",
+      "thumbnail": "https://tse3.mm.bing.net/th?id=OIF.%2bqAIV58DhjTSIfZ8IQL0rw&pid=Api",
+      "thumbnail_token": "03dcbfb1d7c3915f21ae2f5957ed958379e81792046a0079beb81a9146752110",
+      "title": "Best 5 Online Puppy Marketplaces to Find Healthy Puppies in 2026 ...",
+      "url": "https://hookedhome.com/best-5-online-puppy-marketplaces-to-find-healthy-puppies-in-2026/",
+      "width": 1280
+    },
+    {
+      "discovery_date": "2018-05-06T18:56:00.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 480,
+      "image": "http://3.bp.blogspot.com/-kQyiMXvXpfw/U0thgd30xJI/AAAAAAAALHg/CJ-wict6nZo/s1600/Animated+Puppy.gif",
+      "image_token": "2790d3f89fffc2a4bd454574ee7f6aac919f86aeba15f6168320c7071cdd85ec",
+      "source": "Bing",
+      "thumbnail": "https://tse1.mm.bing.net/th/id/OIP._llZFjSPF8H6YTejJYYOXgAAAA?pid=Api",
+      "thumbnail_token": "dc79fafa522dcd568db9c0240b33f80b2c6dd938949c9422d59e919e457405bb",
+      "title": "Decent Image Scraps: Animated Puppy",
+      "url": "http://decentscraps.blogspot.com.co/2014/04/animated-puppy.html",
+      "width": 320
+    },
+    {
+      "discovery_date": "2025-04-18T00:00:00.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 176,
+      "image": "https://media.tenor.com/SlZCvYQD27IAAAAM/puppy-dog-eyes-sad.gif",
+      "image_token": "c05c3cf96049d5c094e86504106fa13b5def166deab7793e607f7544d861208f",
+      "source": "Bing",
+      "thumbnail": "https://tse1.mm.bing.net/th/id/OIP.KcrlbMX68hV3rBV_UFDFmAAAAA?pid=Api",
+      "thumbnail_token": "72fb070f1b36bf3e0018f1f8719118967fca561a890b26cefea0a178e859716b",
+      "title": "[GE2025] Tampines GRC | Page 17 | HardwareZone Forums",
+      "url": "https://forums.hardwarezone.com.sg/threads/ge2025-tampines-grc.7114624/page-17",
+      "width": 220
+    },
+    {
+      "discovery_date": "2017-07-18T00:00:00.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 295,
+      "image": "https://media.giphy.com/media/l0Iy3RkeZWzfkXSVi/giphy.gif",
+      "image_token": "02efb609bb4370e1c27ea73df695b70902bbe83b5e8a05ba3d6f54bdc2083ae3",
+      "source": "Bing",
+      "thumbnail": "https://tse3.explicit.bing.net/th/id/OIP.7JO7Uu4W3oYzWzUIm2zF8AAAAA?pid=Api",
+      "thumbnail_token": "4592e2786ab3426dc7e04f27fdab4b89c5d4612381b4f787295a2f3af82bdb80",
+      "title": "Dog Puppy GIF by Offspring on TEN - Find & Share on GIPHY",
+      "url": "https://giphy.com/gifs/OffspringonTEN-offspring-proudman-l0Iy3RkeZWzfkXSVi",
+      "width": 450
+    },
+    {
+      "discovery_date": "2017-09-12T00:00:00.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 330,
+      "image": "https://media.tenor.com/WA4eje7zMf0AAAAM/puppy-cute.gif",
+      "image_token": "483271af3f967b3bf464ae8277abfe1afd810a4ded887b063060b6d6c7702bf0",
+      "source": "Bing",
+      "thumbnail": "https://tse1.mm.bing.net/th/id/OIP.7N5Yet2cFvZQut8gOa7nrAAAAA?pid=Api",
+      "thumbnail_token": "dafa7ac4a314c59a6cdf1091fb2eb53f81a74569b2ffb08b709672fcc64a81bb",
+      "title": "Animals Hello GIFs | Tenor",
+      "url": "https://tenor.com/search/animals-hello-gifs",
+      "width": 220
+    },
+    {
+      "discovery_date": "2017-12-23T00:00:00.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 398,
+      "image": "https://media1.tenor.com/images/fb2f637ef90fdda482f9047e37639a77/tenor.gif?itemid=8742326",
+      "image_token": "8b60343dbfef5602f3cbdf2f6881deae8f526855c8b077c6a67d6c6a9d532732",
+      "source": "Bing",
+      "thumbnail": "https://tse3.mm.bing.net/th/id/OIP.-y9jfvkP3aSC-QR-N2OadwAAAA?pid=Api",
+      "thumbnail_token": "b7e3a196fef93f453e2e1b2e119f8fb3d155f45fb40287bb3f574c50f382e0c5",
+      "title": "Puppy Dog GIF - Puppy Dog Cute - Discover & Share GIFs",
+      "url": "https://tenor.com/view/puppy-dog-cute-head-tilt-gif-8742326",
+      "width": 400
+    },
+    {
+      "discovery_date": "2020-10-14T07:18:35.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 600,
+      "image": "https://www.icegif.com/wp-content/uploads/2024/09/puppy-icegif-5.gif",
+      "image_token": "468ce0df6fb32c403c5bb3b761c4e65010be5b3901cbd0c8de5b5945b6d24d58",
+      "source": "Bing",
+      "thumbnail": "https://tse4.explicit.bing.net/th/id/OIP.X2du9bDK4kb-HDGbSVpohgHaHa?pid=Api",
+      "thumbnail_token": "d12db5a34e34944287b02295a4cdeb1513f7e602fc2c32118619ef9a63e96d4c",
+      "title": "Puppy Gif - IceGif",
+      "url": "https://www.icegif.com/puppy-5/",
+      "width": 600
+    },
+    {
+      "discovery_date": null,
+      "encoding_format": "jpeg",
+      "height": 1000,
+      "image": "https://images.rawpixel.com/image_social_square/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDI2LTAzL3NyLWltYWdlLTEyMDMyMDI2LWV5LXMxNS0wODRfMS5qcGc.jpg",
+      "image_token": "7881b1609a5229e5abd8e7df552ffb547ce4d165688baec50cb5db8f9f2067b3",
+      "source": "Bing",
+      "thumbnail": "https://tse3.mm.bing.net/th/id/OIF.aKj8aZ1Inu4BFhgF2zHB4g?pid=Api",
+      "thumbnail_token": "fe06627cbd5904371ac354352a883f457d9e8b9c33212a6e44e9f7c6cbc4b7c6",
+      "title": "Floppy Image Puppy Images | Free Photos, PNG Stickers, Wallpapers ...",
+      "url": "https://www.rawpixel.com/search/floppy%20image%20puppy",
+      "width": 1000
+    },
+    {
+      "discovery_date": "2013-12-02T08:37:30.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 250,
+      "image": "https://img10.glitterfy.com/graphics/33/cute_puppy.gif",
+      "image_token": "1e0eec279fecb16f168fac3429eebc24087d352d267a0b272ff9496bd8b307de",
+      "source": "Bing",
+      "thumbnail": "https://tse2.mm.bing.net/th/id/OIP.c0XR7uPz4EmyqvXCeYVhtAAAAA?pid=Api",
+      "thumbnail_token": "0ceb206fad299e9bab3ac0e37bc09289b2d7f5f99997f6bb534221c960b844e2",
+      "title": "Glitterfy.com - Dog Glitter Graphics | Facebook, Tumblr, Orkut",
+      "url": "https://www.glitterfy.com/graphics/Dog/",
+      "width": 228
+    },
+    {
+      "discovery_date": "2020-10-14T07:18:35.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 320,
+      "image": "https://www.icegif.com/wp-content/uploads/2024/09/puppy-icegif-6.gif",
+      "image_token": "e8040315d2c53df67b29aca5a5163cf5d137a4b7aafd44158fb5572d64c773be",
+      "source": "Bing",
+      "thumbnail": "https://tse3.explicit.bing.net/th/id/OIP.Ez40HrnFV-9jgDT9qQtoiQAAAA?pid=Api",
+      "thumbnail_token": "f6acf70662d6a0a06b2426efbde4de81d9f57a760ff71d9de9faccbfb46fdcf3",
+      "title": "Puppy Gif - IceGif",
+      "url": "https://www.icegif.com/puppy-4/",
+      "width": 240
+    },
+    {
+      "discovery_date": null,
+      "encoding_format": "jpeg",
+      "height": 1080,
+      "image": "https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AA21EWyu.img?w=1920&h=1080&m=4&q=93",
+      "image_token": "1d5dc9ec7dc76fc11c17fd2f846c817cc7aff80317dbf199de1cd51f4aa817aa",
+      "source": "Bing",
+      "thumbnail": "https://tse1.mm.bing.net/th?id=OIF.vEUWnNan0htTEzPw%2fJFTpg&pid=Api",
+      "thumbnail_token": "e6efdc3ce2552bc2c368f92fd0ed89f802ef21f7e923f9bb233753193ea9a726",
+      "title": "These toy breeds are perfect for puppy lovers",
+      "url": "https://www.msn.com/en-us/pets-and-animals/pets/these-toy-breeds-are-perfect-for-puppy-lovers/vi-AA21ERoZ",
+      "width": 1920
+    },
+    {
+      "discovery_date": null,
+      "encoding_format": "jpeg",
+      "height": 1080,
+      "image": "https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AA1ZdzJl.img?w=1920&h=1080&m=4&q=35",
+      "image_token": "3b5d412f5666f1610dce2ea71308f18b65fb15edbcc434ef0fde75a3f666d699",
+      "source": "Bing",
+      "thumbnail": "https://tse4.mm.bing.net/th/id/OIF.Jv4QyFLpQDob3loDeoCAnA?pid=Api",
+      "thumbnail_token": "753f57f8eb5f512be419d42e3e3a082fbab775cb10dc2fd4e07ca5732d87b105",
+      "title": "30 photos of cute puppies for National Puppy Day",
+      "url": "https://www.msn.com/en-us/news/opinion/30-photos-of-cute-puppies-for-national-puppy-day/ss-AA1ZdR13",
+      "width": 1920
+    },
+    {
+      "discovery_date": "2018-09-18T00:00:00.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 453,
+      "image": "https://media.giphy.com/media/kiIR6QBYQt9lrP1Rif/giphy.gif",
+      "image_token": "b4ad39afa27c80b2f3859cc8909b6172ce7fe3c12608b8c9afff9dbd14af36a3",
+      "source": "Bing",
+      "thumbnail": "https://tse2.mm.bing.net/th/id/OIP.GHFj3uylhLngfov39S6imgHaG_?pid=Api",
+      "thumbnail_token": "1d7a0a8afe5e18e216feea393a29cd37b21b7506ec28faedeb67506c3cf493cc",
+      "title": "Dog Puppy GIF by Tuna the Pom - Find & Share on GIPHY",
+      "url": "https://giphy.com/gifs/dog-puppy-cute-animals-kiIR6QBYQt9lrP1Rif",
+      "width": 480
+    },
+    {
+      "discovery_date": null,
+      "encoding_format": "jpeg",
+      "height": 1425,
+      "image": "https://petclassifieds.com/wp-content/uploads/2026/04/16380-img-0313.jpeg",
+      "image_token": "f59cafcb8d0738d4a0231e1bf6431ae064d937e30ad24e2aac41214114167ebf",
+      "source": "Bing",
+      "thumbnail": "https://tse3.mm.bing.net/th/id/OIF.kj29dYlnYRs5r2vxVQqpAg?pid=Api",
+      "thumbnail_token": "2f72b8d1ddfd4f9fd57c5e4a26dafb39da47faf9f0e56eeb27e320d2b19f0396",
+      "title": "Puppy | PetClassifieds.com - petclassifieds",
+      "url": "https://petclassifieds.com/ad/puppy-16380",
+      "width": 1170
+    },
+    {
+      "discovery_date": "2018-07-24T20:54:00.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 281,
+      "image": "https://www.diaforetiko.gr/wp-content/uploads/2015/05/loneliness.gif",
+      "image_token": "f0f662fc6e621a93d2afae453846295fd7b5000f40c4c542402a3a2fd1b1368a",
+      "source": "Bing",
+      "thumbnail": "https://tse3.explicit.bing.net/th/id/OIP.8QtMai3BI4opPUxa0D1bvgHaEK?pid=Api",
+      "thumbnail_token": "a1f4d75d8f1b6951dab661509f230f1cde8da1432e145754d174bbaac4875d36",
+      "title": "10 λόγοι που ένας σκύλος κάνει τη ζωή μας καλύτερη - διαφορετικό",
+      "url": "https://www.diaforetiko.gr/10-logi-pou-enas-skilos-kani-ti-zoi-mas-kaliteri/",
+      "width": 500
+    },
+    {
+      "discovery_date": "2018-09-14T00:00:00.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 480,
+      "image": "https://media.giphy.com/media/1AIAPsTEgl9063uD9H/giphy.gif",
+      "image_token": "cd69790eb1678e745aeaf6e11c75f5855420132e41f05c64343ec3a27f3f382b",
+      "source": "Bing",
+      "thumbnail": "https://tse2.mm.bing.net/th/id/OIP.PtVYNVfuRNrz1LfkGT03rwHaHa?pid=Api",
+      "thumbnail_token": "8781fd978737189b674edc2e31086a20a15e945d0ddfc2576ff054681d44b8f2",
+      "title": "Dog Puppy GIF by Tuna the Pom - Find & Share on GIPHY",
+      "url": "https://giphy.com/gifs/dog-puppy-cute-animals-1AIAPsTEgl9063uD9H",
+      "width": 480
+    },
+    {
+      "discovery_date": "2025-11-11T06:34:24.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 350,
+      "image": "https://i.pinimg.com/originals/f0/48/f2/f048f22a6e031d34a83afacca6b680d0.gif",
+      "image_token": "33dc8b37a42d81f4031449964cdbfdab86b28bb694ce9c7a904bcd2ee7eaaa45",
+      "source": "Bing",
+      "thumbnail": "https://tse3.mm.bing.net/th/id/OIP.uvnfXIzGxPL50K8xGkMbAAAAAA?pid=Api",
+      "thumbnail_token": "38acba0ff54d7776fb7ef372926c1621e2df647bbffc4155262e15b242f2a6f7",
+      "title": "Gifs animados de perros | Cachorros adorables, Animales, Cachorros",
+      "url": "https://mx.pinterest.com/pin/1035687245570703073/",
+      "width": 346
+    },
+    {
+      "discovery_date": "2013-09-06T12:00:00.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 360,
+      "image": "https://popshifter.com/wp-content/uploads/2013/09/Cute-gif-puppy-Corgi-bone.gif",
+      "image_token": "4e3a0788e608d01f1a357e8fe3d70f066572bacae2688e0e27a1227fa9a62321",
+      "source": "Bing",
+      "thumbnail": "https://tse1.mm.bing.net/th/id/OIP.7X49WRImWFYttMADDLkP4wHaFj?pid=Api",
+      "thumbnail_token": "5ce68d020672393431d662eabbabb74b6ee9a540e95daf427f7c96bd9a809b9e",
+      "title": "Assemblog: September 6, 2013 - Popshifter",
+      "url": "https://popshifter.com/2013-09-06/assemblog-september-6-2013/",
+      "width": 480
+    },
+    {
+      "discovery_date": "2017-02-14T00:00:00.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 202,
+      "image": "http://www.lovethispic.com/uploaded_images/214112-English-Bulldog-Puppy-And-Dad.gif",
+      "image_token": "ae9feca5cc83b8963169ea467d8e352486a80825456cbbc13a9d872f7a4c0dde",
+      "source": "Bing",
+      "thumbnail": "https://tse2.explicit.bing.net/th/id/OIP.2BQcA1QOaIJQmLzCLaIJugAAAA?pid=Api",
+      "thumbnail_token": "8d4882b5bb7faf42470e14a02970615ea0abe13f8adb26c906029f79a9d3133b",
+      "title": "English Bulldog Puppy And Dad Pictures, Photos, and Images for Facebook ...",
+      "url": "https://www.lovethispic.com/image/214112/english-bulldog-puppy-and-dad",
+      "width": 248
+    },
+    {
+      "discovery_date": "2020-10-13T19:04:04.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 498,
+      "image": "https://www.icegif.com/wp-content/uploads/2024/09/puppy-icegif-8.gif",
+      "image_token": "61781f432bdf10d691b2a59c830d7ad6ac7789b2c1244a76867b9f70bbdd79f9",
+      "source": "Bing",
+      "thumbnail": "https://tse2.mm.bing.net/th/id/OIP.vQX-vBTVWfoWiWMPHLFEiQAAAA?pid=Api",
+      "thumbnail_token": "3647689f4253d88314c622cce3eae95f3b5a99647f4df748c18442fc2665163b",
+      "title": "Puppy Gif - IceGif",
+      "url": "https://www.icegif.com/puppy-2/",
+      "width": 347
+    },
+    {
+      "discovery_date": "2022-05-04T00:00:00.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 314,
+      "image": "https://media.tenor.com/GlxN_WoqUogAAAAM/puppy-dog.gif",
+      "image_token": "3e42fbc75cd1167bc00982b2a427c96476d525140952a17a600147862e054176",
+      "source": "Bing",
+      "thumbnail": "https://tse2.mm.bing.net/th/id/OIP.GEu69xgUhKC6Q58R3XpxawAAAA?pid=Api",
+      "thumbnail_token": "aad8ea940b900ef7b5014a2a5c746abbbf9edd7104c3fcc2b244b43caea8cbe3",
+      "title": "Hosky PFP - Hosky Profile Pics",
+      "url": "https://profile.pics/hosky",
+      "width": 220
+    },
+    {
+      "discovery_date": "2024-05-07T00:10:23.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 225,
+      "image": "https://editablegifs.com/gifs/gifs/birthday-629/thumbnail.gif",
+      "image_token": "b6ea28b0d6cbaf8b316c4a7ad31387fde8127fe70830dfc7053e8ff4a6d4cfc7",
+      "source": "Bing",
+      "thumbnail": "https://tse3.mm.bing.net/th/id/OIP.zPzvU9mgB2ZWJCCJOi8jPwAAAA?pid=Api",
+      "thumbnail_token": "0fcd76ed57894b1b88fcd279c31a27edde78f6afc63e9bd65902f84ef619dce4",
+      "title": "Dog Birthday GIFs",
+      "url": "https://editablegifs.com/dog-birthday-gifs",
+      "width": 300
+    },
+    {
+      "discovery_date": "2023-01-26T00:00:00.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 293,
+      "image": "https://media.tenor.com/mPr0-f335kUAAAAM/cayde-puppy.gif",
+      "image_token": "82b5caeef1f9bd41513c500337aedc6ccafc0e9f89e96250bbc63b50dfe6562c",
+      "source": "Bing",
+      "thumbnail": "https://tse2.mm.bing.net/th/id/OIP.Gzg6xrK8rkJr1eJ35n7NYgAAAA?pid=Api",
+      "thumbnail_token": "234b65584cbb9e7dad55eedc1112909da17b3150911307bc088d9ece9c0fb581",
+      "title": "Doxxie PFP - Doxxie Profile Pics",
+      "url": "https://profile.pics/doxxie",
+      "width": 220
+    },
+    {
+      "discovery_date": "2018-02-16T00:00:00.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 281,
+      "image": "https://38.media.tumblr.com/268193db7bc2a8a5bd3f1371e61e2c92/tumblr_nfezq6fANR1svecmko1_500.gif",
+      "image_token": "1c8c6b44099e4b60c50014268a33bc4a491e84b581c118a5fdf4ae4a2012c7d6",
+      "source": "Bing",
+      "thumbnail": "https://tse4.explicit.bing.net/th/id/OIP.QhnbVK-2V0ohbdrBCrSPcQHaEK?pid=Api",
+      "thumbnail_token": "a1b3dde77a4d7ab9fadbff981f8c91ff4b76dc2fa36ed904eef72c788bfd99f7",
+      "title": "puppies puppy gif | WiffleGif",
+      "url": "https://wifflegif.com/gifs/576019-puppies-puppy-gif",
+      "width": 500
+    },
+    {
+      "discovery_date": "2023-11-12T00:00:00.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 1200,
+      "image": "https://nypost.com/wp-content/uploads/sites/2/2023/02/puppy-bowl.gif",
+      "image_token": "c4a996b02bde86a6389cacb7bc592762eb42f450d6f23eec00d314948822a56d",
+      "source": "Bing",
+      "thumbnail": "https://tse3.mm.bing.net/th/id/OIP.TJGQfSQwwBom87dAibt1CwHaE8?pid=Api",
+      "thumbnail_token": "22a70f8ca6f539d62c5738c1988a8efbe2e4ddaab70c5807e3863c6d02166a3f",
+      "title": "Puppy Bowl 2023 lineup: Meet the adoptable dogs in the game - laacib",
+      "url": "https://www.laacib.org/puppy-bowl-2023-lineup-meet-the-adoptable-dogs-in-the-game/",
+      "width": 1800
+    },
+    {
+      "discovery_date": "2022-05-10T00:00:00.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 159,
+      "image": "https://c.tenor.com/0krabH_XM8AAAAAM/puppy-play.gif",
+      "image_token": "0e068ec2b33bfd88fb676599e191c53230494eb14be8e227e3c9900069852b07",
+      "source": "Bing",
+      "thumbnail": "https://tse1.explicit.bing.net/th/id/OIP.Nxp3Z2Qtst8GLe9Y9NGF8AAAAA?pid=Api",
+      "thumbnail_token": "ce3e62a7d3414ac714111b1df017882e33c0fe44f7e40317fbefe63a8adde958",
+      "title": "Anjing Lucu PFP - Anjing Lucu Profile Pics",
+      "url": "https://profile.pics/anjing-lucu",
+      "width": 220
+    },
+    {
+      "discovery_date": "2023-03-28T15:34:23.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 236,
+      "image": "https://www.icegif.com/wp-content/uploads/2023/03/icegif-1625.gif",
+      "image_token": "a4d65a0662d0cce64856052e10a20355363f2233430ada90fd494c9b0de6fc9f",
+      "source": "Bing",
+      "thumbnail": "https://tse3.mm.bing.net/th/id/OIP.oDyRZGIWC6_O5ajvmmTzsAAAAA?pid=Api",
+      "thumbnail_token": "2aed0bb209351940492b53c43013ae749042ff56927657c7c26d09847b3f5d77",
+      "title": "Puppy Gif - IceGif",
+      "url": "https://www.icegif.com/puppy-35/",
+      "width": 450
+    },
+    {
+      "discovery_date": "2020-12-29T20:47:41.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 1080,
+      "image": "https://tarasschnauzers.com/wp-content/uploads/2024/04/best-food-for-miniature-schnauzer-puppy.gif",
+      "image_token": "76d41e731f2a8c602cb2b8357fc8043ecccd29e09bb8e6af0f76d6cd6d2b7235",
+      "source": "Bing",
+      "thumbnail": "https://tse1.mm.bing.net/th/id/OIP.uCi8fj05o96weodHfObKNAHaHa?pid=Api",
+      "thumbnail_token": "2bac2e1fa43c9f582a941fe4c40bc795f05ef4fd32b54064b19cd9cc36fac32b",
+      "title": "ABOUT THE TEACUP SCHNAUZER - Tara's Schnauzers",
+      "url": "https://tarasschnauzers.com/about-the-teacup-schnauzer/",
+      "width": 1080
+    },
+    {
+      "discovery_date": "2017-06-15T14:57:00.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 278,
+      "image": "https://media.tenor.com/AeCbZTuY1wAAAAAM/uwu-dog.gif",
+      "image_token": "c42f8a7e3b1355ff6469d7dd5b89c2213a6faa7bcd575c54000e8722c159d075",
+      "source": "Bing",
+      "thumbnail": "https://tse1.explicit.bing.net/th/id/OIP.i_DPDdXN274-hWCpjiR5SQAAAA?pid=Api",
+      "thumbnail_token": "6da4330b4d0e20f232a7b2218de5df6f9a92adfb7b431019a2d03ae7a79467e7",
+      "title": "Cute Puppy Eyes GIFs | Tenor",
+      "url": "https://tenor.com/search/cute-puppy-eyes-gifs",
+      "width": 220
+    },
+    {
+      "discovery_date": null,
+      "encoding_format": "jpeg",
+      "height": 533,
+      "image": "https://iowastartingline.com/wp-content/uploads/sites/4/2025/01/stock-puppies.jpg?w=800",
+      "image_token": "58eb4c4412fc7b8b1759e8bfa125578432ffada09ab254eab15816a2b33c6172",
+      "source": "Bing",
+      "thumbnail": "https://tse3.mm.bing.net/th/id/OIF.psBIftwFSPWfRnDdXqU3UA?pid=Api",
+      "thumbnail_token": "2925f16771624fefc7e4af413f2e1373500eeb668ddd9e34fdf26c8044dcd9a7",
+      "title": "Legal group urges IA AG to act against puppy mills - Iowa Starting Line",
+      "url": "https://iowastartingline.com/local/puppy-mills-iowa/",
+      "width": 800
+    },
+    {
+      "discovery_date": "2020-07-04T04:45:00.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 752,
+      "image": "https://www.icegif.com/wp-content/uploads/2024/09/puppy-icegif-7.gif",
+      "image_token": "642e5fdee9e6302ddde5aaf3c86de8c8aa88345b0c880254a0e028d297e23091",
+      "source": "Bing",
+      "thumbnail": "https://tse2.explicit.bing.net/th/id/OIP.WxQXdxLPQOVLJmxkodoMMwHaLI?pid=Api",
+      "thumbnail_token": "0a6ca2df461d7e40092ff16e016f463492f8d8f0d20e1a213ba5ad6b397e8bc8",
+      "title": "Puppy Gif - IceGif",
+      "url": "https://www.icegif.com/gif/puppy/",
+      "width": 500
+    },
+    {
+      "discovery_date": null,
+      "encoding_format": "jpeg",
+      "height": 891,
+      "image": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=122101372473199426",
+      "image_token": "aa6ddc9780f8202400ee4b0d52829e23ad2e742782d6cf6fd6822d98ed2c046b",
+      "source": "Bing",
+      "thumbnail": "https://tse3.mm.bing.net/th?id=OIF.w7D26ppWWcUQu4A7a%2flEZA&pid=Api",
+      "thumbnail_token": "973d949b26680d9b8387cc94117db418529fc9b6dce2734282516a96a5a50006",
+      "title": "A Slippery Hill, A Brave Mom, And A Life-Changing Rescue 🐶 ️ A tiny ...",
+      "url": "https://www.facebook.com/reel/1626573921902652/",
+      "width": 901
+    },
+    {
+      "discovery_date": "2023-05-20T00:00:00.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 640,
+      "image": "https://www.icegif.com/wp-content/uploads/2022/06/icegif-703.gif",
+      "image_token": "192ed1aa0296c21d2203f60e9c7ef093cf5de9be78cf1af4ff1625f8cf15fe18",
+      "source": "Bing",
+      "thumbnail": "https://tse4.mm.bing.net/th/id/OIP.rBst1AwFx_2GRCWhSfvf1AHaJQ?pid=Api",
+      "thumbnail_token": "2505e30e0495708a36bbe5a615a267cefbc6079b467198fb510471ae57147334",
+      "title": "Puppy Gif - IceGif",
+      "url": "https://www.icegif.com/puppy-16/",
+      "width": 512
+    },
+    {
+      "discovery_date": "2017-12-30T00:00:00.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 232,
+      "image": "https://www.reactiongifs.com/r/2013/10/monday.gif",
+      "image_token": "97bdb4e8075d224999db91b3cf23259cf9e51ac45709eeafca2a058b6cfd5300",
+      "source": "Bing",
+      "thumbnail": "https://tse1.mm.bing.net/th/id/OIP.nHJn1DWn76qG-njdTiowhAAAAA?pid=Api",
+      "thumbnail_token": "26376f149be1f16346933ab5ec1b470eee2194a42bb7b9dd64fae7508c6ebe65",
+      "title": "Monday - Reaction GIFs",
+      "url": "https://www.reactiongifs.com/monday-2/",
+      "width": 348
+    },
+    {
+      "discovery_date": "2022-11-10T00:00:00.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 302,
+      "image": "https://gifdb.com/images/high/happy-birthday-puppy-whoodle-playing-with-balloons-bd484fz9y6lqnm0h.gif",
+      "image_token": "91b2e753755accfcdc38bf9e02efacf288dff75eabb364fbcf115c920d39a157",
+      "source": "Bing",
+      "thumbnail": "https://tse3.explicit.bing.net/th/id/OIP.rsP63AbJV8h3tkCoPeyYYAAAAA?pid=Api",
+      "thumbnail_token": "73f17e498a02c13509e30a271aadaf829ae3cfdab208d11baf044914684d46df",
+      "title": "Happy Birthday Puppy GIFs | GIFDB.com",
+      "url": "https://gifdb.com/happy-birthday-puppy",
+      "width": 382
+    },
+    {
+      "discovery_date": "2020-11-02T00:00:00.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 219,
+      "image": "https://www.icegif.com/wp-content/uploads/2024/09/puppy-icegif.gif",
+      "image_token": "b7789932361898d3060488a9d9377b326a94db3759bdabddaff6459edca2ce17",
+      "source": "Bing",
+      "thumbnail": "https://tse3.mm.bing.net/th/id/OIP.xJLFVNoHu4qaw54-GPwCVwHaDP?pid=Api",
+      "thumbnail_token": "46022644f897f1cdb6a61fe9b8b316c7964bc4babc7f93b9310d4ceb811fcd61",
+      "title": "Puppy Gif - IceGif",
+      "url": "https://www.icegif.com/puppy-8/",
+      "width": 500
+    },
+    {
+      "discovery_date": "2016-04-18T00:00:00.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 370,
+      "image": "https://i2.wp.com/www.dogblab.com/wp-content/uploads/2016/04/white-labrador-puppy-first-day.gif?fit=620%2C370",
+      "image_token": "15c7e92387429b3f92166a2426bea07b4cdf8b1571ac36f15c72cf5f5e73dd69",
+      "source": "Bing",
+      "thumbnail": "https://tse1.mm.bing.net/th/id/OIP.NE0ZN-Yl1HCtnNMztayRfwHaEa?pid=Api",
+      "thumbnail_token": "8ae02c49c8b8ae0afdee246d93e196725c79f8ba97498549b951d0f2621de751",
+      "title": "Lab Puppy's First Day At Home That Will Make You Wish He Was Yours ...",
+      "url": "http://www.dogblab.com/puppys-first-day-home-will-make-wish/",
+      "width": 620
+    },
+    {
+      "discovery_date": "2019-08-07T00:00:00.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 802,
+      "image": "http://clipart-library.com/images/gceAdaEMi.gif",
+      "image_token": "add772b5d489ca9bcb13385b423fc019329ce61858126fec152b1bbc37a5bb1b",
+      "source": "Bing",
+      "thumbnail": "https://tse1.mm.bing.net/th/id/OIP.oiaHR-0Teq81tsEezgLprgHaH3?pid=Api",
+      "thumbnail_token": "0dc9e37d8d0477634127a984624921e139f7baa0cf19e9c66f22dd27e72c5d12",
+      "title": "Free Transparent Dog Gif, Download Free Transparent Dog Gif png images ...",
+      "url": "http://clipart-library.com/free/transparent-dog-gif.html",
+      "width": 755
+    },
+    {
+      "discovery_date": "2025-09-18T00:00:00.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 828,
+      "image": "https://webstockreview.net/images/clipart-puppy-animated-gif-11.gif",
+      "image_token": "9d5328c168db97910d94bd306c09c58791794b5dab7034250d3def18d27704fc",
+      "source": "Bing",
+      "thumbnail": "https://tse1.mm.bing.net/th/id/OIP.lKssoLdcNDRiaNYT8z00CgHaHa?pid=Api",
+      "thumbnail_token": "ab1cfcdc96c16c158b3c140dc99c1a210536708227cdecec203edf09336b5647",
+      "title": "Cartoon Yorkie Face - Fotosearch Yorkie Terrier | Bogomowasumu Wallpaper",
+      "url": "https://bogomowasumu.github.io/posts/cartoon-yorkie-face/",
+      "width": 828
+    },
+    {
+      "discovery_date": null,
+      "encoding_format": "jpeg",
+      "height": 960,
+      "image": "https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AA21PYUQ.img?w=540&h=960&m=4&q=30",
+      "image_token": "b6f42f8aeb0482edc40c33741704328e6983b89efeb3631d8fae005f085da9de",
+      "source": "Bing",
+      "thumbnail": "https://tse3.mm.bing.net/th/id/OIF.PkHEOwKLZ9T0chO2ez2fxQ?pid=Api",
+      "thumbnail_token": "f25871e773a6f50174519dfd4ed9b5b801477d5fdba930b79d4e6ed6c33457ce",
+      "title": "This puppy is everything you need today",
+      "url": "https://www.msn.com/en-us/pets-and-animals/dogs/this-puppy-is-everything-you-need-today/vi-AA21PdlX",
+      "width": 540
+    },
+    {
+      "discovery_date": null,
+      "encoding_format": "jpeg",
+      "height": 844,
+      "image": "https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AA21Fokk.img?w=1500&h=844&m=4&q=55",
+      "image_token": "b5388ccc51da9dd99554121b91b44281f22ea27ebc63a42936dd63e739cb77cd",
+      "source": "Bing",
+      "thumbnail": "https://tse2.mm.bing.net/th/id/OIF.KB8qAZe9PuDa5FINDtgDbA?pid=Api",
+      "thumbnail_token": "8079f8dd2e6d31703da5318c920abd7c20ff2f978c4a4ce866f6ce03cb6e7455",
+      "title": "Why My Dogs Keep Looking at the Puppy?",
+      "url": "https://www.msn.com/en-au/news/other/why-my-dogs-keep-looking-at-the-puppy/vi-AA21FPkw",
+      "width": 1500
+    },
+    {
+      "discovery_date": "2022-03-19T21:34:00.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 710,
+      "image": "https://i.pinimg.com/originals/d9/cc/d3/d9ccd381d5302ab482db9e4ff5e4eb71.gif",
+      "image_token": "bc4360a1e279449a0c74fa1602124d1f7075570a4aeb71375bf891cf44b5afe8",
+      "source": "Bing",
+      "thumbnail": "https://tse2.mm.bing.net/th/id/OIP.2czTgdUwKrSC255P9eTrcQAAAA?pid=Api",
+      "thumbnail_token": "8a4901e7ee6ea1956b5c783d3aeb93479ce36dbe82dec973a3eebc66a7a9044f",
+      "title": "Janita Zook",
+      "url": "https://janitazook.blogspot.com/",
+      "width": 400
+    },
+    {
+      "discovery_date": "2017-06-25T00:00:00.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 221,
+      "image": "https://c.tenor.com/V8hQhBHPjAAAAAAM/puppy-cute.gif",
+      "image_token": "80ba996c8bbabc2bffec3f891207ec3df7ed1cfc8fa3fc85957babf1bf15ef43",
+      "source": "Bing",
+      "thumbnail": "https://tse2.explicit.bing.net/th/id/OIP.b-mtIk4ICxXn0p519YHH0AAAAA?pid=Api",
+      "thumbnail_token": "30be8ec3a1ac608f9c406d9f77a463d6567300110730f5b1fc1b532c5fcb6135",
+      "title": "Funny Christmas Puppy GIFs | Tenor",
+      "url": "https://tenor.com/search/funny-christmas-puppy-gifs",
+      "width": 220
+    },
+    {
+      "discovery_date": "2017-02-07T00:00:00.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 322,
+      "image": "https://25.media.tumblr.com/5aeb1aea223372e4c4cb08284b0946fd/tumblr_n1gs8zWRtN1rant9uo1_500.gif",
+      "image_token": "40e33421ac3085e74cef550a86b3f03501157b5d344f2e163818fceca11b8de5",
+      "source": "Bing",
+      "thumbnail": "https://tse2.mm.bing.net/th/id/OIP.t8H-pK47YvL2hiX0v0EN6gAAAA?pid=Api",
+      "thumbnail_token": "d33b5fed52cd90181d891889997f19950266dca6368d92f82bb72c28ce66a66b",
+      "title": "adorable puppy gif | WiffleGif",
+      "url": "https://wifflegif.com/gifs/488372-adorable-puppy-gif",
+      "width": 460
+    },
+    {
+      "discovery_date": "2017-09-12T00:00:00.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 294,
+      "image": "https://media.tenor.com/1XmViABmwGQAAAAM/dog-triste.gif",
+      "image_token": "14ff4d42a9a55289c10b9386dc6743e5cb5b82cd53f5edeb824960586987ad50",
+      "source": "Bing",
+      "thumbnail": "https://tse4.explicit.bing.net/th/id/OIP.0qPiSJWZkqQfDyq8nbIZRAAAAA?pid=Api",
+      "thumbnail_token": "2ec740837ce8e6acc905f827485ff4e948e14ec1c0fd5d6eab5fa7d64a20a7fc",
+      "title": "Puppy Eyes Meme GIFs | Tenor",
+      "url": "https://tenor.com/search/puppy-eyes-meme-gifs",
+      "width": 220
+    },
+    {
+      "discovery_date": "2016-05-19T00:00:00.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 270,
+      "image": "https://media.giphy.com/media/l0NwylM4vJ9R4nros/giphy.gif",
+      "image_token": "1959694a0cf2f6e62ffb0dafd24ed9a2c704b3014ee5e1726ac9ef9605c206fb",
+      "source": "Bing",
+      "thumbnail": "https://tse3.mm.bing.net/th/id/OIP.5yipJ__-PPpvIA3mIU0CmAHaEK?pid=Api",
+      "thumbnail_token": "8d136bad94d434afa28a43e8de58f04fb887c6e3e00a8c1380a955c4612d3cea",
+      "title": "Animal Planet Dog GIF by Puppy Bowl - Find & Share on GIPHY",
+      "url": "https://giphy.com/gifs/puppybowl-pup-pups-puppy-bowl-l0NwylM4vJ9R4nros",
+      "width": 480
+    },
+    {
+      "discovery_date": "2019-05-21T00:00:00.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 480,
+      "image": "https://media.giphy.com/media/Q8NtNgxgwDc1p1gtPW/giphy.gif",
+      "image_token": "ba388dbb8853ac17cb95bd134de19d2f10fa6cd7cf94af0b2a270f669b68d63b",
+      "source": "Bing",
+      "thumbnail": "https://tse4.mm.bing.net/th/id/OIP.qXuNMjpcohFyB0ZGild3kQHaHa?pid=Api",
+      "thumbnail_token": "9ec3a9c1ceafe279bbed5fc9d6bba1875aa4333e58a1579209f71b7797242b5e",
+      "title": "Black Lab Puppy GIF by Signature Entertainment - Find & Share on GIPHY",
+      "url": "https://giphy.com/gifs/SignatureEntertainmentUK-cute-doggo-pick-of-the-litter-Q8NtNgxgwDc1p1gtPW",
+      "width": 480
+    },
+    {
+      "discovery_date": "2023-04-29T00:00:00.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 640,
+      "image": "https://media.tenor.com/9za_fooD3YUAAAAd/puppy-cup.gif",
+      "image_token": "5632c701d3ee5015064b56cc53e029496e4d16526e1a8028868053acca7d5e6e",
+      "source": "Bing",
+      "thumbnail": "https://tse1.mm.bing.net/th/id/OIP.0gq50fowLU0RRckm9H_CmQAAAA?pid=Api",
+      "thumbnail_token": "f8443c63b836f56dd2871c750d111e49f90c60ea357555bf609a5cf01f8d404b",
+      "title": "Puppy Cup GIF - Puppy Cup Good - GIF 탐색 및 공유",
+      "url": "https://tenor.com/ko/view/puppy-cup-good-morning-cute-gif-24702369",
+      "width": 356
+    },
+    {
+      "discovery_date": "2022-07-15T00:00:00.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 498,
+      "image": "https://media.tenor.com/H1Rdi_o1uZYAAAAC/corgi-puppy-puppies.gif",
+      "image_token": "d3dfae4c3dd1b1efca69dbfc5da3df6814fd7f21293237585af48f821ab74215",
+      "source": "Bing",
+      "thumbnail": "https://tse4.mm.bing.net/th/id/OIP.608TkRq43Mi8t213sE3R6QHaHa?pid=Api",
+      "thumbnail_token": "0d305008beb8a60020fe88faaee9173d33be53765b21202185dfa29f372f6d59",
+      "title": "Corgi Puppy Puppies GIF - Corgi Puppy Puppies - Discover & Share GIFs",
+      "url": "https://tenor.com/view/corgi-puppy-puppies-gif-26065424",
+      "width": 498
+    },
+    {
+      "discovery_date": "2017-07-04T00:00:00.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 220,
+      "image": "https://media1.tenor.com/images/f3c7e8668794c95d724373959b8b71f5/tenor.gif?itemid=6206352",
+      "image_token": "f2f71ad023714ce26e1dd222676f055bb8e2e8b9252aa4ab3911d344344036d1",
+      "source": "Bing",
+      "thumbnail": "https://tse4.mm.bing.net/th/id/OIP.88foZoeUyV1yQ3OVm4tx9QAAAA?pid=Api",
+      "thumbnail_token": "d3808f3ff389387afd557961576cf83ae03cb817987300f7607c09a081babd25",
+      "title": "Cute Puppy GIFs | Tenor",
+      "url": "https://tenor.com/search/cute-puppy-gifs",
+      "width": 220
+    },
+    {
+      "discovery_date": "2020-12-21T13:54:59.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 400,
+      "image": "https://bestanimations.com/media/christmas/1503133629merry-christmas-cute-dog-puppy-snow-greetings-gif.gif",
+      "image_token": "c62c449bd1b2fabb5c6645d3e6b467e9206b1d92a09e83f8513eef27f6f2ca8b",
+      "source": "Bing",
+      "thumbnail": "https://tse1.explicit.bing.net/th/id/OIP.x_0mD4PtDEHDbSkZe5ZMCgHaE8?pid=Api",
+      "thumbnail_token": "96faac1dbc5e70b0d74884f31026222b6d00cc436b061ec101f293b6d370c599",
+      "title": "Cute Puppy Merry Christmas Gif",
+      "url": "https://bestanimations.com/gifs/cute-puppy-merry-christmas.html",
+      "width": 600
+    },
+    {
+      "discovery_date": "2023-01-17T00:00:00.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 600,
+      "image": "https://i.pinimg.com/originals/70/98/9e/70989ecb0258f566b9af13e876cf7dce.gif",
+      "image_token": "5230f8fd60a14595654e6db2590ca0a5b85a3f45a01491012c89f2574dd0198c",
+      "source": "Bing",
+      "thumbnail": "https://tse2.mm.bing.net/th/id/OIP.iWZ9ywqe1DN3xcKSEarpOwHaFj?pid=Api",
+      "thumbnail_token": "b9e1d1dd2cba58c3e2fa0941645af90244e4a83027a439d0ed32b024a12f8e3f",
+      "title": "Funny Animal Gifs 2020",
+      "url": "https://animalsname.neocities.org/funny-animal-gifs-2020",
+      "width": 800
+    },
+    {
+      "discovery_date": "2011-12-17T12:00:00.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 283,
+      "image": "https://2.bp.blogspot.com/-aAHpuh73Ceg/Tuzor36xr3I/AAAAAAAAChs/iIpJDjUaiks/s1600/funny+gif+cutest+puppy+ever.gif",
+      "image_token": "1771498a9dd6db473e84f183c67d275967b97b367fbc731fa4a3493423eca286",
+      "source": "Bing",
+      "thumbnail": "https://tse3.mm.bing.net/th/id/OIP.5JKG3OUeEA-uELQu7Uf1ygHaEM?pid=Api",
+      "thumbnail_token": "9ac02ee2ae5463595ab408a6c067397b92bbf56caf844b2175197a92391c64d1",
+      "title": "Cutest puppy ever | Amazing Creatures",
+      "url": "https://amazing-creature.blogspot.com/2011/12/cutest-puppy-ever.html",
+      "width": 500
+    },
+    {
+      "discovery_date": "2022-01-20T00:06:54.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 180,
+      "image": "https://giffiles.alphacoders.com/215/215379.gif",
+      "image_token": "19469be8d4bdec330922a16267dae48913308b7542b8d7b8cd2ebd84c3368621",
+      "source": "Bing",
+      "thumbnail": "https://tse3.mm.bing.net/th/id/OIP.Hfoz7EzVeb0q9myr0TrragAAAA?pid=Api",
+      "thumbnail_token": "c96412d80b814adb78417c11dd34d98f799775fecc35fa155935c6a39053958b",
+      "title": "Download Animal Puppy Gif - Gif Abyss",
+      "url": "https://gifs.alphacoders.com/gifs/view/215379",
+      "width": 320
+    },
+    {
+      "discovery_date": "2024-05-07T00:10:23.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 270,
+      "image": "https://editablegifs.com/gifs/gifs/birthday-588/thumbnail.gif",
+      "image_token": "524c6d20b8f9d0198be3834df7ff0946cbd0b97cff11a152ebdfd61682694b6a",
+      "source": "Bing",
+      "thumbnail": "https://tse1.mm.bing.net/th/id/OIP.Ynw4cKj5LlAuwDw3aIU8VgAAAA?pid=Api",
+      "thumbnail_token": "a52985bf5b57f196291e9a5a9b7af6714118ab3bff0accc24eca710d687b0fa1",
+      "title": "Dog Birthday GIFs",
+      "url": "https://editablegifs.com/dog-birthday-gifs",
+      "width": 270
+    },
+    {
+      "discovery_date": "2018-05-01T00:00:00.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 352,
+      "image": "https://img1.picmix.com/output/pic/normal/7/3/9/8/5798937_e27f1.gif",
+      "image_token": "df69576befa8f4b85b834117c25a6915328278b05852935ece908a51c167f78a",
+      "source": "Bing",
+      "thumbnail": "https://tse3.mm.bing.net/th/id/OIP.bHdj92BUuZ_nwMLIfkE0VAHaFQ?pid=Api",
+      "thumbnail_token": "48c160ee4b06f3810fa578317552f5e19b78399b106727bc2d0d42d7891e8a64",
+      "title": "Puppy Christmas - Free animated GIF - PicMix",
+      "url": "https://www.picmix.com/pic/Puppy-Christmas-5798937",
+      "width": 496
+    },
+    {
+      "discovery_date": "2020-12-27T04:53:47.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 220,
+      "image": "https://c.tenor.com/gpB-o8CT3u0AAAAM/puppy-dog.gif",
+      "image_token": "de653d2d8d50ea5172b896f7f9cbfa40465dd7f720d4e43cffc71b9c9b53f9a4",
+      "source": "Bing",
+      "thumbnail": "https://tse4.mm.bing.net/th/id/OIP.nGneiLyGKXBxyn8_ej3wGQAAAA?pid=Api",
+      "thumbnail_token": "c77285189b26714b6b15557e55b8ea02ea759b98f63dbbee54cd7866b3b738dd",
+      "title": "Dog Roll GIF - Dog Roll - Discover & Share GIFs",
+      "url": "https://tenor.com/view/dog-roll-gif-19698544",
+      "width": 220
+    },
+    {
+      "discovery_date": "2019-07-29T22:44:15.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 392,
+      "image": "https://media.tenor.com/dFJz_fEIfJMAAAAC/dog-puppy.gif",
+      "image_token": "f00b6ec72268d50eba761f49f4efd5c78b9c29d357dac1628512377d2d128e79",
+      "source": "Bing",
+      "thumbnail": "https://tse3.explicit.bing.net/th/id/OIP.izHDqolM82fiFUthm9wQIwHaF1?pid=Api",
+      "thumbnail_token": "a19f4f35f16a2fc7571c182c2b921d1a579111824ac7b49362f3cf7351c2440b",
+      "title": "Dog Puppy GIF - Dog Puppy Cute - Discover & Share GIFs",
+      "url": "https://tenor.com/view/dog-puppy-cute-sad-eyes-gif-14647157",
+      "width": 498
+    },
+    {
+      "discovery_date": "2022-12-12T00:00:00.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 198,
+      "image": "https://media.tenor.com/Ad1LE2sG4jcAAAAC/puppy-dog-eyes-asking-for-a-favor.gif",
+      "image_token": "bbe0d13559a1761bf80ddf8b8aaabd044d73405b5619687d854e83a3f4afd467",
+      "source": "Bing",
+      "thumbnail": "https://tse3.explicit.bing.net/th/id/OIP.KGpDz2xHkUNhcYzbIPTf0wAAAA?pid=Api",
+      "thumbnail_token": "d6fd85c9d480279bb4fc98f560bfeb5eedf41c0aadb9794f892fc4ed45f0b2ae",
+      "title": "Puppy Dog Eyes Asking For A Favor Sticker - Puppy Dog Eyes Asking For A ...",
+      "url": "https://tenor.com/es/view/puppy-dog-eyes-asking-for-a-favor-cutie-pout-duck-face-gif-14391701",
+      "width": 180
+    },
+    {
+      "discovery_date": "2024-05-07T00:10:23.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 225,
+      "image": "https://editablegifs.com/gifs/gifs/birthday-428/thumbnail.gif",
+      "image_token": "0c0ded2b691e28cc062aa9be88378cf60632f97352e25f5f446e5f3d8cfcdfff",
+      "source": "Bing",
+      "thumbnail": "https://tse3.mm.bing.net/th/id/OIP.EQODW_Rs49TFJVov-Ujd1AAAAA?pid=Api",
+      "thumbnail_token": "df54a2711c4508cd0fed5bc9c8b2cf29dedd2fbd1c14cd88576ee3ea808932a2",
+      "title": "Dog Birthday GIFs",
+      "url": "https://editablegifs.com/dog-birthday-gifs",
+      "width": 300
+    },
+    {
+      "discovery_date": "2018-04-24T00:00:00.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 250,
+      "image": "https://49.media.tumblr.com/d14a5ceebb1cb0c309552a4b038820b5/tumblr_o2st3kG9Jq1urlrpuo1_500.gif",
+      "image_token": "0f7ea8e358761406b86f3c02d9a4b6598663a2d86e8c7b9298618d71770cd935",
+      "source": "Bing",
+      "thumbnail": "https://tse3.mm.bing.net/th/id/OIP.lBvhhWImut5XuxJ3NiUivwHaDt?pid=Api",
+      "thumbnail_token": "99d9b06e09c31dc897b89da0e110b396f840ffad20930bb70eb1560faf288a22",
+      "title": "puppies puppy gif | WiffleGif",
+      "url": "https://wifflegif.com/gifs/633644-puppies-puppy-gif",
+      "width": 500
+    },
+    {
+      "discovery_date": "2017-10-24T00:00:00.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 124,
+      "image": "https://media.tenor.com/2gHy_M3Q5LMAAAAM/dog-puppy.gif",
+      "image_token": "f2d531021993d0b72f0de876efa8942c83fca722e00ba6d8a25f517c6b3aa1ca",
+      "source": "Bing",
+      "thumbnail": "https://tse3.mm.bing.net/th/id/OIP.Q2U_I2vu5mKYOy8Lf-Kp8QAAAA?pid=Api",
+      "thumbnail_token": "387b75a83998c3613c09f420e1846303a8d8b63c8792dfe8f8813d6d095ecc06",
+      "title": "Dog Thank You GIFs | Tenor",
+      "url": "https://tenor.com/search/dog-thank-you-gifs",
+      "width": 220
+    },
+    {
+      "discovery_date": "2017-09-05T00:00:00.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 317,
+      "image": "https://25.media.tumblr.com/7528a1de3325fc19fb0bb90f0b7578d0/tumblr_mqie7uuRRe1rtpfpio1_500.gif",
+      "image_token": "be928c2119022c67b1c1afd5ea53d253a3abef6101da8eba2451adc256101d76",
+      "source": "Bing",
+      "thumbnail": "https://tse1.explicit.bing.net/th/id/OIP.f20n7UnXaSbkYgO86dPazAAAAA?pid=Api",
+      "thumbnail_token": "3540a9435c8cd14c568288425a835629e503878f4cc73e95615e67d31d475c9f",
+      "title": "golden retriever puppy puppy love gif | WiffleGif",
+      "url": "https://wifflegif.com/gifs/128937-golden-retriever-puppy-puppy-love-gif",
+      "width": 419
+    },
+    {
+      "discovery_date": "2022-09-18T00:00:00.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 168,
+      "image": "https://claimki.files.wordpress.com/2017/03/4tbpee8gc.gif",
+      "image_token": "a9b6a3661cea4ee1fbe1ba420416591ba40c341c83771e255b351963ee258e00",
+      "source": "Bing",
+      "thumbnail": "https://tse3.mm.bing.net/th/id/OIP.y6EJwKbGBnJwbkCroVTTtQAAAA?pid=Api",
+      "thumbnail_token": "3338453ccfda36b1f945e66d5b85d198bcdb99be18843c6c1ff86a639300fb28",
+      "title": "Available Puppies - Puppy Zone",
+      "url": "https://claimki.wordpress.com/available-puppies/",
+      "width": 188
+    },
+    {
+      "discovery_date": "2025-01-18T18:55:04.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 100,
+      "image": "https://www.mountainviewcanines.com/Images/Hold-Puppy_sm.gif",
+      "image_token": "02ec99288231d6ab8751f4df3e428aa8e2fc3f5bee66773db48c282a6097a991",
+      "source": "Bing",
+      "thumbnail": "https://tse2.mm.bing.net/th/id/OIP.scdIHw4FqTKbVgM73DgfkgAAAA?pid=Api",
+      "thumbnail_token": "01c664ec1e29e9ab1264526a00720e508bf91b125fc18040606f3765b8fdd32f",
+      "title": "Hold Puppy for Me",
+      "url": "https://www.mountainviewcanines.com/puppy_detail.aspx?id=7844675",
+      "width": 250
+    },
+    {
+      "discovery_date": "2017-06-04T02:51:00.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 141,
+      "image": "https://c.tenor.com/6qweAHQw5hwAAAAM/puppy-white-puppy.gif",
+      "image_token": "4c3d2d3bad1e2c38c79597e6b28fa7c3330df7983185eb721aed2b7bbb5a059b",
+      "source": "Bing",
+      "thumbnail": "https://tse2.mm.bing.net/th/id/OIP.Lo0yFbbaJmyUv4ju_A-EOAAAAA?pid=Api",
+      "thumbnail_token": "62659570b28074d6e403514b26cd1d61bf6aaca5e0fcf8bf43f8c084e9f0fa32",
+      "title": "Dog GIFs | Tenor",
+      "url": "https://tenor.com/search/dog-gifs",
+      "width": 220
+    },
+    {
+      "discovery_date": "2013-06-01T05:54:41.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 297,
+      "image": "https://www.pbh2.com/wordpress/wp-content/uploads/2013/05/cutest-corgi-gifs-puppy-stairs.gif",
+      "image_token": "f46f45fa59b4acc79e0010ee35465a60f11cf8edbf7f2a97464e8d3ae2c4392a",
+      "source": "Bing",
+      "thumbnail": "https://tse2.explicit.bing.net/th/id/OIP.iSv-9q7DhHgDqDBlKUAtGgAAAA?pid=Api",
+      "thumbnail_token": "229ed59593b2e62c6c663d95131b863e6754d3cb567cd5acd36bedd77977e207",
+      "title": "The Cutest Corgi GIFs Ever Seen",
+      "url": "https://www.pbh2.com/pets-animals/cutest-corgi-gifs/2/",
+      "width": 289
+    },
+    {
+      "discovery_date": "2019-08-29T00:00:00.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 450,
+      "image": "https://media0.giphy.com/media/mDXYs3PjMpW2SZOgy0/giphy.gif",
+      "image_token": "126add34b8565c17691cb3c17ca184694ac8cbb27b0654106850be16f32e82a8",
+      "source": "Bing",
+      "thumbnail": "https://tse4.mm.bing.net/th/id/OIP.kDK8TsDD3hpW_5pJrJm9kQAAAA?pid=Api",
+      "thumbnail_token": "8961f90a1d8f60071bfc30b87243b52cc50ca1047a48456231ddb7bcf62241ac",
+      "title": "Dogs Puppy GIF by TikTok - Find & Share on GIPHY",
+      "url": "https://giphy.com/gifs/tiktok-dogs-puppy-pomeranian-mDXYs3PjMpW2SZOgy0",
+      "width": 448
+    },
+    {
+      "discovery_date": "2022-12-12T00:00:00.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 278,
+      "image": "https://media.tenor.com/2FIpkZUrBKAAAAAC/puppy-dog.gif",
+      "image_token": "5d778390ff05c8c56e245b312fdde8d1c2524ab9dd19dc1ba461ae85b44297a0",
+      "source": "Bing",
+      "thumbnail": "https://tse1.mm.bing.net/th/id/OIP.74LiafWmBLIuMAvcnwZfqwHaEI?pid=Api",
+      "thumbnail_token": "f32094a7bb0eef6f183ee6d6e406515503d6b8e58e51b6bea569a1a04fd1d75d",
+      "title": "Puppy Dog GIF - Puppy Dog Roll - GIF များ ရှာဖွေရန်နှင့် မျှဝေရန်",
+      "url": "https://tenor.com/my/view/puppy-dog-roll-burrito-towel-gif-15220249",
+      "width": 498
+    },
+    {
+      "discovery_date": "2022-12-27T00:00:00.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 640,
+      "image": "https://media1.tenor.com/m/4j2BHCcFPSIAAAAd/puppy-dog-face-sad-face.gif",
+      "image_token": "9a901415b72d8cdb34208fb54781e4691fac784f8cfd53314837eb7a1263115f",
+      "source": "Bing",
+      "thumbnail": "https://tse3.explicit.bing.net/th/id/OIP.cHEecV-r04ujciIrFlHZHgHaHa?pid=Api",
+      "thumbnail_token": "155de0f8d250c7247ccddefd7c3b3a9c37513309e962b243492ee9da39618c07",
+      "title": "Puppy Dog Face Sad Face GIF - Puppy Dog Face Sad Face Kitty - GIF を見つけて共有する",
+      "url": "https://tenor.com/ja/view/puppy-dog-face-sad-face-kitty-cat-cute-gif-16314219",
+      "width": 640
+    },
+    {
+      "discovery_date": "2017-02-08T10:27:00.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 285,
+      "image": "https://giffiles.alphacoders.com/146/14601.gif",
+      "image_token": "107907ee9a944128ca9f3390c3dd03363986a705378e92030b09fe14b6ff0a9e",
+      "source": "Bing",
+      "thumbnail": "https://tse1.mm.bing.net/th/id/OIP.6K_1CR-MnAA4p8p5L6zNQAHaEO?pid=Api",
+      "thumbnail_token": "c9d35965cec065dfbe66ed9422e10feb04f14e8a261a0ef03e57c8bab0a3f113",
+      "title": "Download Animal Puppy Gif",
+      "url": "https://gifs.alphacoders.com/gifs/view/14601",
+      "width": 500
+    },
+    {
+      "discovery_date": "2023-01-02T00:00:00.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 277,
+      "image": "https://media.tenor.com/Kz9BHCBHmcUAAAAC/puppy-playful.gif",
+      "image_token": "ee3a736a8b926bc7bca9d19d30e161ca7ec879ceb5bc13245d6a46657d1c92fe",
+      "source": "Bing",
+      "thumbnail": "https://tse3.mm.bing.net/th/id/OIP.iGYcg8s_jjAngC88n3lLVwHaEH?pid=Api",
+      "thumbnail_token": "1594d8626f94db73e2c8f787f4db40f2d4a71eebc610edc5b8e76f0ed29e3a30",
+      "title": "Puppy Playful GIF - Puppy Playful Cute - GIF'leri Keşfedin ve Paylaşın",
+      "url": "https://tenor.com/tr/view/puppy-playful-cute-biting-waving-gif-17647432",
+      "width": 498
+    },
+    {
+      "discovery_date": "2017-02-11T00:00:00.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 282,
+      "image": "https://38.media.tumblr.com/6545014f94784e3ca87a23a4c242da5f/tumblr_nl3toijsdK1u15xubo1_r1_500.gif",
+      "image_token": "1798508f0919e1fbc835967259cde19bd919b5b830b2ab2eaef85e04237eb803",
+      "source": "Bing",
+      "thumbnail": "https://tse1.explicit.bing.net/th/id/OIP.yx6f0VZdZ3CpBxOSYGmuBAHaEL?pid=Api",
+      "thumbnail_token": "22aedbe42a8400f57afdba406add3410e683ff2b47d7ef80329142b5aa059560",
+      "title": "cute dogs gifs Page 6 | WiffleGif",
+      "url": "https://wifflegif.com/tags/38371-cute-dogs-gifs?page=6",
+      "width": 500
+    },
+    {
+      "discovery_date": "2021-03-22T14:48:00.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 70,
+      "image": "https://www.animationlibrary.com/Animation11/Animals/Dogs/puppy.gif",
+      "image_token": "568f4127bacce609de895c0d588c5d90644bdccdea7b5ee11e238e68c8e4f897",
+      "source": "Bing",
+      "thumbnail": "https://tse2.mm.bing.net/th/id/OIP.48VftmJ1FLAZXmAyCyhFNwAAAA?pid=Api",
+      "thumbnail_token": "4f04a69b5a1663315c76f3b8b3f51daa2accb6f50af143f80b0ca222b95998b6",
+      "title": "Animation Library | Dogs",
+      "url": "https://www.animationlibrary.com/sc/58/Dogs/?page=15",
+      "width": 64
+    },
+    {
+      "discovery_date": "2017-06-29T00:00:00.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 274,
+      "image": "https://c.tenor.com/El-_U4FPc6QAAAAM/cute-puppy.gif",
+      "image_token": "298c376a9b4961d640e93f438f8340f0ae306b53f114a20b24271ab0fb4b0e43",
+      "source": "Bing",
+      "thumbnail": "https://tse3.explicit.bing.net/th/id/OIP.70q8MnOPIwNdcGrX1CxhKgAAAA?pid=Api",
+      "thumbnail_token": "e7e2dd41ddf94ca1ff674e4c9019fe9875f65eab20e07f9adf6d5cfb7b17a08a",
+      "title": "Golden Retriever Birthday GIFs | Tenor",
+      "url": "https://tenor.com/search/golden-retriever-birthday-gifs",
+      "width": 220
+    },
+    {
+      "discovery_date": "2020-02-15T00:00:00.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 480,
+      "image": "https://media.giphy.com/media/gKez4awKPMG9cWT4OM/giphy.gif",
+      "image_token": "90640f65e43f282760f5fc28d2cfb492a01ca3239e6459e5dec05e3c5c50ae2c",
+      "source": "Bing",
+      "thumbnail": "https://tse2.explicit.bing.net/th/id/OIP.kUHLLmxiIW18wstZZHgr6AHaHa?pid=Api",
+      "thumbnail_token": "99b9472c69a4918bbcdb58770c316e53b6dad8c410cc072bf17381eb0b78fdc5",
+      "title": "Golden Retriever Puppy GIF - Find & Share on GIPHY",
+      "url": "https://giphy.com/gifs/puppy-golden-retriever-quiver-gKez4awKPMG9cWT4OM",
+      "width": 480
+    },
+    {
+      "discovery_date": "2024-08-07T21:08:01.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 166,
+      "image": "https://gifgifs.com/animations/animals/dogs/Puppy_plays.gif",
+      "image_token": "d0db7f8eb21c1af923099ac2812200af665d92f6c63e457a1c1adb85f5594f26",
+      "source": "Bing",
+      "thumbnail": "https://tse3.mm.bing.net/th/id/OIP.IzfTjd-E71cxYa6b7fIAhwAAAA?pid=Api",
+      "thumbnail_token": "6c3fa1788cd7bd0271fe3d5fda9d59edade8c1e0481998bc4430fedc0c30e0f1",
+      "title": "Puppy plays animation | Dogs | Animals | GIFGIFs.com",
+      "url": "https://gifgifs.com/animals/dogs/1609-Puppy_plays.html",
+      "width": 175
+    },
+    {
+      "discovery_date": "2022-08-17T00:00:00.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 401,
+      "image": "https://www.kibrispdr.org/kartun-puppy.jpg",
+      "image_token": "a54a6797b67c26c74a034ab67dcfabf0dc888d6f19800979a61b6bb66130e702",
+      "source": "Bing",
+      "thumbnail": "https://tse4.explicit.bing.net/th/id/OIP.KKx6UgMCO_ORZJT37rze4wHaFW?pid=Api",
+      "thumbnail_token": "b2dfdd064e2f6971434b0a67e28f9be33872153a5b86659295603eb89762531d",
+      "title": "Detail Contoh Surat Undangan Hut Ri Koleksi Nomer 12",
+      "url": "https://www.kibrispdr.org/detail-11/contoh-surat-undangan-hut-ri.html",
+      "width": 555
+    },
+    {
+      "discovery_date": "2017-09-26T00:00:00.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 280,
+      "image": "https://gifrific.com/wp-content/uploads/2012/09/Cute-Puppy-Smile.gif",
+      "image_token": "07ffa777e9a7a9ce8bc1cad088bacb876aed90acc8ec80f1812c716bd6949de6",
+      "source": "Bing",
+      "thumbnail": "https://tse1.mm.bing.net/th/id/OIP.mSH6DEqoQbLdWKc_8PFwfQHaEJ?pid=Api",
+      "thumbnail_token": "ee218589c62719385039e4ba583ded7f139fa4b92493b61484e56dff9d71404c",
+      "title": "Cute Puppy Smile | Gifrific",
+      "url": "https://gifrific.com/cute-puppy-smile/",
+      "width": 500
+    },
+    {
+      "discovery_date": "2013-11-11T12:00:00.0000000Z",
+      "encoding_format": "animatedgif",
+      "height": 245,
+      "image": "https://www.pbh2.com/wordpress/wp-content/uploads/2013/03/cute-puppy-gifs-head-shake.gif",
+      "image_token": "b237a54294a10d4410cb280a39e7ff6a697dce5be7678f01e52a3c1720dad542",
+      "source": "Bing",
+      "thumbnail": "https://tse4.mm.bing.net/th/id/OIP.wgEOtBPpIllW_bc3H0WRpQHaDo?pid=Api",
+      "thumbnail_token": "97f0458dd803c094a4dc2b3021bd1178462488f1bc5eff19bd2e209f24322c9c",
+      "title": "The Absolutely Cutest Puppy GIFs Ever",
+      "url": "https://www.pbh2.com/entertainment/25-of-the-cutest-puppy-gifs/2/",
+      "width": 500
+    }
+  ],
+  "vqd": {
+    "puppy": "4-123751406184030236872122724091288413361"
+  }
+}

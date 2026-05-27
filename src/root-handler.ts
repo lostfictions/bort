@@ -26,6 +26,7 @@ import wikihowCommand from "./commands/wikihow.ts";
 import conceptLoadCommand from "./commands/concept-load.ts";
 import shuffleCommand from "./commands/shuffle.ts";
 import vidrandCommand from "./commands/vidrand.ts";
+import dvdCommand from "./commands/dvd.ts";
 import {
   conceptAddCommand,
   conceptSetCommand,
@@ -59,6 +60,7 @@ const subCommands = [
   seenCommand,
   // rhymeCommand,
   vidrandCommand,
+  dvdCommand,
   wikihowCommand,
   imageSearchCommand,
   gifSearchCommand,

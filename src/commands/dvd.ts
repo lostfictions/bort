@@ -32,20 +32,24 @@ export default makeCommand(
     const res = await ky.get(selectedPage).text();
 
     const $ = cheerio.load(res);
-    const images = $(".post-thumb-img-content")
+    const images = $(".post-content")
       .toArray()
-      .map((el) => [
-        $(el).find("a").attr("href"),
-        $(el).find(".wp-post-image").attr("src"),
-      ]);
+      .map(
+        (el) =>
+          [
+            $(el).find(".entry-title").text(),
+            $(el).find(".post-thumb-img-content a").attr("href"),
+            $(el).find(".post-thumb-img-content .wp-post-image").attr("src"),
+          ] as const,
+      );
 
     console.log(selectedPage);
 
-    const [href, img] = randomInArray(images);
+    const [title, href, img] = randomInArray(images);
     if (!href || !img) {
       throw new Error(`missing href or img on <${selectedPage}>`);
     }
-    await sendMessage(`<${href}>`);
+    await sendMessage(`||${title}||\n<${href}>`);
     return img;
   },
 );
